@@ -28,7 +28,7 @@
 <meta property="og:description" content="一、2. 网络分类个域网PAN（ Personal Area Network ）  能在便携式消费电器与通信设备之间进行短距离通信的网络 覆盖范围一般在10米半径以内，如蓝牙耳机等  局域网LAN（Local Area Network）  局部地区形成的区域网络，如企业网络 分布地区范围有限，可大可小，大到一栋建筑、小到办公室内的组网 电脑WLAN接入，打印机共享等等  城域网MAN（Metrop">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-19T08:48:20.000Z">
-<meta property="article:modified_time" content="2022-04-20T07:51:17.012Z">
+<meta property="article:modified_time" content="2022-04-28T08:09:46.897Z">
 <meta property="article:author" content="invincible-nerd">
 <meta name="twitter:card" content="summary">
 
@@ -195,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-20 15:51:17" itemprop="dateModified" datetime="2022-04-20T15:51:17+08:00">2022-04-20</time>
+                <time title="修改时间：2022-04-28 16:09:46" itemprop="dateModified" datetime="2022-04-28T16:09:46+08:00">2022-04-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -552,6 +552,7 @@
 <li>VPN指利用公用网络架设专用网络的远程访问技术</li>
 <li>VPN通过隧道技术在公共网络上模拟出一条点到点的逻辑专线，从而达到安全数据传输的目的</li>
 </ul>
+<p>用户主机和被访问节点的网关必须都支持隧道协议</p>
 <h2 id="11-IPv6协议"><a href="#11-IPv6协议" class="headerlink" title="11. IPv6协议"></a>11. IPv6协议</h2><p>初始动机：应付“32-bit地址空间耗尽”问题（CIDR和NAT都无法从根本上解决地址短缺问题），增加地址空间<br>IPv6 地址</p>
 <ul>
 <li><p>地址长度为128bit，是IPv4地址长度的4倍</p>
@@ -710,10 +711,262 @@
 </li>
 <li><p>应用层的具体内容就是规定应用进程在通信时所遵循的协议</p>
 <ul>
-<li>客户&#x2F;服务器（C&#x2F;S, Client&#x2F;Server）方式</li>
-<li>对等（P2P，Peer to Peer）方式</li>
+<li><p>客户&#x2F;服务器（C&#x2F;S, Client&#x2F;Server）方式</p>
+<ul>
+<li><p>C&#x2F;S方式可以是面向连接的，也可以是无连接的</p>
+</li>
+<li><p><strong>面向连接时，C&#x2F;S通信关系一旦建立，通信就是双向的</strong>，双方地位平等，都可发送和接收数据</p>
+</li>
+<li><p>客户进程在进行通信时临时成为客户，它也可在本地进行其它的计算；在打算通信时<strong>主动</strong>向远地服务器发起通信</p>
+</li>
+<li><p><strong>客户方必须知道服务器进程所在主机的IP地址才能发出服务请求</strong></p>
+</li>
+<li><p><strong>服务器进程</strong>被动等待并接受来自多个客户的通信请求, <strong>必须始终处于运行状态才有可能提供服务</strong></p>
+</li>
 </ul>
 </li>
+<li><p>对等（P2P，Peer to Peer）方式</p>
+<ul>
+<li><strong>对等方式</strong>是指两个进程在通信时并不区分服务的请求方和服务的提供方</li>
+<li>只要两个主机都运行P2P软件，它们就可以进行平等、对等的通信</li>
+<li>双方都可以下载对方存储在硬盘中的共享文档，如果权限允许的话</li>
+<li>音频&#x2F;视频应用推动了P2P对等通信方式的发展（BitTorrent）</li>
+<li>P2P方式从本质上看仍然是使用了C&#x2F;S方式，但强调的是通信过程中的对等，这时<strong>每一个P2P进程既是客户同时也是服务器</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-域名系统"><a href="#2-域名系统" class="headerlink" title="2. 域名系统"></a>2. 域名系统</h2><h3 id="2-1-概述-1"><a href="#2-1-概述-1" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><ul>
+<li><strong>域名系统</strong>（DNS，Domain Name System）是互联网重要的基础设施之一，向所有需要域名解析的应用提供服务，主要负责将<strong>可读性好的域名映射成IP地址</strong></li>
+<li>Internet采用<strong>层次结构的命名树</strong>作为主机的名字，并使用<strong>分布式</strong>的域名系统 DNS。Internet的DNS是一个<strong>联机分布式数据库系统</strong></li>
+<li>名字到域名的解析是由<strong>若干个</strong>域名服务器程序完成的。域名服务器程序在专设的结点上运行，相应的结点也称为<strong>名字服务器</strong>(Name Server)或<strong>域名服务器</strong>(Domain Name Server)</li>
+</ul>
+<h3 id="2-2-层次树状结构"><a href="#2-2-层次树状结构" class="headerlink" title="2.2 层次树状结构"></a>2.2 层次树状结构</h3><ul>
+<li><p>顶级域名: com, cn, org, gov, edu</p>
+</li>
+<li><p>二级域名: edu</p>
+</li>
+<li><p>三级域名: fudan, pku</p>
+</li>
+<li><p>四级域名: www, cs, mail</p>
+</li>
+</ul>
+<h3 id="2-3-域名解析过程"><a href="#2-3-域名解析过程" class="headerlink" title="2.3 域名解析过程"></a>2.3 域名解析过程</h3><ol>
+<li>递归查询 “我不知道，直接帮你向上查” 较少使用</li>
+<li>迭代查询 “我不知道，告诉你该找谁，你自己向上查” 通常使用</li>
+</ol>
+<h2 id="3-电子邮件"><a href="#3-电子邮件" class="headerlink" title="3. 电子邮件"></a>3. 电子邮件</h2><h3 id="3-1-邮件发送的常用协议"><a href="#3-1-邮件发送的常用协议" class="headerlink" title="3.1 邮件发送的常用协议"></a>3.1 邮件发送的常用协议</h3><ul>
+<li><strong>简单邮件传输协议SMTP</strong>（Simple Mail Transfer Protocol）——邮件服务器之间传递邮件使用的协议</li>
+<li>最终交付（邮件访问）协议:从邮件服务器的邮箱中获取邮件:<ul>
+<li>POP3：Post Office Protocol-Version 3，第三版邮局协议</li>
+<li>IMAP：Internet Message Access Protocol，Internet邮件访问协议</li>
+<li>Webmail（HTTP）：基于Web的电子邮件</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-Webmail"><a href="#3-2-Webmail" class="headerlink" title="3.2 Webmail"></a>3.2 Webmail</h3><p>Webmail——基于Web的电子邮件</p>
+<ul>
+<li>Webmail——基于Web的电子邮件</li>
+<li>使用Web作为界面，用户代理就是普通的浏览器</li>
+<li>用户及其远程邮箱之间的通信通过HTTP进行</li>
+</ul>
+<h2 id="4-WWW"><a href="#4-WWW" class="headerlink" title="4. WWW"></a>4. WWW</h2><h3 id="4-1-WWW体系结构与协议"><a href="#4-1-WWW体系结构与协议" class="headerlink" title="4.1 WWW体系结构与协议"></a>4.1 WWW体系结构与协议</h3><ul>
+<li>WWW&#x3D;World Wide Web&#x3D;万维网</li>
+<li>HTTP服务器和客户端，以及它们之间执行的HTTP协议</li>
+</ul>
+<p><strong>服务器</strong>:</p>
+<ul>
+<li>Web页面（HTML文档）：包含多种对象或链接</li>
+<li>Web对象（包括：静态对象和动态对象）：可以是 HTML文档、 图像文件、视频文件、声音文件、脚本文件等</li>
+<li>对象用URL（统一资源定位符）编址：协议类型:&#x2F;&#x2F;主机名:端口&#x2F;&#x2F;路径和文件名</li>
+</ul>
+<p><strong>客户端</strong>：</p>
+<ul>
+<li>发出请求、接收响应、解释HTML文档并显示</li>
+<li>有些对象需要浏览器安装插件</li>
+</ul>
+<p><strong>统一资源定位器URL</strong>：</p>
+<p>协议类型:&#x2F;&#x2F;主机名即服务器:端口&#x2F;路径和文件名</p>
+<p>WWW协议:</p>
+<h3 id="4-2-HTTP"><a href="#4-2-HTTP" class="headerlink" title="4.2 HTTP"></a>4.2 HTTP</h3><h4 id="4-2-1-概述"><a href="#4-2-1-概述" class="headerlink" title="4.2.1 概述"></a>4.2.1 概述</h4><ul>
+<li>超文本传输协议HTTP（ HyperText Transfer Protocol）在传输层通常使用<strong>TCP</strong>协议，<strong>缺省使用TCP的80端口</strong></li>
+<li>HTTP为<strong>无状态协议</strong>，服务器端不保留之前请求的状态信息<ul>
+<li><strong>无状态协议</strong>：效率低、但简单</li>
+<li><strong>有状态协议</strong>：维护状态相对复杂，需要维护历史信息，在客户端或服务器出现故障时，需要保持状态的一致性等</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>HTTP标准</strong><ul>
+<li>HTTP&#x2F;1.0: RFC 1945（1996年）：<ul>
+<li>无状态，非持久连接</li>
+</ul>
+</li>
+<li>HTTP&#x2F;1.1: RFC 2616（1999年）：<ul>
+<li>支持长连接和流水线机制</li>
+<li>缓存策略优化、部分资源请求及断点续传</li>
+</ul>
+</li>
+<li>HTTP&#x2F;2: RFC 7540（2015年）、RFC 8740（2020年）：<ul>
+<li>增加SSL&#x2F;TLS（TLS 1.2）层，在TCP之上提供安全机制</li>
+<li>目标：提高带宽利用率、降低延迟</li>
+<li>增加二进制格式、TCP多路复用、头压缩、服务端推送等功能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-2-Web安全与隐私-Cookie"><a href="#4-2-2-Web安全与隐私-Cookie" class="headerlink" title="4.2.2 Web安全与隐私: Cookie"></a>4.2.2 Web安全与隐私: Cookie</h4><p>HTTP <strong>无状态协议</strong>，服务器 <strong>用cookies保持用户状态</strong></p>
+<ul>
+<li><p>HTTP在响应的首部行里使用一个关键字头set-cookie：选择的cookie号具有唯一性</p>
+</li>
+<li><p>后继的HTTP请求中使用服务器响应分配的cookie</p>
+</li>
+<li><p>Cookie文件保存在用户的主机中，内容是服务器返回的一些附加信息，由用户主机中的浏览器管理</p>
+</li>
+<li><p>Web服务器建立后端数据库，记录用户信息，cookie作为关键字</p>
+<p>例如：<br>Set-Cookie: SID&#x3D;31d4d96e407aad42; Path&#x3D;&#x2F;; Domain&#x3D;example.com<br>Cookie: SID&#x3D;31d4d96e407aad42</p>
+</li>
+</ul>
+<p>Cookies一般包含5个字段:</p>
+<ul>
+<li>域指明Cookie来自何方，每个域为每个客户分配Cookie有数量限制</li>
+<li>路径标明服务器的文件树中哪些部分可以使用该Cookie</li>
+<li>内容采用“名字&#x3D;值”的形式，是Cookie存放内容的地方，可以达到4K容量，内容只是字符串，不是可执行程序</li>
+<li>安全指示浏览器只向使用安全传输连接的服务器返回Cookie</li>
+<li>过期时间</li>
+</ul>
+<ol>
+<li><p>Cookie技术是把双刃剑，能分析用户喜好，向用户进行个性化推荐</p>
+<ul>
+<li><p>用Cookie在某网站标识用户信息，查找用户以前浏览网站记录</p>
+</li>
+<li><p>用Cookie记录用户购物清单</p>
+</li>
+<li><p>用Cookie可以保存4K内容，跟踪用户浏览网站的喜好</p>
+</li>
+<li><p>用Cookie跨站点跟踪用户点击广告</p>
+</li>
+</ul>
+</li>
+<li><p>Cookie技术是把双刃剑，也能跟踪用户网络浏览痕迹，泄露用户隐私</p>
+<ul>
+<li><p>Cookie跟踪用户以前浏览过哪些网站，跟踪用户频繁浏览哪类网站</p>
+</li>
+<li><p>Cookie收集用户信息，用户网络交互时关注的关键词</p>
+</li>
+</ul>
+</li>
+<li><p>Cookie容易嵌入间谍程序，这是个误区，Cookie文件保存的只是文本串，没有可执行程序</p>
+<ul>
+<li>用户可以设置浏览器限制使用Cookie</li>
+</ul>
+</li>
+</ol>
+<h2 id="5-流媒体"><a href="#5-流媒体" class="headerlink" title="5. 流媒体"></a>5. 流媒体</h2><h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p>流媒体概念</p>
+<ul>
+<li>连续媒体（音视频）经压缩编码、数据打包后，经过网络发送给接收方</li>
+<li>接收方对数据进行重组、解码和播放</li>
+</ul>
+<p>流媒体特性</p>
+<ul>
+<li>端到端时延约束</li>
+<li>时序性约束：流媒体数据必须按照一定的顺序连续播放</li>
+<li>具有一定程度的容错性：丢失部分数据包也可完成基本功能</li>
+</ul>
+<p>流媒体面临的挑战</p>
+<ul>
+<li>约束条件：网络特性（带宽有限、动态变化、延迟与抖动、丢失、异构性）</li>
+<li>目标：流媒体服务质量要素（画质、启动延迟、平滑、交互性）</li>
+<li>如何在“尽力服务”的网络传输条件下获得良好的视频质量？</li>
+</ul>
+<h3 id="5-2-DASH"><a href="#5-2-DASH" class="headerlink" title="5.2 DASH"></a>5.2 DASH</h3><p> DASH (Dynamic Adaptive Streaming over HTTP)</p>
+<ul>
+<li>动态自适应流媒体传输协议DASH，由MPEG组织制定的标准</li>
+<li>类似协议：苹果HTTP Live Streaming（HLS）； Adobe的HTTP Dynamic Streaming（HDS）；微软的Microsoft Smooth Streaming</li>
+</ul>
+<p>DASH 基本思想</p>
+<ul>
+<li>完整视频被拆分为固定时长 (2s-10s) 的视频片段(segment)， 每段提供不同码率</li>
+<li>视频片段与其对应的元文件（URL）一同存放于DASH服务器</li>
+<li>客户端基于网络条件、缓冲大小等，对每个视频片段，自适应选择合适的视频码率来下</li>
+<li>DASH中普遍使用的自适应码率ABR（Adaptive bitrate）</li>
+</ul>
+<h2 id="6-CDN"><a href="#6-CDN" class="headerlink" title="6. CDN"></a>6. CDN</h2><ul>
+<li>Content Delivery Network，or Content Distribution Network 内容分发网络</li>
+<li>一种Web缓存系统，<strong>靠近网络边缘（用户）提供内容服务</strong></li>
+<li>目前提供更丰富的服务，包括静态内容、流媒体、用户上传视频等</li>
+<li>主要优点<ul>
+<li>降低响应时延，避免网络拥塞</li>
+<li>避免原始服务器过载及防止DDoS攻击</li>
+<li>分布式架构，具有良好的可扩展性</li>
+<li>对用户透明，无需用户感知</li>
+</ul>
+</li>
+</ul>
+<p>关键问题： 怎样将内容（如从百万的视频中选定的内容）分发给同时发起访问的数百万用户？</p>
+<p>解决机理：</p>
+<ul>
+<li><strong>DNS重定向实现CDN</strong><ul>
+<li>将请求调度到较近或负载较轻的CDN服务器</li>
+<li><strong>HTTP重定向请求内容</strong>，服务提供者返回清单CDN</li>
+</ul>
+</li>
+<li><strong>DNS辅助实现CDN</strong><ul>
+<li>负载均衡DNS负责决策CDN服务器选择</li>
+<li>负载均衡DNS需要收集CDN服务器的位置和负载情况</li>
+<li>如果找不到被请求的对象，需要从原始服务器获取</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-P2P网络"><a href="#7-P2P网络" class="headerlink" title="7. P2P网络"></a>7. P2P网络</h2><p><strong>P2P文件分发协议：BitTorrent</strong></p>
+<ul>
+<li>文件被划分为256Kb大小的块</li>
+<li>具有种子(torrents)的节点发送或接收文件</li>
+<li>跟踪器tracker <ul>
+<li>负责帮助节点获取其他节点的信息</li>
+<li>用户从跟踪器获取节点列表</li>
+</ul>
+</li>
+<li>种子torrent<ul>
+<li>交换文件块的节点</li>
+<li>用户同种子节点交换文件块</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-远程登录Telnet"><a href="#8-远程登录Telnet" class="headerlink" title="8. 远程登录Telnet"></a>8. 远程登录Telnet</h2><ul>
+<li>Telnet协议引入网络<strong>虚拟终端NVT</strong>（Network Virtual Terminal），使用一种专门的键盘定义来屏蔽不同计算机系统对键盘输入的差异性，同时定义客户进程与远程服务器进程之间的交互过程</li>
+<li>NVT是Telnet协议定义的<strong>一组通用字符集</strong>，通过这种统一的数据表示方式，来保证不同硬件、软件与数据格式的终端与主机之间通信的兼容性</li>
+<li>本地终端输入的字符首先由本地Telnet客户进程转换为NVT格式，通过网络将NVT格式的字符传输到远程主机，远程Telnet服务器进程再将NVT格式的字符转换为远程主机能够识别和处理的字符格式</li>
+<li>使用Telnet协议在网络中传输的数据都是NVT格式，不同的用户终端与服务器进程均与本地终端格式无关</li>
+</ul>
+<p><strong>Telnet的工作过程</strong> (windows自带 默认关闭)  基于TCP连接</p>
+<ul>
+<li>本地Telnet客户进程与远程主机上的Telnet服务器进程建立TCP连接</li>
+<li>将本地终端上输入的用户名和口令及以后输入的任何命令或字符以网络虚拟终端NVT格式传输给远程主机</li>
+<li>将远程主机输出的NVT格式的数据转化为本地所接受的格式送回本地终端，包括输入命令回显和命令执行结果</li>
+<li>本地终端对远程主机撤销连接，从而结束 Telnet远程登录过程</li>
+</ul>
+<h2 id="9-FTP"><a href="#9-FTP" class="headerlink" title="9. FTP"></a>9. FTP</h2><h3 id="9-1-概述"><a href="#9-1-概述" class="headerlink" title="9.1 概述"></a>9.1 概述</h3><p><strong>文件传输协议FTP(File Transfer Protocol)</strong> 是Internet上使用最广泛的应用层协议之一</p>
+<ul>
+<li>FTP提供交互式的访问，允许用户指明文件的类型与格式，并允许文件具有存取权限</li>
+<li>FTP屏蔽了各计算机系统的细节，适用于在异构网络中任意计算机之间传送文件</li>
+<li>RFC 959早在1985年就已经成为Internet的正式标准</li>
+<li>FTP使用C&#x2F;S方式实现</li>
+</ul>
+<h3 id="9-2-工作过程"><a href="#9-2-工作过程" class="headerlink" title="9.2 工作过程"></a>9.2 工作过程</h3><ul>
+<li>服务器主进程打开TCP21端口，等待客户进程发出的连接请求</li>
+<li>客户可以用分配的任意一个本地端口号与服务器进程的TCP21端口进行连接</li>
+<li>客户请求到来时，服务器主进程启动从属进程来处理客户进程发来的请求</li>
+<li>服务器从属进程对客户进程的请求处理完毕后即终止，但从属进程在运行期间根据需要还可能创建其他一些子进程</li>
+<li>服务器主进程返回，继续等待接收其他客户进程发来的连接请求，服务器主进程与从属进程并行工作</li>
+</ul>
+<p><strong>FTP的两个端口与两个连接</strong></p>
+<ul>
+<li><strong>控制连接</strong>在整个会话期间一直保持，客户进程发出的文件传输请求通过控制连接发送给<strong>服务器控制进程（工作在TCP21端口）</strong>，但控制连接不用来传输文件</li>
+<li>服务器控制进程在接收到客户进程发送来的文件传输请求后就创建<strong>数据传输进程（工作在TCP20端口）,数据连接</strong></li>
+<li>数据连接用来连接客户进程和服务器数据传输进程，实际完成文件的传输。服务器数据传输进程在文件传输完毕后关闭数据连接并结束运行</li>
 </ul>
 
     </div>
@@ -812,7 +1065,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81"><span class="nav-number">1.</span> <span class="nav-text">一、</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">2. 网络分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8E%A5%E5%85%A5%E7%BD%91"><span class="nav-number">1.2.</span> <span class="nav-text">3. 接入网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83%E4%B8%A4%E5%A4%A7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.</span> <span class="nav-text">4. 网络核心两大功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">二、物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%89%A9%E7%90%86%E4%BB%8B%E8%B4%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1. 物理介质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 数据交换方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">三、数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8A%9F%E8%83%BD"><span class="nav-number">3.1.</span> <span class="nav-text">1. 功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.2.</span> <span class="nav-text">2. 数据链路层提供的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%88%90%E5%B8%A7%EF%BC%88Framing%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3. 成帧（Framing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AA%92%E4%BD%93%E6%8E%A5%E5%85%A5%E6%8E%A7%E5%88%B6"><span class="nav-number">3.4.</span> <span class="nav-text">4. 媒体接入控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%97%A0%E7%BA%BF%E5%B1%80%E5%9F%9F%E7%BD%91WLAN"><span class="nav-number">3.4.1.</span> <span class="nav-text">4.1 无线局域网WLAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91VLAN"><span class="nav-number">3.4.2.</span> <span class="nav-text">4.2 虚拟局域网VLAN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E5%B9%BF%E6%92%AD%E5%9F%9F"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">4.2.1 广播域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-%E6%A6%82%E5%86%B5"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">4.2.2 概况</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">四、网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">4.1.</span> <span class="nav-text">1. 网络层概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BD%91%E7%BB%9C%E5%B1%82%E5%85%B3%E9%94%AE%E5%8A%9F%E8%83%BD"><span class="nav-number">4.2.</span> <span class="nav-text">2. 网络层关键功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Internet%E7%BD%91%E9%99%85%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.</span> <span class="nav-text">3. Internet网际协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-IPv4"><span class="nav-number">4.3.1.</span> <span class="nav-text">3.1 IPv4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">3.1.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-IP%E6%95%B0%E6%8D%AE%E6%8A%A5"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">3.1.2 IP数据报</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-IP%E5%9C%B0%E5%9D%80"><span class="nav-number">4.3.2.</span> <span class="nav-text">3.2 IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">3.2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">3.2.2 子网划分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-DHCP%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.3.</span> <span class="nav-text">3.3 DHCP动态主机配置协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-ARP%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.4.</span> <span class="nav-text">3.4 ARP地址解析协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-%E8%B7%AF%E7%94%B1%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">3.4.1 路由到另一个局域网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">3.4.2 工作过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%EF%BC%88NAT%EF%BC%89"><span class="nav-number">4.3.5.</span> <span class="nav-text">3.5 网络地址转换（NAT）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-ICMP-%E4%BA%92%E8%81%94%E7%BD%91%E6%8E%A7%E5%88%B6%E6%8A%A5%E6%96%87%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.6.</span> <span class="nav-text">3.6 ICMP: 互联网控制报文协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">4. 路由算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Internet%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.5.</span> <span class="nav-text">5. Internet路由协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.5.1.</span> <span class="nav-text">5.1 路由选择协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-BGP-%E5%A4%96%E9%83%A8%E7%BD%91%E5%85%B3%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.5.2.</span> <span class="nav-text">5.2 BGP 外部网关路由协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">4.6.</span> <span class="nav-text">6. 路由器的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">4.7.</span> <span class="nav-text">7. 拥塞控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F"><span class="nav-number">4.8.</span> <span class="nav-text">8. 服务质量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2"><span class="nav-number">4.9.</span> <span class="nav-text">9. 三层交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF"><span class="nav-number">4.9.1.</span> <span class="nav-text">9.1 三层交换的技术背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="nav-number">4.9.2.</span> <span class="nav-text">9.2 三层交换的动机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-VPN%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.10.</span> <span class="nav-text">10. VPN的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-IPv6%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.11.</span> <span class="nav-text">11. IPv6协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">5.</span> <span class="nav-text">五、传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BC%A0%E8%BE%93%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">5.1.</span> <span class="nav-text">1. 传输层概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">5.1.1.</span> <span class="nav-text">1.1 套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.1.2.</span> <span class="nav-text">1.2 传输层提供的服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BC%A0%E8%BE%93%E5%B1%82%E5%9F%BA%E6%9C%AC%E6%9C%8D%E5%8A%A1%EF%BC%9A%E5%A4%8D%E7%94%A8%E5%92%8C%E5%88%86%E7%94%A8"><span class="nav-number">5.2.</span> <span class="nav-text">2. 传输层基本服务：复用和分用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">5.2.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%A5%97%E6%8E%A5%E5%AD%97%E6%A0%87%E8%AF%86%E4%B8%8E%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">5.2.2.</span> <span class="nav-text">2.2 套接字标识与端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-TCP-x2F-UDP%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">5.2.3.</span> <span class="nav-text">2.3 TCP&#x2F;UDP套接字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93%EF%BC%9AUDP"><span class="nav-number">5.3.</span> <span class="nav-text">3. 无连接传输：UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BC%A0%E8%BE%93%EF%BC%9ATCP"><span class="nav-number">5.4.</span> <span class="nav-text">4. 面向连接的传输：TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">5.4.1.</span> <span class="nav-text">4.1 可靠传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF"><span class="nav-number">5.4.2.</span> <span class="nav-text">4.2 流水线技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-TCP%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="nav-number">5.4.3.</span> <span class="nav-text">4.3 TCP报文段结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">5.5.</span> <span class="nav-text">5. TCP流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">5.6.</span> <span class="nav-text">6. 拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">6.</span> <span class="nav-text">六、应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BA%94%E7%94%A8%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">6.1.</span> <span class="nav-text">1. 应用层概述</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81"><span class="nav-number">1.</span> <span class="nav-text">一、</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">2. 网络分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8E%A5%E5%85%A5%E7%BD%91"><span class="nav-number">1.2.</span> <span class="nav-text">3. 接入网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83%E4%B8%A4%E5%A4%A7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.</span> <span class="nav-text">4. 网络核心两大功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">二、物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%89%A9%E7%90%86%E4%BB%8B%E8%B4%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1. 物理介质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 数据交换方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">三、数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8A%9F%E8%83%BD"><span class="nav-number">3.1.</span> <span class="nav-text">1. 功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.2.</span> <span class="nav-text">2. 数据链路层提供的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%88%90%E5%B8%A7%EF%BC%88Framing%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3. 成帧（Framing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AA%92%E4%BD%93%E6%8E%A5%E5%85%A5%E6%8E%A7%E5%88%B6"><span class="nav-number">3.4.</span> <span class="nav-text">4. 媒体接入控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%97%A0%E7%BA%BF%E5%B1%80%E5%9F%9F%E7%BD%91WLAN"><span class="nav-number">3.4.1.</span> <span class="nav-text">4.1 无线局域网WLAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91VLAN"><span class="nav-number">3.4.2.</span> <span class="nav-text">4.2 虚拟局域网VLAN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E5%B9%BF%E6%92%AD%E5%9F%9F"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">4.2.1 广播域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-%E6%A6%82%E5%86%B5"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">4.2.2 概况</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">四、网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">4.1.</span> <span class="nav-text">1. 网络层概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BD%91%E7%BB%9C%E5%B1%82%E5%85%B3%E9%94%AE%E5%8A%9F%E8%83%BD"><span class="nav-number">4.2.</span> <span class="nav-text">2. 网络层关键功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Internet%E7%BD%91%E9%99%85%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.</span> <span class="nav-text">3. Internet网际协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-IPv4"><span class="nav-number">4.3.1.</span> <span class="nav-text">3.1 IPv4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">3.1.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-IP%E6%95%B0%E6%8D%AE%E6%8A%A5"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">3.1.2 IP数据报</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-IP%E5%9C%B0%E5%9D%80"><span class="nav-number">4.3.2.</span> <span class="nav-text">3.2 IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">3.2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">3.2.2 子网划分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-DHCP%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.3.</span> <span class="nav-text">3.3 DHCP动态主机配置协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-ARP%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.4.</span> <span class="nav-text">3.4 ARP地址解析协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-%E8%B7%AF%E7%94%B1%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">3.4.1 路由到另一个局域网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">3.4.2 工作过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%EF%BC%88NAT%EF%BC%89"><span class="nav-number">4.3.5.</span> <span class="nav-text">3.5 网络地址转换（NAT）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-ICMP-%E4%BA%92%E8%81%94%E7%BD%91%E6%8E%A7%E5%88%B6%E6%8A%A5%E6%96%87%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.6.</span> <span class="nav-text">3.6 ICMP: 互联网控制报文协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">4. 路由算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Internet%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.5.</span> <span class="nav-text">5. Internet路由协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.5.1.</span> <span class="nav-text">5.1 路由选择协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-BGP-%E5%A4%96%E9%83%A8%E7%BD%91%E5%85%B3%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.5.2.</span> <span class="nav-text">5.2 BGP 外部网关路由协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">4.6.</span> <span class="nav-text">6. 路由器的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">4.7.</span> <span class="nav-text">7. 拥塞控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F"><span class="nav-number">4.8.</span> <span class="nav-text">8. 服务质量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2"><span class="nav-number">4.9.</span> <span class="nav-text">9. 三层交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF"><span class="nav-number">4.9.1.</span> <span class="nav-text">9.1 三层交换的技术背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="nav-number">4.9.2.</span> <span class="nav-text">9.2 三层交换的动机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-VPN%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.10.</span> <span class="nav-text">10. VPN的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-IPv6%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.11.</span> <span class="nav-text">11. IPv6协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">5.</span> <span class="nav-text">五、传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BC%A0%E8%BE%93%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">5.1.</span> <span class="nav-text">1. 传输层概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">5.1.1.</span> <span class="nav-text">1.1 套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.1.2.</span> <span class="nav-text">1.2 传输层提供的服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BC%A0%E8%BE%93%E5%B1%82%E5%9F%BA%E6%9C%AC%E6%9C%8D%E5%8A%A1%EF%BC%9A%E5%A4%8D%E7%94%A8%E5%92%8C%E5%88%86%E7%94%A8"><span class="nav-number">5.2.</span> <span class="nav-text">2. 传输层基本服务：复用和分用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">5.2.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%A5%97%E6%8E%A5%E5%AD%97%E6%A0%87%E8%AF%86%E4%B8%8E%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">5.2.2.</span> <span class="nav-text">2.2 套接字标识与端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-TCP-x2F-UDP%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">5.2.3.</span> <span class="nav-text">2.3 TCP&#x2F;UDP套接字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93%EF%BC%9AUDP"><span class="nav-number">5.3.</span> <span class="nav-text">3. 无连接传输：UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BC%A0%E8%BE%93%EF%BC%9ATCP"><span class="nav-number">5.4.</span> <span class="nav-text">4. 面向连接的传输：TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">5.4.1.</span> <span class="nav-text">4.1 可靠传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF"><span class="nav-number">5.4.2.</span> <span class="nav-text">4.2 流水线技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-TCP%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="nav-number">5.4.3.</span> <span class="nav-text">4.3 TCP报文段结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">5.5.</span> <span class="nav-text">5. TCP流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">5.6.</span> <span class="nav-text">6. 拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">6.</span> <span class="nav-text">六、应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BA%94%E7%94%A8%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">6.1.</span> <span class="nav-text">1. 应用层概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F"><span class="nav-number">6.2.</span> <span class="nav-text">2. 域名系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%A6%82%E8%BF%B0-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%B1%82%E6%AC%A1%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.2 层次树状结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-number">6.2.3.</span> <span class="nav-text">2.3 域名解析过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6"><span class="nav-number">6.3.</span> <span class="nav-text">3. 电子邮件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E7%9A%84%E5%B8%B8%E7%94%A8%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.3.1.</span> <span class="nav-text">3.1 邮件发送的常用协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Webmail"><span class="nav-number">6.3.2.</span> <span class="nav-text">3.2 Webmail</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-WWW"><span class="nav-number">6.4.</span> <span class="nav-text">4. WWW</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-WWW%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.4.1.</span> <span class="nav-text">4.1 WWW体系结构与协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-HTTP"><span class="nav-number">6.4.2.</span> <span class="nav-text">4.2 HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">6.4.2.1.</span> <span class="nav-text">4.2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-Web%E5%AE%89%E5%85%A8%E4%B8%8E%E9%9A%90%E7%A7%81-Cookie"><span class="nav-number">6.4.2.2.</span> <span class="nav-text">4.2.2 Web安全与隐私: Cookie</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B5%81%E5%AA%92%E4%BD%93"><span class="nav-number">6.5.</span> <span class="nav-text">5. 流媒体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">6.5.1.</span> <span class="nav-text">5.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-DASH"><span class="nav-number">6.5.2.</span> <span class="nav-text">5.2 DASH</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-CDN"><span class="nav-number">6.6.</span> <span class="nav-text">6. CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-P2P%E7%BD%91%E7%BB%9C"><span class="nav-number">6.7.</span> <span class="nav-text">7. P2P网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95Telnet"><span class="nav-number">6.8.</span> <span class="nav-text">8. 远程登录Telnet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-FTP"><span class="nav-number">6.9.</span> <span class="nav-text">9. FTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">6.9.1.</span> <span class="nav-text">9.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">6.9.2.</span> <span class="nav-text">9.2 工作过程</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -826,7 +1079,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -839,7 +1092,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
