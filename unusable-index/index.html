@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Never Settle">
+  <meta name="description" content="For explorer everywhere">
 <meta property="og:type" content="website">
 <meta property="og:title" content="IVN">
 <meta property="og:url" content="http://invincible-nerd.github.io/unusable-index/index.html">
 <meta property="og:site_name" content="IVN">
-<meta property="og:description" content="Never Settle">
+<meta property="og:description" content="For explorer everywhere">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="invincible-nerd">
 <meta name="twitter:card" content="summary">
@@ -167,7 +167,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -248,7 +248,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -274,7 +274,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-07 16:46:44" itemprop="dateModified" datetime="2022-05-07T16:46:44+08:00">2022-05-07</time>
+                <time title="修改时间：2022-05-10 15:05:37" itemprop="dateModified" datetime="2022-05-10T15:05:37+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,7 +297,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Dynamic-Programming-选编"><a href="#Dynamic-Programming-选编" class="headerlink" title="Dynamic Programming 选编"></a>Dynamic Programming 选编</h1><h2 id="代码随想录"><a href="#代码随想录" class="headerlink" title="代码随想录"></a>代码随想录</h2><h3 id="746-Min-Cost-Climbing-Stairs"><a href="#746-Min-Cost-Climbing-Stairs" class="headerlink" title="746. Min Cost Climbing Stairs"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/">746. Min Cost Climbing Stairs</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode746</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minCostClimbingStairs</span><span class="params">(<span class="type">int</span>[] cost)</span> &#123;</span><br><span class="line">        <span class="comment">//dp[n]=min(dp[n-1]+cost[n-1],dp[n-2]+cost[n-2])</span></span><br><span class="line">        <span class="type">int</span> a=<span class="number">0</span>; <span class="comment">//dp[0]</span></span><br><span class="line">        <span class="type">int</span> b=<span class="number">0</span>; <span class="comment">//dp[1]</span></span><br><span class="line">        <span class="type">int</span> c=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt;= cost.length; i++) &#123;</span><br><span class="line">            c=Math.min(a+cost[i-<span class="number">2</span>],b+cost[i-<span class="number">1</span>]);</span><br><span class="line">            a=b;</span><br><span class="line">            b=c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="Dynamic-Programming-选编"><a href="#Dynamic-Programming-选编" class="headerlink" title="Dynamic Programming 选编"></a>Dynamic Programming 选编</h1><p>算法的优化就是这么一个过程:</p>
+<ol>
+<li><p>先写出可读性很好的暴力递归算法  </p>
+</li>
+<li><p>然后尝试运用动态规划技巧优化重叠子问题</p>
+</li>
+<li><p>最后尝试用空间压缩技巧优化空间复杂度</p>
+</li>
+</ol>
+<h2 id="代码随想录"><a href="#代码随想录" class="headerlink" title="代码随想录"></a>代码随想录</h2><h3 id="746-Min-Cost-Climbing-Stairs"><a href="#746-Min-Cost-Climbing-Stairs" class="headerlink" title="746. Min Cost Climbing Stairs"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/">746. Min Cost Climbing Stairs</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode746</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minCostClimbingStairs</span><span class="params">(<span class="type">int</span>[] cost)</span> &#123;</span><br><span class="line">        <span class="comment">//dp[n]=min(dp[n-1]+cost[n-1],dp[n-2]+cost[n-2])</span></span><br><span class="line">        <span class="type">int</span> a=<span class="number">0</span>; <span class="comment">//dp[0]</span></span><br><span class="line">        <span class="type">int</span> b=<span class="number">0</span>; <span class="comment">//dp[1]</span></span><br><span class="line">        <span class="type">int</span> c=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt;= cost.length; i++) &#123;</span><br><span class="line">            c=Math.min(a+cost[i-<span class="number">2</span>],b+cost[i-<span class="number">1</span>]);</span><br><span class="line">            a=b;</span><br><span class="line">            b=c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -398,6 +407,33 @@
 
 
 
+<h3 id="72-Edit-Distance"><a href="#72-Edit-Distance" class="headerlink" title="72. Edit Distance"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/edit-distance/">72. Edit Distance</a></h3><ul>
+<li><em>minimum number of operations</em> </li>
+<li><em>convert <code>word1</code> to <code>word2</code></em></li>
+</ul>
+<p><strong>解决两个字符串的动态规划问题，一般都是用两个指针 <code>i, j</code> 分别指向两个字符串的最后，然后一步步往前移动，缩小问题的规模</strong>。</p>
+<ul>
+<li>若字符相等，则skip</li>
+<li>若字符不等，则三选一：<ul>
+<li>insert </li>
+<li>delete</li>
+<li>replace</li>
+</ul>
+</li>
+</ul>
+<p><strong>递归解法是自顶向下求解，DP table 是自底向上求解</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode72</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minDistance</span><span class="params">(String word1, String word2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> s1=word1.length();</span><br><span class="line">        <span class="type">int</span> s2=word2.length();</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[s1+<span class="number">1</span>][s2+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= s2; i++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][i]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= s1; i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= s1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= s2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(word1.charAt(i-<span class="number">1</span>)==word2.charAt(j-<span class="number">1</span>))&#123;</span><br><span class="line">                    dp[i][j]=dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=Math.min(Math.min(dp[i-<span class="number">1</span>][j]+<span class="number">1</span>,dp[i][j-<span class="number">1</span>]+<span class="number">1</span>),dp[i-<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[s1][s2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="174-Dungeon-Game"><a href="#174-Dungeon-Game" class="headerlink" title="174. Dungeon Game"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/dungeon-game/">174. Dungeon Game</a></h3><p> <em>minimum initial health</em></p>
+<p>这道题的dp是倒序的，这点很重要，为什么不能像【最小路径和】一样是正序的？因为【最小路径和】是无状态的，你会发现【最小路径和】倒序dp也是可以的，这道题由于有“加血”的过程，只能依赖后面的值判断需要的血量。所以这里的dp [i] [j]表达的意思是：“从（i，j）出发，到达终点需要最少的血量”。因此，正序的含义为“从起点出发，到达位置（i，j）所需要的最少血量”；倒序的含义是“从（i，j）出发，到达终点需要最少的血量”。初始血量本来就是要求的，所以只能倒序dp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode174</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">calculateMinimumHP</span><span class="params">(<span class="type">int</span>[][] dungeon)</span> &#123;</span><br><span class="line">        <span class="type">int</span> row=dungeon.length;</span><br><span class="line">        <span class="type">int</span> col=dungeon[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">        <span class="comment">//dp[i][j]表示从i,j出发到达终点所需的最少血量</span></span><br><span class="line">        dp[row-<span class="number">1</span>][col-<span class="number">1</span>]=dungeon[row-<span class="number">1</span>][col-<span class="number">1</span>]&gt;=<span class="number">0</span> ? <span class="number">1</span> : <span class="number">1</span>-dungeon[row-<span class="number">1</span>][col-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row-<span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            dp[i][col-<span class="number">1</span>]=dp[i+<span class="number">1</span>][col-<span class="number">1</span>]-dungeon[i][col-<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(dp[i][col-<span class="number">1</span>]&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">                dp[i][col-<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> col-<span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            dp[row-<span class="number">1</span>][i]=dp[row-<span class="number">1</span>][i+<span class="number">1</span>]-dungeon[row-<span class="number">1</span>][i];</span><br><span class="line">            <span class="keyword">if</span>(dp[row-<span class="number">1</span>][i]&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">                dp[row-<span class="number">1</span>][i]=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row-<span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col-<span class="number">2</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                dp[i][j]=Math.min(dp[i+<span class="number">1</span>][j],dp[i][j+<span class="number">1</span>])-dungeon[i][j];</span><br><span class="line">                <span class="keyword">if</span>(dp[i][j]&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">                    dp[i][j]=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="514-Freedom-Trail"><a href="#514-Freedom-Trail" class="headerlink" title="514. Freedom Trail"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/freedom-trail/">514. Freedom Trail</a></h3><p><strong>「状态」就是「当前需要输入的字符」和「当前圆盘指针的位置」</strong>。</p>
+<p><strong>「选择」就是「如何拨动指针得到待输入的字符」</strong>。</p>
 <h2 id="House-Robber"><a href="#House-Robber" class="headerlink" title="House Robber"></a>House Robber</h2><h3 id="198-House-Robber"><a href="#198-House-Robber" class="headerlink" title="198. House Robber"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">198. House Robber</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">rob</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">    dp[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">    dp[<span class="number">1</span>]=Math.max(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        dp[i]=Math.max(dp[i-<span class="number">1</span>],dp[i-<span class="number">2</span>]+nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[nums.length-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -511,6 +547,73 @@
 <p>根据这个定义，我们想求的最终答案就是 <code>dp[N][sum/2]</code>，base case 就是 <code>dp[..][0] = true</code> 和 <code>dp[0][..] = false</code>，因为背包没有空间的时候，就相当于装满了，而当没有物品可选择的时候，肯定没办法装满背包。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode416</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canPartition</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            sum+=num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>((sum&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sum/=<span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">boolean</span>[][] dp=<span class="keyword">new</span> <span class="title class_">boolean</span>[n+<span class="number">1</span>][sum+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123; <span class="comment">//base case: 什么物品都不选，都能塞满0空间，dp[i][0]恒为true</span></span><br><span class="line">            dp[i][<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//base case: j&gt;0时,dp[0][j]恒为false,因为什么物品都没有却想塞满大于0的空间，不可能</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= sum; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(j-nums[i-<span class="number">1</span>]&lt;<span class="number">0</span>)&#123;<span class="comment">//不可能塞满负数大小的背包，第二项必定为false，值只取决于第一项</span></span><br><span class="line">                    dp[i][j]=dp[i-<span class="number">1</span>][j];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=dp[i-<span class="number">1</span>][j] || dp[i-<span class="number">1</span>][j-nums[i-<span class="number">1</span>]];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n][sum]; <span class="comment">//可否用前n个物品塞满sum</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h3 id="518-Coin-Change-2"><a href="#518-Coin-Change-2" class="headerlink" title="518. Coin Change 2"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change-2/">518. Coin Change 2</a></h3><p>注意：</p>
+<ul>
+<li>先 coin 后 amount，行！</li>
+<li>先 amount 后 coin，不行！</li>
+</ul>
+<p>why? :</p>
+<ul>
+<li><p>纯完全背包是能凑成总和就行，不用管怎么凑的。</p>
+<p>本题是求凑出来的方案个数，是组合数，不允许重复。</p>
+</li>
+<li><p>先 amount 后 coin, dp[0]至dp[i-1]都允许使用所有coin</p>
+</li>
+<li><p>先 coin 后 amount, 每一层外层循环增加由新增的coin带来的新的组合方法数，可以避免重复！</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span> amount, <span class="type">int</span>[] coins)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[amount+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> coin : coins)&#123; </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=amount; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&lt;coin)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i]+=dp[i-coin];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="子序列问题"><a href="#子序列问题" class="headerlink" title="子序列问题"></a>子序列问题</h2><h3 id="1143-Longest-Common-Subsequence"><a href="#1143-Longest-Common-Subsequence" class="headerlink" title="1143. Longest Common Subsequence"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-common-subsequence/">1143. Longest Common Subsequence</a></h3><p>当字符相等时：</p>
+<p>当字符不等时：其中一个字符必定不在LCS中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1143</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n1=text1.length();</span><br><span class="line">        <span class="type">int</span> n2=text2.length();</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n1+<span class="number">1</span>][n2+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(text1.charAt(i-<span class="number">1</span>)==text2.charAt(j-<span class="number">1</span>))&#123;</span><br><span class="line">                    dp[i][j]=dp[i-<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=Math.max(dp[i-<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="583-Delete-Operation-for-Two-Strings"><a href="#583-Delete-Operation-for-Two-Strings" class="headerlink" title="583. Delete Operation for Two Strings"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/delete-operation-for-two-strings/">583. Delete Operation for Two Strings</a></h3><p>法一：直接法，参考<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/edit-distance/">72. Edit Distance</a></p>
+<p>删除s1中某一“冲突”字符，相当于在s2中插入该字符，都可以使s1、s2趋于相等</p>
+<p>允许在s1、s2中删除字符，等价于：</p>
+<ul>
+<li>允许在s1中delete</li>
+<li>允许在s1中insert</li>
+</ul>
+<p>使得s1与s2相等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode583</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minDistance</span><span class="params">(String word1, String word2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n1=word1.length();</span><br><span class="line">        <span class="type">int</span> n2=word2.length();</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n1+<span class="number">1</span>][n2+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][j]=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(word1.charAt(i-<span class="number">1</span>)==word2.charAt(j-<span class="number">1</span>))&#123;</span><br><span class="line">                    dp[i][j]=dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=Math.min(dp[i-<span class="number">1</span>][j]+<span class="number">1</span>,dp[i][j-<span class="number">1</span>]+<span class="number">1</span>); <span class="comment">//不能replace</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>法二：间接法，参考<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-common-subsequence/">1143. Longest Common Subsequence</a></p>
+<p>只能删不能换的话，两字符串最终变为它们的LCS时相等，只需得到它们的LCS的长度即可</p>
+<h3 id="712-Minimum-ASCII-Delete-Sum-for-Two-Strings"><a href="#712-Minimum-ASCII-Delete-Sum-for-Two-Strings" class="headerlink" title="712. Minimum ASCII Delete Sum for Two Strings"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-ascii-delete-sum-for-two-strings/">712. Minimum ASCII Delete Sum for Two Strings</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode712</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minimumDeleteSum</span><span class="params">(String s1, String s2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n1=s1.length();</span><br><span class="line">        <span class="type">int</span> n2=s2.length();</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n1+<span class="number">1</span>][n2+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>]=dp[i-<span class="number">1</span>][<span class="number">0</span>]+s1.charAt(i-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][j]=dp[<span class="number">0</span>][j-<span class="number">1</span>]+s2.charAt(j-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(s1.charAt(i-<span class="number">1</span>)==s2.charAt(j-<span class="number">1</span>))&#123;</span><br><span class="line">                    dp[i][j]=dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=Math.min(dp[i-<span class="number">1</span>][j]+s1.charAt(i-<span class="number">1</span>),dp[i][j-<span class="number">1</span>]+s2.charAt(j-<span class="number">1</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Palindrome问题"><a href="#Palindrome问题" class="headerlink" title="Palindrome问题"></a>Palindrome问题</h2><h3 id="516-Longest-Palindromic-Subsequence"><a href="#516-Longest-Palindromic-Subsequence" class="headerlink" title="516. Longest Palindromic Subsequence"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-palindromic-subsequence/">516. Longest Palindromic Subsequence</a></h3><p>想求 <code>dp[i][j]</code> 需要知道 <code>dp[i+1][j-1]</code>，<code>dp[i+1][j]</code>，<code>dp[i][j-1]</code> 这三个位置</p>
+<p>最终结果在右上角</p>
+<p>只需要填右上部分即可（对角线为base case, 1）</p>
+<p><strong>为了保证每次计算 <code>dp[i][j]</code>，左下方向的位置已经被计算出来，选择反着遍历</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode516</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestPalindromeSubseq</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=s.length();</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            dp[i][i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;<span class="comment">//只需考虑右上部分即可</span></span><br><span class="line">                <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">                    dp[i][j]=dp[i+<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">2</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=Math.max(dp[i+<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>][n-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1312-Minimum-Insertion-Steps-to-Make-a-String-Palindrome"><a href="#1312-Minimum-Insertion-Steps-to-Make-a-String-Palindrome" class="headerlink" title="1312. Minimum Insertion Steps to Make a String Palindrome"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-insertion-steps-to-make-a-string-palindrome/">1312. Minimum Insertion Steps to Make a String Palindrome</a></h3><p>本题属于516. 最长回文子序列的子题，求的是将 s 变成回文串需要添加的最少字符数，所以我们只用求最长回文子序列长度即可，然后字符串 s 中除去最长回文子序列，剩下的字符就是不构成回文子序列的字符，添加与其同等数量的字符，将 s 构成回文串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1312</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minInsertions</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">//n - longest palindromic subsequence</span></span><br><span class="line">        <span class="type">int</span> n=s.length();</span><br><span class="line">        <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            dp[i][i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">                    dp[i][j]=dp[i+<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">2</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=Math.max(dp[i+<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-dp[<span class="number">0</span>][n-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
 
@@ -534,7 +637,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -671,7 +774,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -796,7 +899,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -899,7 +1002,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1232,7 +1335,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1464,7 +1567,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1627,7 +1730,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -2450,7 +2553,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="Never Settle">
+      <meta itemprop="description" content="For explorer everywhere">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -2476,7 +2579,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-06 15:50:30" itemprop="dateModified" datetime="2022-05-06T15:50:30+08:00">2022-05-06</time>
+                <time title="修改时间：2022-05-10 16:01:58" itemprop="dateModified" datetime="2022-05-10T16:01:58+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2499,13 +2602,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Greedy-Algorithm选编"><a href="#Greedy-Algorithm选编" class="headerlink" title="Greedy Algorithm选编"></a>Greedy Algorithm选编</h1><h2 id="贪心法原理"><a href="#贪心法原理" class="headerlink" title="贪心法原理"></a>贪心法原理</h2><p><strong>贪心的本质是选择每一阶段的局部最优，从而达到全局最优</strong>。</p>
+          <h1 id="Greedy-Algorithm选编"><a href="#Greedy-Algorithm选编" class="headerlink" title="Greedy Algorithm选编"></a>Greedy Algorithm选编</h1><h2 id="代码随想录"><a href="#代码随想录" class="headerlink" title="代码随想录"></a>代码随想录</h2><h3 id="贪心法原理"><a href="#贪心法原理" class="headerlink" title="贪心法原理"></a>贪心法原理</h3><p><strong>贪心的本质是选择每一阶段的局部最优，从而达到全局最优</strong>。</p>
 <p>这么说有点抽象，来举一个例子：</p>
 <p>例如，有一堆钞票，你可以拿走十张，如果想达到最大的金额，你要怎么拿？</p>
 <p>指定每次拿最大的，最终结果就是拿走最大数额的钱。</p>
 <p>每次拿最大的就是局部最优，最后拿走最大数额的钱就是推出全局最优。</p>
 <p>再举一个例子如果是 有一堆盒子，你有一个背包体积为n，如何把背包尽可能装满，如果还每次选最大的盒子，就不行了。这时候就需要动态规划。</p>
-<h2 id="376-Wiggle-Subsequence"><a href="#376-Wiggle-Subsequence" class="headerlink" title="376. Wiggle Subsequence"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/">376. Wiggle Subsequence</a></h2><h3 id="Greedy解法"><a href="#Greedy解法" class="headerlink" title="Greedy解法"></a>Greedy解法</h3><p><strong>局部最优：删除单调坡度上的节点（不包括单调坡度两端的节点），那么这个坡度就可以有两个局部峰值</strong>。</p>
+<h3 id="376-Wiggle-Subsequence"><a href="#376-Wiggle-Subsequence" class="headerlink" title="376. Wiggle Subsequence"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/">376. Wiggle Subsequence</a></h3><h4 id="Greedy解法"><a href="#Greedy解法" class="headerlink" title="Greedy解法"></a>Greedy解法</h4><p><strong>局部最优：删除单调坡度上的节点（不包括单调坡度两端的节点），那么这个坡度就可以有两个局部峰值</strong>。</p>
 <p><strong>整体最优：整个序列有最多的局部峰值，从而达到最长摆动序列</strong>。</p>
 <p>局部最优推出全局最优，并举不出反例，那么试试贪心！</p>
 <p>（为方便表述，以下说的峰值都是指局部峰值）</p>
@@ -2517,7 +2620,7 @@
 <li>时间复杂度：$O(n)$</li>
 <li>空间复杂度：$O(1)$</li>
 </ul>
-<h3 id="Dynamic-Programming基础版"><a href="#Dynamic-Programming基础版" class="headerlink" title="Dynamic Programming基础版"></a>Dynamic Programming基础版</h3><p>考虑用动态规划的思想来解决这个问题。</p>
+<h4 id="Dynamic-Programming基础版"><a href="#Dynamic-Programming基础版" class="headerlink" title="Dynamic Programming基础版"></a>Dynamic Programming基础版</h4><p>考虑用动态规划的思想来解决这个问题。</p>
 <p>很容易可以发现，对于我们当前考虑的这个数，要么是作为山峰（即nums[i] &gt; nums[i-1]），要么是作为山谷（即nums[i] &lt; nums[i - 1]）。</p>
 <ul>
 <li>设dp状态<code>dp[i][0]</code>，表示考虑前i个数，第i个数作为山峰的摆动子序列的最长长度</li>
@@ -2534,7 +2637,7 @@
 <li>时间复杂度：$O(n^2)$</li>
 <li>空间复杂度：$O(n)$</li>
 </ul>
-<h3 id="Dynamic-Programming进阶版"><a href="#Dynamic-Programming进阶版" class="headerlink" title="Dynamic Programming进阶版"></a>Dynamic Programming进阶版</h3><p>可以用两棵线段树来维护区间的最大值</p>
+<h4 id="Dynamic-Programming进阶版"><a href="#Dynamic-Programming进阶版" class="headerlink" title="Dynamic Programming进阶版"></a>Dynamic Programming进阶版</h4><p>可以用两棵线段树来维护区间的最大值</p>
 <ul>
 <li>每次更新<code>dp[i][0]</code>，则在<code>tree1</code>的<code>nums[i]</code>位置值更新为<code>dp[i][0]</code></li>
 <li>每次更新<code>dp[i][1]</code>，则在<code>tree2</code>的<code>nums[i]</code>位置值更新为<code>dp[i][1]</code></li>
@@ -2542,7 +2645,40 @@
 </ul>
 <p>时间复杂度：$O(n\log n)$</p>
 <p>空间复杂度：$O(n)$</p>
-<h2 id="53-Maximum-Subarray"><a href="#53-Maximum-Subarray" class="headerlink" title="53. Maximum Subarray"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">53. Maximum Subarray</a></h2><h3 id="Greedy解法-1"><a href="#Greedy解法-1" class="headerlink" title="Greedy解法"></a>Greedy解法</h3><h3 id="DP解法"><a href="#DP解法" class="headerlink" title="DP解法"></a>DP解法</h3>
+<h3 id="53-Maximum-Subarray"><a href="#53-Maximum-Subarray" class="headerlink" title="53. Maximum Subarray"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">53. Maximum Subarray</a></h3><h4 id="Greedy解法-1"><a href="#Greedy解法-1" class="headerlink" title="Greedy解法"></a>Greedy解法</h4><h4 id="DP解法"><a href="#DP解法" class="headerlink" title="DP解法"></a>DP解法</h4><h2 id="labuladong"><a href="#labuladong" class="headerlink" title="labuladong"></a>labuladong</h2><p>什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。</p>
+<p>比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满足贪心选择性质，那么可以进一步降低时间复杂度，达到线性级别的。</p>
+<p>什么是贪心选择性质呢，简单说就是：每一步都做出一个局部最优的选择，最终的结果就是全局最优。注意哦，这是一种特殊性质，其实只有一部分问题拥有这个性质。</p>
+<p>比如你面前放着 100 张人民币，你只能拿十张，怎么才能拿最多的面额？显然每次选择剩下钞票中面值最大的一张，最后你的选择一定是最优的。</p>
+<p>然而，大部分问题明显不具有贪心选择性质。比如打斗地主，对手出对儿三，按照贪心策略，你应该出尽可能小的牌刚好压制住对方，但现实情况我们甚至可能会出王炸。这种情况就不能用贪心算法，而得使用动态规划解决。</p>
+<h3 id="435-Non-overlapping-Intervals"><a href="#435-Non-overlapping-Intervals" class="headerlink" title="435. Non-overlapping Intervals"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/non-overlapping-intervals/">435. Non-overlapping Intervals</a></h3><p>区间调度问题    Interval Scheduling</p>
+<p>最多有几个不冲突的区间？</p>
+<p>正确的思路其实很简单，可以分为以下三步：</p>
+<ol>
+<li><p>从区间集合 <code>intvs</code> 中选择一个区间 <code>x</code>，这个 <code>x</code> 是在当前所有区间中<strong>结束最早的</strong>（<code>end</code> 最小）。</p>
+</li>
+<li><p>把所有与 <code>x</code> 区间相交的区间从区间集合 <code>intvs</code> 中删除。</p>
+</li>
+<li><p>重复步骤 1 和 2，直到 <code>intvs</code> 为空为止。之前选出的那些 <code>x</code> 就是最大不相交子集。</p>
+</li>
+</ol>
+<p><em>make the rest of the intervals non-overlapping</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode435</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=intervals.length;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">1</span>]-o2[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : intervals) &#123;</span><br><span class="line">            <span class="type">int</span> start=interval[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(start&gt;=end)&#123;<span class="comment">//已由end升序;若start&lt;end,则重叠,不选取(从集合中删去);否则选为新的区间x</span></span><br><span class="line">                count++;</span><br><span class="line">                end=interval[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>注意：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(intvs, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span>[] b)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="comment">//以上写法可能出现溢出</span></span><br><span class="line"><span class="comment">//以下写法更保险</span></span><br><span class="line">Arrays.sort(points, (o1,o2)-&gt;&#123;</span><br><span class="line">            <span class="keyword">if</span>(o1[<span class="number">1</span>]&gt;o2[<span class="number">1</span>]) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(o1[<span class="number">1</span>]&lt;o2[<span class="number">1</span>]) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="452-Minimum-Number-of-Arrows-to-Burst-Balloons"><a href="#452-Minimum-Number-of-Arrows-to-Burst-Balloons" class="headerlink" title="452. Minimum Number of Arrows to Burst Balloons"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/">452. Minimum Number of Arrows to Burst Balloons</a></h3><p>依然是求最大不重叠区间数</p>
+<p>每个不重叠区间都需要一个箭，每多一个不重叠区间，就多需要一根箭</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode452</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinArrowShots</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">        Arrays.sort(points, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(o1[<span class="number">1</span>]&gt;o2[<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(o1[<span class="number">1</span>]&lt;o2[<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> end=points[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] point : points) &#123;</span><br><span class="line">            <span class="type">int</span> start=point[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(start&gt;end)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                end=point[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -2619,7 +2755,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">invincible-nerd</p>
-  <div class="site-description" itemprop="description">Never Settle</div>
+  <div class="site-description" itemprop="description">For explorer everywhere</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
