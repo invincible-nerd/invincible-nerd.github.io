@@ -162,6 +162,502 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/23/%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/23/%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-23 23:02:14 / 修改时间：23:03:12" itemprop="dateCreated datePublished" datetime="2022-05-23T23:02:14+08:00">2022-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><h2 id="linux指令"><a href="#linux指令" class="headerlink" title="linux指令"></a>linux指令</h2><p>&#x2F;是最高级目录，目录树的根节点</p>
+<p>~是&#x2F;root，为目录树根节点的子节点之一</p>
+<p>cd ..   返回上级</p>
+<p>ls &#x2F; -a </p>
+<p>ls &#x2F; -l</p>
+<p>ls &#x2F; -al</p>
+<p>cat</p>
+<p>head</p>
+<p>tail</p>
+<p>tac</p>
+<p>mkdir</p>
+<p>rmdir</p>
+<h3 id="创建并运行shell："><a href="#创建并运行shell：" class="headerlink" title="创建并运行shell："></a>创建并运行shell：</h3><ol>
+<li><p>touch newShell.sh</p>
+</li>
+<li><p>vi newShell.sh</p>
+</li>
+<li><p>单击键盘i，开始编辑</p>
+</li>
+<li><p>编辑完成后，单击esc</p>
+</li>
+<li><p>保存并退出</p>
+<p>输入:wq</p>
+</li>
+<li><p>使之可执行</p>
+<p>chmod 755 newShell.sh </p>
+</li>
+<li><p>执行</p>
+<p>.&#x2F;newShell.sh</p>
+</li>
+</ol>
+<h3 id="iic-test-ssp-x2F-home-x2F-iic-x2F-ssp-x2F-run-sh"><a href="#iic-test-ssp-x2F-home-x2F-iic-x2F-ssp-x2F-run-sh" class="headerlink" title="iic-test-ssp    &#x2F;home&#x2F;iic&#x2F;ssp&#x2F;run.sh:"></a>iic-test-ssp    &#x2F;home&#x2F;iic&#x2F;ssp&#x2F;run.sh:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">APP_NAME=/home/iic/ssp/iic-ssp-mgr-1.0.0.RELEASE.war</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令有误时，提示使用说明参数</span></span><br><span class="line">usage() &#123;</span><br><span class="line"> echo &quot;Usage: bash.sh [start|stop|restart|status]&quot;</span><br><span class="line"> exit 1    #exit结束进程,return函数返回</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查程序是否已经在运行</span></span><br><span class="line">is_exist()&#123;</span><br><span class="line"> pid=`ps -ef|grep $APP_NAME|grep -v grep|awk &#x27;&#123;print $2&#125;&#x27; ` #ps -ef | grep java</span><br><span class="line">if [ -z &quot;$&#123;pid&#125;&quot; ]; then #[[ -z $str1 ]] 判断字符串是否为空，单中括号可能导致出错</span><br><span class="line"> return 1</span><br><span class="line"> else</span><br><span class="line"> return 0</span><br><span class="line"> fi        #fi与if成对出现，作为if语句的结尾</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动服务</span></span><br><span class="line">start()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then  #$? 显示最后命令的退出状态</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is already running. pid=$&#123;pid&#125; .&quot;</span><br><span class="line">  else</span><br><span class="line">    java -XX:+UseG1GC -jar $APP_NAME --spring.profiles.active=test --file.authId=6a534f8a516f429e9e940467b348fe61 --stat.fake=false &amp;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">停止服务</span></span><br><span class="line">stop()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then</span><br><span class="line">    kill -9 $pid</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is not running&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">输出服务运行状态</span></span><br><span class="line">status()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then	#if和then应该分两行，合在一行要加;</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is running. Pid is $&#123;pid&#125;&quot;</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is NOT running.&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">重启服务</span></span><br><span class="line">restart()&#123;</span><br><span class="line">  stop</span><br><span class="line">  start</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">根据输入参数，选择执行对应的方法，不输入则执行使用说明</span></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  &quot;start&quot;)	#每一模式必须以右括号结束</span><br><span class="line">    start	</span><br><span class="line">    ;;		#匹配发现取值符合某一模式后，其间所有命令开始执行直至 ;;</span><br><span class="line">  &quot;stop&quot;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">  &quot;status&quot;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">  &quot;restart&quot;)</span><br><span class="line">    restart</span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    usage</span><br><span class="line">    ;;</span><br><span class="line">esac   #case esac</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="upload-nginx-file-sh"><a href="#upload-nginx-file-sh" class="headerlink" title="upload-nginx-file.sh:"></a>upload-nginx-file.sh:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/expect</span></span><br><span class="line">set timeout 10</span><br><span class="line">set user root</span><br><span class="line">set pass Gdsinsing888_nginx</span><br><span class="line">set destDir /home/deploy/static</span><br><span class="line">set ip 114.67.178.8</span><br><span class="line">set filen [lrange /home/svn/iic/filecenter/iic-file-web/target/iic-file-web-1.0.0.RELEASE.war 0 0]</span><br><span class="line"></span><br><span class="line">spawn scp $&#123;filen&#125; $&#123;user&#125;@$&#123;ip&#125;:$&#123;destDir&#125;</span><br><span class="line">expect &quot;$&#123;user&#125;@$&#123;ip&#125;&#x27;s password:&quot;</span><br><span class="line">send &quot;$&#123;pass&#125;\r&quot;</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Private Clouds: 租房子住</p>
+<p>Public Clouds: 住宾馆</p>
+<p>On-Premises: 自己买房子住</p>
+<p>测试环境：京东私有云    第一家 不稳定</p>
+<ul>
+<li><p>Private Clouds </p>
+</li>
+<li><p>为了一个客户单独使用而构建的</p>
+</li>
+<li><p>经济性：机房、设备、运行维护费用</p>
+</li>
+<li><p>安全性：数据由内部网络获取，第三方很难获取</p>
+</li>
+</ul>
+<p>正式环境：京东公有云    广州 成熟 稳定</p>
+<ul>
+<li><p>Public Clouds</p>
+</li>
+<li><p>资源是在服务商的场所内部署。用户通过Internet互联网来获取这些资源的使用。</p>
+</li>
+<li><p>经济性：购买服务的费用</p>
+</li>
+<li><p>安全性：通过运营商网络访问，可以通过算法对数据加密</p>
+</li>
+</ul>
+<p>cd &#x2F;home&#x2F;iic</p>
+<p>d ssp</p>
+<p>ls</p>
+<ul>
+<li>run.sh 可执行文件</li>
+<li>logs </li>
+<li>.war 服务部署包</li>
+<li>checkJavaPid.sh 检查进程id</li>
+</ul>
+<p>cat run.sh 运行脚本，启动服务</p>
+<p>目前重启需要先checkJavaPid找到进程，再kill</p>
+<p>每个服务写restart, stop</p>
+<p>难点：</p>
+<ol>
+<li>用脚本查到进程id</li>
+<li>kill -9 pid</li>
+</ol>
+<h3 id="05-19："><a href="#05-19：" class="headerlink" title="05-19："></a>05-19：</h3><p>目标：</p>
+<ol>
+<li><p>用一台机的shell去启动另一台机的shell</p>
+</li>
+<li><p>保证同步shell 实现，不可以异步</p>
+</li>
+</ol>
+<h3 id="05-20"><a href="#05-20" class="headerlink" title="05-20:"></a>05-20:</h3><p>进展：</p>
+<ol>
+<li><p>成功实现用 iic-test-api 远程控制 iic-test-ssp， 可以在iic-test-api 运行 iic-test-ssp上的脚本</p>
+<ul>
+<li><p>要设置ssh免密码登录</p>
+</li>
+<li><p>先在 iic-tes-api 上，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>保存密钥后，将passphrase设为空</p>
+</li>
+<li><p>将生成的id_rsa.pub文件拷贝到远程服务器的 ~&#x2F;.ssh 目录下，此时需要远程服务器的 root 密码</p>
+<ul>
+<li><pre><code class="shell">scp /root/.ssh/id_rsa.pub root@172.23.19.16:~/.ssh
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  + 注意：xshell中输入密码时虽然看似没反应，其实键盘正常工作！</span><br><span class="line"></span><br><span class="line">  + 问题：为何使用的是对外的浮动IP,而不是对内的私有云内网IP?</span><br><span class="line"></span><br><span class="line">+ 在远程服务器：append更新authorized_keys文件</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>注意：cat除了看文件，还能文件间传输数据</p>
+</li>
+</ul>
+</li>
+<li><p>此时可以不输密码，访问远程服务器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@172.23.19.16</span><br></pre></td></tr></table></figure>
+
+
+
+<p>并可以执行命令或shell：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh root@172.23.19.16 &quot;cd /test1;./newdir.sh&quot;</span><br><span class="line">ssh root@172.23.19.16 &quot;cd /test1;ls&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>nginx 转发 &lt;- 公网ip</p>
+<p>内网：每一个服务都有独立的账号、密码</p>
+<ul>
+<li>api</li>
+<li>idr</li>
+<li>ssp</li>
+<li>static 文件中心</li>
+<li>safety 安全中心</li>
+</ul>
+<p>部署：登录、上传.war、run</p>
+<p>专门的部署机：</p>
+<ul>
+<li>upload</li>
+<li>run 参数，想run哪一台</li>
+<li>stop</li>
+<li>restart</li>
+</ul>
+<p>远程登录</p>
+<p>需要先输入账号密码 登录部署机， 再输入账号密码去操纵对应服务</p>
+<p>备份: 将旧版本ssp备份到部署机 以便快速恢复系统</p>
+<p>外界访问 用 浮动ip</p>
+<p>内部访问 用 私有云ip</p>
+<h1 id="测试-部署"><a href="#测试-部署" class="headerlink" title="测试 部署"></a>测试 部署</h1><p>测试：Jenkins</p>
+<p>部署: 京东云</p>
+<p>Jenkins连svn,获取源代码，再部署到linux服务器；起桥梁的作用</p>
+<p>Jenkins:</p>
+<ul>
+<li>免费开源的持续集成工具</li>
+<li>continuous integration</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/23/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/23/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-2/" class="post-title-link" itemprop="url">动态规划(2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-23 23:02:00 / 修改时间：23:03:51" itemprop="dateCreated datePublished" datetime="2022-05-23T23:02:00+08:00">2022-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Dynamic-Programming选编-2"><a href="#Dynamic-Programming选编-2" class="headerlink" title="Dynamic Programming选编(2)"></a>Dynamic Programming选编(2)</h1><h2 id="labuladong"><a href="#labuladong" class="headerlink" title="labuladong"></a>labuladong</h2><h3 id="787-Cheapest-Flights-Within-K-Stops"><a href="#787-Cheapest-Flights-Within-K-Stops" class="headerlink" title="787. Cheapest Flights Within K Stops"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/cheapest-flights-within-k-stops/">787. Cheapest Flights Within K Stops</a></h3><ol>
+<li><p><strong>加权有向图中求最短路径</strong></p>
+</li>
+<li><p>同时要满足，<strong>这条路径最多不能超过 <code>K + 1</code> 条边</strong>（经过 <code>K</code> 个节点相当于经过 <code>K + 1</code> 条边）。</p>
+</li>
+</ol>
+<ul>
+<li>BFS 算法相当于从起始点开始，一步一步向外扩散，那当然是离起点越近的节点越先被遍历到，如果 BFS 遍历的过程中遇到终点，那么走的肯定是最短路径。</li>
+<li>对于加权图的最短路径来说，普通的队列不管用了，得用优先级队列 <code>PriorityQueue</code></li>
+</ul>
+<p>Dijkstra算法，从某一点到其余点的最短路径</p>
+<p>dp: <em>定义：从 src 出发，k 步之内到达 s 的最小成本</em></p>
+<h3 id="10-Regular-Expression-Matching"><a href="#10-Regular-Expression-Matching" class="headerlink" title="10. Regular Expression Matching"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/regular-expression-matching/">10. Regular Expression Matching</a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (s[i] == p[j] || p[j] == <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// 匹配</span></span><br><span class="line">    <span class="keyword">if</span> (j &lt; p.size() - <span class="number">1</span> &amp;&amp; p[j + <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 有 * 通配符，可以匹配 0 次或多次</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 无 * 通配符，老老实实匹配 1 次</span></span><br><span class="line">        i++; j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 不匹配</span></span><br><span class="line">    <span class="keyword">if</span> (j &lt; p.size() - <span class="number">1</span> &amp;&amp; p[j + <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 有 * 通配符，只能匹配 0 次</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 无 * 通配符，匹配无法进行下去了</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>难点：</p>
+<ul>
+<li><p>通配符匹配多次？</p>
+<ul>
+<li>前提：模式串*的前一个字符能够跟文本串的末位匹配上</li>
+<li>匹配多次，即先匹配一次，再继续匹配，模式串指针不动，文本串指针前移</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isMatch</span><span class="params">(String s, String p)</span> &#123;</span><br><span class="line">        <span class="type">char</span>[] cs = s.toCharArray();</span><br><span class="line">        <span class="type">char</span>[] cp = p.toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// dp[i][j]:表示s的前i个字符，p的前j个字符是否能够匹配</span></span><br><span class="line">        <span class="type">boolean</span>[][] dp = <span class="keyword">new</span> <span class="title class_">boolean</span>[cs.length + <span class="number">1</span>][cp.length + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初期值</span></span><br><span class="line">        <span class="comment">// s为空，p为空，能匹配上</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// p为空，s不为空，必为false(boolean数组默认值为false，无需处理)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// s为空，p不为空，由于*可以匹配0个字符，所以有可能为true</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= cp.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cp[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">                dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j - <span class="number">2</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 填格子</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= cs.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= cp.length; j++) &#123;</span><br><span class="line">                <span class="comment">// 文本串和模式串末位字符能匹配上</span></span><br><span class="line">                <span class="keyword">if</span> (cs[i - <span class="number">1</span>] == cp[j - <span class="number">1</span>] || cp[j - <span class="number">1</span>] == <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cp[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123; <span class="comment">// 模式串末位是*</span></span><br><span class="line">                    <span class="comment">// 模式串*的前一个字符能够跟文本串的末位匹配上</span></span><br><span class="line">                    <span class="keyword">if</span> (cs[i - <span class="number">1</span>] == cp[j - <span class="number">2</span>] || cp[j - <span class="number">2</span>] == <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                        dp[i][j] = dp[i][j - <span class="number">2</span>]      <span class="comment">// *匹配0次的情况</span></span><br><span class="line">                                || dp[i - <span class="number">1</span>][j];     <span class="comment">// *匹配1次或多次的情况</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 模式串*的前一个字符不能够跟文本串的末位匹配</span></span><br><span class="line">                        dp[i][j] = dp[i][j - <span class="number">2</span>];     <span class="comment">// *只能匹配0次</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[cs.length][cp.length];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/23/Meta%E9%AB%98%E9%A2%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/23/Meta%E9%AB%98%E9%A2%91/" class="post-title-link" itemprop="url">Meta高频</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-23 23:01:49 / 修改时间：23:04:50" itemprop="dateCreated datePublished" datetime="2022-05-23T23:01:49+08:00">2022-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Meta高频题"><a href="#Meta高频题" class="headerlink" title="Meta高频题"></a>Meta高频题</h1><h2 id="1249-Minimum-Remove-to-Make-Valid-Parentheses"><a href="#1249-Minimum-Remove-to-Make-Valid-Parentheses" class="headerlink" title="1249. Minimum Remove to Make Valid Parentheses"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-remove-to-make-valid-parentheses/">1249. Minimum Remove to Make Valid Parentheses</a></h2><p>Meta高频题No. 1</p>
+<p>看见括号匹配，想到用栈</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1249</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">minRemoveToMakeValid</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=s.length();</span><br><span class="line">        <span class="type">char</span>[] chars = s.toCharArray();</span><br><span class="line">        Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">char</span> c=chars[i];</span><br><span class="line">            <span class="keyword">if</span>(c==<span class="string">&#x27;)&#x27;</span> &amp;&amp; !stack.isEmpty() &amp;&amp; chars[stack.peek()]==<span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">&#x27;(&#x27;</span> || c==<span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">                stack.push(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            arr[stack.pop()]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        StringBuilder sb=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i]==<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                sb.append(chars[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="680-Valid-Palindrome-II"><a href="#680-Valid-Palindrome-II" class="headerlink" title="680. Valid Palindrome II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-palindrome-ii/">680. Valid Palindrome II</a></h2><p>常规longest palindrome subsequence的DP解法超时！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validPalindrome</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="comment">//longest palindrome subsequence</span></span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i][i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>; j&lt;n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">                dp[i][j]=dp[i+<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">2</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][j]=Math.max(dp[i+<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][n-<span class="number">1</span>]&gt;=n-<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>考虑Greedy Algorithm:</p>
+<ol>
+<li>双指针，若两头相等，则继续内缩，直到两头不等</li>
+<li>不等后，判断 [i+1,j] 和 [i, j-1] 是否有一个是palindrome</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validPalindrome</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=s.length()-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(left)!=s.charAt(right))&#123;</span><br><span class="line">            <span class="keyword">return</span> isValid(s,left+<span class="number">1</span>,right) || isValid(s,left,right-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s, <span class="type">int</span> start, <span class="type">int</span> end)</span>&#123;</span><br><span class="line">    <span class="type">int</span> left=start;</span><br><span class="line">    <span class="type">int</span> right=end;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(left)!=s.charAt(right))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/23/LinkedList/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/23/LinkedList/" class="post-title-link" itemprop="url">LinkedList</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-23 23:01:38 / 修改时间：23:05:27" itemprop="dateCreated datePublished" datetime="2022-05-23T23:01:38+08:00">2022-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="链表选编"><a href="#链表选编" class="headerlink" title="链表选编"></a>链表选编</h1><h2 id="206-Reverse-Linked-List"><a href="#206-Reverse-Linked-List" class="headerlink" title="206. Reverse Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-linked-list/">206. Reverse Linked List</a></h2><h3 id="法一：递归"><a href="#法一：递归" class="headerlink" title="法一：递归"></a>法一：递归</h3><p>关键：如何确定后序reversed linked list的尾结点？</p>
+<p>答案：由于是从后向前递归，head.next之后的指针被修改，但head的指针未被修改，head.next依然可以找到原链表中的后继，而此时它已经成为了reverse linked list的尾，将head添加到其后即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(head.next==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode postHead=reverseList(head.next);</span><br><span class="line">    head.next.next=head;</span><br><span class="line">    head.next=<span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> postHead;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="法二：迭代"><a href="#法二：迭代" class="headerlink" title="法二：迭代"></a>法二：迭代</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    ListNode pre=<span class="literal">null</span>;</span><br><span class="line">    ListNode p=head;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">null</span>)&#123;</span><br><span class="line">        ListNode temp=p.next;</span><br><span class="line">        p.next=pre;</span><br><span class="line">        pre=p;</span><br><span class="line">        p=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="24-Swap-Nodes-in-Pairs"><a href="#24-Swap-Nodes-in-Pairs" class="headerlink" title="24. Swap Nodes in Pairs"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/swap-nodes-in-pairs/">24. Swap Nodes in Pairs</a></h2><h3 id="法一：递归-1"><a href="#法一：递归-1" class="headerlink" title="法一：递归"></a>法一：递归</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">swapPairs</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">null</span> || head.next==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode next=head.next;</span><br><span class="line">    ListNode postHead=swapPairs(head.next.next);</span><br><span class="line">    next.next=head;</span><br><span class="line">    head.next=postHead;</span><br><span class="line">    <span class="keyword">return</span> next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：迭代-1"><a href="#法二：迭代-1" class="headerlink" title="法二：迭代"></a>法二：迭代</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//法二：dummyHead 迭代</span></span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">swapPairs</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">null</span> || head.next==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode dummyHead=<span class="keyword">new</span> <span class="title class_">ListNode</span>(-<span class="number">1</span>,head);</span><br><span class="line">    ListNode pre=dummyHead;</span><br><span class="line">    <span class="keyword">while</span>(pre.next!=<span class="literal">null</span> &amp;&amp; pre.next.next!=<span class="literal">null</span>)&#123;</span><br><span class="line">        ListNode temp=head.next.next;</span><br><span class="line">        pre.next=head.next;</span><br><span class="line">        head.next.next=head;</span><br><span class="line">        head.next=temp;</span><br><span class="line">        pre=head;</span><br><span class="line">        head=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummyHead.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="142-Linked-List-Cycle-II"><a href="#142-Linked-List-Cycle-II" class="headerlink" title="142. Linked List Cycle II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">142. Linked List Cycle II</a></h2><h3 id="法一：用HashMap"><a href="#法一：用HashMap" class="headerlink" title="法一：用HashMap"></a>法一：用HashMap</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode142</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        Set&lt;ListNode&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span>(head!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(set.contains(head))&#123;</span><br><span class="line">                <span class="keyword">return</span> head;</span><br><span class="line">            &#125;</span><br><span class="line">            set.add(head);</span><br><span class="line">            head=head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：双指针"><a href="#法二：双指针" class="headerlink" title="法二：双指针"></a>法二：双指针</h3><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#%E6%80%9D%E8%B7%AF">https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#%E6%80%9D%E8%B7%AF</a></p>
+<p>那么相遇时： slow指针走过的节点数为: <code>x + y</code>， fast指针走过的节点数：<code>x + y + n (y + z)</code>，n为fast指针在环内走了n圈才遇到slow指针， （y+z）为 一圈内节点的个数A。</p>
+<p>因为fast指针是一步走两个节点，slow指针一步走一个节点， 所以 fast指针走过的节点数 &#x3D; slow指针走过的节点数 * 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x + y) * 2 = x + y + n (y + z)</span><br></pre></td></tr></table></figure>
+
+<p>两边消掉一个（x+y）: <code>x + y = n (y + z)</code></p>
+<p>因为要找环形的入口，那么要求的是x，因为x表示 头结点到 环形入口节点的的距离。</p>
+<p>所以要求x ，将x单独放在左面：<code>x = n (y + z) - y</code> ,</p>
+<p>再从n(y+z)中提出一个 （y+z）来，整理公式之后为如下公式：<code>x = (n - 1) (y + z) + z</code> 注意这里n一定是大于等于1的，因为 fast指针至少要多走一圈才能相遇slow指针。</p>
+<p><strong>从头结点出发一个指针，从相遇节点 也出发一个指针，这两个指针每次只走一个节点， 那么当这两个指针相遇的时候就是 环形入口的节点</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    ListNode fast=head;</span><br><span class="line">    ListNode slow=head;</span><br><span class="line">    <span class="keyword">while</span>(fast!=<span class="literal">null</span> &amp;&amp; fast.next!=<span class="literal">null</span>)&#123;</span><br><span class="line">        fast=fast.next.next;</span><br><span class="line">        slow=slow.next;</span><br><span class="line">        <span class="keyword">if</span>(fast==slow)&#123;</span><br><span class="line">            ListNode meet=fast;</span><br><span class="line">            ListNode h=head;</span><br><span class="line">            <span class="keyword">while</span>(meet!=h)&#123;</span><br><span class="line">                meet=meet.next;</span><br><span class="line">                h=h.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> h;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/16/%E6%90%AC%E5%AE%B6%E5%95%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -250,7 +746,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-17 11:02:31" itemprop="dateModified" datetime="2022-05-17T11:02:31+08:00">2022-05-17</time>
+                <time title="修改时间：2022-05-23 22:56:50" itemprop="dateModified" datetime="2022-05-23T22:56:50+08:00">2022-05-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -570,7 +1066,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-17 16:39:41" itemprop="dateModified" datetime="2022-05-17T16:39:41+08:00">2022-05-17</time>
+                <time title="修改时间：2022-05-23 22:56:14" itemprop="dateModified" datetime="2022-05-23T22:56:14+08:00">2022-05-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -607,7 +1103,16 @@
 <h2 id="207-Course-Schedule"><a href="#207-Course-Schedule" class="headerlink" title="207. Course Schedule"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/course-schedule/">207. Course Schedule</a></h2><p><strong>环检测算法</strong></p>
 <p><strong>看到依赖问题，首先想到的就是把问题转化成「有向图」这种数据结构，只要图中存在环，那就说明存在循环依赖</strong>。</p>
 <p><strong>只要会遍历，就可以判断图中是否存在环了</strong></p>
-<h3 id="法一：DFS"><a href="#法一：DFS" class="headerlink" title="法一：DFS"></a>法一：DFS</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode207</span> &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt;[] graph;</span><br><span class="line">    <span class="type">boolean</span> isCycle;</span><br><span class="line">    <span class="type">boolean</span>[] visited;</span><br><span class="line">    <span class="type">boolean</span>[] onPath;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites)</span> &#123;</span><br><span class="line">        graph=buildGraph(numCourses,prerequisites);</span><br><span class="line">        visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[graph.length];</span><br><span class="line">        onPath=<span class="keyword">new</span> <span class="title class_">boolean</span>[graph.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; graph.length; i++) &#123; <span class="comment">//需要遍历每一条路径，才能确定不存在环; 因此需要从每个顶点出发</span></span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !isCycle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> num, <span class="type">int</span>[][] pres)&#123;</span><br><span class="line">        List&lt;Integer&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[num];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">            graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] pre : pres) &#123;</span><br><span class="line">            <span class="type">int</span> from=pre[<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> to=pre[<span class="number">0</span>];</span><br><span class="line">            graph[from].add(to);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> graph;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> start)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(onPath[start])&#123;<span class="comment">//当前路径上第二次遇到该vertex</span></span><br><span class="line">            isCycle=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(visited[start] || isCycle)&#123;<span class="comment">//已经遍历过的顶点无需再次遍历</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[start]=<span class="literal">true</span>;</span><br><span class="line">        onPath[start]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer i : graph[start]) &#123;</span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line">        onPath[start]=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="法一：DFS"><a href="#法一：DFS" class="headerlink" title="法一：DFS"></a>法一：DFS</h3><p>借助 onPath 数组判断是否存在环</p>
+<p>遍历所有节点；若某一路径上出现重复节点，则存在环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode207</span> &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt;[] graph;</span><br><span class="line">    <span class="type">boolean</span> isCycle;</span><br><span class="line">    <span class="type">boolean</span>[] visited;</span><br><span class="line">    <span class="type">boolean</span>[] onPath;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites)</span> &#123;</span><br><span class="line">        graph=buildGraph(numCourses,prerequisites);</span><br><span class="line">        visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[graph.length];</span><br><span class="line">        onPath=<span class="keyword">new</span> <span class="title class_">boolean</span>[graph.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; graph.length; i++) &#123; <span class="comment">//需要遍历每一条路径，才能确定不存在环; 因此需要从每个顶点出发</span></span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !isCycle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> num, <span class="type">int</span>[][] pres)&#123;</span><br><span class="line">        List&lt;Integer&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[num];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">            graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] pre : pres) &#123;</span><br><span class="line">            <span class="type">int</span> from=pre[<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> to=pre[<span class="number">0</span>];</span><br><span class="line">            graph[from].add(to);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> graph;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> start)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(onPath[start])&#123;<span class="comment">//当前路径上第二次遇到该vertex</span></span><br><span class="line">            isCycle=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(visited[start] || isCycle)&#123;<span class="comment">//已经遍历过的顶点无需再次遍历</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[start]=<span class="literal">true</span>;</span><br><span class="line">        onPath[start]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer i : graph[start]) &#123;</span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line">        onPath[start]=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：BFS"><a href="#法二：BFS" class="headerlink" title="法二：BFS"></a>法二：BFS</h3><p>借助 <code>indegree</code> 数组记录每个节点的「入度」</p>
+<p>若某节点没有入度，则可以作为topological sort的起点，加入队列进行遍历</p>
+<p>如果所有节点都被遍历，则不成环，否则成环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">        graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[] inDegree=<span class="keyword">new</span> <span class="title class_">int</span>[graph.length];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] pre : prerequisites) &#123;</span><br><span class="line">        <span class="type">int</span> to=pre[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> from=pre[<span class="number">1</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">        inDegree[to]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    Deque&lt;Integer&gt; queue=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; inDegree.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(inDegree[i]==<span class="number">0</span>)&#123;</span><br><span class="line">            queue.offer(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> pre=queue.poll();</span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> next : graph[pre]) &#123;</span><br><span class="line">            inDegree[next]--;</span><br><span class="line">            <span class="keyword">if</span>(inDegree[next]==<span class="number">0</span>)&#123;</span><br><span class="line">                queue.offer(next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> count==numCourses ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -619,6 +1124,24 @@
 <li><strong>将后序遍历的结果进行反转，就是拓扑排序的结果</strong>。</li>
 </ol>
 <h3 id="法一：DFS-1"><a href="#法一：DFS-1" class="headerlink" title="法一：DFS"></a>法一：DFS</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode210</span> &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph;</span><br><span class="line">    <span class="type">boolean</span>[] visited;</span><br><span class="line">    <span class="type">boolean</span>[] onPath;</span><br><span class="line">    <span class="type">boolean</span> hasCycle;</span><br><span class="line">    LinkedList&lt;Integer&gt; path;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] findOrder(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites) &#123;</span><br><span class="line">        graph=build(numCourses,prerequisites);</span><br><span class="line">        path=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">        onPath=<span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++) &#123;</span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(hasCycle)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            Collections.reverse(path);</span><br><span class="line">            <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[path.size()];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; res.length; i++) &#123;</span><br><span class="line">                res[i]=path.get(i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt;[] build(<span class="type">int</span> num, <span class="type">int</span>[][] pres)&#123;</span><br><span class="line">        LinkedList&lt;Integer&gt;[] graph=<span class="keyword">new</span> <span class="title class_">LinkedList</span>[num];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; num; i++) &#123;</span><br><span class="line">            graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] pre : pres) &#123;</span><br><span class="line">            <span class="type">int</span> from=pre[<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> to=pre[<span class="number">0</span>];</span><br><span class="line">            graph[from].add(to);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> graph;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> start)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(onPath[start])&#123;</span><br><span class="line">            hasCycle=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(hasCycle || visited[start])&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[start]=<span class="literal">true</span>;</span><br><span class="line">        onPath[start]=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i : graph[start]) &#123;</span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//后序遍历插入</span></span><br><span class="line">        path.add(start);</span><br><span class="line">        onPath[start]=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：BFS-1"><a href="#法二：BFS-1" class="headerlink" title="法二：BFS"></a>法二：BFS</h3><p>同207的BFS算法，入度为0队列弹出节点的顺序即为拓扑排序结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] findOrder(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[numCourses];</span><br><span class="line">    <span class="type">int</span>[] inDegree=<span class="keyword">new</span> <span class="title class_">int</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">        graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] pre : prerequisites) &#123;</span><br><span class="line">        <span class="type">int</span> to=pre[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> from=pre[<span class="number">1</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">        inDegree[to]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[numCourses];</span><br><span class="line">    Deque&lt;Integer&gt; queue=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; inDegree.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(inDegree[i]==<span class="number">0</span>)&#123;</span><br><span class="line">            queue.offer(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> pre=queue.poll();</span><br><span class="line">        res[count++]=pre;</span><br><span class="line">        <span class="keyword">for</span> (Integer next : graph[pre]) &#123;</span><br><span class="line">            inDegree[next]--;</span><br><span class="line">            <span class="keyword">if</span>(inDegree[next]==<span class="number">0</span>)&#123;</span><br><span class="line">                queue.offer(next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(count&lt;numCourses)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;&#125;;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="743-Network-Delay-Time"><a href="#743-Network-Delay-Time" class="headerlink" title="743. Network Delay Time"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/network-delay-time/">743. Network Delay Time</a></h2><p>Dijkstra</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输入一幅图和一个起点 start，计算 start 到其他节点的最短距离</span></span><br><span class="line"><span class="type">int</span>[] dijkstra(<span class="type">int</span> start, List&lt;Integer&gt;[] graph);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回节点 from 到节点 to 之间的边的权重</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">weight</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输入节点 s 返回 s 的相邻节点</span></span><br><span class="line">List&lt;Integer&gt; <span class="title function_">adj</span><span class="params">(<span class="type">int</span> s)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输入一幅图和一个起点 start，计算 start 到其他节点的最短距离</span></span><br><span class="line"><span class="type">int</span>[] dijkstra(<span class="type">int</span> start, List&lt;Integer&gt;[] graph) &#123;</span><br><span class="line">    <span class="comment">// 图中节点的个数</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">V</span> <span class="operator">=</span> graph.length;</span><br><span class="line">    <span class="comment">// 记录最短路径的权重，你可以理解为 dp table</span></span><br><span class="line">    <span class="comment">// 定义：distTo[i] 的值就是节点 start 到达节点 i 的最短路径权重</span></span><br><span class="line">    <span class="type">int</span>[] distTo = <span class="keyword">new</span> <span class="title class_">int</span>[V];</span><br><span class="line">    <span class="comment">// 求最小值，所以 dp table 初始化为正无穷</span></span><br><span class="line">    Arrays.fill(distTo, Integer.MAX_VALUE);</span><br><span class="line">    <span class="comment">// base case，start 到 start 的最短距离就是 0</span></span><br><span class="line">    distTo[start] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 优先级队列，distFromStart 较小的排在前面</span></span><br><span class="line">    Queue&lt;State&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> a.distFromStart - b.distFromStart;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从起点 start 开始进行 BFS</span></span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(start, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">        <span class="type">State</span> <span class="variable">curState</span> <span class="operator">=</span> pq.poll();</span><br><span class="line">        <span class="type">int</span> <span class="variable">curNodeID</span> <span class="operator">=</span> curState.id;</span><br><span class="line">        <span class="type">int</span> <span class="variable">curDistFromStart</span> <span class="operator">=</span> curState.distFromStart;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="comment">//若是求到某一点的最短路径，则增加return判断</span></span><br><span class="line">        <span class="comment">//PriorityQueue保证了第一次遇到end时，就是最短的距离</span></span><br><span class="line">        <span class="keyword">if</span> (curNodeID == end) &#123;</span><br><span class="line">            <span class="keyword">return</span> curDistFromStart;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (curDistFromStart &gt; distTo[curNodeID]) &#123;</span><br><span class="line">            <span class="comment">// 已经有一条更短的路径到达 curNode 节点了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将 curNode 的相邻节点装入队列</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> nextNodeID : adj(curNodeID)) &#123;</span><br><span class="line">            <span class="comment">// 看看从 curNode 达到 nextNode 的距离是否会更短</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">distToNextNode</span> <span class="operator">=</span> distTo[curNodeID] + weight(curNodeID, nextNodeID);</span><br><span class="line">            <span class="keyword">if</span> (distTo[nextNodeID] &gt; distToNextNode) &#123;</span><br><span class="line">                <span class="comment">// 更新 dp table</span></span><br><span class="line">                distTo[nextNodeID] = distToNextNode;</span><br><span class="line">                <span class="comment">// 将这个节点以及距离放入队列</span></span><br><span class="line">                pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(nextNodeID, distToNextNode));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> distTo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">State</span>&#123;</span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="type">int</span> dist;</span><br><span class="line">    State(<span class="type">int</span> id, <span class="type">int</span> dist)&#123;</span><br><span class="line">        <span class="built_in">this</span>.id=id;</span><br><span class="line">        <span class="built_in">this</span>.dist=dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">networkDelayTime</span><span class="params">(<span class="type">int</span>[][] times, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] time : times) &#123;</span><br><span class="line">        <span class="type">int</span> from=time[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> to=time[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> edge=time[<span class="number">2</span>];</span><br><span class="line">        graph[from].add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;to,edge&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[] md=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    Arrays.fill(md,Integer.MAX_VALUE);</span><br><span class="line">    md[k]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    PriorityQueue&lt;State&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;State&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(State o1, State o2)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> o1.dist-o2.dist;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(k,<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">        State cur=pq.poll();</span><br><span class="line">        <span class="keyword">if</span>(md[cur.id]&lt;cur.dist)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] next : graph[cur.id]) &#123;</span><br><span class="line">            <span class="type">int</span> to=next[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> edge=next[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(cur.dist+edge&lt;md[to])&#123;</span><br><span class="line">                md[to]=cur.dist+edge;</span><br><span class="line">                pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(to,md[to]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        max=Math.max(max,md[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max==Integer.MAX_VALUE ? -<span class="number">1</span> : max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1268,357 +1791,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/12/%E5%B2%9B%E5%B1%BF%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/12/%E5%B2%9B%E5%B1%BF%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">岛屿问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-12 12:01:10" itemprop="dateCreated datePublished" datetime="2022-05-12T12:01:10+08:00">2022-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-13 11:21:47" itemprop="dateModified" datetime="2022-05-13T11:21:47+08:00">2022-05-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="岛屿问题选编"><a href="#岛屿问题选编" class="headerlink" title="岛屿问题选编"></a>岛屿问题选编</h1><h2 id="1254-Number-of-Closed-Islands"><a href="#1254-Number-of-Closed-Islands" class="headerlink" title="1254. Number of Closed Islands"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-closed-islands/">1254. Number of Closed Islands</a></h2><p>在LeetCode200基础上，把靠边岛屿排除即可，即先把靠边的岛屿全部淹没</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1254</span> &#123;</span><br><span class="line">    <span class="type">int</span> row;</span><br><span class="line">    <span class="type">int</span> col;</span><br><span class="line">    <span class="type">int</span>[][] grid;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">closedIsland</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.row=grid.length;</span><br><span class="line">        <span class="built_in">this</span>.col=grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="built_in">this</span>.grid=grid;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            dfs(i,<span class="number">0</span>);</span><br><span class="line">            dfs(i,col-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            dfs(<span class="number">0</span>,j);</span><br><span class="line">            dfs(row-<span class="number">1</span>,j);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;=row-<span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>; j&lt;=col-<span class="number">1</span>; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    dfs(i,j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=row || j&lt;<span class="number">0</span> || j&gt;=col || grid[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        grid[i][j]=<span class="number">1</span>;</span><br><span class="line">        dfs(i+<span class="number">1</span>,j);</span><br><span class="line">        dfs(i-<span class="number">1</span>,j);</span><br><span class="line">        dfs(i,j+<span class="number">1</span>);</span><br><span class="line">        dfs(i,j-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="1020-Number-of-Enclaves"><a href="#1020-Number-of-Enclaves" class="headerlink" title="1020. Number of Enclaves"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-enclaves/">1020. Number of Enclaves</a></h2><p>把靠边岛屿淹没后，对不靠边的岛屿无需再dfs，直接count即可</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1020</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> row;</span><br><span class="line">    <span class="type">int</span> col;</span><br><span class="line">    <span class="type">int</span>[][] grid;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numEnclaves</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.row=grid.length;</span><br><span class="line">        <span class="built_in">this</span>.col=grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="built_in">this</span>.grid=grid;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            dfs(i,<span class="number">0</span>);</span><br><span class="line">            dfs(i,col-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            dfs(<span class="number">0</span>,j);</span><br><span class="line">            dfs(row-<span class="number">1</span>,j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=row || j&lt;<span class="number">0</span> || j&gt;=col || grid[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        grid[i][j]=<span class="number">0</span>;</span><br><span class="line">        dfs(i-<span class="number">1</span>,j);</span><br><span class="line">        dfs(i+<span class="number">1</span>,j);</span><br><span class="line">        dfs(i,j-<span class="number">1</span>);</span><br><span class="line">        dfs(i,j+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="695-Max-Area-of-Island"><a href="#695-Max-Area-of-Island" class="headerlink" title="695. Max Area of Island"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-area-of-island/">695. Max Area of Island</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode695</span> &#123;</span><br><span class="line">    <span class="type">int</span> row;</span><br><span class="line">    <span class="type">int</span> col;</span><br><span class="line">    <span class="type">int</span>[][] grid;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxAreaOfIsland</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.row=grid.length;</span><br><span class="line">        <span class="built_in">this</span>.col=grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="built_in">this</span>.grid=grid;</span><br><span class="line">        <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="type">int</span> count=dfs(i,j);</span><br><span class="line">                    max=Math.max(count,max);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max==Integer.MIN_VALUE ? <span class="number">0</span> : max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=row || j&lt;<span class="number">0</span> || j&gt;=col || grid[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        grid[i][j]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>+dfs(i-<span class="number">1</span>,j)+dfs(i+<span class="number">1</span>,j)+dfs(i,j-<span class="number">1</span>)+dfs(i,j+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1905-Count-Sub-Islands"><a href="#1905-Count-Sub-Islands" class="headerlink" title="1905. Count Sub Islands"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-sub-islands/">1905. Count Sub Islands</a></h2><p>先flood不可能为sub island的岛屿</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1905</span> &#123;</span><br><span class="line">    <span class="type">int</span> row;</span><br><span class="line">    <span class="type">int</span> col;</span><br><span class="line">    <span class="type">int</span>[][] grid2;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countSubIslands</span><span class="params">(<span class="type">int</span>[][] grid1, <span class="type">int</span>[][] grid2)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.row=grid2.length;</span><br><span class="line">        <span class="built_in">this</span>.col=grid2[<span class="number">0</span>].length;</span><br><span class="line">        <span class="built_in">this</span>.grid2=grid2;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(grid2[i][j]==<span class="number">1</span> &amp;&amp; grid1[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">                    dfs(i,j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(grid2[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    dfs(i,j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=row || j&lt;<span class="number">0</span> || j&gt;=col || grid2[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        grid2[i][j]=<span class="number">0</span>;</span><br><span class="line">        dfs(i-<span class="number">1</span>,j);</span><br><span class="line">        dfs(i+<span class="number">1</span>,j);</span><br><span class="line">        dfs(i,j-<span class="number">1</span>);</span><br><span class="line">        dfs(i,j+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/12/%E6%9D%82%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/12/%E6%9D%82%E9%A2%98/" class="post-title-link" itemprop="url">杂题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-05-12 11:51:46 / 修改时间：12:01:49" itemprop="dateCreated datePublished" datetime="2022-05-12T11:51:46+08:00">2022-05-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="杂题小记"><a href="#杂题小记" class="headerlink" title="杂题小记"></a>杂题小记</h1><h2 id="剑指-Offer-57-II-和为s的连续正数序列"><a href="#剑指-Offer-57-II-和为s的连续正数序列" class="headerlink" title="剑指 Offer 57 - II. 和为s的连续正数序列"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/">剑指 Offer 57 - II. 和为s的连续正数序列</a></h2><p>题目要求返回一个二维数组，且每行元素个数不定</p>
-<p>无法由List&lt;List<Integer>&gt;转变</p>
-<p>可以由List&lt;int[]&gt;转变：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] findContinuousSequence(<span class="type">int</span> target) &#123;</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=target/<span class="number">2</span>; i++)&#123;</span><br><span class="line">            backtracking(res,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(),target,i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.toArray(<span class="keyword">new</span> <span class="title class_">int</span>[res.size()][]); <span class="comment">//List&lt;int[]&gt; 转变为int[][]</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">backtracking</span><span class="params">(List&lt;<span class="type">int</span>[]&gt; res, List&lt;Integer&gt; list, <span class="type">int</span> target, <span class="type">int</span> start)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(target==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//List&lt;Integer&gt;转变为int[]，无法直接toArray</span></span><br><span class="line">                <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[list.size()];</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">                    arr[i]=list.get(i);</span><br><span class="line">                &#125;</span><br><span class="line">                res.add(arr);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(start);</span><br><span class="line">        backtracking(res,list,target-start,start+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/11/%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/11/%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">区间问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-11 16:18:48" itemprop="dateCreated datePublished" datetime="2022-05-11T16:18:48+08:00">2022-05-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-12 10:50:07" itemprop="dateModified" datetime="2022-05-12T10:50:07+08:00">2022-05-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="区间问题选编"><a href="#区间问题选编" class="headerlink" title="区间问题选编"></a>区间问题选编</h1><h2 id="maximum-number-of-non-overlapping-intervals"><a href="#maximum-number-of-non-overlapping-intervals" class="headerlink" title="maximum number of non-overlapping intervals:"></a>maximum number of non-overlapping intervals:</h2><ol>
-<li>按interval的end升序排序 </li>
-<li>选中集合中end最小的interval</li>
-<li>删去所有与该interval重叠的interval(s)</li>
-<li>重复2、3, 直到集合为空</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=intervals.length;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">1</span>]-o2[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : intervals) &#123;</span><br><span class="line">            <span class="type">int</span> start=interval[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(start&gt;=end)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                end=interval[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="1288-Remove-Covered-Intervals"><a href="#1288-Remove-Covered-Intervals" class="headerlink" title="1288. Remove Covered Intervals"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-covered-intervals/">1288. Remove Covered Intervals</a></h2><p>start升序、end降序</p>
-<p>对于两个起点相同的区间，需要保证长的那个区间在上面（按照终点降序），这样才会被判定为覆盖，否则会被错误地判定为相交，少算一个覆盖区间。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1288</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">removeCoveredIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">0</span>]!=o2[<span class="number">0</span>] ? o1[<span class="number">0</span>]-o2[<span class="number">0</span>] : o2[<span class="number">1</span>]-o1[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> start=intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> count=-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> n=intervals.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : intervals) &#123;</span><br><span class="line">            <span class="type">int</span> left=interval[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> right=interval[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(right&lt;=end)&#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left&lt;end)&#123;</span><br><span class="line">                end=right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                start=left;</span><br><span class="line">                end=right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="56-Merge-Intervals"><a href="#56-Merge-Intervals" class="headerlink" title="56. Merge Intervals"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-intervals/">56. Merge Intervals</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode56</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] merge(<span class="type">int</span>[][] intervals) &#123;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">0</span>]!=o2[<span class="number">0</span>] ? o1[<span class="number">0</span>]-o2[<span class="number">0</span>] : o2[<span class="number">1</span>]-o1[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> start=intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; intervals.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> left=intervals[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> right=intervals[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(right&lt;=end)&#123;<span class="comment">//contains</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left&lt;=end)&#123;<span class="comment">//overlap</span></span><br><span class="line">                end=right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;<span class="comment">//non-overlapping</span></span><br><span class="line">                res.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start,end&#125;);</span><br><span class="line">                start=left;</span><br><span class="line">                end=right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start,end&#125;);</span><br><span class="line">        <span class="type">int</span>[][] array=<span class="keyword">new</span> <span class="title class_">int</span>[res.size()][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            array[i][<span class="number">0</span>]=res.get(i)[<span class="number">0</span>];</span><br><span class="line">            array[i][<span class="number">1</span>]=res.get(i)[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="986-Interval-List-Intersections"><a href="#986-Interval-List-Intersections" class="headerlink" title="986. Interval List Intersections"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/interval-list-intersections/">986. Interval List Intersections</a></h2><p>两个区间集合已升序</p>
-<p>找交集：双指针i , j </p>
-<ul>
-<li>a1, a2, b1, b2</li>
-<li>无交集：</li>
-<li>有交集：</li>
-<li>无论有无交集，指针都要后移：</li>
-<li>一旦某一集合遍历完毕，则退出</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode986</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] intervalIntersection(<span class="type">int</span>[][] firstList, <span class="type">int</span>[][] secondList) &#123;</span><br><span class="line">        <span class="type">int</span> n1=firstList.length;</span><br><span class="line">        <span class="type">int</span> n2=secondList.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span>(i&lt;n1 &amp;&amp; j&lt;n2)&#123;</span><br><span class="line">            <span class="type">int</span> a1=firstList[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> a2=firstList[i][<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> b1=secondList[j][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> b2=secondList[j][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(b1&lt;=a2 &amp;&amp; a1&lt;=b2)&#123;</span><br><span class="line">                <span class="type">int</span> c1=Math.max(a1,b1);</span><br><span class="line">                <span class="type">int</span> c2=Math.min(a2,b2);</span><br><span class="line">                list.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;c1,c2&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a2&lt;b2)&#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[][] res=<span class="keyword">new</span> <span class="title class_">int</span>[list.size()][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; res.length; i++) &#123;</span><br><span class="line">            res[i][<span class="number">0</span>]=list.get(i)[<span class="number">0</span>];</span><br><span class="line">            res[i][<span class="number">1</span>]=list.get(i)[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/06/%E5%8F%8C%E6%8C%87%E9%92%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/06/%E5%8F%8C%E6%8C%87%E9%92%88/" class="post-title-link" itemprop="url">双指针</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-05-06 15:34:20 / 修改时间：15:51:05" itemprop="dateCreated datePublished" datetime="2022-05-06T15:34:20+08:00">2022-05-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Two-Pointers选编"><a href="#Two-Pointers选编" class="headerlink" title="Two Pointers选编"></a>Two Pointers选编</h1><h2 id="接雨水问题"><a href="#接雨水问题" class="headerlink" title="接雨水问题"></a>接雨水问题</h2><h3 id="42-Trapping-Rain-Water"><a href="#42-Trapping-Rain-Water" class="headerlink" title="42. Trapping Rain Water"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/trapping-rain-water/">42. Trapping Rain Water</a></h3><p>对每根柱子，求它的左侧和右侧的greatest element，探讨是否能在这根柱子上蓄水</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">trap</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">        <span class="type">int</span> area=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n=height.length;</span><br><span class="line">        <span class="type">int</span>[] findLeft=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;n-<span class="number">1</span>; i++)&#123;</span><br><span class="line">            findLeft[i]=Math.max(findLeft[i-<span class="number">1</span>],height[i-<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] findRight=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=n-<span class="number">2</span>; i&gt;=<span class="number">1</span>; i--)&#123;</span><br><span class="line">            findRight[i]=Math.max(findRight[i+<span class="number">1</span>],height[i+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;n-<span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="type">int</span> left=findLeft[i];</span><br><span class="line">            <span class="type">int</span> right=findRight[i];</span><br><span class="line">            <span class="type">int</span> h=Math.min(left,right);</span><br><span class="line">            <span class="keyword">if</span>(h&lt;=height[i])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            area+=h-height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="11-Container-With-Most-Water"><a href="#11-Container-With-Most-Water" class="headerlink" title="11. Container With Most Water"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/">11. Container With Most Water</a></h3><p>由大缩小</p>
-<p>双指针技巧：移动较低的一边，因为只有这样才可能使矩形面积增大：</p>
-<ul>
-<li>矩形面积由较短边和两边间距决定</li>
-<li>移动指针，两边间距必定缩小</li>
-<li>若移动较长边，则矩形面积必定缩小！无意义</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxArea</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">        <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">        <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right= height.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">            <span class="type">int</span> area=(right-left)*Math.min(height[left],height[right]);</span><br><span class="line">            max=Math.max(area,max);</span><br><span class="line">            <span class="keyword">if</span>(height[left]&lt;=height[right])&#123;<span class="comment">//移动较短边，使面积可能扩大</span></span><br><span class="line">                left++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1688,7 +1860,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1701,7 +1873,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

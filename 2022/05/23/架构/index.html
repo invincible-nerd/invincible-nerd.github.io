@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="linuxlinux指令&#x2F;是最高级目录，目录树的根节点 ~是&#x2F;root，为目录树根节点的子节点之一 cd ..   返回上级 ls &#x2F; -a  ls &#x2F; -l ls &#x2F; -al cat head tail tac mkdir rmdir 创建并运行shell： touch newShell.sh  vi newShell.sh  单击键盘i，开始编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构">
+<meta property="og:url" content="http://invincible-nerd.github.io/2022/05/23/%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="IVN">
+<meta property="og:description" content="linuxlinux指令&#x2F;是最高级目录，目录树的根节点 ~是&#x2F;root，为目录树根节点的子节点之一 cd ..   返回上级 ls &#x2F; -a  ls &#x2F; -l ls &#x2F; -al cat head tail tac mkdir rmdir 创建并运行shell： touch newShell.sh  vi newShell.sh  单击键盘i，开始编">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-23T15:02:14.000Z">
+<meta property="article:modified_time" content="2022-05-23T15:03:12.498Z">
+<meta property="article:author" content="invincible-nerd">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://invincible-nerd.github.io/2022/05/23/%E6%9E%B6%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>架构 | IVN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">IVN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/23/%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          架构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-23 23:02:14 / 修改时间：23:03:12" itemprop="dateCreated datePublished" datetime="2022-05-23T23:02:14+08:00">2022-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><h2 id="linux指令"><a href="#linux指令" class="headerlink" title="linux指令"></a>linux指令</h2><p>&#x2F;是最高级目录，目录树的根节点</p>
+<p>~是&#x2F;root，为目录树根节点的子节点之一</p>
+<p>cd ..   返回上级</p>
+<p>ls &#x2F; -a </p>
+<p>ls &#x2F; -l</p>
+<p>ls &#x2F; -al</p>
+<p>cat</p>
+<p>head</p>
+<p>tail</p>
+<p>tac</p>
+<p>mkdir</p>
+<p>rmdir</p>
+<h3 id="创建并运行shell："><a href="#创建并运行shell：" class="headerlink" title="创建并运行shell："></a>创建并运行shell：</h3><ol>
+<li><p>touch newShell.sh</p>
+</li>
+<li><p>vi newShell.sh</p>
+</li>
+<li><p>单击键盘i，开始编辑</p>
+</li>
+<li><p>编辑完成后，单击esc</p>
+</li>
+<li><p>保存并退出</p>
+<p>输入:wq</p>
+</li>
+<li><p>使之可执行</p>
+<p>chmod 755 newShell.sh </p>
+</li>
+<li><p>执行</p>
+<p>.&#x2F;newShell.sh</p>
+</li>
+</ol>
+<h3 id="iic-test-ssp-x2F-home-x2F-iic-x2F-ssp-x2F-run-sh"><a href="#iic-test-ssp-x2F-home-x2F-iic-x2F-ssp-x2F-run-sh" class="headerlink" title="iic-test-ssp    &#x2F;home&#x2F;iic&#x2F;ssp&#x2F;run.sh:"></a>iic-test-ssp    &#x2F;home&#x2F;iic&#x2F;ssp&#x2F;run.sh:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">APP_NAME=/home/iic/ssp/iic-ssp-mgr-1.0.0.RELEASE.war</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令有误时，提示使用说明参数</span></span><br><span class="line">usage() &#123;</span><br><span class="line"> echo &quot;Usage: bash.sh [start|stop|restart|status]&quot;</span><br><span class="line"> exit 1    #exit结束进程,return函数返回</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查程序是否已经在运行</span></span><br><span class="line">is_exist()&#123;</span><br><span class="line"> pid=`ps -ef|grep $APP_NAME|grep -v grep|awk &#x27;&#123;print $2&#125;&#x27; ` #ps -ef | grep java</span><br><span class="line">if [ -z &quot;$&#123;pid&#125;&quot; ]; then #[[ -z $str1 ]] 判断字符串是否为空，单中括号可能导致出错</span><br><span class="line"> return 1</span><br><span class="line"> else</span><br><span class="line"> return 0</span><br><span class="line"> fi        #fi与if成对出现，作为if语句的结尾</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动服务</span></span><br><span class="line">start()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then  #$? 显示最后命令的退出状态</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is already running. pid=$&#123;pid&#125; .&quot;</span><br><span class="line">  else</span><br><span class="line">    java -XX:+UseG1GC -jar $APP_NAME --spring.profiles.active=test --file.authId=6a534f8a516f429e9e940467b348fe61 --stat.fake=false &amp;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">停止服务</span></span><br><span class="line">stop()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then</span><br><span class="line">    kill -9 $pid</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is not running&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">输出服务运行状态</span></span><br><span class="line">status()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then	#if和then应该分两行，合在一行要加;</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is running. Pid is $&#123;pid&#125;&quot;</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is NOT running.&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">重启服务</span></span><br><span class="line">restart()&#123;</span><br><span class="line">  stop</span><br><span class="line">  start</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">根据输入参数，选择执行对应的方法，不输入则执行使用说明</span></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  &quot;start&quot;)	#每一模式必须以右括号结束</span><br><span class="line">    start	</span><br><span class="line">    ;;		#匹配发现取值符合某一模式后，其间所有命令开始执行直至 ;;</span><br><span class="line">  &quot;stop&quot;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">  &quot;status&quot;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">  &quot;restart&quot;)</span><br><span class="line">    restart</span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    usage</span><br><span class="line">    ;;</span><br><span class="line">esac   #case esac</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="upload-nginx-file-sh"><a href="#upload-nginx-file-sh" class="headerlink" title="upload-nginx-file.sh:"></a>upload-nginx-file.sh:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/expect</span></span><br><span class="line">set timeout 10</span><br><span class="line">set user root</span><br><span class="line">set pass Gdsinsing888_nginx</span><br><span class="line">set destDir /home/deploy/static</span><br><span class="line">set ip 114.67.178.8</span><br><span class="line">set filen [lrange /home/svn/iic/filecenter/iic-file-web/target/iic-file-web-1.0.0.RELEASE.war 0 0]</span><br><span class="line"></span><br><span class="line">spawn scp $&#123;filen&#125; $&#123;user&#125;@$&#123;ip&#125;:$&#123;destDir&#125;</span><br><span class="line">expect &quot;$&#123;user&#125;@$&#123;ip&#125;&#x27;s password:&quot;</span><br><span class="line">send &quot;$&#123;pass&#125;\r&quot;</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Private Clouds: 租房子住</p>
+<p>Public Clouds: 住宾馆</p>
+<p>On-Premises: 自己买房子住</p>
+<p>测试环境：京东私有云    第一家 不稳定</p>
+<ul>
+<li><p>Private Clouds </p>
+</li>
+<li><p>为了一个客户单独使用而构建的</p>
+</li>
+<li><p>经济性：机房、设备、运行维护费用</p>
+</li>
+<li><p>安全性：数据由内部网络获取，第三方很难获取</p>
+</li>
+</ul>
+<p>正式环境：京东公有云    广州 成熟 稳定</p>
+<ul>
+<li><p>Public Clouds</p>
+</li>
+<li><p>资源是在服务商的场所内部署。用户通过Internet互联网来获取这些资源的使用。</p>
+</li>
+<li><p>经济性：购买服务的费用</p>
+</li>
+<li><p>安全性：通过运营商网络访问，可以通过算法对数据加密</p>
+</li>
+</ul>
+<p>cd &#x2F;home&#x2F;iic</p>
+<p>d ssp</p>
+<p>ls</p>
+<ul>
+<li>run.sh 可执行文件</li>
+<li>logs </li>
+<li>.war 服务部署包</li>
+<li>checkJavaPid.sh 检查进程id</li>
+</ul>
+<p>cat run.sh 运行脚本，启动服务</p>
+<p>目前重启需要先checkJavaPid找到进程，再kill</p>
+<p>每个服务写restart, stop</p>
+<p>难点：</p>
+<ol>
+<li>用脚本查到进程id</li>
+<li>kill -9 pid</li>
+</ol>
+<h3 id="05-19："><a href="#05-19：" class="headerlink" title="05-19："></a>05-19：</h3><p>目标：</p>
+<ol>
+<li><p>用一台机的shell去启动另一台机的shell</p>
+</li>
+<li><p>保证同步shell 实现，不可以异步</p>
+</li>
+</ol>
+<h3 id="05-20"><a href="#05-20" class="headerlink" title="05-20:"></a>05-20:</h3><p>进展：</p>
+<ol>
+<li><p>成功实现用 iic-test-api 远程控制 iic-test-ssp， 可以在iic-test-api 运行 iic-test-ssp上的脚本</p>
+<ul>
+<li><p>要设置ssh免密码登录</p>
+</li>
+<li><p>先在 iic-tes-api 上，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>保存密钥后，将passphrase设为空</p>
+</li>
+<li><p>将生成的id_rsa.pub文件拷贝到远程服务器的 ~&#x2F;.ssh 目录下，此时需要远程服务器的 root 密码</p>
+<ul>
+<li><pre><code class="shell">scp /root/.ssh/id_rsa.pub root@172.23.19.16:~/.ssh
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  + 注意：xshell中输入密码时虽然看似没反应，其实键盘正常工作！</span><br><span class="line"></span><br><span class="line">  + 问题：为何使用的是对外的浮动IP,而不是对内的私有云内网IP?</span><br><span class="line"></span><br><span class="line">+ 在远程服务器：append更新authorized_keys文件</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>注意：cat除了看文件，还能文件间传输数据</p>
+</li>
+</ul>
+</li>
+<li><p>此时可以不输密码，访问远程服务器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@172.23.19.16</span><br></pre></td></tr></table></figure>
+
+
+
+<p>并可以执行命令或shell：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh root@172.23.19.16 &quot;cd /test1;./newdir.sh&quot;</span><br><span class="line">ssh root@172.23.19.16 &quot;cd /test1;ls&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>nginx 转发 &lt;- 公网ip</p>
+<p>内网：每一个服务都有独立的账号、密码</p>
+<ul>
+<li>api</li>
+<li>idr</li>
+<li>ssp</li>
+<li>static 文件中心</li>
+<li>safety 安全中心</li>
+</ul>
+<p>部署：登录、上传.war、run</p>
+<p>专门的部署机：</p>
+<ul>
+<li>upload</li>
+<li>run 参数，想run哪一台</li>
+<li>stop</li>
+<li>restart</li>
+</ul>
+<p>远程登录</p>
+<p>需要先输入账号密码 登录部署机， 再输入账号密码去操纵对应服务</p>
+<p>备份: 将旧版本ssp备份到部署机 以便快速恢复系统</p>
+<p>外界访问 用 浮动ip</p>
+<p>内部访问 用 私有云ip</p>
+<h1 id="测试-部署"><a href="#测试-部署" class="headerlink" title="测试 部署"></a>测试 部署</h1><p>测试：Jenkins</p>
+<p>部署: 京东云</p>
+<p>Jenkins连svn,获取源代码，再部署到linux服务器；起桥梁的作用</p>
+<p>Jenkins:</p>
+<ul>
+<li>免费开源的持续集成工具</li>
+<li>continuous integration</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>invincible-nerd
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://invincible-nerd.github.io/2022/05/23/%E6%9E%B6%E6%9E%84/" title="架构">http://invincible-nerd.github.io/2022/05/23/架构/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/23/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-2/" rel="prev" title="动态规划(2)">
+      <i class="fa fa-chevron-left"></i> 动态规划(2)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux"><span class="nav-number">1.</span> <span class="nav-text">linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E6%8C%87%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">linux指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8Cshell%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建并运行shell：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iic-test-ssp-x2F-home-x2F-iic-x2F-ssp-x2F-run-sh"><span class="nav-number">1.1.2.</span> <span class="nav-text">iic-test-ssp    &#x2F;home&#x2F;iic&#x2F;ssp&#x2F;run.sh:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#upload-nginx-file-sh"><span class="nav-number">1.1.3.</span> <span class="nav-text">upload-nginx-file.sh:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E8%AE%B0"><span class="nav-number">1.2.</span> <span class="nav-text">杂记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#05-19%EF%BC%9A"><span class="nav-number">1.2.1.</span> <span class="nav-text">05-19：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-20"><span class="nav-number">1.2.2.</span> <span class="nav-text">05-20:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">测试 部署</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">invincible-nerd</p>
+  <div class="site-description" itemprop="description">For explorer everywhere</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022-04 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">invincible-nerd</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
