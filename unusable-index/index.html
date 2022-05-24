@@ -162,6 +162,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/24/Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/24/Array/" class="post-title-link" itemprop="url">Array</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-24 19:51:15 / 修改时间：19:52:29" itemprop="dateCreated datePublished" datetime="2022-05-24T19:51:15+08:00">2022-05-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数组好题选编"><a href="#数组好题选编" class="headerlink" title="数组好题选编"></a>数组好题选编</h1><h2 id="前缀和数组"><a href="#前缀和数组" class="headerlink" title="前缀和数组"></a>前缀和数组</h2><p>前缀和技巧适用于快速、频繁地计算一个索引区间内的元素之和。</p>
+<h3 id="303-Range-Sum-Query-Immutable"><a href="#303-Range-Sum-Query-Immutable" class="headerlink" title="303. Range Sum Query - Immutable"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/range-sum-query-immutable/">303. Range Sum Query - Immutable</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumArray</span> &#123;</span><br><span class="line">    <span class="comment">// 前缀和数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] preSum;	<span class="comment">//前i个数之和</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 输入一个数组，构造前缀和 */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NumArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="comment">// preSum[0] = 0，便于计算累加和</span></span><br><span class="line">        preSum = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 计算 nums 的累加和</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; preSum.length; i++) &#123;</span><br><span class="line">            preSum[i] = preSum[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 查询闭区间 [left, right] 的累加和 */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRange</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> preSum[right + <span class="number">1</span>] - preSum[left];	<span class="comment">//[0,right] - [0,left-1] = [left,right]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="304-Range-Sum-Query-2D-Immutable"><a href="#304-Range-Sum-Query-2D-Immutable" class="headerlink" title="304. Range Sum Query 2D - Immutable"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/range-sum-query-2d-immutable/">304. Range Sum Query 2D - Immutable</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumMatrix</span> &#123;</span><br><span class="line">    <span class="comment">// 定义：preSum[i][j] 记录 matrix 中子矩阵 [0, 0, i-1, j-1] 的元素和</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[][] preSum;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NumMatrix</span><span class="params">(<span class="type">int</span>[][] matrix)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span> || n == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 构造前缀和矩阵</span></span><br><span class="line">        preSum = <span class="keyword">new</span> <span class="title class_">int</span>[m + <span class="number">1</span>][n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="comment">// 计算每个矩阵 [0, 0, i, j] 的元素和</span></span><br><span class="line">                preSum[i][j] = preSum[i-<span class="number">1</span>][j] + preSum[i][j-<span class="number">1</span>] + matrix[i - <span class="number">1</span>][j - <span class="number">1</span>] - preSum[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 计算子矩阵 [x1, y1, x2, y2] 的元素和</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRegion</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span> &#123;</span><br><span class="line">        <span class="comment">// 目标矩阵之和由四个相邻矩阵运算获得</span></span><br><span class="line">        <span class="keyword">return</span> preSum[x2+<span class="number">1</span>][y2+<span class="number">1</span>] - preSum[x1][y2+<span class="number">1</span>] - preSum[x2+<span class="number">1</span>][y1] + preSum[x1][y1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Prefix-Sum-amp-HashMap"><a href="#Prefix-Sum-amp-HashMap" class="headerlink" title="Prefix Sum&amp;HashMap"></a>Prefix Sum&amp;HashMap</h2><h3 id="560-Subarray-Sum-Equals-K"><a href="#560-Subarray-Sum-Equals-K" class="headerlink" title="560. Subarray Sum Equals K"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sum-equals-k/">560. Subarray Sum Equals K</a></h3><p>不关心具体是哪两项的前缀和之差等于k，只关心等于 k 的前缀和之差出现的次数c，就知道了有c个子数组求和等于k</p>
+<h3 id="1248-Count-Number-of-Nice-Subarrays"><a href="#1248-Count-Number-of-Nice-Subarrays" class="headerlink" title="1248. Count Number of Nice Subarrays"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-number-of-nice-subarrays/">1248. Count Number of Nice Subarrays</a></h3><h3 id="974-Subarray-Sums-Divisible-by-K"><a href="#974-Subarray-Sums-Divisible-by-K" class="headerlink" title="974. Subarray Sums Divisible by K"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sums-divisible-by-k/">974. Subarray Sums Divisible by K</a></h3><h3 id="523-Continuous-Subarray-Sum"><a href="#523-Continuous-Subarray-Sum" class="headerlink" title="523. Continuous Subarray Sum"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/continuous-subarray-sum/">523. Continuous Subarray Sum</a></h3><h2 id="差分数组"><a href="#差分数组" class="headerlink" title="差分数组"></a>差分数组</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/23/%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -403,10 +482,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-05-23 23:02:00 / 修改时间：23:03:51" itemprop="dateCreated datePublished" datetime="2022-05-23T23:02:00+08:00">2022-05-23</time>
+              <time title="创建时间：2022-05-23 23:02:00" itemprop="dateCreated datePublished" datetime="2022-05-23T23:02:00+08:00">2022-05-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-24 19:54:54" itemprop="dateModified" datetime="2022-05-24T19:54:54+08:00">2022-05-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -456,6 +541,16 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isMatch</span><span class="params">(String s, String p)</span> &#123;</span><br><span class="line">        <span class="type">char</span>[] cs = s.toCharArray();</span><br><span class="line">        <span class="type">char</span>[] cp = p.toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// dp[i][j]:表示s的前i个字符，p的前j个字符是否能够匹配</span></span><br><span class="line">        <span class="type">boolean</span>[][] dp = <span class="keyword">new</span> <span class="title class_">boolean</span>[cs.length + <span class="number">1</span>][cp.length + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初期值</span></span><br><span class="line">        <span class="comment">// s为空，p为空，能匹配上</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// p为空，s不为空，必为false(boolean数组默认值为false，无需处理)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// s为空，p不为空，由于*可以匹配0个字符，所以有可能为true</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= cp.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cp[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">                dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j - <span class="number">2</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 填格子</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= cs.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= cp.length; j++) &#123;</span><br><span class="line">                <span class="comment">// 文本串和模式串末位字符能匹配上</span></span><br><span class="line">                <span class="keyword">if</span> (cs[i - <span class="number">1</span>] == cp[j - <span class="number">1</span>] || cp[j - <span class="number">1</span>] == <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cp[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123; <span class="comment">// 模式串末位是*</span></span><br><span class="line">                    <span class="comment">// 模式串*的前一个字符能够跟文本串的末位匹配上</span></span><br><span class="line">                    <span class="keyword">if</span> (cs[i - <span class="number">1</span>] == cp[j - <span class="number">2</span>] || cp[j - <span class="number">2</span>] == <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                        dp[i][j] = dp[i][j - <span class="number">2</span>]      <span class="comment">// *匹配0次的情况</span></span><br><span class="line">                                || dp[i - <span class="number">1</span>][j];     <span class="comment">// *匹配1次或多次的情况</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 模式串*的前一个字符不能够跟文本串的末位匹配</span></span><br><span class="line">                        dp[i][j] = dp[i][j - <span class="number">2</span>];     <span class="comment">// *只能匹配0次</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[cs.length][cp.length];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+
+
+<h2 id="代码随想录"><a href="#代码随想录" class="headerlink" title="代码随想录"></a>代码随想录</h2><h3 id="1049-Last-Stone-Weight-II"><a href="#1049-Last-Stone-Weight-II" class="headerlink" title="1049. Last Stone Weight II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/last-stone-weight-ii/">1049. Last Stone Weight II</a></h3><p> <em>the smallest possible weight of the left stone</em></p>
+<p>尽量让石头分成重量相同的两堆，相撞之后剩下的石头最小，<strong>这样就化解成01背包问题了</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/last-stone-weight-ii/solution/gong-shui-san-xie-xiang-jie-wei-he-neng-jgxik/">https://leetcode.cn/problems/last-stone-weight-ii/solution/gong-shui-san-xie-xiang-jie-wei-he-neng-jgxik/</a></p>
+<p><strong>所谓不断「合并」&amp;「重放」，本质只是在构造一个折叠的计算表达式，最终的结果仍然可以使用「为原来 stones 数组中的数字添加 +&#x2F;− 符号，形成的“计算表达式”」所表示。</strong></p>
+<p>问题转换为：<strong>为 stones中的每个数字添加 +&#x2F;−，使得形成的「计算表达式」结果绝对值最小。</strong></p>
+<p><strong>从 stones数组中选择，凑成总和不超过</strong><br>$$<br>\frac{sum}{2}<br>$$<br><strong>的最大价值。</strong></p>
+
       
     </div>
 
@@ -497,10 +592,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-05-23 23:01:49 / 修改时间：23:04:50" itemprop="dateCreated datePublished" datetime="2022-05-23T23:01:49+08:00">2022-05-23</time>
+              <time title="创建时间：2022-05-23 23:01:49" itemprop="dateCreated datePublished" datetime="2022-05-23T23:01:49+08:00">2022-05-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-24 19:54:14" itemprop="dateModified" datetime="2022-05-24T19:54:14+08:00">2022-05-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -539,6 +640,30 @@
 <li>不等后，判断 [i+1,j] 和 [i, j-1] 是否有一个是palindrome</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validPalindrome</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=s.length()-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(left)!=s.charAt(right))&#123;</span><br><span class="line">            <span class="keyword">return</span> isValid(s,left+<span class="number">1</span>,right) || isValid(s,left,right-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s, <span class="type">int</span> start, <span class="type">int</span> end)</span>&#123;</span><br><span class="line">    <span class="type">int</span> left=start;</span><br><span class="line">    <span class="type">int</span> right=end;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(left)!=s.charAt(right))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="560-Subarray-Sum-Equals-K"><a href="#560-Subarray-Sum-Equals-K" class="headerlink" title="560. Subarray Sum Equals K"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sum-equals-k/">560. Subarray Sum Equals K</a></h2><h3 id="法一：brute-force"><a href="#法一：brute-force" class="headerlink" title="法一：brute force"></a>法一：brute force</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode560</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subarraySum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i; j&lt;n; j++)&#123;</span><br><span class="line">                sum+=nums[j];</span><br><span class="line">                <span class="keyword">if</span>(sum==k)&#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：prefix-sum-HashMap"><a href="#法二：prefix-sum-HashMap" class="headerlink" title="法二：prefix sum + HashMap"></a>法二：prefix sum + HashMap</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subarraySum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    map.put(<span class="number">0</span>,<span class="number">1</span>);   <span class="comment">//前缀和为0的subarray个数初始为1</span></span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        sum+=nums[i];</span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(sum-k))&#123;</span><br><span class="line">            count+=map.get(sum-k);</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(sum,map.getOrDefault(sum,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="938-Range-Sum-of-BST"><a href="#938-Range-Sum-of-BST" class="headerlink" title="938. Range Sum of BST"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/range-sum-of-bst/">938. Range Sum of BST</a></h2><h3 id="法一：recursively"><a href="#法一：recursively" class="headerlink" title="法一：recursively"></a>法一：recursively</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode938</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> finished;</span><br><span class="line">    <span class="type">int</span> low;</span><br><span class="line">    <span class="type">int</span> high;</span><br><span class="line">    <span class="type">int</span> sum;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">rangeSumBST</span><span class="params">(TreeNode root, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.low=low;</span><br><span class="line">        <span class="built_in">this</span>.high=high;</span><br><span class="line">        <span class="built_in">this</span>.sum=<span class="number">0</span>;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">null</span> || finished)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(root.left);</span><br><span class="line">        <span class="keyword">if</span>(root.val&gt;=low &amp;&amp; root.val&lt;=high)&#123;</span><br><span class="line">            sum+=root.val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root.val&gt;high)&#123;</span><br><span class="line">            finished=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(root.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：non-recursively"><a href="#法二：non-recursively" class="headerlink" title="法二：non recursively"></a>法二：non recursively</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">rangeSumBST</span><span class="params">(TreeNode root, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="type">boolean</span> finished=<span class="literal">false</span>;</span><br><span class="line">    Deque&lt;TreeNode&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    stack.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; !finished)&#123;</span><br><span class="line">        TreeNode node=stack.pop();</span><br><span class="line">        <span class="keyword">if</span>(node!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//left root right</span></span><br><span class="line">            <span class="comment">//right root left</span></span><br><span class="line">            <span class="keyword">if</span>(node.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">                stack.push(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">            stack.push(node);</span><br><span class="line">            stack.push(<span class="literal">null</span>);</span><br><span class="line">            <span class="keyword">if</span>(node.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">                stack.push(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            node =stack.pop();</span><br><span class="line">            <span class="keyword">if</span>(node.val&gt;=low &amp;&amp; node.val&lt;=high)&#123;</span><br><span class="line">                sum+=node.val;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node.val&gt;high)&#123;</span><br><span class="line">                finished=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="236-Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#236-Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="236. Lowest Common Ancestor of a Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/">236. Lowest Common Ancestor of a Binary Tree</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> find(root, p.val, q.val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TreeNode <span class="title function_">find</span><span class="params">(TreeNode root, <span class="type">int</span> p, <span class="type">int</span> q)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">null</span> || root.val==p || root.val==q)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode findLeft=find(root.left,p,q);</span><br><span class="line">        TreeNode findRight=find(root.right,p,q);</span><br><span class="line">        <span class="keyword">if</span>(findLeft!=<span class="literal">null</span> &amp;&amp; findRight!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> findLeft==<span class="literal">null</span> ? findRight : findLeft;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -1066,7 +1191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-23 22:56:14" itemprop="dateModified" datetime="2022-05-23T22:56:14+08:00">2022-05-23</time>
+                <time title="修改时间：2022-05-24 19:53:29" itemprop="dateModified" datetime="2022-05-24T19:53:29+08:00">2022-05-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1142,6 +1267,16 @@
 
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">State</span>&#123;</span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="type">int</span> dist;</span><br><span class="line">    State(<span class="type">int</span> id, <span class="type">int</span> dist)&#123;</span><br><span class="line">        <span class="built_in">this</span>.id=id;</span><br><span class="line">        <span class="built_in">this</span>.dist=dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">networkDelayTime</span><span class="params">(<span class="type">int</span>[][] times, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        graph[i]=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] time : times) &#123;</span><br><span class="line">        <span class="type">int</span> from=time[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> to=time[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> edge=time[<span class="number">2</span>];</span><br><span class="line">        graph[from].add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;to,edge&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[] md=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    Arrays.fill(md,Integer.MAX_VALUE);</span><br><span class="line">    md[k]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    PriorityQueue&lt;State&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;State&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(State o1, State o2)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> o1.dist-o2.dist;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(k,<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">        State cur=pq.poll();</span><br><span class="line">        <span class="keyword">if</span>(md[cur.id]&lt;cur.dist)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] next : graph[cur.id]) &#123;</span><br><span class="line">            <span class="type">int</span> to=next[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> edge=next[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(cur.dist+edge&lt;md[to])&#123;</span><br><span class="line">                md[to]=cur.dist+edge;</span><br><span class="line">                pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(to,md[to]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        max=Math.max(max,md[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max==Integer.MAX_VALUE ? -<span class="number">1</span> : max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="787-Cheapest-Flights-Within-K-Stops"><a href="#787-Cheapest-Flights-Within-K-Stops" class="headerlink" title="787. Cheapest Flights Within K Stops"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/cheapest-flights-within-k-stops/">787. Cheapest Flights Within K Stops</a></h2><p>相比最正统的dijkstra，注意：</p>
+<ol>
+<li>只求到某一点的最短距离，可以提前return</li>
+<li>考虑经过的节点数的限制，若不满足则continue</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findCheapestPrice</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] flights, <span class="type">int</span> src, <span class="type">int</span> dst, <span class="type">int</span> K)</span> &#123;</span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : flights) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> edge[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">price</span> <span class="operator">=</span> edge[<span class="number">2</span>];</span><br><span class="line">        graph[from].add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;to, price&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 启动 dijkstra 算法</span></span><br><span class="line">    <span class="comment">// 计算以 src 为起点在 k 次中转到达 dst 的最短路径</span></span><br><span class="line">    K++;</span><br><span class="line">    <span class="keyword">return</span> dijkstra(graph, src, K, dst);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">State</span> &#123;</span><br><span class="line">    <span class="comment">// 图节点的 id</span></span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="comment">// 从 src 节点到当前节点的花费</span></span><br><span class="line">    <span class="type">int</span> costFromSrc;</span><br><span class="line">    <span class="comment">// 从 src 节点到当前节点经过的节点个数</span></span><br><span class="line">    <span class="type">int</span> nodeNumFromSrc;</span><br><span class="line"></span><br><span class="line">    State(<span class="type">int</span> id, <span class="type">int</span> costFromSrc, <span class="type">int</span> nodeNumFromSrc) &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">        <span class="built_in">this</span>.costFromSrc = costFromSrc;</span><br><span class="line">        <span class="built_in">this</span>.nodeNumFromSrc = nodeNumFromSrc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输入一个起点 src，计算从 src 到其他节点的最短距离</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dijkstra</span><span class="params">(List&lt;<span class="type">int</span>[]&gt;[] graph, <span class="type">int</span> src, <span class="type">int</span> k, <span class="type">int</span> dst)</span> &#123;</span><br><span class="line">    <span class="comment">// 定义：从起点 src 到达节点 i 的最短路径权重为 distTo[i]</span></span><br><span class="line">    <span class="type">int</span>[] distTo = <span class="keyword">new</span> <span class="title class_">int</span>[graph.length];</span><br><span class="line">    <span class="comment">// 定义：从起点 src 到达节点 i 至少要经过 nodeNumTo[i] 个节点</span></span><br><span class="line">    <span class="type">int</span>[] nodeNumTo = <span class="keyword">new</span> <span class="title class_">int</span>[graph.length];</span><br><span class="line">    Arrays.fill(distTo, Integer.MAX_VALUE);</span><br><span class="line">    Arrays.fill(nodeNumTo, Integer.MAX_VALUE);</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    distTo[src] = <span class="number">0</span>;</span><br><span class="line">    nodeNumTo[src] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 优先级队列，costFromSrc 较小的排在前面</span></span><br><span class="line">    Queue&lt;State&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> a.costFromSrc - b.costFromSrc;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 从起点 src 开始进行 BFS</span></span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(src, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">        <span class="type">State</span> <span class="variable">curState</span> <span class="operator">=</span> pq.poll();</span><br><span class="line">        <span class="type">int</span> <span class="variable">curNodeID</span> <span class="operator">=</span> curState.id;</span><br><span class="line">        <span class="type">int</span> <span class="variable">costFromSrc</span> <span class="operator">=</span> curState.costFromSrc;</span><br><span class="line">        <span class="type">int</span> <span class="variable">curNodeNumFromSrc</span> <span class="operator">=</span> curState.nodeNumFromSrc;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (curNodeID == dst) &#123;</span><br><span class="line">            <span class="comment">// 找到最短路径</span></span><br><span class="line">            <span class="keyword">return</span> costFromSrc;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (curNodeNumFromSrc == k) &#123;</span><br><span class="line">            <span class="comment">// 中转次数耗尽</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将 curNode 的相邻节点装入队列</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] neighbor : graph[curNodeID]) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">nextNodeID</span> <span class="operator">=</span> neighbor[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">costToNextNode</span> <span class="operator">=</span> costFromSrc + neighbor[<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// 中转次数消耗 1</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">nextNodeNumFromSrc</span> <span class="operator">=</span> curNodeNumFromSrc + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 更新 dp table</span></span><br><span class="line">            <span class="keyword">if</span> (distTo[nextNodeID] &gt; costToNextNode) &#123;</span><br><span class="line">                distTo[nextNodeID] = costToNextNode;</span><br><span class="line">                nodeNumTo[nextNodeID] = nextNodeNumFromSrc;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 剪枝，如果中转次数更多，花费还更大，那必然不会是最短路径</span></span><br><span class="line">            <span class="keyword">if</span> (costToNextNode &gt; distTo[nextNodeID]</span><br><span class="line">                &amp;&amp; nextNodeNumFromSrc &gt; nodeNumTo[nextNodeID]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(nextNodeID, costToNextNode, nextNodeNumFromSrc));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -1255,542 +1390,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/12/DDIA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/12/DDIA/" class="post-title-link" itemprop="url">DDIA学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-12 15:41:23" itemprop="dateCreated datePublished" datetime="2022-05-12T15:41:23+08:00">2022-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-13 17:16:31" itemprop="dateModified" datetime="2022-05-13T17:16:31+08:00">2022-05-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数据系统的基石"><a href="#数据系统的基石" class="headerlink" title="数据系统的基石"></a>数据系统的基石</h1><h2 id="可靠性、可伸缩性、可维护性"><a href="#可靠性、可伸缩性、可维护性" class="headerlink" title="可靠性、可伸缩性、可维护性"></a>可靠性、可伸缩性、可维护性</h2><h3 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h3><ul>
-<li><p>系统在 <strong>困境</strong>（adversity，比如硬件故障、软件故障、人为错误）中仍可正常工作（正确完成功能，并能达到期望的性能水准）</p>
-</li>
-<li><p>造成错误的原因叫做 <strong>故障（fault）</strong>，能预料并应对故障的系统特性可称为 <strong>容错（fault-tolerant）</strong> 或 <strong>韧性（resilient）</strong></p>
-</li>
-<li><p>注意 <strong>故障（fault）</strong> 不同于 <strong>失效（failure）</strong>。<strong>故障</strong> 通常定义为系统的一部分状态偏离其标准，而 <strong>失效</strong> 则是系统作为一个整体停止向用户提供服务。故障的概率不可能降到零，因此最好设计容错机制以防因 <strong>故障</strong> 而导致 <strong>失效</strong></p>
-</li>
-<li><p><strong>硬件故障（hardware faults）</strong>:</p>
-<ol>
-<li><p>硬盘崩溃、内存出错、机房断电、有人拔错网线……</p>
-</li>
-<li><p>硬盘的 <strong>平均无故障时间（MTTF, mean time to failure）</strong> 约为 10 到 50 年</p>
-</li>
-<li><p>对策：</p>
-<ul>
-<li>增加单个硬件的冗余度</li>
-<li>云平台的设计优先考虑 <strong>灵活性（flexibility）</strong> 和 <strong>弹性（elasticity）</strong>，而不是单机可靠性</li>
-<li>在硬件冗余的基础上进一步引入软件容错机制</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><strong>软件错误 系统性错误（systematic error）</strong></p>
-</li>
-</ul>
-<ol>
-<li><p>例子：</p>
-<ul>
-<li>接受特定的错误输入，便导致所有应用服务器实例崩溃的 BUG。例如 2012 年 6 月 30 日的闰秒，由于 Linux 内核中的一个错误，许多应用同时挂掉了。</li>
-<li>失控进程会用尽一些共享资源，包括 CPU 时间、内存、磁盘空间或网络带宽。</li>
-<li>系统依赖的服务变慢，没有响应，或者开始返回错误的响应。</li>
-</ul>
-</li>
-<li><p>导致这类软件故障的 BUG 通常会潜伏很长时间，直到被异常情况触发为止。这种情况意味着软件对其环境做出了某种假设 —— 虽然这种假设通常来说是正确的，但由于某种原因最后不再成立了</p>
-</li>
-<li><p>对策：</p>
-<ul>
-<li><p>仔细考虑系统中的假设和交互</p>
-</li>
-<li><p>彻底的测试</p>
-</li>
-<li><p>进程隔离；允许进程崩溃并重启</p>
-</li>
-<li><p>测量、监控并分析生产环境中的系统行为。如果系统能够提供一些保证（例如在一个消息队列中，进入与发出的消息数量相等），那么系统就可以在运行时不断自检，并在出现 <strong>差异（discrepancy）</strong> 时报警</p>
-</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p><strong>人为错误</strong></p>
-<ol>
-<li><p>设计并构建了软件系统的工程师是人类，维持系统运行的运维也是人类。即使他们怀有最大的善意，人类也是不可靠的。</p>
-</li>
-<li><p>对策：</p>
-<ul>
-<li>以最小化犯错机会的方式设计系统。例如，精心设计的抽象、API 和管理后台使做对事情更容易，搞砸事情更困难。但如果接口限制太多，人们就会忽略它们的好处而想办法绕开。很难正确把握这种微妙的平衡。</li>
-<li>将人们最容易犯错的地方与可能导致失效的地方 <strong>解耦（decouple）</strong>。特别是提供一个功能齐全的非生产环境 <strong>沙箱（sandbox）</strong>，使人们可以在不影响真实用户的情况下，使用真实数据安全地探索和实验。</li>
-<li>在各个层次进行彻底的测试，从单元测试、全系统集成测试到手动测试。自动化测试易于理解，已经被广泛使用，特别适合用来覆盖正常情况中少见的 <strong>边缘场景（corner case）</strong>。</li>
-<li>允许从人为错误中简单快速地恢复，以最大限度地减少失效情况带来的影响。 例如，快速回滚配置变更，分批发布新代码（以便任何意外错误只影响一小部分用户），并提供数据重算工具（以备旧的计算出错）。</li>
-<li>配置详细和明确的监控，比如性能指标和错误率。 在其他工程学科中这指的是 <strong>遥测（telemetry）</strong>（一旦火箭离开了地面，遥测技术对于跟踪发生的事情和理解失败是至关重要的）。监控可以向我们发出预警信号，并允许我们检查是否有任何地方违反了假设和约束。当出现问题时，指标数据对于问题诊断是非常宝贵的。</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><strong>可靠性有多重要</strong></p>
-<ol>
-<li><p>即使在 “非关键” 应用中，我们也对用户负有责任。</p>
-</li>
-<li><p>我们偷工减料时，应该清楚意识到自己在做什么。</p>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h3><ul>
-<li><p>有合理的办法应对系统的增长（数据量、流量、复杂性）</p>
-</li>
-<li><p>系统今天能可靠运行，并不意味未来也能可靠运行。服务 <strong>降级（degradation）</strong> 的一个常见原因是负载增加，例如：系统负载已经从一万个并发用户增长到十万个并发用户，或者从一百万增长到一千万。也许现在处理的数据量级要比过去大得多。</p>
-</li>
-<li><p><strong>描述负载</strong></p>
-<ol>
-<li><p>负载可以用一些称为 <strong>负载参数（load parameters）</strong> 的数字来描述。参数的最佳选择取决于系统架构，它可能是每秒向 Web 服务器发出的请求、数据库中的读写比率、聊天室中同时活跃的用户数量、缓存命中率或其他东西。除此之外，也许平均情况对你很重要，也许你的瓶颈是少数极端场景。</p>
-</li>
-<li><p>例子：twitter业务:</p>
-<ul>
-<li><p>发布推文</p>
-<p>用户可以向其粉丝发布新消息（平均 4.6k 请求 &#x2F; 秒，峰值超过 12k 请求 &#x2F; 秒）</p>
-</li>
-<li><p>主页时间线</p>
-<p>用户可以查阅他们关注的人发布的推文（300k 请求 &#x2F; 秒）</p>
-</li>
-<li><p>方法一：全局推文集合，关系型数据库</p>
-<p>发布推文时，只需将新推文插入全局推文集合即可。当一个用户请求自己的主页时间线时，首先查找他关注的所有人，查询这些被关注用户发布的推文并按时间顺序合并。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tweets.<span class="operator">*</span>, users.<span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> tweets</span><br><span class="line">  <span class="keyword">JOIN</span> users   <span class="keyword">ON</span> tweets.sender_id <span class="operator">=</span> users.id</span><br><span class="line">  <span class="keyword">JOIN</span> follows <span class="keyword">ON</span> follows.followee_id <span class="operator">=</span> users.id</span><br><span class="line">  <span class="keyword">WHERE</span> follows.follower_id <span class="operator">=</span> <span class="built_in">current_user</span></span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>方法二：为每个用户的主页时间线维护一个缓存。</p>
-<p>当一个用户发布推文时，查找所有关注该用户的人，并将新的推文插入到每个主页时间线缓存中。 因此读取主页时间线的请求开销很小，因为结果已经提前计算好了。</p>
-</li>
-<li><p>推特的第一个版本使用了方法 1，但系统很难跟上主页时间线查询的负载。所以公司转向了方法 2，方法 2 的效果更好，因为发推频率比查询主页时间线的频率几乎低了两个数量级，所以在这种情况下，最好在写入时做更多的工作，而在读取时做更少的工作。</p>
-</li>
-<li><p>然而方法 2 的缺点是，发推现在需要大量的额外工作。平均来说，一条推文会发往约 75 个关注者，所以每秒 4.6k 的发推写入，变成了对主页时间线缓存每秒 345k 的写入。但这个平均值隐藏了用户粉丝数差异巨大这一现实，一些用户有超过 3000 万的粉丝，这意味着一条推文就可能会导致主页时间线缓存的 3000 万次写入！及时完成这种操作是一个巨大的挑战 —— 推特尝试在 5 秒内向粉丝发送推文。</p>
-</li>
-<li><p>在推特的例子中，每个用户粉丝数的分布（可能按这些用户的发推频率来加权）是探讨可伸缩性的一个关键负载参数，因为它决定了扇出负载。你的应用程序可能具有非常不同的特征，但可以采用相似的原则来考虑它的负载。</p>
-</li>
-<li><p>推特轶事的最终转折：现在已经稳健地实现了方法 2，推特逐步转向了两种方法的混合。大多数用户发的推文会被扇出写入其粉丝主页时间线缓存中。但是少数拥有海量粉丝的用户（即名流）会被排除在外。当用户读取主页时间线时，分别地获取出该用户所关注的每位名流的推文，再与用户的主页时间线缓存合并，如方法 1 所示。这种混合方法能始终如一地提供良好性能。</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><strong>描述性能</strong></p>
-<ol>
-<li><p>一旦系统的负载被描述好，就可以研究当负载增加会发生什么。我们可以从两种角度来看：</p>
-<ul>
-<li>增加负载参数并保持系统资源（CPU、内存、网络带宽等）不变时，系统性能将受到什么影响？</li>
-<li>增加负载参数并希望保持性能不变时，需要增加多少系统资源？</li>
-</ul>
-</li>
-<li><p>对于 Hadoop 这样的批处理系统，通常关心的是 <strong>吞吐量（throughput）</strong>，即每秒可以处理的记录数量，或者在特定规模数据集上运行作业的总时间 </p>
-</li>
-<li><p>对于在线系统，通常更重要的是服务的 <strong>响应时间（response time）</strong>，即客户端发送请求到接收响应之间的时间</p>
-<ul>
-<li><p><strong>延迟（latency）</strong> 和 <strong>响应时间（response time）</strong> 经常用作同义词，但实际上它们并不一样。</p>
-</li>
-<li><p>响应时间是客户所看到的，除了实际处理请求的时间（ <strong>服务时间（service time）</strong> ）之外，还包括网络延迟和排队延迟。</p>
-</li>
-<li><p>延迟是某个请求等待处理的 <strong>持续时长</strong>，在此期间它处于 <strong>休眠（latent）</strong> 状态，并等待服务</p>
-</li>
-<li><p>即使不断重复发送同样的请求，每次得到的响应时间也都会略有不同。现实世界的系统会处理各式各样的请求，响应时间可能会有很大差异。因此我们需要将响应时间视为一个可以测量的数值 <strong>分布（distribution）</strong>，而不是单个数值。</p>
-</li>
-<li><p>响应时间的高百分位点（也称为 <strong>尾部延迟</strong>，即 <strong>tail latencies</strong>）非常重要，因为它们直接影响用户的服务体验。例如亚马逊在描述内部服务的响应时间要求时是以 <strong>99.9 百分位点</strong>为准，即使它只影响一千个请求中的一个。这是因为<strong>请求响应最慢的客户往往也是数据最多的客户</strong>，也可以说是最有价值的客户 ——<strong>因为他们掏钱了</strong>。保证网站响应迅速对于保持客户的满意度非常重要，亚马逊观察到：响应时间增加 100 毫秒，销售量就减少 1%；而另一些报告说：慢 1 秒钟会让客户满意度指标减少 16%。</p>
-<p>另一方面，优化第 99.99 百分位点（一万个请求中最慢的一个）被认为太昂贵了，不能为亚马逊的目标带来足够好处。减小高百分位点处的响应时间相当困难，因为它很容易受到随机事件的影响，这超出了控制范围，而且效益也很小。</p>
-</li>
-<li><p>百分位点通常用于 <strong>服务级别目标（SLO, service level objectives）</strong> 和 <strong>服务级别协议（SLA, service level agreements）</strong>，即定义服务预期性能和可用性的合同。 SLA 可能会声明，如果服务响应时间的中位数小于 200 毫秒，且 99.9 百分位点低于 1 秒，则认为服务工作正常（如果响应时间更长，就认为服务不达标）。这些指标为客户设定了期望值，并允许客户在 SLA 未达标的情况下要求退款。</p>
-</li>
-<li><p><strong>排队延迟（queueing delay）</strong> 通常占了高百分位点处响应时间的很大一部分。由于服务器只能并行处理少量的事务（如受其 CPU 核数的限制），所以只要有少量缓慢的请求就能阻碍后续请求的处理，这种效应有时被称为 <strong>头部阻塞（head-of-line blocking）</strong> 。即使后续请求在服务器上处理的非常迅速，由于需要等待先前请求完成，客户端最终看到的是缓慢的总体响应时间。因为存在这种效应，测量客户端的响应时间非常重要。</p>
-</li>
-<li><p>为测试系统的可伸缩性而人为产生负载时，产生负载的客户端要独立于响应时间不断发送请求。如果客户端在发送下一个请求之前等待先前的请求完成，这种行为会产生人为排队的效果，使得测试时的队列比现实情况更短，使测量结果产生偏差。</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><strong>应对负载的方法</strong></p>
-<ol>
-<li><p><strong>纵向伸缩</strong>（scaling up，也称为垂直伸缩，即 vertical scaling，转向更强大的机器）</p>
-</li>
-<li><p><strong>横向伸缩</strong>（scaling out，也称为水平伸缩，即 horizontal scaling，将负载分布到多台小机器上）</p>
-</li>
-<li><p>跨多台机器部署 <strong>无状态服务（stateless services）</strong> 非常简单，但将带状态的数据系统从单节点变为分布式配置则可能引入许多额外复杂度。出于这个原因，常识告诉我们应该将数据库放在单个节点上（纵向伸缩），直到伸缩成本或可用性需求迫使其改为分布式。</p>
-</li>
-<li><p>随着分布式系统的工具和抽象越来越好，至少对于某些类型的应用而言，这种常识可能会改变。可以预见分布式数据系统将成为未来的默认设置，即使对不处理大量数据或流量的场景也如此。本书的其余部分将介绍多种分布式数据系统，不仅讨论它们在可伸缩性方面的表现，还包括易用性和可维护性。</p>
-</li>
-<li><p>大规模的系统架构通常是应用特定的 —— 没有一招鲜吃遍天的通用可伸缩架构（不正式的叫法：<strong>万金油（magic scaling sauce）</strong> ）。应用的问题可能是读取量、写入量、要存储的数据量、数据的复杂度、响应时间要求、访问模式或者所有问题的大杂烩。</p>
-<p>举个例子，用于处理每秒十万个请求（每个大小为 1 kB）的系统与用于处理每分钟 3 个请求（每个大小为 2GB）的系统看上去会非常不一样，尽管两个系统有同样的数据吞吐量。</p>
-</li>
-<li><p>一个良好适配应用的可伸缩架构，是围绕着 <strong>假设（assumption）</strong> 建立的：哪些操作是常见的？哪些操作是罕见的？这就是所谓负载参数。如果假设最终是错误的，那么为伸缩所做的工程投入就白费了，最糟糕的是适得其反。在早期创业公司或非正式产品中，通常支持产品快速迭代的能力，要比可伸缩至未来的假想负载要重要的多。</p>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="Maintainability"><a href="#Maintainability" class="headerlink" title="Maintainability"></a>Maintainability</h3><ul>
-<li><p>许多不同的人（工程师、运维）在不同的生命周期，都能高效地在系统上工作（使系统保持现有行为，并适应新的应用场景）</p>
-</li>
-<li><p>可操作性（Operability）</p>
-<p>便于运维团队保持系统平稳运行</p>
-</li>
-<li><p>简单性（Simplicity）</p>
-<p>从系统中消除尽可能多的 <strong>复杂度（complexity）</strong>，使新工程师也能轻松理解系统（注意这和用户接口的简单性不一样）</p>
-<ol>
-<li><p>简化系统并不一定意味着减少功能；它也可以意味着消除 <strong>额外的（accidental）</strong> 的复杂度。 Moseley 和 Marks把 <strong>额外复杂度</strong> 定义为：由具体实现中涌现，而非（从用户视角看，系统所解决的）问题本身固有的复杂度。</p>
-</li>
-<li><p>用于消除 <strong>额外复杂度</strong> 的最好工具之一是 <strong>抽象（abstraction）</strong>。一个好的抽象可以将大量实现细节隐藏在一个干净，简单易懂的外观下面。一个好的抽象也可以广泛用于各类不同应用。比起重复造很多轮子，重用抽象不仅更有效率，而且有助于开发高质量的软件。抽象组件的质量改进将使所有使用它的应用受益。</p>
-<p>例如，高级编程语言是一种抽象，隐藏了机器码、CPU 寄存器和系统调用。 SQL 也是一种抽象，隐藏了复杂的磁盘 &#x2F; 内存数据结构、来自其他客户端的并发请求、崩溃后的不一致性。当然在用高级语言编程时，我们仍然用到了机器码；只不过没有 <strong>直接（directly）</strong> 使用罢了，正是因为编程语言的抽象，我们才不必去考虑这些实现细节。</p>
-</li>
-</ol>
-</li>
-<li><p>可演化性（evolvability）</p>
-<p>使工程师在未来能轻松地对系统进行更改，当需求变化时为新应用场景做适配。也称为 <strong>可伸缩性（extensibility）</strong>、<strong>可修改性（modifiability）</strong> 或 <strong>可塑性（plasticity）</strong></p>
-</li>
-</ul>
-<h2 id="数据模型与查询语言"><a href="#数据模型与查询语言" class="headerlink" title="数据模型与查询语言"></a>数据模型与查询语言</h2><p>多数应用使用层层叠加的数据模型构建。对于每层数据模型的关键问题是：它是如何用低一层数据模型来 <strong>表示</strong> 的？例如：</p>
-<ol>
-<li>作为一名应用开发人员，你观察现实世界（里面有人员、组织、货物、行为、资金流向、传感器等），并采用对象或数据结构，以及操控那些数据结构的 API 来进行建模。那些结构通常是特定于应用程序的。</li>
-<li>当要存储那些数据结构时，你可以利用通用数据模型来表示它们，如 JSON 或 XML 文档、关系数据库中的表或图模型。</li>
-<li>数据库软件的工程师选定如何以内存、磁盘或网络上的字节来表示 JSON &#x2F; XML&#x2F; 关系 &#x2F; 图数据。这类表示形式使数据有可能以各种方式来查询，搜索，操纵和处理。</li>
-<li>在更低的层次上，硬件工程师已经想出了使用电流、光脉冲、磁场或者其他东西来表示字节的方法。</li>
-</ol>
-<p>一个复杂的应用程序可能会有更多的中间层次，比如基于 API 的 API，不过基本思想仍然是一样的：每个层都通过提供一个明确的数据模型来隐藏更低层次中的复杂性。这些抽象允许不同的人群有效地协作（例如数据库厂商的工程师和使用数据库的应用程序开发人员）。</p>
-<h3 id="关系模型与文档模型"><a href="#关系模型与文档模型" class="headerlink" title="关系模型与文档模型"></a>关系模型与文档模型</h3><ul>
-<li><p>NoSQL 被追溯性地重新解释为 <strong>不仅是 SQL（Not Only SQL）</strong>，其背后的驱动因素有：</p>
-<ol>
-<li>需要比关系数据库更好的可伸缩性，包括非常大的数据集或非常高的写入吞吐量</li>
-<li>相比商业数据库产品，免费和开源软件更受偏爱</li>
-<li>关系模型不能很好地支持一些特殊的查询操作</li>
-<li>受挫于关系模型的限制性，渴望一种更具多动态性与表现力的数据模型</li>
-</ol>
-</li>
-<li><p>新的非关系型 “NoSQL” 数据存储在两个主要方向上存在分歧：</p>
-<ol>
-<li><strong>文档数据库</strong> 的应用场景是：数据通常是自我包含的，而且文档之间的关系非常稀少。</li>
-<li><strong>图形数据库</strong> 用于相反的场景：任意事物都可能与任何事物相关联。</li>
-</ol>
-</li>
-<li><p>在可预见的未来，关系数据库似乎可能会继续与各种非关系数据库一起使用 - 这种想法有时也被称为 <strong>混合持久化（polyglot persistence）</strong>。</p>
-</li>
-<li><p>目前大多数应用程序开发都使用面向对象的编程语言来开发，这导致了对 SQL 数据模型的普遍批评：如果数据存储在关系表中，那么需要一个笨拙的转换层，处于应用程序代码中的对象和表，行，列的数据库模型之间。模型之间的不连贯有时被称为 <strong>阻抗不匹配（impedance mismatch）</strong></p>
-<ol>
-<li><p>像 ActiveRecord 和 Hibernate 这样的 <strong>对象关系映射（ORM object-relational mapping）</strong> 框架可以减少这个转换层所需的样板代码的数量，但是它们不能完全隐藏这两个模型之间的差异。</p>
-</li>
-<li><p>对于一个像简历这样自包含文档的数据结构而言，JSON 表示是非常合适的。JSON 比 XML 更简单。面向文档的数据库（如 MongoDB ，RethinkDB ，CouchDB 和 Espresso）支持这种数据模型。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;user_id&quot;</span><span class="punctuation">:</span> <span class="number">251</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;first_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bill&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;last_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Gates&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;summary&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Co-chair of the Bill &amp; Melinda Gates... Active blogger.&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;region_id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;us:91&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;industry_id&quot;</span><span class="punctuation">:</span> <span class="number">131</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;photo_url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/p/7/000/253/05b/308dd6e.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;positions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;job_title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Co-chair&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;organization&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bill &amp; Melinda Gates Foundation&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;job_title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Co-founder, Chairman&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;organization&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Microsoft&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;education&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;school_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Harvard University&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">1973</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">1975</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;school_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Lakeside School, Seattle&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;contact_info&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;blog&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://thegatesnotes.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;twitter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://twitter.com/BillGates&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<h3 id="数据查询语言"><a href="#数据查询语言" class="headerlink" title="数据查询语言"></a>数据查询语言</h3><ul>
-<li><p>SQL 是一种 <strong>声明式</strong> 查询语言</p>
-</li>
-<li><p>许多常用的编程语言是命令式的。</p>
-</li>
-<li><p>web上的声明式查询：用css选择器</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-class">.selected</span> &gt; <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>web上的命令式查询：在 Javascript 中，使用 <strong>文档对象模型（DOM）</strong> API</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> liElements = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;li&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; liElements.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (liElements[i].<span class="property">className</span> === <span class="string">&quot;selected&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> children = liElements[i].<span class="property">childNodes</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; children.<span class="property">length</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">var</span> child = children[j];</span><br><span class="line">            <span class="keyword">if</span> (child.<span class="property">nodeType</span> === <span class="title class_">Node</span>.<span class="property">ELEMENT_NODE</span> &amp;&amp; child.<span class="property">tagName</span> === <span class="string">&quot;P&quot;</span>) &#123;</span><br><span class="line">                child.<span class="title function_">setAttribute</span>(<span class="string">&quot;style&quot;</span>, <span class="string">&quot;background-color: blue&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>MapReduce 是一个由 Google 推广的编程模型，用于在多台机器上批量处理大规模的数据。一些 NoSQL 数据存储（包括 MongoDB 和 CouchDB）支持有限形式的 MapReduce，作为在多个文档中执行只读查询的机制。</p>
-<p>MapReduce 既不是一个声明式的查询语言，也不是一个完全命令式的查询 API，而是处于两者之间：查询的逻辑用代码片段来表示，这些代码片段会被处理框架重复性调用。它基于 <code>map</code>（也称为 <code>collect</code>）和 <code>reduce</code>（也称为 <code>fold</code> 或 <code>inject</code>）函数，两个函数存在于许多函数式编程语言中。</p>
-</li>
-</ul>
-<h3 id="图数据模型"><a href="#图数据模型" class="headerlink" title="图数据模型"></a>图数据模型</h3><p>一个图由两种对象组成：<strong>顶点</strong>（vertices，也称为 <strong>节点</strong>，即 nodes，或 <strong>实体</strong>，即 entities），和 <strong>边</strong>（edges，也称为 <strong>关系</strong>，即 relationships，或 <strong>弧</strong>，即 arcs）。多种数据可以被建模为一个图形。典型的例子包括：</p>
-<ul>
-<li><p>社交图谱</p>
-<p>顶点是人，边指示哪些人彼此认识。</p>
-</li>
-<li><p>网络图谱</p>
-<p>顶点是网页，边缘表示指向其他页面的 HTML 链接。</p>
-</li>
-<li><p>公路或铁路网络</p>
-<p>顶点是交叉路口，边线代表它们之间的道路或铁路线。</p>
-</li>
-</ul>
-<p>可以将那些众所周知的算法运用到这些图上：例如，汽车导航系统搜索道路网络中两点之间的最短路径，PageRank 可以用在网络图上来确定网页的流行程度，从而确定该网页在搜索结果中的排名。</p>
-<p>在刚刚给出的例子中，图中的所有顶点代表了相同类型的事物（人、网页或交叉路口）。不过，图并不局限于这样的同类数据：同样强大地是，图提供了一种一致的方式，用来在单个数据存储中存储完全不同类型的对象。例如，Facebook 维护一个包含许多不同类型的顶点和边的单个图：顶点表示人，地点，事件，签到和用户的评论；边缘表示哪些人是彼此的朋友，哪个签到发生在何处，谁评论了哪条消息，谁参与了哪个事件，等等。</p>
-<h2 id="存储与检索"><a href="#存储与检索" class="headerlink" title="存储与检索"></a>存储与检索</h2><ul>
-<li><p>数据模型和查询语言:</p>
-<p>程序员将数据录入数据库的格式，以及再次要回数据的机制。</p>
-</li>
-<li><p>存储与检索:</p>
-<p>数据库如何存储程序员提供的数据，以及如何在程序员需要时重新找到数据。</p>
-</li>
-</ul>
-<h3 id="驱动数据库的数据结构"><a href="#驱动数据库的数据结构" class="headerlink" title="驱动数据库的数据结构"></a>驱动数据库的数据结构</h3><ul>
-<li><p>bash: set与get</p>
-</li>
-<li><p><strong>日志（log）</strong> 这个词通常指应用日志：即应用程序输出的描述正在发生的事情的文本。本书在更普遍的意义下使用 <strong>日志</strong> 这一词：一个<strong>仅追加（append-only）</strong>的记录序列。它可能压根就不是给人类看的，它可以使用二进制格式，并仅能由其他程序读取。</p>
-</li>
-<li><p>为了高效查找数据库中特定键的值，我们需要一个数据结构：<strong>索引（index）</strong>。索引背后的大致思想是通过保存一些额外的元数据作为路标来帮助你找到想要的数据。如果你想以几种不同的方式搜索同一份数据，那么你也许需要在数据的不同部分上建立多个索引。</p>
-</li>
-<li><p>索引是从主数据衍生的 <strong>额外的（additional）</strong> 结构。许多数据库允许添加与删除索引，这不会影响数据的内容，而只会影响查询的性能。维护额外的结构会产生开销，特别是在写入时。写入性能很难超过简单地追加写入文件，因为追加写入是最简单的写入操作。任何类型的索引通常都会减慢写入速度，因为每次写入数据时都需要更新索引。</p>
-</li>
-</ul>
-<h4 id="散列索引"><a href="#散列索引" class="headerlink" title="散列索引"></a>散列索引</h4><ol>
-<li><p><strong>键值数据（key-value Data）</strong> 的索引。</p>
-</li>
-<li><p>键值存储与在大多数编程语言中可以找到的 <strong>字典（dictionary）</strong> 类型非常相似，通常字典都是用 <strong>散列映射（hash map）</strong> 或 <strong>散列表（hash table）</strong> 实现的。既然我们已经可以用散列映射来表示 <strong>内存中</strong> 的数据结构，为什么不使用它来索引 <strong>硬盘上</strong> 的数据呢？</p>
-</li>
-<li><p>假设我们的数据存储只是一个追加写入的文件，就像前面的例子一样，那么最简单的索引策略就是：保留一个内存中的散列映射，其中每个键都映射到数据文件中的一个字节偏移量，指明了可以找到对应值的位置。当你将新的键值对追加写入文件中时，还要更新散列映射，以反映刚刚写入的数据的偏移量（这同时适用于插入新键与更新现有键）。当你想查找一个值时，使用散列映射来查找数据文件中的偏移量，<strong>寻找（seek）</strong> 该位置并读取该值即可。</p>
-</li>
-<li><p>现实中，Bitcask 实际上就是这么做的（Riak 中默认的存储引擎）</p>
-<p>像 Bitcask 这样的存储引擎非常适合每个键的值经常更新的情况。例如，键可能是某个猫咪视频的网址（URL），而值可能是该视频被播放的次数（每次有人点击播放按钮时递增）。在这种类型的工作负载中，有很多写操作，但是没有太多不同的键 —— 每个键有很多的写操作，但是将所有键保存在内存中是可行的。</p>
-</li>
-<li><p>直到现在，我们只是追加写入一个文件 —— 所以如何避免最终用完硬盘空间？一种好的解决方案是，将日志分为特定大小的段（segment），当日志增长到特定尺寸时关闭当前段文件，并开始写入一个新的段文件。然后，我们就可以对这些段进行 <strong>压缩（compaction）</strong>。这里的压缩意味着在日志中丢弃重复的键，只保留每个键的最近更新。</p>
-</li>
-<li><p>可以同时执行压缩和分段合并</p>
-</li>
-<li><p>每个段现在都有自己的内存散列表，将键映射到文件偏移量。为了找到一个键的值，我们首先检查最近的段的散列映射；如果键不存在，我们就检查第二个最近的段，依此类推。合并过程将保持段的数量足够小，所以查找过程不需要检查太多的散列映射。</p>
-</li>
-<li><p>值得考虑的问题：</p>
-<ul>
-<li><p>文件格式</p>
-<p>CSV 不是日志的最佳格式。使用二进制格式更快，更简单：首先以字节为单位对字符串的长度进行编码，然后是原始的字符串（不需要转义）。</p>
-</li>
-<li><p>删除记录</p>
-<p>如果要删除一个键及其关联的值，则必须在数据文件中追加一个特殊的删除记录（逻辑删除，有时被称为墓碑，即 tombstone）。当日志段被合并时，合并过程会通过这个墓碑知道要将被删除键的所有历史值都丢弃掉。</p>
-</li>
-<li><p>崩溃恢复</p>
-<p>如果数据库重新启动，则内存散列映射将丢失。原则上，你可以通过从头到尾读取整个段文件并记录下来每个键的最近值来恢复每个段的散列映射。但是，如果段文件很大，可能需要很长时间，这会使服务的重启比较痛苦。 Bitcask 通过将每个段的散列映射的快照存储在硬盘上来加速恢复，可以使散列映射更快地加载到内存中。</p>
-</li>
-<li><p>部分写入记录</p>
-<p>数据库随时可能崩溃，包括在将记录追加到日志的过程中。 Bitcask 文件包含校验和，允许检测和忽略日志中的这些损坏部分。</p>
-</li>
-<li><p>并发控制</p>
-<p>由于写操作是以严格的顺序追加到日志中的，所以常见的实现是只有一个写入线程。也因为数据文件段是仅追加的或者说是不可变的，所以它们可以被多个线程同时读取。</p>
-</li>
-</ul>
-</li>
-<li><p>append-only的优势：</p>
-<ul>
-<li>追加和分段合并都是顺序写入操作，通常比随机写入快得多，尤其是在磁性机械硬盘上。在某种程度上，顺序写入在基于闪存的 <strong>固态硬盘（SSD）</strong> 上也是好的选择。</li>
-<li>如果段文件是仅追加的或不可变的，并发和崩溃恢复就简单多了。例如，当一个数据值被更新的时候发生崩溃，你不用担心文件里将会同时包含旧值和新值各自的一部分。</li>
-<li>合并旧段的处理也可以避免数据文件随着时间的推移而碎片化的问题。</li>
-</ul>
-</li>
-<li><p>散列表索引也有其局限性：</p>
-<ul>
-<li>散列表必须能放进内存。如果你有非常多的键，那真是倒霉。原则上可以在硬盘上维护一个散列映射，不幸的是硬盘散列映射很难表现优秀。它需要大量的随机访问 I&#x2F;O，当它用满时想要再增长是很昂贵的，并且散列冲突的处理也需要很烦琐的逻辑。</li>
-<li>范围查询效率不高。例如，你无法轻松扫描 kitty00000 和 kitty99999 之间的所有键 —— 你必须在散列映射中单独查找每个键。</li>
-</ul>
-</li>
-</ol>
-<h4 id="SSTable和LSM树"><a href="#SSTable和LSM树" class="headerlink" title="SSTable和LSM树"></a>SSTable和LSM树</h4><ol>
-<li><p><strong>排序字符串表（Sorted String Table）</strong>，简称 SSTable</p>
-<ul>
-<li>对段文件的格式做一个简单的改变：要求键值对的序列按键排序</li>
-<li>还要求每个键只在每个合并的段文件中出现一次（压缩过程已经保证）</li>
-</ul>
-</li>
-<li><p>现在我们可以让我们的存储引擎以如下方式工作：</p>
-<ul>
-<li>有新写入时，将其添加到内存中的平衡树数据结构（例如红黑树）。这个内存树有时被称为 <strong>内存表（memtable）</strong>。</li>
-<li>当 <strong>内存表</strong> 大于某个阈值（通常为几兆字节）时，将其作为 SSTable 文件写入硬盘。这可以高效地完成，因为树已经维护了按键排序的键值对。新的 SSTable 文件将成为数据库中最新的段。当该 SSTable 被写入硬盘时，新的写入可以在一个新的内存表实例上继续进行。</li>
-<li>收到读取请求时，首先尝试在内存表中找到对应的键，如果没有就在最近的硬盘段中寻找，如果还没有就在下一个较旧的段中继续寻找，以此类推。</li>
-<li>时不时地，在后台运行一个合并和压缩过程，以合并段文件并将已覆盖或已删除的值丢弃掉。</li>
-</ul>
-</li>
-<li><p>用SSTables制作LSM树（日志结构合并树）</p>
-<p>LSM 树的基本思想 —— 保存一系列在后台合并的 SSTables —— 简单而有效。即使数据集比可用内存大得多，它仍能继续正常工作。由于数据按排序顺序存储，你可以高效地执行范围查询（扫描所有从某个最小值到某个最大值之间的所有键），并且因为硬盘写入是连续的，所以 LSM 树可以支持非常高的写入吞吐量。</p>
-</li>
-</ol>
-<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><ol>
-<li><p>像 SSTables 一样，B 树保持按键排序的键值对，这允许高效的键值查找和范围查询。但这也就是所有的相似之处了：B 树有着非常不同的设计理念。</p>
-</li>
-<li><p>日志结构索引将数据库分解为可变大小的段，通常是几兆字节或更大的大小，并且总是按顺序写入段。相比之下，B 树将数据库分解成固定大小的块（block）或页面（page），传统上大小为 4KB（有时会更大），并且一次只能读取或写入一个页面。这种设计更接近于底层硬件，因为硬盘空间也是按固定大小的块来组织的。</p>
-</li>
-<li><p>每个页面都可以使用地址或位置来标识，这允许一个页面引用另一个页面 —— 类似于指针，但在硬盘而不是在内存中。我们可以使用这些页面引用来构建一个<strong>页面树</strong></p>
-<p>一个页面会被指定为 B 树的根；在索引中查找一个键时，就从这里开始。该页面包含几个键和对子页面的引用。每个子页面负责一段连续范围的键，引用之间的键，指明了引用子页面的键范围。</p>
-</li>
-<li><p>在 B 树的一个页面中对子页面的引用的数量称为分支因子。在实践中，分支因子取决于存储页面引用和范围边界所需的空间量，但通常是几百个。</p>
-</li>
-<li><p>如果要更新 B 树中现有键的值，需要搜索包含该键的叶子页面，更改该页面中的值，并将该页面写回到硬盘（对该页面的任何引用都将保持有效）。如果你想添加一个新的键，你需要找到其范围能包含新键的页面，并将其添加到该页面。如果页面中没有足够的可用空间容纳新键，则将其分成两个半满页面，并更新父页面以反映新的键范围分区</p>
-</li>
-<li><p>这个算法可以确保树保持平衡：具有 n 个键的 B 树总是具有 O (log n)的深度。大多数数据库可以放入一个三到四层的 B 树，所以你不需要追踪多个页面引用来找到你正在查找的页面（分支因子为 500 的 4KB 页面的四层树可以存储多达 256TB 的数据）。</p>
-</li>
-<li><p>让B树更可靠:</p>
-<ul>
-<li>B 树的基本底层写操作是用新数据覆写硬盘上的页面，并假定覆写不改变页面的位置：即，当页面被覆写时，对该页面的所有引用保持完整。这与日志结构索引（如 LSM 树）形成鲜明对比，后者只追加到文件（并最终删除过时的文件），但从不修改文件中已有的内容。</li>
-<li>你可以把覆写硬盘上的页面对应为实际的硬件操作。在磁性硬盘驱动器上，这意味着将磁头移动到正确的位置，等待旋转盘上的正确位置出现，然后用新的数据覆写适当的扇区。在固态硬盘上，由于 SSD 必须一次擦除和重写相当大的存储芯片块，所以会发生更复杂的事情</li>
-<li>注意，一些操作需要覆写几个不同的页面。例如，如果因为插入导致页面过满而拆分页面，则需要写入新拆分的两个页面，并覆写其父页面以更新对两个子页面的引用。这是一个危险的操作，因为如果数据库在仅有部分页面被写入时崩溃，那么最终将导致一个损坏的索引（例如，可能有一个孤儿页面不是任何父项的子项） 。</li>
-<li>为了使数据库能处理异常崩溃的场景，B 树实现通常会带有一个额外的硬盘数据结构：<strong>预写式日志</strong>（WAL，即 write-ahead log，也称为 <strong>重做日志</strong>，即 redo log）。这是一个仅追加的文件，每个 B 树的修改在其能被应用到树本身的页面之前都必须先写入到该文件。当数据库在崩溃后恢复时，这个日志将被用来使 B 树恢复到一致的状态</li>
-<li>另外还有一个更新页面的复杂情况是，如果多个线程要同时访问 B 树，则需要仔细的并发控制 —— 否则线程可能会看到树处于不一致的状态。这通常是通过使用 <strong>锁存器</strong>（latches，轻量级锁）保护树的数据结构来完成。日志结构化的方法在这方面更简单，因为它们在后台进行所有的合并，而不会干扰新接收到的查询，并且能够时不时地将旧的段原子交换为新的段。</li>
-</ul>
-</li>
-<li><p>B树的优化：</p>
-<ul>
-<li><p>一些数据库（如 LMDB）使用写时复制方案，而不是覆盖页面并维护 WAL 以支持崩溃恢复。修改的页面被写入到不同的位置，并且还在树中创建了父页面的新版本，以指向新的位置。这种方法对于并发控制也很有用</p>
-</li>
-<li><p>B+树</p>
-<p>我们可以通过不存储整个键，而是缩短其大小，来节省页面空间。特别是在树内部的页面上，键只需要提供足够的信息来充当键范围之间的边界。在页面中包含更多的键允许树具有更高的分支因子，因此也就允许更少的层级 </p>
-</li>
-<li><p>额外的指针已被添加到树中。例如，每个叶子页面可以引用其左边和右边的兄弟页面，使得不用跳回父页面就能按顺序对键进行扫描。</p>
-</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p><strong>比较LSM树和B树</strong></p>
-<ol>
-<li><p>根据经验，通常 LSM 树的写入速度更快，而 B 树的读取速度更快。 LSM 树上的读取通常比较慢，因为它们必须检查几种不同的数据结构和不同压缩（Compaction）层级的 SSTables。</p>
-</li>
-<li><p>LSM树的优点：</p>
-<ul>
-<li><p>B 树索引中的每块数据都必须至少写入两次：一次写入预先写入日志（WAL），一次写入树页面本身（如果有分页还需要再写入一次）。即使在该页面中只有几个字节发生了变化，也需要接受写入整个页面的开销。有些存储引擎甚至会覆写同一个页面两次，以免在电源故障的情况下导致页面部分更新</p>
-</li>
-<li><p>由于反复压缩和合并 SSTables，日志结构索引也会多次重写数据。这种影响 —— 在数据库的生命周期中每次写入数据库导致对硬盘的多次写入 —— 被称为 <strong>写放大（write amplification）</strong>。需要特别注意的是固态硬盘，固态硬盘的闪存寿命在覆写有限次数后就会耗尽。</p>
-</li>
-<li><p>LSM 树通常能够比 B 树支持更高的写入吞吐量，部分原因是它们有时具有较低的写放大（尽管这取决于存储引擎的配置和工作负载），部分是因为它们顺序地写入紧凑的 SSTable 文件而不是必须覆写树中的几个页面。这种差异在磁性硬盘驱动器上尤其重要，其顺序写入比随机写入要快得多。</p>
-</li>
-<li><p>LSM 树可以被压缩得更好，因此通常能比 B 树在硬盘上产生更小的文件。B 树存储引擎会由于碎片化（fragmentation）而留下一些未使用的硬盘空间：当页面被拆分或某行不能放入现有页面时，页面中的某些空间仍未被使用。由于 LSM 树不是面向页面的，并且会通过定期重写 SSTables 以去除碎片，所以它们具有较低的存储开销，特别是当使用分层压缩（leveled compaction）时。</p>
-</li>
-<li><p>在许多固态硬盘上，固件内部使用了日志结构化算法，以将随机写入转变为顺序写入底层存储芯片，因此存储引擎写入模式的影响不太明显。但是，<strong>较低的写入放大率</strong>和<strong>减少的碎片</strong>仍然对固态硬盘更有利：更紧凑地表示数据允许在可用的 I&#x2F;O 带宽内处理更多的读取和写入请求。</p>
-</li>
-</ul>
-</li>
-<li><p>LSM树的缺点:</p>
-<ul>
-<li><p>日志结构存储的缺点是压缩过程有时会干扰正在进行的读写操作。尽管存储引擎尝试增量地执行压缩以尽量不影响并发访问，但是硬盘资源有限，所以很容易发生某个请求需要等待硬盘先完成昂贵的压缩操作。对吞吐量和平均响应时间的影响通常很小，但是日志结构化存储引擎在更高百分位的响应时间有时会相当长，而 B 树的行为则相对更具有可预测性。</p>
-</li>
-<li><p>压缩的另一个问题出现在高写入吞吐量时：硬盘的有限写入带宽需要在初始写入（记录日志和刷新内存表到硬盘）和在后台运行的压缩线程之间共享。写入空数据库时，可以使用全硬盘带宽进行初始写入，但数据库越大，压缩所需的硬盘带宽就越多。</p>
-</li>
-<li><p>如果写入吞吐量很高，并且压缩没有仔细配置好，有可能导致压缩跟不上写入速率。在这种情况下，硬盘上未合并段的数量不断增加，直到硬盘空间用完，读取速度也会减慢，因为它们需要检查更多的段文件。通常情况下，即使压缩无法跟上，基于 SSTable 的存储引擎也不会限制传入写入的速率，所以你需要进行明确的监控来检测这种情况。</p>
-</li>
-<li><p>B 树的一个优点是每个键只存在于索引中的一个位置，而日志结构化的存储引擎可能在不同的段中有相同键的多个副本。这个方面使得 B 树在想要提供强大的事务语义的数据库中很有吸引力：在许多关系数据库中，事务隔离是通过在键范围上使用锁来实现的，在 B 树索引中，这些锁可以直接附加到树上。</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="事务处理还是分析"><a href="#事务处理还是分析" class="headerlink" title="事务处理还是分析"></a>事务处理还是分析</h3><p><strong>在线事务处理（OLTP, OnLine Transaction Processing）</strong></p>
-<ul>
-<li><p>博客文章的评论，游戏中的动作，地址簿中的联系人，处理商业交易</p>
-</li>
-<li><p>应用程序通常使用索引通过某个键查找少量记录。根据用户的输入插入或更新记录。</p>
-</li>
-</ul>
-<p> <strong>在线分析处理（OLAP, OnLine Analytice Processing）</strong></p>
-<ul>
-<li><p>哪个牌子的婴儿食品最常与 X 品牌的尿布同时购买？一月份每个商店的总收入是多少？</p>
-</li>
-<li><p>通常，分析查询需要扫描大量记录，每个记录只读取几列，并计算汇总统计信息（如计数、总和或平均值），而不是将原始数据返回给用户。</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">事务处理系统 OLTP</th>
-<th align="center">分析系统 OLAP</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">主要读取模式</td>
-<td align="center">查询少量记录，按键读取</td>
-<td align="center">在大批量记录上聚合</td>
-</tr>
-<tr>
-<td align="center">主要写入模式</td>
-<td align="center">随机访问，写入要求低延时</td>
-<td align="center">批量导入（ETL）或者事件流</td>
-</tr>
-<tr>
-<td align="center">主要用户</td>
-<td align="center">终端用户，通过 Web 应用</td>
-<td align="center">内部数据分析师，用于决策支持</td>
-</tr>
-<tr>
-<td align="center">处理的数据</td>
-<td align="center">数据的最新状态（当前时间点）</td>
-<td align="center">随时间推移的历史事件</td>
-</tr>
-<tr>
-<td align="center">数据集尺寸</td>
-<td align="center">GB ~ TB</td>
-<td align="center">TB ~ PB</td>
-</tr>
-</tbody></table>
-<h4 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h4><ol>
-<li><p>在二十世纪八十年代末和九十年代初期，企业有停止使用 OLTP 系统进行分析的趋势，转而在单独的数据库上运行分析。这个单独的数据库被称为 <strong>数据仓库（data warehouse）</strong>。</p>
-</li>
-<li><p>将数据存入仓库的过程称为 “<strong>抽取 - 转换 - 加载（ETL）</strong>”</p>
-<p>extract, transform, load</p>
-</li>
-<li><p>事实表</p>
-</li>
-<li><p>维度表</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1860,7 +1459,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1873,7 +1472,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
