@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="LRU&amp;LFU算法146. LRU Cache每次淘汰那些最久没被使用的数据 LRU 缓存淘汰算法就是一种常用策略。LRU 的全称是 Least Recently Used，也就是说我们认为最近使用过的数据应该是是「有用的」，很久都没用过的数据应该是无用的，内存满了就优先删那些很久没用过的数据。 要让 put 和 get 方法的时间复杂度为 O(1)，我们可以总结出 cache 这个数据结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LRU&amp;LFU">
+<meta property="og:url" content="http://invincible-nerd.github.io/2022/06/14/LRU/index.html">
+<meta property="og:site_name" content="IVN">
+<meta property="og:description" content="LRU&amp;LFU算法146. LRU Cache每次淘汰那些最久没被使用的数据 LRU 缓存淘汰算法就是一种常用策略。LRU 的全称是 Least Recently Used，也就是说我们认为最近使用过的数据应该是是「有用的」，很久都没用过的数据应该是无用的，内存满了就优先删那些很久没用过的数据。 要让 put 和 get 方法的时间复杂度为 O(1)，我们可以总结出 cache 这个数据结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-14T13:07:43.000Z">
+<meta property="article:modified_time" content="2022-06-14T13:10:04.909Z">
+<meta property="article:author" content="invincible-nerd">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://invincible-nerd.github.io/2022/06/14/LRU/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LRU&LFU | IVN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">IVN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/06/14/LRU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LRU&LFU
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-14 21:07:43 / 修改时间：21:10:04" itemprop="dateCreated datePublished" datetime="2022-06-14T21:07:43+08:00">2022-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="LRU-amp-LFU算法"><a href="#LRU-amp-LFU算法" class="headerlink" title="LRU&amp;LFU算法"></a>LRU&amp;LFU算法</h1><h2 id="146-LRU-Cache"><a href="#146-LRU-Cache" class="headerlink" title="146. LRU Cache"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">146. LRU Cache</a></h2><p><strong>每次淘汰那些最久没被使用的数据</strong></p>
+<p>LRU 缓存淘汰算法就是一种常用策略。LRU 的全称是 Least Recently Used，也就是说我们认为最近使用过的数据应该是是「有用的」，很久都没用过的数据应该是无用的，内存满了就优先删那些很久没用过的数据。</p>
+<p>要让 <code>put</code> 和 <code>get</code> 方法的时间复杂度为 O(1)，我们可以总结出 <code>cache</code> 这个数据结构必要的条件：</p>
+<p>1、显然 <code>cache</code> 中的元素必须有时序，以区分最近使用的和久未使用的数据，当容量满了之后要删除最久未使用的那个元素腾位置。</p>
+<p>2、我们要在 <code>cache</code> 中快速找某个 <code>key</code> 是否已存在并得到对应的 <code>val</code>；</p>
+<p>3、每次访问 <code>cache</code> 中的某个 <code>key</code>，需要将这个元素变为最近使用的，也就是说 <code>cache</code> 要支持在任意位置快速插入和删除元素。</p>
+<p>那么，什么数据结构同时符合上述条件呢？哈希表查找快，但是数据无固定顺序；链表有顺序之分，插入删除快，但是查找慢。所以结合一下，形成一种新的数据结构：哈希链表 <code>LinkedHashMap</code>。</p>
+<p>LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体。</p>
+<p>若要自己实现，则需要<code>hashmap</code> 和 双链表</p>
+<p>尾插 + hashmap，保证迭代顺序就是插入顺序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    LinkedHashMap&lt;Integer,Integer&gt; cache;</span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        cache=<span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;();</span><br><span class="line">        cap=capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="type">int</span> val=cache.getOrDefault(key,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val!=-<span class="number">1</span>)&#123;</span><br><span class="line">            makeRecently(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cache.containsKey(key))&#123;</span><br><span class="line">            cache.put(key,value);</span><br><span class="line">            makeRecently(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cache.put(key,value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cache.size()&gt;cap)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> cache.keySet().iterator().next();</span><br><span class="line">            cache.remove(first);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">makeRecently</span><span class="params">(<span class="type">int</span> key)</span>&#123;</span><br><span class="line">        <span class="type">int</span> val=cache.get(key);</span><br><span class="line">        cache.remove(key);</span><br><span class="line">        cache.put(key,val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="460-LFU-Cache"><a href="#460-LFU-Cache" class="headerlink" title="460. LFU Cache"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lfu-cache/">460. LFU Cache</a></h2><p>LRU 算法的核心数据结构是使用哈希链表 <code>LinkedHashMap</code>，首先借助链表的有序性使得链表元素维持插入顺序，同时借助哈希映射的快速访问能力使得我们可以在 O(1) 时间访问链表的任意元素。</p>
+<p>LFU 算法的淘汰策略是 Least Frequently Used，也就是<strong>每次淘汰那些使用次数最少的数据</strong>。</p>
+<p>淘汰访问频次最低的数据，<strong>如果访问频次最低的数据有多条，需要淘汰最旧的数据</strong></p>
+<p><code>LinkedHashSet</code> 顾名思义，是链表和哈希集合的结合体。链表不能快速访问链表节点，但是插入元素具有时序；哈希集合中的元素无序，但是可以对元素进行快速的访问和删除。</p>
+<p>那么，它俩结合起来就兼具了哈希集合和链表的特性，既可以在 O(1) 时间内访问或删除其中的元素，又可以保持插入的时序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// key 到 val 的映射，我们后文称为 KV 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToVal;</span><br><span class="line">    <span class="comment">// key 到 freq 的映射，我们后文称为 KF 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br><span class="line">    <span class="comment">// freq 到 key 列表的映射，我们后文称为 FK 表</span></span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line">    <span class="comment">// 记录最小的频次</span></span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="comment">// 记录 LFU 缓存的最大容量</span></span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyToVal = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyToFreq = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqToKeys = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.cap = capacity;</span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：测试用例有capacity为0的情况，需要考虑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    HashMap&lt;Integer,Integer&gt; keyValue;</span><br><span class="line">    HashMap&lt;Integer,Integer&gt; keyFreq;</span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqKey;</span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyValue=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyFreq=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqKey=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        minFreq=<span class="number">0</span>;</span><br><span class="line">        cap=capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cap==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> keyValue.getOrDefault(key,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val!=-<span class="number">1</span>)&#123;</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cap==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(keyValue.containsKey(key))&#123;</span><br><span class="line">            keyValue.put(key,value);</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//new key</span></span><br><span class="line">            <span class="keyword">if</span>(keyValue.size()&gt;=cap)&#123;</span><br><span class="line">                removeLeastFreq();</span><br><span class="line">            &#125;</span><br><span class="line">            keyValue.put(key,value);</span><br><span class="line">            keyFreq.put(key,<span class="number">1</span>);</span><br><span class="line">            freqKey.putIfAbsent(<span class="number">1</span>,<span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">            LinkedHashSet&lt;Integer&gt; set = freqKey.get(<span class="number">1</span>);</span><br><span class="line">            set.add(key);</span><br><span class="line">            minFreq=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">removeLeastFreq</span><span class="params">()</span>&#123;</span><br><span class="line">        LinkedHashSet&lt;Integer&gt; set = freqKey.get(minFreq);</span><br><span class="line">        <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> set.iterator().next();</span><br><span class="line">        set.remove(first);</span><br><span class="line">        keyValue.remove(first);</span><br><span class="line">        keyFreq.remove(first);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">increaseFreq</span><span class="params">(<span class="type">int</span> key)</span>&#123;</span><br><span class="line">        <span class="type">int</span> freq=keyFreq.get(key);</span><br><span class="line">        keyFreq.put(key,freq+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        freqKey.putIfAbsent(freq+<span class="number">1</span>,<span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        LinkedHashSet&lt;Integer&gt; cur = freqKey.get(freq + <span class="number">1</span>);</span><br><span class="line">        cur.add(key);</span><br><span class="line"></span><br><span class="line">        LinkedHashSet&lt;Integer&gt; pre = freqKey.get(freq);</span><br><span class="line">        pre.remove(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//此时可以确定freq+1非空，因为刚刚更新(key,freq+1)</span></span><br><span class="line">        <span class="keyword">if</span>(pre.isEmpty())&#123;</span><br><span class="line">            freqKey.remove(freq);</span><br><span class="line">            <span class="keyword">if</span>(freq==minFreq)&#123;</span><br><span class="line">                minFreq++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>invincible-nerd
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://invincible-nerd.github.io/2022/06/14/LRU/" title="LRU&amp;LFU">http://invincible-nerd.github.io/2022/06/14/LRU/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/14/String%E5%A5%BD%E9%A2%98/" rel="prev" title="String好题">
+      <i class="fa fa-chevron-left"></i> String好题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/14/electron%E5%AE%9E%E6%88%98/" rel="next" title="electron实战">
+      electron实战 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU-amp-LFU%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">LRU&amp;LFU算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#146-LRU-Cache"><span class="nav-number">1.1.</span> <span class="nav-text">146. LRU Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#460-LFU-Cache"><span class="nav-number">1.2.</span> <span class="nav-text">460. LFU Cache</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">invincible-nerd</p>
+  <div class="site-description" itemprop="description">For explorer everywhere</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022-04 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">invincible-nerd</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
