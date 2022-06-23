@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="DFS选编99. Recover Binary Search Tree法一：O(n) space    显式inorder1234567891011121314151617181920212223242526272829303132333435public class LeetCode99 &amp;#123;    List&lt;TreeNode&gt; nodes;    List&lt;Integ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DFS">
+<meta property="og:url" content="http://invincible-nerd.github.io/2022/06/23/DFS/index.html">
+<meta property="og:site_name" content="IVN">
+<meta property="og:description" content="DFS选编99. Recover Binary Search Tree法一：O(n) space    显式inorder1234567891011121314151617181920212223242526272829303132333435public class LeetCode99 &amp;#123;    List&lt;TreeNode&gt; nodes;    List&lt;Integ">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-23T12:11:40.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:14:16.733Z">
+<meta property="article:author" content="invincible-nerd">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://invincible-nerd.github.io/2022/06/23/DFS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DFS | IVN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">IVN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/06/23/DFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DFS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-23 20:11:40 / 修改时间：20:14:16" itemprop="dateCreated datePublished" datetime="2022-06-23T20:11:40+08:00">2022-06-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="DFS选编"><a href="#DFS选编" class="headerlink" title="DFS选编"></a>DFS选编</h1><h2 id="99-Recover-Binary-Search-Tree"><a href="#99-Recover-Binary-Search-Tree" class="headerlink" title="99. Recover Binary Search Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/recover-binary-search-tree/">99. Recover Binary Search Tree</a></h2><h3 id="法一：O-n-space-显式inorder"><a href="#法一：O-n-space-显式inorder" class="headerlink" title="法一：O(n) space    显式inorder"></a>法一：<code>O(n)</code> space    显式inorder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode99</span> &#123;</span><br><span class="line">    List&lt;TreeNode&gt; nodes;</span><br><span class="line">    List&lt;Integer&gt; vals;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">recoverTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        nodes=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        vals=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="type">int</span> first=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> second=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; vals.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(vals.get(i-<span class="number">1</span>)&gt;vals.get(i))&#123;</span><br><span class="line">                first=i-<span class="number">1</span>;</span><br><span class="line">                <span class="type">int</span> firstVal=vals.get(first);</span><br><span class="line">                <span class="keyword">while</span>(i+<span class="number">1</span>&lt;vals.size() &amp;&amp; vals.get(i+<span class="number">1</span>)&lt;firstVal)&#123;	<span class="comment">//firstVal换成vals.get(i)则报错！</span></span><br><span class="line">                    <span class="comment">//[-33,321,55,71,146,231,-13]</span></span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                second=i;</span><br><span class="line">                nodes.get(first).val=nodes.get(second).val;</span><br><span class="line">                nodes.get(second).val=firstVal;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(root.left);</span><br><span class="line">        nodes.add(root);</span><br><span class="line">        vals.add(root.val);</span><br><span class="line">        dfs(root.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：O-1-space-隐式inorder"><a href="#法二：O-1-space-隐式inorder" class="headerlink" title="法二：O(1) space    隐式inorder"></a>法二：<code>O(1)</code> space    隐式inorder</h3><p>方法一是显式地将中序遍历的值序列保存在一个 <code>nums</code> 数组中，然后再去寻找被错误交换的节点，但我们也可以隐式地在中序遍历的过程就找到被错误交换的节点 <code>x</code> 和 <code>y</code>。</p>
+<p>注意：无需辅助boolean，需要一直比较，确定second的位置！！！！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    TreeNode t1, t2, pre;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">recoverTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        inorder(root);</span><br><span class="line">        <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> t1.val;</span><br><span class="line">        t1.val = t2.val;</span><br><span class="line">        t2.val = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">inorder</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> ;</span><br><span class="line">        inorder(root.left);</span><br><span class="line">        <span class="keyword">if</span> (pre != <span class="literal">null</span> &amp;&amp; pre.val &gt; root.val) &#123;	<span class="comment">//只和前一个节点比较即可</span></span><br><span class="line">            <span class="keyword">if</span> (t1 == <span class="literal">null</span>) t1 = pre;</span><br><span class="line">            t2 = root;</span><br><span class="line">        &#125;</span><br><span class="line">        pre = root;</span><br><span class="line">        inorder(root.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1382-Balance-a-Binary-Search-Tree"><a href="#1382-Balance-a-Binary-Search-Tree" class="headerlink" title="1382. Balance a Binary Search Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/balance-a-binary-search-tree/">1382. Balance a Binary Search Tree</a></h2><ol>
+<li><p>Convert the tree to a sorted array using an in-order traversal.</p>
+</li>
+<li><p>Construct a new balanced tree from the sorted array recursively.</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1382</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">balanceBST</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        Deque&lt;TreeNode&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        stack.push(root);</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            <span class="comment">//out: left root right</span></span><br><span class="line">            <span class="comment">//in:  right root left</span></span><br><span class="line">            TreeNode node=stack.pop();</span><br><span class="line">            <span class="keyword">if</span>(node!=<span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(node.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">                    stack.push(node.right);</span><br><span class="line">                &#125;</span><br><span class="line">                stack.push(node);</span><br><span class="line">                stack.push(<span class="literal">null</span>);</span><br><span class="line">                <span class="keyword">if</span>(node.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">                    stack.push(node.left);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                list.add(stack.pop().val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> construct(list,<span class="number">0</span>,list.size()-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TreeNode <span class="title function_">construct</span><span class="params">(List&lt;Integer&gt; list, <span class="type">int</span> start, <span class="type">int</span> end)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(start&gt;end || start&lt;<span class="number">0</span> || end&gt;=list.size())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(start==end)&#123;</span><br><span class="line">            TreeNode node=<span class="keyword">new</span> <span class="title class_">TreeNode</span>(list.get(start));</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;</span><br><span class="line">        TreeNode node=<span class="keyword">new</span> <span class="title class_">TreeNode</span>(list.get(mid));</span><br><span class="line">        node.left=construct(list,start,mid-<span class="number">1</span>);</span><br><span class="line">        node.right=construct(list,mid+<span class="number">1</span>,end);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="133-Clone-Graph"><a href="#133-Clone-Graph" class="headerlink" title="133. Clone Graph"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/clone-graph/">133. Clone Graph</a></h2><h3 id="用数组去重："><a href="#用数组去重：" class="headerlink" title="用数组去重："></a>用数组去重：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Node[] clones;</span><br><span class="line"><span class="keyword">public</span> Node <span class="title function_">cloneGraph</span><span class="params">(Node node)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    clones=<span class="keyword">new</span> <span class="title class_">Node</span>[<span class="number">101</span>];</span><br><span class="line">    <span class="keyword">return</span> dfs(node);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Node <span class="title function_">dfs</span><span class="params">(Node node)</span>&#123;</span><br><span class="line">    <span class="type">int</span> val=node.val;</span><br><span class="line">    <span class="keyword">if</span>(clones[val]!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> clones[val];</span><br><span class="line">    &#125;</span><br><span class="line">    ArrayList&lt;Node&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Node clone=<span class="keyword">new</span> <span class="title class_">Node</span>();</span><br><span class="line">    clone.val=val;</span><br><span class="line">    clone.neighbors=list;</span><br><span class="line">    clones[val]=clone;</span><br><span class="line">    <span class="keyword">for</span> (Node next : node.neighbors) &#123;</span><br><span class="line">        list.add(dfs(next));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="用哈希表去重："><a href="#用哈希表去重：" class="headerlink" title="用哈希表去重："></a>用哈希表去重：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> HashMap &lt;Node, Node&gt; visited = <span class="keyword">new</span> <span class="title class_">HashMap</span> &lt;&gt; ();</span><br><span class="line">    <span class="keyword">public</span> Node <span class="title function_">cloneGraph</span><span class="params">(Node node)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果该节点已经被访问过了，则直接从哈希表中取出对应的克隆节点返回</span></span><br><span class="line">        <span class="keyword">if</span> (visited.containsKey(node)) &#123;</span><br><span class="line">            <span class="keyword">return</span> visited.get(node);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 克隆节点，注意到为了深拷贝我们不会克隆它的邻居的列表</span></span><br><span class="line">        <span class="type">Node</span> <span class="variable">cloneNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(node.val, <span class="keyword">new</span> <span class="title class_">ArrayList</span>());</span><br><span class="line">        <span class="comment">// 哈希表存储</span></span><br><span class="line">        visited.put(node, cloneNode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历该节点的邻居并更新克隆节点的邻居列表</span></span><br><span class="line">        <span class="keyword">for</span> (Node neighbor: node.neighbors) &#123;</span><br><span class="line">            cloneNode.neighbors.add(cloneGraph(neighbor));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cloneNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="156-Binary-Tree-Upside-Down"><a href="#156-Binary-Tree-Upside-Down" class="headerlink" title="156. Binary Tree Upside Down"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-upside-down/">156. Binary Tree Upside Down</a></h2><p>It is guaranteed that every right node has a sibling (a left node with the same parent) and has no children.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode156</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">upsideDownBinaryTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> reverse(root,root.left,root.right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TreeNode <span class="title function_">reverse</span><span class="params">(TreeNode root, TreeNode left, TreeNode right)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(left==<span class="literal">null</span> &amp;&amp; right==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode newRoot=reverse(left,left.left,left.right);	<span class="comment">//需要记录新树的root，即老树的最左下节点</span></span><br><span class="line">        left.left=right;</span><br><span class="line">        left.right=root;</span><br><span class="line">        root.left=<span class="literal">null</span>;</span><br><span class="line">        root.right=<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(right!=<span class="literal">null</span>)&#123;</span><br><span class="line">            right.left=<span class="literal">null</span>;</span><br><span class="line">            right.right=<span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> newRoot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="250-Count-Univalue-Subtrees"><a href="#250-Count-Univalue-Subtrees" class="headerlink" title="250. Count Univalue Subtrees"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-univalue-subtrees/">250. Count Univalue Subtrees</a></h2><p>同值子树，但不同的同值子树同的那个值<strong>可以不同</strong></p>
+<p>即叶子节点 必定 count as 同值子树</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">【示例一】</span><br><span class="line">      root = [<span class="number">5</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="literal">null</span>,<span class="number">5</span>]是几个同值子树？ </span><br><span class="line">     是<span class="number">4</span>个（三个叶子节点<span class="number">5</span>,  一个<span class="number">5</span>-&gt;<span class="number">5</span>）</span><br><span class="line">【示例二】</span><br><span class="line">      root = [<span class="number">5</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="literal">null</span>,<span class="number">5</span>]是几个同值子树？</span><br><span class="line">     也是<span class="number">4</span>个（两个叶子节点<span class="number">5</span>, 一个叶子节点<span class="number">6</span>， 一个<span class="number">5</span>-&gt;<span class="number">5</span>）</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">is_uni</span><span class="params">(TreeNode node)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//base case - if the node has no children this is a univalue subtree</span></span><br><span class="line">    <span class="keyword">if</span> (node.left == <span class="literal">null</span> &amp;&amp; node.right == <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// found a univalue subtree - increment</span></span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">is_unival</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check if all of the node&#x27;s children are univalue subtrees and if they have the same value</span></span><br><span class="line">    <span class="comment">// also recursively call is_uni for children</span></span><br><span class="line">    <span class="keyword">if</span> (node.left != <span class="literal">null</span>) &#123;</span><br><span class="line">        is_unival = is_uni(node.left) &amp;&amp; is_unival &amp;&amp; node.left.val == node.val;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (node.right != <span class="literal">null</span>) &#123;</span><br><span class="line">        is_unival = is_uni(node.right) &amp;&amp; is_unival &amp;&amp; node.right.val == node.val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return if a univalue tree exists here and increment if it does</span></span><br><span class="line">    <span class="keyword">if</span> (!is_unival) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countUnivalSubtrees</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    is_uni(root);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode250</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> count;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countUnivalSubtrees</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        count=<span class="number">0</span>;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root.left==<span class="literal">null</span> &amp;&amp; root.right==<span class="literal">null</span>)&#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">boolean</span> b=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(root.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">            b= dfs(root.left) &amp;&amp; root.val==root.left.val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">            b= dfs(root.right) &amp;&amp; root.val==root.right.val &amp;&amp; b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!b)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="269-Alien-Dictionary"><a href="#269-Alien-Dictionary" class="headerlink" title="269. Alien Dictionary"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/alien-dictionary/">269. Alien Dictionary</a></h2><p>难点：</p>
+<ol>
+<li>理解题意</li>
+<li>拓扑排序             <strong>将后序遍历的结果进行反转，就是拓扑排序的结果</strong></li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/alien-dictionary/solution/-by-max-lfsznscofe-zf3j/">https://leetcode.cn/problems/alien-dictionary/solution/-by-max-lfsznscofe-zf3j/</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">alienOrder</span><span class="params">(String[] words)</span> &#123;</span><br><span class="line">        Map&lt;Character, List&lt;Character&gt;&gt; graph = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> words.length;</span><br><span class="line">        Set&lt;Character&gt; unknown = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(String word : words)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; word.length(); i++)&#123;</span><br><span class="line">                unknown.add(word.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 1. build graph</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">w1</span> <span class="operator">=</span> words[i], w2 = words[i + <span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">maxLen</span> <span class="operator">=</span> Math.max(w1.length(), w2.length());</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; maxLen; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(j == w2.length()) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;<span class="comment">//不合法</span></span><br><span class="line">                <span class="keyword">if</span>(j == w1.length()) <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">if</span>(w1.charAt(j) != w2.charAt(j))&#123;</span><br><span class="line">                    <span class="type">char</span> <span class="variable">from</span> <span class="operator">=</span> w1.charAt(j), to = w2.charAt(j);</span><br><span class="line">                    <span class="keyword">if</span>(graph.get(from) == <span class="literal">null</span>)&#123;</span><br><span class="line">                        graph.put(from, <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;());</span><br><span class="line">                    &#125;</span><br><span class="line">                    graph.get(from).add(to);</span><br><span class="line">                    <span class="keyword">break</span>;<span class="comment">//找到第一个不同字母，可以判断顺序</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2.topological sort</span></span><br><span class="line">        visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[<span class="number">26</span>];</span><br><span class="line">        onPath = <span class="keyword">new</span> <span class="title class_">boolean</span>[<span class="number">26</span>];</span><br><span class="line">        path = <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> ch : graph.keySet())&#123;</span><br><span class="line">            traverse(graph, ch);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3. get final result</span></span><br><span class="line">        <span class="keyword">if</span>(hasCycle) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;<span class="comment">//存在环则无法排序出合法的字母顺序</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> unk : unknown)&#123;</span><br><span class="line">            <span class="keyword">if</span>(path.indexOf(String.valueOf(unk)) == -<span class="number">1</span>)&#123;</span><br><span class="line">                path.append(unk);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> path.reverse().toString();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span>[] visited;<span class="comment">//记录结点访问</span></span><br><span class="line">    <span class="type">boolean</span>[] onPath;<span class="comment">//记录路线访问</span></span><br><span class="line">    <span class="type">boolean</span> hasCycle;<span class="comment">//存在环标志</span></span><br><span class="line">    StringBuilder path;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(Map&lt;Character, List&lt;Character&gt;&gt; graph, <span class="type">char</span> ch)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(onPath[ch - <span class="string">&#x27;a&#x27;</span>]) hasCycle = <span class="literal">true</span>;<span class="comment">//该路径曾经访问过，存在环</span></span><br><span class="line">        <span class="keyword">if</span>(hasCycle || visited[ch - <span class="string">&#x27;a&#x27;</span>]) <span class="keyword">return</span>; <span class="comment">// 存在环或者已访问过该节点 返回</span></span><br><span class="line">        visited[ch - <span class="string">&#x27;a&#x27;</span>] = <span class="literal">true</span>;</span><br><span class="line">        onPath[ch - <span class="string">&#x27;a&#x27;</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(graph.get(ch) != <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">char</span> next : graph.get(ch))&#123;</span><br><span class="line">                traverse(graph, next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        path.append(ch);</span><br><span class="line">        onPath[ch - <span class="string">&#x27;a&#x27;</span>] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>invincible-nerd
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://invincible-nerd.github.io/2022/06/23/DFS/" title="DFS">http://invincible-nerd.github.io/2022/06/23/DFS/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/14/UnionFind/" rel="prev" title="UnionFind">
+      <i class="fa fa-chevron-left"></i> UnionFind
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/23/BFS/" rel="next" title="BFS">
+      BFS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DFS%E9%80%89%E7%BC%96"><span class="nav-number">1.</span> <span class="nav-text">DFS选编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#99-Recover-Binary-Search-Tree"><span class="nav-number">1.1.</span> <span class="nav-text">99. Recover Binary Search Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%EF%BC%9AO-n-space-%E6%98%BE%E5%BC%8Finorder"><span class="nav-number">1.1.1.</span> <span class="nav-text">法一：O(n) space    显式inorder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9AO-1-space-%E9%9A%90%E5%BC%8Finorder"><span class="nav-number">1.1.2.</span> <span class="nav-text">法二：O(1) space    隐式inorder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1382-Balance-a-Binary-Search-Tree"><span class="nav-number">1.2.</span> <span class="nav-text">1382. Balance a Binary Search Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#133-Clone-Graph"><span class="nav-number">1.3.</span> <span class="nav-text">133. Clone Graph</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">用数组去重：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E5%8E%BB%E9%87%8D%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">用哈希表去重：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#156-Binary-Tree-Upside-Down"><span class="nav-number">1.4.</span> <span class="nav-text">156. Binary Tree Upside Down</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#250-Count-Univalue-Subtrees"><span class="nav-number">1.5.</span> <span class="nav-text">250. Count Univalue Subtrees</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#269-Alien-Dictionary"><span class="nav-number">1.6.</span> <span class="nav-text">269. Alien Dictionary</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">invincible-nerd</p>
+  <div class="site-description" itemprop="description">For explorer everywhere</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022-04 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">invincible-nerd</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
