@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="For explorer everywhere">
+  <meta name="description" content="Shorten URLsystem design，很实用！ 535. Encode and Decode TinyURL如果想要实现相同的URL 加密成同一个 TinyURL，则额外保存一个从URL 到 TinyURL 的映射。 法一：自增1234567891011121314151617public class Codec &amp;#123;    Map&lt;Integer,String&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="my very fisrt hexo article">
-<meta property="og:url" content="http://invincible-nerd.github.io/2022/04/07/new-article/index.html">
+<meta property="og:title" content="tiny_URL">
+<meta property="og:url" content="http://invincible-nerd.github.io/2022/07/29/tiny-URL/index.html">
 <meta property="og:site_name" content="IVN">
-<meta property="og:description" content="For explorer everywhere">
+<meta property="og:description" content="Shorten URLsystem design，很实用！ 535. Encode and Decode TinyURL如果想要实现相同的URL 加密成同一个 TinyURL，则额外保存一个从URL 到 TinyURL 的映射。 法一：自增1234567891011121314151617public class Codec &amp;#123;    Map&lt;Integer,String&gt;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-07T09:13:33.000Z">
-<meta property="article:modified_time" content="2022-04-07T09:15:44.631Z">
+<meta property="article:published_time" content="2022-07-29T08:15:42.000Z">
+<meta property="article:modified_time" content="2022-07-29T08:17:03.155Z">
 <meta property="article:author" content="invincible-nerd">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://invincible-nerd.github.io/2022/04/07/new-article/">
+<link rel="canonical" href="http://invincible-nerd.github.io/2022/07/29/tiny-URL/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>my very fisrt hexo article | IVN</title>
+  <title>tiny_URL | IVN</title>
   
 
 
@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/07/new-article/">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/07/29/tiny-URL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          my very fisrt hexo article
+          tiny_URL
         </h1>
 
         <div class="post-meta">
@@ -189,7 +189,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-04-07 17:13:33 / 修改时间：17:15:44" itemprop="dateCreated datePublished" datetime="2022-04-07T17:13:33+08:00">2022-04-07</time>
+              <time title="创建时间：2022-07-29 16:15:42 / 修改时间：16:17:03" itemprop="dateCreated datePublished" datetime="2022-07-29T16:15:42+08:00">2022-07-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -197,7 +197,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
@@ -212,7 +212,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Shorten-URL"><a href="#Shorten-URL" class="headerlink" title="Shorten URL"></a>Shorten URL</h1><p>system design，很实用！</p>
+<h2 id="535-Encode-and-Decode-TinyURL"><a href="#535-Encode-and-Decode-TinyURL" class="headerlink" title="535. Encode and Decode TinyURL"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/encode-and-decode-tinyurl/">535. Encode and Decode TinyURL</a></h2><p>如果想要实现相同的<code>URL</code> 加密成同一个 <code>TinyURL</code>，则额外保存一个从<code>URL</code> 到 <code>TinyURL</code> 的映射。</p>
+<h3 id="法一：自增"><a href="#法一：自增" class="headerlink" title="法一：自增"></a>法一：自增</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line">    Map&lt;Integer,String&gt; database=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    String prefix=<span class="string">&quot;https://ivn.com/&quot;</span>;</span><br><span class="line">    <span class="comment">// Encodes a URL to a shortened URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String longUrl)</span> &#123;</span><br><span class="line">        database.put(++count,longUrl);</span><br><span class="line">        <span class="keyword">return</span> prefix+count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes a shortened URL to its original URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">decode</span><span class="params">(String shortUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> p=shortUrl.lastIndexOf(<span class="string">&#x27;/&#x27;</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> val=Integer.parseInt(shortUrl.substring(p));</span><br><span class="line">        <span class="keyword">return</span> database.get(val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：哈希生成"><a href="#法二：哈希生成" class="headerlink" title="法二：哈希生成"></a>法二：哈希生成</h3><p>为了防止相同的 longUrl 多次调用，确保 encode 服务的「幂等性」，我们再额外建立哈希表 origin2Tiny 来记录原串和映射标识的对应关系。</p>
+<h3 id="法三：随机"><a href="#法三：随机" class="headerlink" title="法三：随机"></a>法三：随机</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line"></span><br><span class="line">    Random random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    Map&lt;Integer,String&gt; database=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    String prefix=<span class="string">&quot;https://ivn.com/&quot;</span>;</span><br><span class="line">    <span class="comment">// Encodes a URL to a shortened URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String longUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> num= random.nextInt();</span><br><span class="line">        <span class="keyword">while</span>(database.containsKey(num))&#123;</span><br><span class="line">            num= random.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">        database.put(num,longUrl);</span><br><span class="line">        <span class="keyword">return</span> prefix+num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes a shortened URL to its original URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">decode</span><span class="params">(String shortUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> p=shortUrl.lastIndexOf(<span class="string">&#x27;/&#x27;</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> num=Integer.parseInt(shortUrl.substring(p));</span><br><span class="line">        <span class="keyword">return</span> database.get(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -227,7 +235,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://invincible-nerd.github.io/2022/04/07/new-article/" title="my very fisrt hexo article">http://invincible-nerd.github.io/2022/04/07/new-article/</a>
+    <a href="http://invincible-nerd.github.io/2022/07/29/tiny-URL/" title="tiny_URL">http://invincible-nerd.github.io/2022/07/29/tiny-URL/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -244,13 +252,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/06/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2022/07/29/System%20Design/" rel="prev" title="System Design">
+      <i class="fa fa-chevron-left"></i> System Design
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/04/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%BB%9F%E4%B8%80%E9%A3%8E%E6%A0%BC%E8%BF%AD%E4%BB%A3%E6%B3%95/" rel="next" title="二叉树的统一风格迭代法">
-      二叉树的统一风格迭代法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -309,6 +314,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shorten-URL"><span class="nav-number">1.</span> <span class="nav-text">Shorten URL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#535-Encode-and-Decode-TinyURL"><span class="nav-number">1.1.</span> <span class="nav-text">535. Encode and Decode TinyURL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%EF%BC%9A%E8%87%AA%E5%A2%9E"><span class="nav-number">1.1.1.</span> <span class="nav-text">法一：自增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%93%88%E5%B8%8C%E7%94%9F%E6%88%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">法二：哈希生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E4%B8%89%EF%BC%9A%E9%9A%8F%E6%9C%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">法三：随机</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
