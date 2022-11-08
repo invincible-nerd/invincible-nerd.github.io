@@ -162,6 +162,235 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/11/%E6%9D%82%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/11/%E6%9D%82%E9%A2%98/" class="post-title-link" itemprop="url">杂题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-12 11:51:46" itemprop="dateCreated datePublished" datetime="2022-05-12T11:51:46+08:00">2022-05-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-06 19:48:30" itemprop="dateModified" datetime="2022-06-06T19:48:30+08:00">2022-06-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="杂题小记"><a href="#杂题小记" class="headerlink" title="杂题小记"></a>杂题小记</h1><h2 id="剑指-Offer-57-II-和为s的连续正数序列"><a href="#剑指-Offer-57-II-和为s的连续正数序列" class="headerlink" title="剑指 Offer 57 - II. 和为s的连续正数序列"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/">剑指 Offer 57 - II. 和为s的连续正数序列</a></h2><p>题目要求返回一个二维数组，且每行元素个数不定</p>
+<p>无法由List&lt;List<Integer>&gt;转变</p>
+<p>可以由List&lt;int[]&gt;转变：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] findContinuousSequence(<span class="type">int</span> target) &#123;</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=target/<span class="number">2</span>; i++)&#123;</span><br><span class="line">            backtracking(res,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(),target,i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.toArray(<span class="keyword">new</span> <span class="title class_">int</span>[res.size()][]); <span class="comment">//List&lt;int[]&gt; 转变为int[][]</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">backtracking</span><span class="params">(List&lt;<span class="type">int</span>[]&gt; res, List&lt;Integer&gt; list, <span class="type">int</span> target, <span class="type">int</span> start)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(target==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//List&lt;Integer&gt;转变为int[]，无法直接toArray</span></span><br><span class="line">                <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[list.size()];</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">                    arr[i]=list.get(i);</span><br><span class="line">                &#125;</span><br><span class="line">                res.add(arr);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(start);</span><br><span class="line">        backtracking(res,list,target-start,start+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="49-Group-Anagrams"><a href="#49-Group-Anagrams" class="headerlink" title="49. Group Anagrams"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/group-anagrams/">49. Group Anagrams</a></h2><h3 id="法一：排序"><a href="#法一：排序" class="headerlink" title="法一：排序"></a>法一：排序</h3><p>注意注意注意：</p>
+<ul>
+<li>new String（）一般使用字符转码的时候,byte[]数组的时候</li>
+<li>toString（）将对象打印的时候使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode49</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; <span class="title function_">groupAnagrams</span><span class="params">(String[] strs)</span> &#123;</span><br><span class="line">        Map&lt;String,List&lt;String&gt;&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String str : strs) &#123;</span><br><span class="line">            <span class="type">char</span>[] chars = str.toCharArray();</span><br><span class="line">            Arrays.sort(chars);</span><br><span class="line">            <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(chars);	<span class="comment">//这样可以</span></span><br><span class="line">            <span class="keyword">if</span>(!map.containsKey(s))&#123;</span><br><span class="line">                map.put(s,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">            &#125;</span><br><span class="line">            map.get(s).add(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>(map.values());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; <span class="title function_">groupAnagrams</span><span class="params">(String[] strs)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.stream(strs)</span><br><span class="line">            .collect(Collectors.groupingBy(str -&gt; &#123;</span><br><span class="line">                <span class="comment">// 返回 str 排序后的结果。</span></span><br><span class="line">                <span class="comment">// 按排序后的结果来grouping by，算子类似于 sql 里的 group by。</span></span><br><span class="line">                <span class="type">char</span>[] array = str.toCharArray();</span><br><span class="line">                Arrays.sort(array);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(array);</span><br><span class="line">            &#125;)).values());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：计数"><a href="#法二：计数" class="headerlink" title="法二：计数"></a>法二：计数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; <span class="title function_">groupAnagrams</span><span class="params">(String[] strs)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.stream(strs)</span><br><span class="line">            .collect(Collectors.groupingBy(str -&gt; &#123;</span><br><span class="line">                <span class="type">int</span>[] counter = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">                    counter[str.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">                    <span class="comment">// 这里的 if 是可省略的，但是加上 if 以后，生成的 sb 更短，后续 groupingBy 会更快。</span></span><br><span class="line">                    <span class="keyword">if</span> (counter[i] != <span class="number">0</span>) &#123;</span><br><span class="line">                        sb.append((<span class="type">char</span>) (<span class="string">&#x27;a&#x27;</span> + i));</span><br><span class="line">                        sb.append(counter[i]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> sb.toString();</span><br><span class="line">            &#125;)).values());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="71-Simplify-Path"><a href="#71-Simplify-Path" class="headerlink" title="71. Simplify Path"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/simplify-path/">71. Simplify Path</a></h2><p>注意：</p>
+<ul>
+<li><code>/</code>代表当前路径</li>
+<li><code>//</code>代表根路径</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode71</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">simplifyPath</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        String[] split = path.split(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">        LinkedList&lt;String&gt; list=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String s : split) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s.length()==<span class="number">0</span> || s.equals(<span class="string">&quot;.&quot;</span>))&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(s.equals(<span class="string">&quot;..&quot;</span>))&#123;</span><br><span class="line">                <span class="keyword">if</span>(!list.isEmpty())&#123;</span><br><span class="line">                    list.removeLast();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                list.add(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        StringBuilder sb=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="type">int</span> size=list.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            sb.append(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">            sb.append(list.get(i));</span><br><span class="line">        &#125;</span><br><span class="line">        String s=sb.toString();</span><br><span class="line">        <span class="keyword">return</span> s.length()==<span class="number">0</span> ? <span class="string">&quot;/&quot;</span> : s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/11/%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/11/%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">区间问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-11 16:18:48" itemprop="dateCreated datePublished" datetime="2022-05-11T16:18:48+08:00">2022-05-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-12 10:50:07" itemprop="dateModified" datetime="2022-05-12T10:50:07+08:00">2022-05-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="区间问题选编"><a href="#区间问题选编" class="headerlink" title="区间问题选编"></a>区间问题选编</h1><h2 id="maximum-number-of-non-overlapping-intervals"><a href="#maximum-number-of-non-overlapping-intervals" class="headerlink" title="maximum number of non-overlapping intervals:"></a>maximum number of non-overlapping intervals:</h2><ol>
+<li>按interval的end升序排序 </li>
+<li>选中集合中end最小的interval</li>
+<li>删去所有与该interval重叠的interval(s)</li>
+<li>重复2、3, 直到集合为空</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=intervals.length;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">1</span>]-o2[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : intervals) &#123;</span><br><span class="line">            <span class="type">int</span> start=interval[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(start&gt;=end)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                end=interval[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1288-Remove-Covered-Intervals"><a href="#1288-Remove-Covered-Intervals" class="headerlink" title="1288. Remove Covered Intervals"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-covered-intervals/">1288. Remove Covered Intervals</a></h2><p>start升序、end降序</p>
+<p>对于两个起点相同的区间，需要保证长的那个区间在上面（按照终点降序），这样才会被判定为覆盖，否则会被错误地判定为相交，少算一个覆盖区间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1288</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">removeCoveredIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">0</span>]!=o2[<span class="number">0</span>] ? o1[<span class="number">0</span>]-o2[<span class="number">0</span>] : o2[<span class="number">1</span>]-o1[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> start=intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> count=-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> n=intervals.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : intervals) &#123;</span><br><span class="line">            <span class="type">int</span> left=interval[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> right=interval[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(right&lt;=end)&#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left&lt;end)&#123;</span><br><span class="line">                end=right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                start=left;</span><br><span class="line">                end=right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="56-Merge-Intervals"><a href="#56-Merge-Intervals" class="headerlink" title="56. Merge Intervals"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-intervals/">56. Merge Intervals</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode56</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] merge(<span class="type">int</span>[][] intervals) &#123;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">0</span>]!=o2[<span class="number">0</span>] ? o1[<span class="number">0</span>]-o2[<span class="number">0</span>] : o2[<span class="number">1</span>]-o1[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> start=intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; intervals.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> left=intervals[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> right=intervals[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(right&lt;=end)&#123;<span class="comment">//contains</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left&lt;=end)&#123;<span class="comment">//overlap</span></span><br><span class="line">                end=right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;<span class="comment">//non-overlapping</span></span><br><span class="line">                res.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start,end&#125;);</span><br><span class="line">                start=left;</span><br><span class="line">                end=right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start,end&#125;);</span><br><span class="line">        <span class="type">int</span>[][] array=<span class="keyword">new</span> <span class="title class_">int</span>[res.size()][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            array[i][<span class="number">0</span>]=res.get(i)[<span class="number">0</span>];</span><br><span class="line">            array[i][<span class="number">1</span>]=res.get(i)[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="986-Interval-List-Intersections"><a href="#986-Interval-List-Intersections" class="headerlink" title="986. Interval List Intersections"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/interval-list-intersections/">986. Interval List Intersections</a></h2><p>两个区间集合已升序</p>
+<p>找交集：双指针i , j </p>
+<ul>
+<li>a1, a2, b1, b2</li>
+<li>无交集：</li>
+<li>有交集：</li>
+<li>无论有无交集，指针都要后移：</li>
+<li>一旦某一集合遍历完毕，则退出</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode986</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] intervalIntersection(<span class="type">int</span>[][] firstList, <span class="type">int</span>[][] secondList) &#123;</span><br><span class="line">        <span class="type">int</span> n1=firstList.length;</span><br><span class="line">        <span class="type">int</span> n2=secondList.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span>(i&lt;n1 &amp;&amp; j&lt;n2)&#123;</span><br><span class="line">            <span class="type">int</span> a1=firstList[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> a2=firstList[i][<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> b1=secondList[j][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> b2=secondList[j][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(b1&lt;=a2 &amp;&amp; a1&lt;=b2)&#123;</span><br><span class="line">                <span class="type">int</span> c1=Math.max(a1,b1);</span><br><span class="line">                <span class="type">int</span> c2=Math.min(a2,b2);</span><br><span class="line">                list.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;c1,c2&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a2&lt;b2)&#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[][] res=<span class="keyword">new</span> <span class="title class_">int</span>[list.size()][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; res.length; i++) &#123;</span><br><span class="line">            res[i][<span class="number">0</span>]=list.get(i)[<span class="number">0</span>];</span><br><span class="line">            res[i][<span class="number">1</span>]=list.get(i)[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/06/%E5%8F%8C%E6%8C%87%E9%92%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1785,1058 +2014,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/19/%E8%AE%A1%E7%BD%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/19/%E8%AE%A1%E7%BD%91/" class="post-title-link" itemprop="url">计网学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-19 16:48:20" itemprop="dateCreated datePublished" datetime="2022-04-19T16:48:20+08:00">2022-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-28 16:09:46" itemprop="dateModified" datetime="2022-04-28T16:09:46+08:00">2022-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、"><a href="#一、" class="headerlink" title="一、"></a>一、</h1><h2 id="2-网络分类"><a href="#2-网络分类" class="headerlink" title="2. 网络分类"></a>2. 网络分类</h2><p><strong>个域网PAN（ Personal Area Network ）</strong></p>
-<ul>
-<li>能在便携式消费电器与通信设备之间进行短距离通信的网络</li>
-<li>覆盖范围一般在10米半径以内，如蓝牙耳机等</li>
-</ul>
-<p><strong>局域网LAN（Local Area Network）</strong></p>
-<ul>
-<li>局部地区形成的区域网络，如企业网络</li>
-<li>分布地区范围有限，可大可小，大到一栋建筑、小到办公室内的组网</li>
-<li>电脑WLAN接入，打印机共享等等</li>
-</ul>
-<p><strong>城域网MAN（Metropolitan Area Network ）</strong></p>
-<ul>
-<li>范围覆盖一个城市的网络</li>
-</ul>
-<p><strong>广域网WAN（Wide Area Network）</strong></p>
-<ul>
-<li>覆盖很大地理区域，乃至覆盖地区和国家</li>
-</ul>
-<h2 id="3-接入网"><a href="#3-接入网" class="headerlink" title="3. 接入网"></a>3. 接入网</h2><p><strong>接入网的用途</strong></p>
-<ul>
-<li>接入网的用途是将主机连接到边缘路由器上</li>
-<li>边缘路由器是端系统Host去往任何其他远程端系统的路径上的第一台路由器</li>
-</ul>
-<h2 id="4-网络核心两大功能"><a href="#4-网络核心两大功能" class="headerlink" title="4. 网络核心两大功能"></a>4. 网络核心两大功能</h2><ol>
-<li>路由 确定数据分组从源到目标所使用的路径（全局操作）</li>
-<li>转发 路由器或交换机将接收到的数据分组转发出去（即移动到该设备的某个输出接口）（本地操作）</li>
-</ol>
-<h1 id="二、物理层"><a href="#二、物理层" class="headerlink" title="二、物理层"></a>二、物理层</h1><ul>
-<li>物理层考虑的是怎样才能<strong>在连接各种计算机的传输媒体上传输数据比特流</strong>，而不是指具体的传输媒体。</li>
-<li>物理层的作用是要尽可能地<strong>屏蔽掉不同传输媒体和通信手段的差异</strong>。</li>
-<li>用于物理层的协议也常称为<strong>物理层规程</strong> (procedure)。</li>
-</ul>
-<h2 id="1-物理介质"><a href="#1-物理介质" class="headerlink" title="1. 物理介质"></a>1. 物理介质</h2><ol>
-<li><p>光纤 </p>
-<p>高速点对点</p>
-</li>
-<li><p>双绞线 </p>
-<p>电话线为1对双绞线，网线为4对双绞线，广泛用于计算机网络（以太网）双向传输</p>
-</li>
-<li><p>同轴电缆  </p>
-<p>两根同心铜导线，双向传输</p>
-</li>
-<li><p>无线电（陆地无线电、卫星无线电信道) </p>
-<ul>
-<li><p>电磁频谱中各种“波段”携带的信号</p>
-</li>
-<li><p>半双工（发送方到接收方）</p>
-<p>Half Duplex, 一个时间段内只有一个动作发生</p>
-</li>
-<li><p>无线局域网（WiFi）<br>10-100 Mbps；10米</p>
-</li>
-<li><p>广域（如3&#x2F;4&#x2F;5G蜂窝）<br>在~10公里范围内</p>
-</li>
-<li><p>蓝牙：短距离，有限速率</p>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-数据交换方式"><a href="#2-数据交换方式" class="headerlink" title="2. 数据交换方式"></a>2. 数据交换方式</h2><ol>
-<li><p>分组交换</p>
-<p><strong>分组交换采用把一个个小的数据包存储转发传输来实现数据交换。</strong></p>
-<p>不具有实时性</p>
-<p>会丢包</p>
-</li>
-<li><p>电路交换</p>
-<p>建立连接、数据传输、释放连接</p>
-</li>
-</ol>
-<h1 id="三、数据链路层"><a href="#三、数据链路层" class="headerlink" title="三、数据链路层"></a>三、数据链路层</h1><h2 id="1-功能"><a href="#1-功能" class="headerlink" title="1. 功能"></a>1. 功能</h2><p><strong>成帧 （Framing）</strong><br>将比特流划分成“帧”的主要目的是为了检测和纠正物理层在比特传输中可能出现的错误，数据链路层功能需借助“帧”的各个域来实现</p>
-<p><strong>差错控制 （Error Control）</strong><br>处理传输中出现的差错，如位错误、丢失等</p>
-<p><strong>流量控制 （Flow Control）</strong><br>确保发送方的发送速率，不大于接收方的处理速率，避免接收缓冲区溢出</p>
-<h2 id="2-数据链路层提供的服务"><a href="#2-数据链路层提供的服务" class="headerlink" title="2. 数据链路层提供的服务"></a>2. 数据链路层提供的服务</h2><p>1.无确认 无连接 服务（ Unacknowledged connectionless ）</p>
-<ul>
-<li>接收方不对收到的帧进行确认</li>
-<li>适用场景：误码率低的可靠信道；实时通信；</li>
-<li>网络实例：以太网</li>
-</ul>
-<p>2.有确认 无连接 服务（ Acknowledged connectionless ）</p>
-<ul>
-<li>每一帧都得到单独的确认</li>
-<li>适用场景：不可靠的信道（无线信道）</li>
-<li>网络实例：802.11</li>
-</ul>
-<p>3.有确认 有连接 服务（ Acknowledged connection-oriented ）</p>
-<ul>
-<li>适用场景：长延迟的不可靠信道</li>
-</ul>
-<h2 id="3-成帧（Framing）"><a href="#3-成帧（Framing）" class="headerlink" title="3. 成帧（Framing）"></a>3. 成帧（Framing）</h2><p>要解决的关键问题：如何标识一个帧的开始？</p>
-<ul>
-<li><p>接收方必须能从物理层接收的比特流中明确区分出一帧的开始和结束，这个问题被称为帧同步或帧定界</p>
-</li>
-<li><p>关键：选择何种定界符？定界符出现在数据部分如何处理？</p>
-</li>
-<li><p>framing方式包括：</p>
-<ol>
-<li><p>带比特填充的定界符法</p>
-<p>定界符：两个0比特之间，连续6个1比特，即01111110，0x7E</p>
-</li>
-<li><p>物理层编码违例</p>
-<p>核心思想：选择的定界符不会在数据部分出现</p>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="4-媒体接入控制"><a href="#4-媒体接入控制" class="headerlink" title="4. 媒体接入控制"></a>4. 媒体接入控制</h2><p>数据链路层分为两个子层：<br>MAC子层：介质访问 紧挨物理层<br>LLC子层：承上启下（弱层）紧挨网络层</p>
-<p>MAC (Medium Access Control)子层</p>
-<h3 id="4-1-无线局域网WLAN"><a href="#4-1-无线局域网WLAN" class="headerlink" title="4.1 无线局域网WLAN"></a>4.1 无线局域网WLAN</h3><p>无线局域网（Wireless Local Area Network，WLAN)：指以无线信道作为传输介质的计算机局域网</p>
-<h3 id="4-2-虚拟局域网VLAN"><a href="#4-2-虚拟局域网VLAN" class="headerlink" title="4.2 虚拟局域网VLAN"></a>4.2 虚拟局域网VLAN</h3><h4 id="4-2-1-广播域"><a href="#4-2-1-广播域" class="headerlink" title="4.2.1 广播域"></a>4.2.1 广播域</h4><p><strong>广播域（Broadcasting Domain）</strong></p>
-<ul>
-<li>广播域是广播帧能够到达的范围；</li>
-<li>缺省情况下，交换机所有端口同属于一个广播域，无法隔离广播域；</li>
-<li>广播帧在广播域中传播，占用资源，降低性能，且具有安全隐患。</li>
-</ul>
-<h4 id="4-2-2-概况"><a href="#4-2-2-概况" class="headerlink" title="4.2.2 概况"></a>4.2.2 概况</h4><p><strong>VLAN是一个在物理网络上根据用途，工作组、应用等来逻辑划分的局域网络，与用户的物理位置没有关系。</strong></p>
-<p>将一个物理意义上的LAN划分为若干个VLAN，不同VLAN的成员不能直接进行二层通信。</p>
-<p>不同VLAN成员需要通过三层设备，（通过路由器或三层交换机进行VLAN间路由，）实现VLAN间通信。</p>
-<p>VLAN类型：</p>
-<ol>
-<li>基于端口的VLAN</li>
-<li>基于MAC地址的VLAN</li>
-<li>基于协议的VLAN</li>
-<li>基于子网的VLAN</li>
-</ol>
-<h1 id="四、网络层"><a href="#四、网络层" class="headerlink" title="四、网络层"></a>四、网络层</h1><h2 id="1-网络层概述"><a href="#1-网络层概述" class="headerlink" title="1. 网络层概述"></a>1. 网络层概述</h2><p>网络层在数据链路层提供的两个相邻端点之间的数据帧的传送功能上，进一步管理网络中的数据通信，将数据设法从源端经过若干个中间节点传送到目的端，从而向运输层提供最基本的端到端的数据传送服务。</p>
-<h2 id="2-网络层关键功能"><a href="#2-网络层关键功能" class="headerlink" title="2. 网络层关键功能"></a>2. 网络层关键功能</h2><ol>
-<li>路由（控制面）<ul>
-<li>选择数据报从源端到目的端的路径</li>
-<li>核心：路由算法与协议</li>
-</ul>
-</li>
-<li>转发（数据面）<ul>
-<li>将数据报从路由器的输入接口传送到正确的输出接口</li>
-</ul>
-</li>
-</ol>
-<h2 id="3-Internet网际协议"><a href="#3-Internet网际协议" class="headerlink" title="3. Internet网际协议"></a>3. Internet网际协议</h2><h3 id="3-1-IPv4"><a href="#3-1-IPv4" class="headerlink" title="3.1 IPv4"></a>3.1 IPv4</h3><h4 id="3-1-1-概述"><a href="#3-1-1-概述" class="headerlink" title="3.1.1 概述"></a>3.1.1 概述</h4><p>IPv4协议，网际协议版本4，一种无连接的协议，是互联网的核心，也是使用最广泛的网际协议版本，其后继版本为IPv6</p>
-<p>Internet协议执行<strong>两个基本功能</strong></p>
-<ul>
-<li>寻址(addressing)</li>
-<li>分片(fragmentation)</li>
-</ul>
-<p>相关问题与解决思路：</p>
-<ol>
-<li>为解决IPv4数据报长度大于传输链路的MTU的问题，通过<strong>分片机制</strong>解决：<strong>标识、标志、片偏移</strong></li>
-<li>防止循环转发浪费网络资源（路由错误、设备故障…），通过<strong>跳数限制</strong>解决：<strong>生存时间TTL</strong></li>
-<li>IP报头错误导致无效传输，通过<strong>头部机校验</strong>解决：<strong>首部校验和</strong></li>
-</ol>
-<p>注意：</p>
-<ol>
-<li>分组packet是网络层的概念，帧frame是数据链路层的概念</li>
-<li>帧由头标、有效载荷和尾标组成</li>
-</ol>
-<h4 id="3-1-2-IP数据报"><a href="#3-1-2-IP数据报" class="headerlink" title="3.1.2 IP数据报"></a>3.1.2 IP数据报</h4><p>IPv4数据报由首部和数据两部分组成，首部包含：</p>
-<ul>
-<li><strong>版本</strong>： 4bit ，表示采用的IP协议版本</li>
-<li><strong>首部长度</strong>： 4bit，表示整个IP数据报首部的长度</li>
-<li><strong>区分服务</strong>： 8bit ，该字段一般情况下不使用</li>
-<li><strong>总长度</strong>： 16bit ，表示整个IP报文的长度,能表示的最大字节为2^16-1&#x3D;65535字节</li>
-<li><strong>标识</strong>： 16bit ， IP软件通过计数器自动产生，每产生1个数据报计数器加1；在ip分片以后，用来标识同一片分片</li>
-<li><strong>标志</strong>： 3bit，目前只有两位有意义。<br>MF，置1表示后面还有分片，置0表示这是数据报片的最后1个；<br>DF，不能分片标志，置0时表示允许分片</li>
-<li><strong>片偏移</strong>： 13bit，表示IP分片后，相应的IP片在总的IP片的相对位置</li>
-<li><strong>生存时间TTL(Time To Live)</strong> ：8bit,表示数据报在网络中的生命周期，用通过路由器的数量来计量，即跳数（每经过一个路由器会减1）</li>
-<li><strong>协议</strong>：8bit，标识上层协议（TCP&#x2F;UDP&#x2F;ICMP…）</li>
-<li><strong>首部校验和</strong>：16bit ，对数据报首部进行校验，不包括数据部分</li>
-<li><strong>源地址</strong>：32bit，标识IP片的发送源IP地址</li>
-<li><strong>目的地址</strong>：32bit，标识IP片的目的地IP地址</li>
-<li><strong>选项</strong>：可扩充部分，具有可变长度，定义了安全性、严格源路由、松散源路由、记录路由、时间戳等选项</li>
-<li><strong>填充</strong>：用全0的填充字段补齐为4字节的整数倍</li>
-</ul>
-<p>数据报分片的原因是数据报长度大于传输链路的MTU</p>
-<p>MTU（Maximum Transmission Unit）, 最大传输单元</p>
-<ul>
-<li>链路MTU</li>
-<li>路径MTU (Path MTU)</li>
-</ul>
-<h3 id="3-2-IP地址"><a href="#3-2-IP地址" class="headerlink" title="3.2 IP地址"></a>3.2 IP地址</h3><h4 id="3-2-1-概述"><a href="#3-2-1-概述" class="headerlink" title="3.2.1 概述"></a>3.2.1 概述</h4><ul>
-<li><p><strong>IP地址</strong>，网络上的每一台主机（或路由器）的每一个接口都会分配一个全球唯一的32位的标识符</p>
-</li>
-<li><p>将IP地址划分为固定的类，每一类都由两个字段组成</p>
-</li>
-<li><p>网络号相同的这块连续IP地址空间称为地址的<strong>前缀</strong>，或<strong>网络前缀</strong></p>
-</li>
-<li><p>IP地址共分为A、B、C、D、E五类，A类、B类、C类为单播地址</p>
-</li>
-<li><p>IP地址的书写采用点分十进制记法，其中每一段取值范围为0到255</p>
-</li>
-</ul>
-<p>A,B,C类单播地址由net-id和host-id构成</p>
-<h4 id="3-2-2-子网划分"><a href="#3-2-2-子网划分" class="headerlink" title="3.2.2 子网划分"></a>3.2.2 子网划分</h4><ul>
-<li>子网划分(subnetting)，在网络内部将一个网络块进行划分以供多个内部网络使用，对外仍是一个网络</li>
-<li>子网(subnet )，一个网络进行子网划分后得到的一系列结果网络称为子网</li>
-<li>子网掩码(subnet mask )，与 IP 地址一一对应，是32 bit 的二进制数，置1表示网络位，置0表示主机位</li>
-<li>子网划分减少了 IP 地址的浪费、网络的组织更加灵活、便于维护和管理</li>
-</ul>
-<h3 id="3-3-DHCP动态主机配置协议"><a href="#3-3-DHCP动态主机配置协议" class="headerlink" title="3.3 DHCP动态主机配置协议"></a>3.3 DHCP动态主机配置协议</h3><p>DHCP ：<strong>动态主机配置协议</strong></p>
-<ul>
-<li><p>当主机加入IP网络，允许主机从DHCP服务器动态获取IP地址</p>
-</li>
-<li><p>可以有效利用IP地址，方便移动主机的地址获取</p>
-</li>
-</ul>
-<p>工作模式：客户&#x2F;服务器模式（ C&#x2F;S ）<br>基于 UDP 工作，服务器运行在 67 号端口， 客户端运行在 68 号端口</p>
-<p>DHCP服务不只返回客户机所需的IP地址，还包括缺省路由器IP地址，DNS服务器IP地址，网络掩码</p>
-<h3 id="3-4-ARP地址解析协议"><a href="#3-4-ARP地址解析协议" class="headerlink" title="3.4 ARP地址解析协议"></a>3.4 ARP地址解析协议</h3><p>网络设备有数据要发送给另一台网络设备时，必须要知道对方的网络层地址（即IP地址）。</p>
-<p>IP地址由网络层来提供，但是仅有IP地址是不够的，IP数据报文必须封装成帧才能通过数据链路进行发送。</p>
-<p>数据帧必须要包含目的MAC地址，因此发送端还必须获取到目的MAC地址。</p>
-<p>通过目的IP地址而获取的MAC地址的过程是由ARP（Address Resolution Protocol）协议来实现的。</p>
-<p>IP地址放在IP数据报的首部，而硬件地址则放在MAC帧的首部</p>
-<p>IP数据报经过不同链路时，IP数据报中封装的IP地址不发生改变，而MAC帧中的硬件地址发生改变</p>
-<h4 id="3-4-1-路由到另一个局域网"><a href="#3-4-1-路由到另一个局域网" class="headerlink" title="3.4.1 路由到另一个局域网"></a>3.4.1 路由到另一个局域网</h4><p>由主机A经路由器R传输到E的部分过程如下：</p>
-<ol>
-<li>A创建IP数据包（源为A、目的为E）</li>
-<li>在源主机A的路由表中找到路由器R的IP地址223.1.1.4</li>
-<li>A根据R的IP地址223.1.1.4，使用ARP协议获得R的MAC地址</li>
-<li>A创建数据帧（目的地址为R的MAC地址）</li>
-<li>数据帧中封装A到E的IP数据包</li>
-<li>A发送数据帧，R接收数据帧</li>
-</ol>
-<h4 id="3-4-2-工作过程"><a href="#3-4-2-工作过程" class="headerlink" title="3.4.2 工作过程"></a>3.4.2 工作过程</h4><p>ARP协议的工作过程如下：</p>
-<ol>
-<li><p>A已知B的IP地址，需要获得B的MAC地址（物理地址）</p>
-</li>
-<li><p>如果A的ARP表中缓存有B的IP地址与MAC地址的映射关系，则直接从ARP表获取</p>
-</li>
-<li><p>如果A的ARP表中未缓存有B的IP地址与MAC地址的映射关系，则A广播包含B的IP地址的ARP query分组</p>
-<p>注意：在局域网上的所有节点都可以接收到ARP query</p>
-</li>
-<li><p>B接收到ARP query分组后，将自己的MAC地址发送给A</p>
-</li>
-<li><p>A在ARP表中缓存B的IP地址和MAC地址的映射关系</p>
-<p>注意：超时时删除</p>
-</li>
-</ol>
-<h3 id="3-5-网络地址转换（NAT）"><a href="#3-5-网络地址转换（NAT）" class="headerlink" title="3.5 网络地址转换（NAT）"></a>3.5 网络地址转换（NAT）</h3><p><strong>定义</strong><br>网络地址转换(NAT)用于解决IPv4地址不足的问题，是一种将私有（保留）地址转化为公有IP地址的转换技术</p>
-<p><strong>NAT的优势</strong></p>
-<ul>
-<li>节省合法地址，减少地址冲突</li>
-<li>灵活连接Internet</li>
-<li>保护局域网的私密性</li>
-</ul>
-<h3 id="3-6-ICMP-互联网控制报文协议"><a href="#3-6-ICMP-互联网控制报文协议" class="headerlink" title="3.6 ICMP: 互联网控制报文协议"></a>3.6 ICMP: 互联网控制报文协议</h3><p><strong>ICMP: Internet Control Message Protocol</strong></p>
-<ul>
-<li>ICMP 允许主机或路由器报告差错情况和提供有关异常情况的报告</li>
-<li>由主机和路由器用于网络层信息的通信</li>
-<li>ICMP 报文携带在IP 数据报中： IP上层协议号为1</li>
-</ul>
-<p><strong>ICMP报文类型</strong></p>
-<ul>
-<li>ICMP 差错报告报文<ul>
-<li>终点不可达：不可达主机、不可达网络，无效端口、协议</li>
-</ul>
-</li>
-<li>ICMP 询问报文<ul>
-<li>回送请求&#x2F;回答 (ping使用)</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-路由算法"><a href="#4-路由算法" class="headerlink" title="4. 路由算法"></a>4. 路由算法</h2><p>距离向量路由</p>
-<p>链路状态路由</p>
-<p>层次路由</p>
-<p>广播路由</p>
-<h2 id="5-Internet路由协议"><a href="#5-Internet路由协议" class="headerlink" title="5. Internet路由协议"></a>5. Internet路由协议</h2><p>路由协议</p>
-<ul>
-<li>内部网关协议 IGP： 有 RIP 和、OSPF、ISIS 等多种具体的协议</li>
-<li>外部网关协议 EGP：目前使用的协议就是 BGP</li>
-</ul>
-<h3 id="5-1-路由选择协议"><a href="#5-1-路由选择协议" class="headerlink" title="5.1 路由选择协议"></a>5.1 路由选择协议</h3><ul>
-<li><p>路由选择协议RIP（ Routing Information Protocol）是基于距离矢量算法的协议</p>
-</li>
-<li><p>使用跳数衡量到达目的网络的距离</p>
-<ul>
-<li>RIP 认为一个<strong>好的路由</strong>就是它通过的路由器的数目少，即“<strong>距离短</strong>”</li>
-<li>RIP 允许一条路径最多只能包含 15 个路由器</li>
-</ul>
-</li>
-<li><p>RIP协议的基本思想</p>
-<ul>
-<li>仅和<strong>相邻路由器</strong>交换信息</li>
-<li>路由器交换的内容是自己的<strong>路由表</strong></li>
-<li>周期性更新：<strong>30s</strong></li>
-</ul>
-</li>
-</ul>
-<p>RIP协议的特点：</p>
-<ul>
-<li>算法简单，易于实现</li>
-<li>收敛慢</li>
-<li>需要交换的信息量较大</li>
-</ul>
-<p>RIP协议的适用场合：</p>
-<ul>
-<li>中小型网络</li>
-</ul>
-<h3 id="5-2-BGP-外部网关路由协议"><a href="#5-2-BGP-外部网关路由协议" class="headerlink" title="5.2 BGP 外部网关路由协议"></a>5.2 BGP 外部网关路由协议</h3><p>边界网关协议<strong>BGP (Border Gateway Protocol)</strong></p>
-<ul>
-<li>目前互联网中唯一实际运行的自治域间的路由协议</li>
-</ul>
-<h2 id="6-路由器的工作原理"><a href="#6-路由器的工作原理" class="headerlink" title="6. 路由器的工作原理"></a>6. 路由器的工作原理</h2><p>路由器是互联网最主要的网络设备，包含2个核心功能</p>
-<ul>
-<li>控制层：运行各种路由协议：BGP、OSPF、RIP，学习去往不同目的的转发路径：路由表</li>
-<li>数据层：根据上述路由表，将收到的IP分组转发到正确的下一跳链路</li>
-</ul>
-<h2 id="7-拥塞控制"><a href="#7-拥塞控制" class="headerlink" title="7. 拥塞控制"></a>7. 拥塞控制</h2><p><strong>拥塞</strong><br>网络中存在太多的数据包导致数据包传输延迟或丢失，从而导致网络吞吐量下降</p>
-<p><strong>拥塞控制（congestion control）</strong><br>需要确保通信子网能够承载用户提交的通信量，是一个全局性问题，涉及主机、路由器等多种因素</p>
-<h2 id="8-服务质量"><a href="#8-服务质量" class="headerlink" title="8. 服务质量"></a>8. 服务质量</h2><p><strong>什么是网络服务质量？（QoS, Quality of Service）</strong></p>
-<p>QoS是网络在传输数据流时要满足一系列服务请求，具体可以量化为<strong>带宽、时延、抖动、丢包率</strong>等性能指标</p>
-<h2 id="9-三层交换"><a href="#9-三层交换" class="headerlink" title="9. 三层交换"></a>9. 三层交换</h2><h3 id="9-1-三层交换的技术背景"><a href="#9-1-三层交换的技术背景" class="headerlink" title="9.1 三层交换的技术背景"></a>9.1 三层交换的技术背景</h3><ol>
-<li><p>二层交换网络中的广播，限制了网络规模的扩展</p>
-<ul>
-<li><p>交换机对目标地址无法匹配的数据帧进行广播转发</p>
-</li>
-<li><p>交换机对目标地址为广播地址的数据帧进行广播转发</p>
-</li>
-<li><p>交换机为维护生成树状态产生大量的桥协议数据单元(Bridge Protocol Data Unit，BPDU)</p>
-</li>
-<li><p>这些广播帧会大量消耗网络资源，并频繁影响用户的数据通信</p>
-</li>
-</ul>
-</li>
-<li><p>VLAN虽然可以将广播的影响限定在一定范围内，但同时也隔离了正常的用户间数据通信</p>
-</li>
-<li><p>传统路由器致力于解决VLAN间互联互通，但是其转发效率和拓扑复杂性带来的网络通信瓶颈无法有效应对规模扩展</p>
-</li>
-</ol>
-<h3 id="9-2-三层交换的动机"><a href="#9-2-三层交换的动机" class="headerlink" title="9.2 三层交换的动机"></a>9.2 三层交换的动机</h3><ul>
-<li>利用第三层协议中的信息来加强第二层交换功能，形成带有路由功能的交换</li>
-<li>融合VLAN 间的二层隔离和三层互通，消除大规模网络中广播对性能的影响</li>
-<li>简化网络配置，简化网络拓扑，优化网络管理，降低网络部署成本</li>
-</ul>
-<h2 id="10-VPN的原理"><a href="#10-VPN的原理" class="headerlink" title="10. VPN的原理"></a>10. VPN的原理</h2><ul>
-<li>VPN指利用公用网络架设专用网络的远程访问技术</li>
-<li>VPN通过隧道技术在公共网络上模拟出一条点到点的逻辑专线，从而达到安全数据传输的目的</li>
-</ul>
-<p>用户主机和被访问节点的网关必须都支持隧道协议</p>
-<h2 id="11-IPv6协议"><a href="#11-IPv6协议" class="headerlink" title="11. IPv6协议"></a>11. IPv6协议</h2><p>初始动机：应付“32-bit地址空间耗尽”问题（CIDR和NAT都无法从根本上解决地址短缺问题），增加地址空间<br>IPv6 地址</p>
-<ul>
-<li><p>地址长度为128bit，是IPv4地址长度的4倍</p>
-</li>
-<li><p>IPv6地址空间数量约为3*1038</p>
-<p>IPv6地址表示法，冒分十六进制，x : x : x : x : x : x : x : x</p>
-<ul>
-<li>简化方法：每个x前面的0可省略，可把连续的值为0的x表示为“::”, 且“::”只能出现1次</li>
-<li>简化前地址，2001:0DA8:0000:0000:200C:0000:0000:00A5</li>
-<li>简化后地址，2001:DA8:0000:0000:200C::A5</li>
-</ul>
-</li>
-</ul>
-<h1 id="五、传输层"><a href="#五、传输层" class="headerlink" title="五、传输层"></a>五、传输层</h1><h2 id="1-传输层概述"><a href="#1-传输层概述" class="headerlink" title="1. 传输层概述"></a>1. 传输层概述</h2><ul>
-<li><p>传输层位于应用层和网络层之间：</p>
-<ul>
-<li>基于网络层提供的服务，向分布式应用程序提供通信服务</li>
-</ul>
-</li>
-<li><p>按照因特网的“端到端”设计原则：</p>
-<ul>
-<li><strong>应用程序只运行在终端上</strong>，即不需要为网络设备编写程序</li>
-</ul>
-</li>
-<li><p>站在应用程序的角度：</p>
-<ul>
-<li>传输层应提供<strong>进程之间本地通信的抽象</strong>：即运行在不同终端上的应用进程仿佛是直接连在一起的</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-1-套接字"><a href="#1-1-套接字" class="headerlink" title="1.1 套接字"></a>1.1 套接字</h3><p>设想在应用程序和网络之间存在一扇“门”：</p>
-<ul>
-<li>需要发送报文时：发送进程将报文推到门外</li>
-<li>门外的运输设施（因特网）将报文送到接收进程的门口</li>
-<li>需要接收报文时：接收进程打开门，即可收到报文</li>
-</ul>
-<p>在TCP&#x2F;IP网络中，这扇“门”称为<strong>套接字（socket）</strong>，是<strong>应用层和传输层的接口</strong>，也是应用程序和网络之间的API</p>
-<h3 id="1-2-传输层提供的服务"><a href="#1-2-传输层提供的服务" class="headerlink" title="1.2 传输层提供的服务"></a>1.2 传输层提供的服务</h3><p>因特网的网络层提供“<strong>尽力而为</strong>”的服务：</p>
-<ul>
-<li>网络层尽最大努力在终端间交付分组，但不提供任何承诺</li>
-<li>具体来说，不保证交付，不保证按序交付，不保证数据完整，不保证延迟，不保证带宽等</li>
-</ul>
-<p>传输层的<strong>有所为、有所不为</strong>:</p>
-<ul>
-<li>传输层可以通过差错恢复、重排序等手段提供可靠、按序的交付服务</li>
-<li>但传输层无法提供延迟保证、带宽保证等服务</li>
-</ul>
-<p>具体而言，传输层提供的服务有：</p>
-<ol>
-<li><p>最低限度的传输服务：</p>
-<ul>
-<li>将终端-终端的数据交付扩展到进程-进程的数据交付</li>
-<li>报文检错</li>
-</ul>
-</li>
-<li><p>增强服务：</p>
-<ul>
-<li>可靠数据传输</li>
-<li>流量控制</li>
-<li>拥塞控制</li>
-</ul>
-</li>
-<li><p>因特网传输层通过UDP协议和TCP协议，向应用层提供两种不同的传输服务：</p>
-<ul>
-<li>UDP协议：仅提供最低限度的传输服务</li>
-<li>TCP协议：提供基础服务和增强服务</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-传输层基本服务：复用和分用"><a href="#2-传输层基本服务：复用和分用" class="headerlink" title="2. 传输层基本服务：复用和分用"></a>2. 传输层基本服务：复用和分用</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>传输层基本服务：将主机间交付扩展到进程间交付，通过复用和分用实现。</p>
-<ul>
-<li><p><strong>发送端复用</strong>：<br>发送方传输层从多个套接字收集数据，将套接字标识置于数据（报文段）中，交给网络层发送</p>
-</li>
-<li><p><strong>接收端分用</strong>：<br>接收方传输层根据报文段中的套接字标识，将从网络层收到的数据（报文段）交付到正确的套接字</p>
-</li>
-</ul>
-<h3 id="2-2-套接字标识与端口号"><a href="#2-2-套接字标识与端口号" class="headerlink" title="2.2 套接字标识与端口号"></a>2.2 套接字标识与端口号</h3><ol>
-<li><p>端口号是套接字标识的一部分：</p>
-<ul>
-<li><p>每个套接字在本地关联一个端口号</p>
-</li>
-<li><p>端口号是一个16比特的数</p>
-</li>
-</ul>
-</li>
-<li><p>端口号的分类：</p>
-<ul>
-<li><p>熟知端口：0～1023，由公共域协议使用</p>
-</li>
-<li><p>注册端口：1024～49151，需要向IANA注册才能使用</p>
-</li>
-<li><p>动态和&#x2F;或私有端口：49152～65535，一般程序使用</p>
-<ol start="3">
-<li>报文段中有两个字段携带端口号：</li>
-</ol>
-<ul>
-<li>源端口号(source port)：与发送进程关联的本地端口号</li>
-<li>目的端口号(dest port)：与接收进程关联的本地端口号</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-3-TCP-x2F-UDP套接字"><a href="#2-3-TCP-x2F-UDP套接字" class="headerlink" title="2.3 TCP&#x2F;UDP套接字"></a>2.3 TCP&#x2F;UDP套接字</h3><p><strong>UDP套接字</strong></p>
-<ul>
-<li>使用&lt;IP地址，端口号&gt;二元组标识UDP套接字</li>
-<li>服务器使用一个套接字服务所有客户</li>
-</ul>
-<p><strong>TCP套接字</strong></p>
-<ul>
-<li>使用&lt;源IP地址，目的IP地址，源端口号，目的端口号&gt; 四元组标识连接套接字</li>
-<li>服务器使用一个监听套接字和多个连接套接字服务多个客户，每个连接套接字服务一个客户</li>
-</ul>
-<h2 id="3-无连接传输：UDP"><a href="#3-无连接传输：UDP" class="headerlink" title="3. 无连接传输：UDP"></a>3. 无连接传输：UDP</h2><p><strong>为什么需要UDP？</strong></p>
-<ul>
-<li>应用可以尽可能快地发送报文：<ul>
-<li>无建立连接的延迟</li>
-<li>不限制发送速率（不进行拥塞控制和流量控制）</li>
-</ul>
-</li>
-<li>报头开销小</li>
-<li>协议处理简单</li>
-</ul>
-<p><strong>UDP适合哪些应用？</strong></p>
-<ul>
-<li>容忍丢包但对延迟敏感的应用：<br>如流媒体</li>
-<li>以单次请求&#x2F;响应为主的应用：<br>如DNS</li>
-<li>若应用要求基于UDP进行可靠传输：<br>由应用层实现可靠性</li>
-</ul>
-<h2 id="4-面向连接的传输：TCP"><a href="#4-面向连接的传输：TCP" class="headerlink" title="4. 面向连接的传输：TCP"></a>4. 面向连接的传输：TCP</h2><h3 id="4-1-可靠传输"><a href="#4-1-可靠传输" class="headerlink" title="4.1 可靠传输"></a>4.1 可靠传输</h3><p>数据包<strong>有序、无差错</strong>到达接收端</p>
-<p>如何实现可靠传输，基本原则是什么？</p>
-<ul>
-<li>利用ACK确认</li>
-<li>重传机制</li>
-<li>差错检测</li>
-</ul>
-<p>三次握手：确定双方都同意建立连接，并初始化连接参数(seq，ack等)</p>
-<p>四次挥手：目的就是确保断开连接时双方都是确认结束的状态</p>
-<h3 id="4-2-流水线技术"><a href="#4-2-流水线技术" class="headerlink" title="4.2 流水线技术"></a>4.2 流水线技术</h3><h3 id="4-3-TCP报文段结构"><a href="#4-3-TCP报文段结构" class="headerlink" title="4.3 TCP报文段结构"></a>4.3 TCP报文段结构</h3><p>U,A,P,R,S,F标志位：</p>
-<ul>
-<li><p>ACK表示确认序号有效</p>
-</li>
-<li><p>SYN用于建立连接</p>
-</li>
-<li><p>FIN用于终止连接</p>
-</li>
-</ul>
-<p>发送序号：数据载荷中第一个字节在字节流中的序号</p>
-<p>确认序号：期望接受的下一个字节的序号</p>
-<h2 id="5-TCP流量控制"><a href="#5-TCP流量控制" class="headerlink" title="5. TCP流量控制"></a>5. TCP流量控制</h2><h2 id="6-拥塞控制"><a href="#6-拥塞控制" class="headerlink" title="6. 拥塞控制"></a>6. 拥塞控制</h2><h1 id="六、应用层"><a href="#六、应用层" class="headerlink" title="六、应用层"></a>六、应用层</h1><h2 id="1-应用层概述"><a href="#1-应用层概述" class="headerlink" title="1. 应用层概述"></a>1. 应用层概述</h2><ul>
-<li><p>每个应用层协议都是为了解决某一应用问题，通过位于不同主机中的多个应用进程之间的通信和协同工作来完成</p>
-<ul>
-<li>两台主机通信实际是其对应的两个应用进程(process)在通信</li>
-<li><strong>应用进程</strong>: 为解决具体应用问题而彼此通信的进程</li>
-</ul>
-</li>
-<li><p>应用层的具体内容就是规定应用进程在通信时所遵循的协议</p>
-<ul>
-<li><p>客户&#x2F;服务器（C&#x2F;S, Client&#x2F;Server）方式</p>
-<ul>
-<li><p>C&#x2F;S方式可以是面向连接的，也可以是无连接的</p>
-</li>
-<li><p><strong>面向连接时，C&#x2F;S通信关系一旦建立，通信就是双向的</strong>，双方地位平等，都可发送和接收数据</p>
-</li>
-<li><p>客户进程在进行通信时临时成为客户，它也可在本地进行其它的计算；在打算通信时<strong>主动</strong>向远地服务器发起通信</p>
-</li>
-<li><p><strong>客户方必须知道服务器进程所在主机的IP地址才能发出服务请求</strong></p>
-</li>
-<li><p><strong>服务器进程</strong>被动等待并接受来自多个客户的通信请求, <strong>必须始终处于运行状态才有可能提供服务</strong></p>
-</li>
-</ul>
-</li>
-<li><p>对等（P2P，Peer to Peer）方式</p>
-<ul>
-<li><strong>对等方式</strong>是指两个进程在通信时并不区分服务的请求方和服务的提供方</li>
-<li>只要两个主机都运行P2P软件，它们就可以进行平等、对等的通信</li>
-<li>双方都可以下载对方存储在硬盘中的共享文档，如果权限允许的话</li>
-<li>音频&#x2F;视频应用推动了P2P对等通信方式的发展（BitTorrent）</li>
-<li>P2P方式从本质上看仍然是使用了C&#x2F;S方式，但强调的是通信过程中的对等，这时<strong>每一个P2P进程既是客户同时也是服务器</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-域名系统"><a href="#2-域名系统" class="headerlink" title="2. 域名系统"></a>2. 域名系统</h2><h3 id="2-1-概述-1"><a href="#2-1-概述-1" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><ul>
-<li><strong>域名系统</strong>（DNS，Domain Name System）是互联网重要的基础设施之一，向所有需要域名解析的应用提供服务，主要负责将<strong>可读性好的域名映射成IP地址</strong></li>
-<li>Internet采用<strong>层次结构的命名树</strong>作为主机的名字，并使用<strong>分布式</strong>的域名系统 DNS。Internet的DNS是一个<strong>联机分布式数据库系统</strong></li>
-<li>名字到域名的解析是由<strong>若干个</strong>域名服务器程序完成的。域名服务器程序在专设的结点上运行，相应的结点也称为<strong>名字服务器</strong>(Name Server)或<strong>域名服务器</strong>(Domain Name Server)</li>
-</ul>
-<h3 id="2-2-层次树状结构"><a href="#2-2-层次树状结构" class="headerlink" title="2.2 层次树状结构"></a>2.2 层次树状结构</h3><ul>
-<li><p>顶级域名: com, cn, org, gov, edu</p>
-</li>
-<li><p>二级域名: edu</p>
-</li>
-<li><p>三级域名: fudan, pku</p>
-</li>
-<li><p>四级域名: www, cs, mail</p>
-</li>
-</ul>
-<h3 id="2-3-域名解析过程"><a href="#2-3-域名解析过程" class="headerlink" title="2.3 域名解析过程"></a>2.3 域名解析过程</h3><ol>
-<li>递归查询 “我不知道，直接帮你向上查” 较少使用</li>
-<li>迭代查询 “我不知道，告诉你该找谁，你自己向上查” 通常使用</li>
-</ol>
-<h2 id="3-电子邮件"><a href="#3-电子邮件" class="headerlink" title="3. 电子邮件"></a>3. 电子邮件</h2><h3 id="3-1-邮件发送的常用协议"><a href="#3-1-邮件发送的常用协议" class="headerlink" title="3.1 邮件发送的常用协议"></a>3.1 邮件发送的常用协议</h3><ul>
-<li><strong>简单邮件传输协议SMTP</strong>（Simple Mail Transfer Protocol）——邮件服务器之间传递邮件使用的协议</li>
-<li>最终交付（邮件访问）协议:从邮件服务器的邮箱中获取邮件:<ul>
-<li>POP3：Post Office Protocol-Version 3，第三版邮局协议</li>
-<li>IMAP：Internet Message Access Protocol，Internet邮件访问协议</li>
-<li>Webmail（HTTP）：基于Web的电子邮件</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-2-Webmail"><a href="#3-2-Webmail" class="headerlink" title="3.2 Webmail"></a>3.2 Webmail</h3><p>Webmail——基于Web的电子邮件</p>
-<ul>
-<li>Webmail——基于Web的电子邮件</li>
-<li>使用Web作为界面，用户代理就是普通的浏览器</li>
-<li>用户及其远程邮箱之间的通信通过HTTP进行</li>
-</ul>
-<h2 id="4-WWW"><a href="#4-WWW" class="headerlink" title="4. WWW"></a>4. WWW</h2><h3 id="4-1-WWW体系结构与协议"><a href="#4-1-WWW体系结构与协议" class="headerlink" title="4.1 WWW体系结构与协议"></a>4.1 WWW体系结构与协议</h3><ul>
-<li>WWW&#x3D;World Wide Web&#x3D;万维网</li>
-<li>HTTP服务器和客户端，以及它们之间执行的HTTP协议</li>
-</ul>
-<p><strong>服务器</strong>:</p>
-<ul>
-<li>Web页面（HTML文档）：包含多种对象或链接</li>
-<li>Web对象（包括：静态对象和动态对象）：可以是 HTML文档、 图像文件、视频文件、声音文件、脚本文件等</li>
-<li>对象用URL（统一资源定位符）编址：协议类型:&#x2F;&#x2F;主机名:端口&#x2F;&#x2F;路径和文件名</li>
-</ul>
-<p><strong>客户端</strong>：</p>
-<ul>
-<li>发出请求、接收响应、解释HTML文档并显示</li>
-<li>有些对象需要浏览器安装插件</li>
-</ul>
-<p><strong>统一资源定位器URL</strong>：</p>
-<p>协议类型:&#x2F;&#x2F;主机名即服务器:端口&#x2F;路径和文件名</p>
-<p>WWW协议:</p>
-<h3 id="4-2-HTTP"><a href="#4-2-HTTP" class="headerlink" title="4.2 HTTP"></a>4.2 HTTP</h3><h4 id="4-2-1-概述"><a href="#4-2-1-概述" class="headerlink" title="4.2.1 概述"></a>4.2.1 概述</h4><ul>
-<li>超文本传输协议HTTP（ HyperText Transfer Protocol）在传输层通常使用<strong>TCP</strong>协议，<strong>缺省使用TCP的80端口</strong></li>
-<li>HTTP为<strong>无状态协议</strong>，服务器端不保留之前请求的状态信息<ul>
-<li><strong>无状态协议</strong>：效率低、但简单</li>
-<li><strong>有状态协议</strong>：维护状态相对复杂，需要维护历史信息，在客户端或服务器出现故障时，需要保持状态的一致性等</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><strong>HTTP标准</strong><ul>
-<li>HTTP&#x2F;1.0: RFC 1945（1996年）：<ul>
-<li>无状态，非持久连接</li>
-</ul>
-</li>
-<li>HTTP&#x2F;1.1: RFC 2616（1999年）：<ul>
-<li>支持长连接和流水线机制</li>
-<li>缓存策略优化、部分资源请求及断点续传</li>
-</ul>
-</li>
-<li>HTTP&#x2F;2: RFC 7540（2015年）、RFC 8740（2020年）：<ul>
-<li>增加SSL&#x2F;TLS（TLS 1.2）层，在TCP之上提供安全机制</li>
-<li>目标：提高带宽利用率、降低延迟</li>
-<li>增加二进制格式、TCP多路复用、头压缩、服务端推送等功能</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-2-2-Web安全与隐私-Cookie"><a href="#4-2-2-Web安全与隐私-Cookie" class="headerlink" title="4.2.2 Web安全与隐私: Cookie"></a>4.2.2 Web安全与隐私: Cookie</h4><p>HTTP <strong>无状态协议</strong>，服务器 <strong>用cookies保持用户状态</strong></p>
-<ul>
-<li><p>HTTP在响应的首部行里使用一个关键字头set-cookie：选择的cookie号具有唯一性</p>
-</li>
-<li><p>后继的HTTP请求中使用服务器响应分配的cookie</p>
-</li>
-<li><p>Cookie文件保存在用户的主机中，内容是服务器返回的一些附加信息，由用户主机中的浏览器管理</p>
-</li>
-<li><p>Web服务器建立后端数据库，记录用户信息，cookie作为关键字</p>
-<p>例如：<br>Set-Cookie: SID&#x3D;31d4d96e407aad42; Path&#x3D;&#x2F;; Domain&#x3D;example.com<br>Cookie: SID&#x3D;31d4d96e407aad42</p>
-</li>
-</ul>
-<p>Cookies一般包含5个字段:</p>
-<ul>
-<li>域指明Cookie来自何方，每个域为每个客户分配Cookie有数量限制</li>
-<li>路径标明服务器的文件树中哪些部分可以使用该Cookie</li>
-<li>内容采用“名字&#x3D;值”的形式，是Cookie存放内容的地方，可以达到4K容量，内容只是字符串，不是可执行程序</li>
-<li>安全指示浏览器只向使用安全传输连接的服务器返回Cookie</li>
-<li>过期时间</li>
-</ul>
-<ol>
-<li><p>Cookie技术是把双刃剑，能分析用户喜好，向用户进行个性化推荐</p>
-<ul>
-<li><p>用Cookie在某网站标识用户信息，查找用户以前浏览网站记录</p>
-</li>
-<li><p>用Cookie记录用户购物清单</p>
-</li>
-<li><p>用Cookie可以保存4K内容，跟踪用户浏览网站的喜好</p>
-</li>
-<li><p>用Cookie跨站点跟踪用户点击广告</p>
-</li>
-</ul>
-</li>
-<li><p>Cookie技术是把双刃剑，也能跟踪用户网络浏览痕迹，泄露用户隐私</p>
-<ul>
-<li><p>Cookie跟踪用户以前浏览过哪些网站，跟踪用户频繁浏览哪类网站</p>
-</li>
-<li><p>Cookie收集用户信息，用户网络交互时关注的关键词</p>
-</li>
-</ul>
-</li>
-<li><p>Cookie容易嵌入间谍程序，这是个误区，Cookie文件保存的只是文本串，没有可执行程序</p>
-<ul>
-<li>用户可以设置浏览器限制使用Cookie</li>
-</ul>
-</li>
-</ol>
-<h2 id="5-流媒体"><a href="#5-流媒体" class="headerlink" title="5. 流媒体"></a>5. 流媒体</h2><h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p>流媒体概念</p>
-<ul>
-<li>连续媒体（音视频）经压缩编码、数据打包后，经过网络发送给接收方</li>
-<li>接收方对数据进行重组、解码和播放</li>
-</ul>
-<p>流媒体特性</p>
-<ul>
-<li>端到端时延约束</li>
-<li>时序性约束：流媒体数据必须按照一定的顺序连续播放</li>
-<li>具有一定程度的容错性：丢失部分数据包也可完成基本功能</li>
-</ul>
-<p>流媒体面临的挑战</p>
-<ul>
-<li>约束条件：网络特性（带宽有限、动态变化、延迟与抖动、丢失、异构性）</li>
-<li>目标：流媒体服务质量要素（画质、启动延迟、平滑、交互性）</li>
-<li>如何在“尽力服务”的网络传输条件下获得良好的视频质量？</li>
-</ul>
-<h3 id="5-2-DASH"><a href="#5-2-DASH" class="headerlink" title="5.2 DASH"></a>5.2 DASH</h3><p> DASH (Dynamic Adaptive Streaming over HTTP)</p>
-<ul>
-<li>动态自适应流媒体传输协议DASH，由MPEG组织制定的标准</li>
-<li>类似协议：苹果HTTP Live Streaming（HLS）； Adobe的HTTP Dynamic Streaming（HDS）；微软的Microsoft Smooth Streaming</li>
-</ul>
-<p>DASH 基本思想</p>
-<ul>
-<li>完整视频被拆分为固定时长 (2s-10s) 的视频片段(segment)， 每段提供不同码率</li>
-<li>视频片段与其对应的元文件（URL）一同存放于DASH服务器</li>
-<li>客户端基于网络条件、缓冲大小等，对每个视频片段，自适应选择合适的视频码率来下</li>
-<li>DASH中普遍使用的自适应码率ABR（Adaptive bitrate）</li>
-</ul>
-<h2 id="6-CDN"><a href="#6-CDN" class="headerlink" title="6. CDN"></a>6. CDN</h2><ul>
-<li>Content Delivery Network，or Content Distribution Network 内容分发网络</li>
-<li>一种Web缓存系统，<strong>靠近网络边缘（用户）提供内容服务</strong></li>
-<li>目前提供更丰富的服务，包括静态内容、流媒体、用户上传视频等</li>
-<li>主要优点<ul>
-<li>降低响应时延，避免网络拥塞</li>
-<li>避免原始服务器过载及防止DDoS攻击</li>
-<li>分布式架构，具有良好的可扩展性</li>
-<li>对用户透明，无需用户感知</li>
-</ul>
-</li>
-</ul>
-<p>关键问题： 怎样将内容（如从百万的视频中选定的内容）分发给同时发起访问的数百万用户？</p>
-<p>解决机理：</p>
-<ul>
-<li><strong>DNS重定向实现CDN</strong><ul>
-<li>将请求调度到较近或负载较轻的CDN服务器</li>
-<li><strong>HTTP重定向请求内容</strong>，服务提供者返回清单CDN</li>
-</ul>
-</li>
-<li><strong>DNS辅助实现CDN</strong><ul>
-<li>负载均衡DNS负责决策CDN服务器选择</li>
-<li>负载均衡DNS需要收集CDN服务器的位置和负载情况</li>
-<li>如果找不到被请求的对象，需要从原始服务器获取</li>
-</ul>
-</li>
-</ul>
-<h2 id="7-P2P网络"><a href="#7-P2P网络" class="headerlink" title="7. P2P网络"></a>7. P2P网络</h2><p><strong>P2P文件分发协议：BitTorrent</strong></p>
-<ul>
-<li>文件被划分为256Kb大小的块</li>
-<li>具有种子(torrents)的节点发送或接收文件</li>
-<li>跟踪器tracker <ul>
-<li>负责帮助节点获取其他节点的信息</li>
-<li>用户从跟踪器获取节点列表</li>
-</ul>
-</li>
-<li>种子torrent<ul>
-<li>交换文件块的节点</li>
-<li>用户同种子节点交换文件块</li>
-</ul>
-</li>
-</ul>
-<h2 id="8-远程登录Telnet"><a href="#8-远程登录Telnet" class="headerlink" title="8. 远程登录Telnet"></a>8. 远程登录Telnet</h2><ul>
-<li>Telnet协议引入网络<strong>虚拟终端NVT</strong>（Network Virtual Terminal），使用一种专门的键盘定义来屏蔽不同计算机系统对键盘输入的差异性，同时定义客户进程与远程服务器进程之间的交互过程</li>
-<li>NVT是Telnet协议定义的<strong>一组通用字符集</strong>，通过这种统一的数据表示方式，来保证不同硬件、软件与数据格式的终端与主机之间通信的兼容性</li>
-<li>本地终端输入的字符首先由本地Telnet客户进程转换为NVT格式，通过网络将NVT格式的字符传输到远程主机，远程Telnet服务器进程再将NVT格式的字符转换为远程主机能够识别和处理的字符格式</li>
-<li>使用Telnet协议在网络中传输的数据都是NVT格式，不同的用户终端与服务器进程均与本地终端格式无关</li>
-</ul>
-<p><strong>Telnet的工作过程</strong> (windows自带 默认关闭)  基于TCP连接</p>
-<ul>
-<li>本地Telnet客户进程与远程主机上的Telnet服务器进程建立TCP连接</li>
-<li>将本地终端上输入的用户名和口令及以后输入的任何命令或字符以网络虚拟终端NVT格式传输给远程主机</li>
-<li>将远程主机输出的NVT格式的数据转化为本地所接受的格式送回本地终端，包括输入命令回显和命令执行结果</li>
-<li>本地终端对远程主机撤销连接，从而结束 Telnet远程登录过程</li>
-</ul>
-<h2 id="9-FTP"><a href="#9-FTP" class="headerlink" title="9. FTP"></a>9. FTP</h2><h3 id="9-1-概述"><a href="#9-1-概述" class="headerlink" title="9.1 概述"></a>9.1 概述</h3><p><strong>文件传输协议FTP(File Transfer Protocol)</strong> 是Internet上使用最广泛的应用层协议之一</p>
-<ul>
-<li>FTP提供交互式的访问，允许用户指明文件的类型与格式，并允许文件具有存取权限</li>
-<li>FTP屏蔽了各计算机系统的细节，适用于在异构网络中任意计算机之间传送文件</li>
-<li>RFC 959早在1985年就已经成为Internet的正式标准</li>
-<li>FTP使用C&#x2F;S方式实现</li>
-</ul>
-<h3 id="9-2-工作过程"><a href="#9-2-工作过程" class="headerlink" title="9.2 工作过程"></a>9.2 工作过程</h3><ul>
-<li>服务器主进程打开TCP21端口，等待客户进程发出的连接请求</li>
-<li>客户可以用分配的任意一个本地端口号与服务器进程的TCP21端口进行连接</li>
-<li>客户请求到来时，服务器主进程启动从属进程来处理客户进程发来的请求</li>
-<li>服务器从属进程对客户进程的请求处理完毕后即终止，但从属进程在运行期间根据需要还可能创建其他一些子进程</li>
-<li>服务器主进程返回，继续等待接收其他客户进程发来的连接请求，服务器主进程与从属进程并行工作</li>
-</ul>
-<p><strong>FTP的两个端口与两个连接</strong></p>
-<ul>
-<li><strong>控制连接</strong>在整个会话期间一直保持，客户进程发出的文件传输请求通过控制连接发送给<strong>服务器控制进程（工作在TCP21端口）</strong>，但控制连接不用来传输文件</li>
-<li>服务器控制进程在接收到客户进程发送来的文件传输请求后就创建<strong>数据传输进程（工作在TCP20端口）,数据连接</strong></li>
-<li>数据连接用来连接客户进程和服务器数据传输进程，实际完成文件的传输。服务器数据传输进程在文件传输完毕后关闭数据连接并结束运行</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/19/%E8%B4%AA%E5%BF%83%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/19/%E8%B4%AA%E5%BF%83%E6%B3%95/" class="post-title-link" itemprop="url">贪心法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-19 16:48:08" itemprop="dateCreated datePublished" datetime="2022-04-19T16:48:08+08:00">2022-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-29 16:22:32" itemprop="dateModified" datetime="2022-07-29T16:22:32+08:00">2022-07-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Greedy-Algorithm选编"><a href="#Greedy-Algorithm选编" class="headerlink" title="Greedy Algorithm选编"></a>Greedy Algorithm选编</h1><h2 id="代码随想录"><a href="#代码随想录" class="headerlink" title="代码随想录"></a>代码随想录</h2><h3 id="贪心法原理"><a href="#贪心法原理" class="headerlink" title="贪心法原理"></a>贪心法原理</h3><p><strong>贪心的本质是选择每一阶段的局部最优，从而达到全局最优</strong>。</p>
-<p>这么说有点抽象，来举一个例子：</p>
-<p>例如，有一堆钞票，你可以拿走十张，如果想达到最大的金额，你要怎么拿？</p>
-<p>指定每次拿最大的，最终结果就是拿走最大数额的钱。</p>
-<p>每次拿最大的就是局部最优，最后拿走最大数额的钱就是推出全局最优。</p>
-<p>再举一个例子如果是 有一堆盒子，你有一个背包体积为n，如何把背包尽可能装满，如果还每次选最大的盒子，就不行了。这时候就需要动态规划。</p>
-<h3 id="55-Jump-Game"><a href="#55-Jump-Game" class="headerlink" title="55. Jump Game"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game/">55. Jump Game</a></h3><h4 id="法一：DP"><a href="#法一：DP" class="headerlink" title="法一：DP"></a>法一：DP</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canJump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">boolean</span>[] dp=<span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    dp[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n-<span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dp[i])&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= nums[i]; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i+j&gt;=n)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                dp[i+j]=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="法二：Greedy"><a href="#法二：Greedy" class="headerlink" title="法二：Greedy"></a>法二：Greedy</h4><p><strong>贪心算法局部最优解：每次取最大跳跃步数（取最大覆盖范围），整体最优解：最后得到整体最大覆盖范围，看是否能到终点</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canJump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> cover=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= cover; i++) &#123;</span><br><span class="line">        cover=Math.max(cover,i+nums[i]);</span><br><span class="line">        <span class="keyword">if</span>(cover&gt;=nums.length-<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="45-Jump-Game-II"><a href="#45-Jump-Game-II" class="headerlink" title="45. Jump Game II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game-ii/">45. Jump Game II</a></h3><p>You can assume that you can always reach the last index.</p>
-<h4 id="法一：DP-1"><a href="#法一：DP-1" class="headerlink" title="法一：DP"></a>法一：DP</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode45</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">jump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= nums[<span class="number">0</span>]; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;=n)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[i]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= nums[i]; j++) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(i+j&gt;=n)&#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(dp[i+j]==<span class="number">0</span>)&#123;<span class="comment">//第一次抵达则赋初值</span></span><br><span class="line">                        dp[i+j]=dp[i]+<span class="number">1</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;<span class="comment">//之前已抵达过则保留最小值（次数）</span></span><br><span class="line">                        dp[i+j]=Math.min(dp[i+j],dp[i]+<span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="法二：Greedy-1"><a href="#法二：Greedy-1" class="headerlink" title="法二：Greedy"></a>法二：Greedy</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">jump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 当前覆盖的最远距离下标</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 下一步覆盖的最远距离下标</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= end &amp;&amp; end &lt; nums.length - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">            temp = Math.max(temp, i + nums[i]);	<span class="comment">//更新再跳一步的最远距离</span></span><br><span class="line">            <span class="comment">// 可达位置的改变次数就是跳跃次数</span></span><br><span class="line">            <span class="keyword">if</span> (i == end) &#123;	<span class="comment">//i已经到达当前范围极限，且当前范围还没覆盖到终点，必须再跳一步</span></span><br><span class="line">                end = temp;</span><br><span class="line">                result++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="135-Candy"><a href="#135-Candy" class="headerlink" title="135. Candy"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/candy/">135. Candy</a></h3><ul>
-<li>Each child must have at least one candy.</li>
-<li>Children with a higher rating get more candies than their neighbors.</li>
-</ul>
-<p>好题！</p>
-<p>先从左向右，再从右向左</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode135</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">candy</span><span class="params">(<span class="type">int</span>[] ratings)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=ratings.length;</span><br><span class="line">        <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        Arrays.fill(arr,<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//先满足大于左孩子，正序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(ratings[i]&gt;ratings[i-<span class="number">1</span>])&#123;</span><br><span class="line">                arr[i]=arr[i-<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//在此基础上，再满足大于右孩子，逆序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(ratings[i]&gt;ratings[i+<span class="number">1</span>])&#123;</span><br><span class="line">                arr[i]=Math.max(arr[i+<span class="number">1</span>]+<span class="number">1</span>,arr[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(arr).sum();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="860-Lemonade-Change"><a href="#860-Lemonade-Change" class="headerlink" title="860. Lemonade Change"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lemonade-change/">860. Lemonade Change</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode860</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">lemonadeChange</span><span class="params">(<span class="type">int</span>[] bills)</span> &#123;</span><br><span class="line">        <span class="type">int</span> five=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ten=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> bill : bills) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bill==<span class="number">5</span>)&#123;</span><br><span class="line">                five++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(bill==<span class="number">10</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(five==<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                five--;</span><br><span class="line">                ten++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//Greedy: 有ten优先找ten，因为five更万能</span></span><br><span class="line">                <span class="keyword">if</span>(ten&gt;=<span class="number">1</span>)&#123;</span><br><span class="line">                    ten--;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(five&gt;=<span class="number">2</span>)&#123;</span><br><span class="line">                        five-=<span class="number">2</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(five&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    five--;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="1005-Maximize-Sum-Of-Array-After-K-Negations"><a href="#1005-Maximize-Sum-Of-Array-After-K-Negations" class="headerlink" title="1005. Maximize Sum Of Array After K Negations"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximize-sum-of-array-after-k-negations/">1005. Maximize Sum Of Array After K Negations</a></h3><p>那么本题的解题步骤为：</p>
-<ul>
-<li>第一步：将数组按照绝对值大小从大到小排序，<strong>注意要按照绝对值的大小</strong></li>
-<li>第二步：从前向后遍历，遇到负数将其变为正数，同时K–</li>
-<li>第三步：如果K还大于0，那么反复转变数值最小的元素，将K用完</li>
-<li>第四步：求和</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">largestSumAfterKNegations</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="comment">// 将数组按照绝对值大小从大到小排序，注意要按照绝对值的大小</span></span><br><span class="line">    nums = IntStream.of(nums)</span><br><span class="line">            .boxed()</span><br><span class="line">            .sorted((o1, o2) -&gt; Math.abs(o2) - Math.abs(o1))</span><br><span class="line">            .mapToInt(Integer::intValue).toArray();</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            nums[i]=-nums[i];</span><br><span class="line">            k--;</span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((k&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">        nums[n-<span class="number">1</span>]=-nums[n-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(nums).sum();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="134-Gas-Station"><a href="#134-Gas-Station" class="headerlink" title="134. Gas Station"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/gas-station/">134. Gas Station</a></h3><h4 id="法一：暴力模拟"><a href="#法一：暴力模拟" class="headerlink" title="法一：暴力模拟"></a>法一：暴力模拟</h4><p>超时！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">canCompleteCircuit</span><span class="params">(<span class="type">int</span>[] gas, <span class="type">int</span>[] cost)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=gas.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> rest=gas[i]-cost[i];</span><br><span class="line">        <span class="type">int</span> index=(i+<span class="number">1</span>)%n;</span><br><span class="line">        <span class="keyword">while</span>(rest&gt;=<span class="number">0</span> &amp;&amp; index!=i)&#123;</span><br><span class="line">            rest+=gas[index];</span><br><span class="line">            rest-=cost[index];</span><br><span class="line">            index=(index+<span class="number">1</span>)%n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(rest&gt;=<span class="number">0</span> &amp;&amp; index==i)&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="法二：Greedy-2"><a href="#法二：Greedy-2" class="headerlink" title="法二：Greedy"></a>法二：Greedy</h4><ul>
-<li><p><strong>局部最优：当前累加rest[j]的和curSum一旦小于0，起始位置至少要是j+1，因为从j开始一定不行。</strong></p>
-</li>
-<li><p><strong>全局最优：找到可以跑一圈的起始位置</strong>。</p>
-</li>
-</ul>
-<p>[^心路历程]: 有一个环形路上有n个站点； 每个站点都有一个好人或一个坏人； 好人会给你钱，坏人会收你一定的过路费，如果你带的钱不够付过路费，坏人会跳起来把你砍死； 问：从哪个站点出发，能绕一圈活着回到出发点?首先考虑一种情况：如果全部好人给你 的钱加起来 小于 坏人收的过路费之和，那么总有一次你的钱不够付过路费，你的结局注定会被砍死。假如你随机选一点 start 出发，那么你肯定会选一个有好人的站点开始，因为开始的时候你没有钱，遇到坏人只能被砍死；现在你在start出发，走到了某个站点end，被end站点的坏人砍死了，说明你在 [start, end) 存的钱不够付 end点坏人的过路费，因为start站点是个好人，所以在 (start, end) 里任何一点出发，你存的钱会比现在还少，还是会被end站点的坏人砍死；于是你重新读档，聪明的选择从 end+1点出发，继续你悲壮的征程； 终于有一天，你发现自己走到了尽头（下标是n-1)的站点而没有被砍死； 此时你犹豫了一下，那我继续往前走，身上的钱够不够你继续走到出发点Start?当然可以，因为开始已经判断过，<strong>好人给你的钱数是大于等于坏人要的过路费的，你现在攒的钱完全可以应付 [0, start) 这一段坏人向你收的过路费。(此处存疑)</strong> 这时候你的嘴角微微上扬，眼眶微微湿润，因为你已经知道这个世界的终极奥秘：Start就是这个问题的答案。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">canCompleteCircuit</span><span class="params">(<span class="type">int</span>[] gas, <span class="type">int</span>[] cost)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=gas.length;</span><br><span class="line">    <span class="type">int</span> cur=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> total=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cur+=gas[i]-cost[i];</span><br><span class="line">        total+=gas[i]-cost[i];</span><br><span class="line">        <span class="keyword">if</span>(cur&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            start=i+<span class="number">1</span>;</span><br><span class="line">            cur=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(total&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start;	<span class="comment">//If there exists a solution, it is guaranteed to be unique</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="376-Wiggle-Subsequence"><a href="#376-Wiggle-Subsequence" class="headerlink" title="376. Wiggle Subsequence"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/">376. Wiggle Subsequence</a></h3><h4 id="Greedy解法"><a href="#Greedy解法" class="headerlink" title="Greedy解法"></a>Greedy解法</h4><p><strong>局部最优：删除单调坡度上的节点（不包括单调坡度两端的节点），那么这个坡度就可以有两个局部峰值</strong>。</p>
-<p><strong>整体最优：整个序列有最多的局部峰值，从而达到最长摆动序列</strong>。</p>
-<p>局部最优推出全局最优，并举不出反例，那么试试贪心！</p>
-<p>（为方便表述，以下说的峰值都是指局部峰值）</p>
-<p><strong>实际操作上，其实连删除的操作都不用做，因为题目要求的是最长摆动子序列的长度，所以只需要统计数组的峰值数量就可以了（相当于是删除单一坡度上的节点，然后统计长度）</strong></p>
-<p><strong>这就是贪心所贪的地方，让峰值尽可能的保持峰值，然后删除单一坡度上的节点</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">wiggleMaxLength</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.length;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当前差值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">curDiff</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//上一个差值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">preDiff</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="comment">//得到当前差值</span></span><br><span class="line">            curDiff = nums[i] - nums[i - <span class="number">1</span>];</span><br><span class="line">            <span class="comment">//直到当前差值和上一个差值为一正一负，此时wiggle sequence长度增加，更新preDiff和currDiff,并且count++</span></span><br><span class="line">            <span class="comment">//等于0的情况表示初始时的preDiff</span></span><br><span class="line">            <span class="keyword">if</span> ((curDiff &gt; <span class="number">0</span> &amp;&amp; preDiff &lt;= <span class="number">0</span>) || (curDiff &lt; <span class="number">0</span> &amp;&amp; preDiff &gt;= <span class="number">0</span>)) &#123;</span><br><span class="line">                count++;</span><br><span class="line">                preDiff = curDiff;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>时间复杂度：$O(n)$</li>
-<li>空间复杂度：$O(1)$</li>
-</ul>
-<h4 id="Dynamic-Programming基础版"><a href="#Dynamic-Programming基础版" class="headerlink" title="Dynamic Programming基础版"></a>Dynamic Programming基础版</h4><p>考虑用动态规划的思想来解决这个问题。</p>
-<p>很容易可以发现，对于我们当前考虑的这个数，要么是作为山峰（即nums[i] &gt; nums[i-1]），要么是作为山谷（即nums[i] &lt; nums[i - 1]）。</p>
-<ul>
-<li>设dp状态<code>dp[i][0]</code>，表示考虑前i个数，第i个数作为山峰的摆动子序列的最长长度</li>
-<li>设dp状态<code>dp[i][1]</code>，表示考虑前i个数，第i个数作为山谷的摆动子序列的最长长度</li>
-</ul>
-<p>则转移方程为：</p>
-<ul>
-<li><code>dp[i][0] = max(dp[i][0], dp[j][1] + 1)</code>，其中<code>0 &lt; j &lt; i</code>且<code>nums[j] &lt; nums[i]</code>，表示将nums[i]接到前面某个山谷后面，作为山峰。</li>
-<li><code>dp[i][1] = max(dp[i][1], dp[j][0] + 1)</code>，其中<code>0 &lt; j &lt; i</code>且<code>nums[j] &gt; nums[i]</code>，表示将nums[i]接到前面某个山峰后面，作为山谷。</li>
-</ul>
-<p>初始状态：</p>
-<p>由于一个数可以接到前面的某个数后面，也可以以自身为子序列的起点，所以初始状态为：<code>dp[0][0] = dp[0][1] = 1</code>。</p>
-<ul>
-<li>时间复杂度：$O(n^2)$</li>
-<li>空间复杂度：$O(n)$</li>
-</ul>
-<h4 id="Dynamic-Programming进阶版"><a href="#Dynamic-Programming进阶版" class="headerlink" title="Dynamic Programming进阶版"></a>Dynamic Programming进阶版</h4><p>可以用两棵线段树来维护区间的最大值</p>
-<ul>
-<li>每次更新<code>dp[i][0]</code>，则在<code>tree1</code>的<code>nums[i]</code>位置值更新为<code>dp[i][0]</code></li>
-<li>每次更新<code>dp[i][1]</code>，则在<code>tree2</code>的<code>nums[i]</code>位置值更新为<code>dp[i][1]</code></li>
-<li>则dp转移方程中就没有必要j从0遍历到i-1，可以直接在线段树中查询指定区间的值即可。</li>
-</ul>
-<p>时间复杂度：$O(n\log n)$</p>
-<p>空间复杂度：$O(n)$</p>
-<h3 id="53-Maximum-Subarray"><a href="#53-Maximum-Subarray" class="headerlink" title="53. Maximum Subarray"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">53. Maximum Subarray</a></h3><h4 id="Greedy解法-1"><a href="#Greedy解法-1" class="headerlink" title="Greedy解法"></a>Greedy解法</h4><p>局部最优：当前“连续和”为负数的时候立刻放弃，从下一个元素重新计算“连续和”，因为负数加上下一个元素 “连续和”只会越来越小。</p>
-<p>全局最优：选取最大“连续和”</p>
-<p><strong>局部最优的情况下，并记录最大的“连续和”，可以推出全局最优</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSubArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        count+=nums[i];</span><br><span class="line">        <span class="keyword">if</span>(count&gt;max)&#123;</span><br><span class="line">            max=count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(count&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            count=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="DP解法"><a href="#DP解法" class="headerlink" title="DP解法"></a>DP解法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSubArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        dp[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> max=dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[i-<span class="number">1</span>]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                dp[i]=dp[i-<span class="number">1</span>]+nums[i];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">            max=Math.max(max,dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="labuladong"><a href="#labuladong" class="headerlink" title="labuladong"></a>labuladong</h2><p>什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。</p>
-<p>比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满足贪心选择性质，那么可以进一步降低时间复杂度，达到线性级别的。</p>
-<p>什么是贪心选择性质呢，简单说就是：每一步都做出一个局部最优的选择，最终的结果就是全局最优。注意哦，这是一种特殊性质，其实只有一部分问题拥有这个性质。</p>
-<p>比如你面前放着 100 张人民币，你只能拿十张，怎么才能拿最多的面额？显然每次选择剩下钞票中面值最大的一张，最后你的选择一定是最优的。</p>
-<p>然而，大部分问题明显不具有贪心选择性质。比如打斗地主，对手出对儿三，按照贪心策略，你应该出尽可能小的牌刚好压制住对方，但现实情况我们甚至可能会出王炸。这种情况就不能用贪心算法，而得使用动态规划解决。</p>
-<h3 id="435-Non-overlapping-Intervals"><a href="#435-Non-overlapping-Intervals" class="headerlink" title="435. Non-overlapping Intervals"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/non-overlapping-intervals/">435. Non-overlapping Intervals</a></h3><p>区间调度问题    Interval Scheduling</p>
-<p>最多有几个不冲突的区间？</p>
-<p>正确的思路其实很简单，可以分为以下三步：</p>
-<ol>
-<li><p>从区间集合 <code>intvs</code> 中选择一个区间 <code>x</code>，这个 <code>x</code> 是在当前所有区间中<strong>结束最早的</strong>（<code>end</code> 最小）。</p>
-</li>
-<li><p>把所有与 <code>x</code> 区间相交的区间从区间集合 <code>intvs</code> 中删除。</p>
-</li>
-<li><p>重复步骤 1 和 2，直到 <code>intvs</code> 为空为止。之前选出的那些 <code>x</code> 就是最大不相交子集。</p>
-</li>
-</ol>
-<p><em>make the rest of the intervals non-overlapping</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode435</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=intervals.length;</span><br><span class="line">        Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">1</span>]-o2[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : intervals) &#123;</span><br><span class="line">            <span class="type">int</span> start=interval[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(start&gt;=end)&#123;<span class="comment">//已由end升序;若start&lt;end,则重叠,不选取(从集合中删去);否则选为新的区间x</span></span><br><span class="line">                count++;</span><br><span class="line">                end=interval[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n-count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>注意：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(intvs, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span>[] b)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="comment">//以上写法可能出现溢出</span></span><br><span class="line"><span class="comment">//以下写法更保险</span></span><br><span class="line">Arrays.sort(points, (o1,o2)-&gt;&#123;</span><br><span class="line">            <span class="keyword">if</span>(o1[<span class="number">1</span>]&gt;o2[<span class="number">1</span>]) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(o1[<span class="number">1</span>]&lt;o2[<span class="number">1</span>]) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="452-Minimum-Number-of-Arrows-to-Burst-Balloons"><a href="#452-Minimum-Number-of-Arrows-to-Burst-Balloons" class="headerlink" title="452. Minimum Number of Arrows to Burst Balloons"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/">452. Minimum Number of Arrows to Burst Balloons</a></h3><p>依然是求最大不重叠区间数</p>
-<p>每个不重叠区间都需要一个箭，每多一个不重叠区间，就多需要一根箭</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode452</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinArrowShots</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">        Arrays.sort(points, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(o1[<span class="number">1</span>]&gt;o2[<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(o1[<span class="number">1</span>]&lt;o2[<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> end=points[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] point : points) &#123;</span><br><span class="line">            <span class="type">int</span> start=point[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(start&gt;end)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                end=point[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2906,7 +2083,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
