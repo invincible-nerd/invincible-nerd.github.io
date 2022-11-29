@@ -2686,7 +2686,7 @@
       </categories>
       <tags>
         <tag>Nodejs</tag>
-        <tag>Javascript</tag>
+        <tag>Electron</tag>
       </tags>
   </entry>
   <entry>
@@ -3401,7 +3401,6 @@
         <category>Project</category>
       </categories>
       <tags>
-        <tag>Javascript</tag>
         <tag>Vue</tag>
       </tags>
   </entry>
@@ -7597,7 +7596,6 @@
       </categories>
       <tags>
         <tag>Nodejs</tag>
-        <tag>Javascript</tag>
         <tag>MongoDB</tag>
         <tag>Heroku</tag>
       </tags>
