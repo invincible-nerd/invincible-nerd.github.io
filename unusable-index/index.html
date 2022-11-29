@@ -190,6 +190,196 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/28/Sentence-Similarity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/28/Sentence-Similarity/" class="post-title-link" itemprop="url">Sentence Similarity</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-28 17:50:20" itemprop="dateCreated datePublished" datetime="2022-11-28T17:50:20+08:00">2022-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 10:11:47" itemprop="dateModified" datetime="2022-11-29T10:11:47+08:00">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Sentence-Similarity"><a href="#Sentence-Similarity" class="headerlink" title="Sentence Similarity"></a>Sentence Similarity</h1><h2 id="734-Sentence-Similarity"><a href="#734-Sentence-Similarity" class="headerlink" title="734. Sentence Similarity"></a>734. Sentence Similarity</h2><p>not transitive:</p>
+<ul>
+<li>HashSet</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">areSentencesSimilar</span><span class="params">(String[] sentence1, String[] sentence2, List&lt;List&lt;String&gt;&gt; similarPairs)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=sentence1.length;</span><br><span class="line">    <span class="keyword">if</span>(n!= sentence2.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    HashSet&lt;String&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (List&lt;String&gt; similarPair : similarPairs) &#123;</span><br><span class="line">        String a=similarPair.get(<span class="number">0</span>);</span><br><span class="line">        String b=similarPair.get(<span class="number">1</span>);</span><br><span class="line">        set.add(a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        String s1=sentence1[i];</span><br><span class="line">        String s2=sentence2[i];</span><br><span class="line">        <span class="keyword">if</span>(s1.equals(s2))&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!set.contains(s1+s2) &amp;&amp; !set.contains(s2+s1))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="737-Sentence-Similarity-II"><a href="#737-Sentence-Similarity-II" class="headerlink" title="737. Sentence Similarity II"></a>737. Sentence Similarity II</h2><p>transitive: </p>
+<ul>
+<li>BFS search</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">areSentencesSimilarTwo</span><span class="params">(String[] sentence1, String[] sentence2, List&lt;List&lt;String&gt;&gt; similarPairs)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=sentence1.length;</span><br><span class="line">    <span class="keyword">if</span>(n!= sentence2.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Map&lt;String, List&lt;String&gt;&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (List&lt;String&gt; similarPair : similarPairs) &#123;</span><br><span class="line">        String a=similarPair.get(<span class="number">0</span>);</span><br><span class="line">        String b=similarPair.get(<span class="number">1</span>);</span><br><span class="line">        map.putIfAbsent(a,<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;());</span><br><span class="line">        map.get(a).add(b);</span><br><span class="line">        map.putIfAbsent(b,<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;());</span><br><span class="line">        map.get(b).add(a);</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;String&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    Set&lt;String&gt; visited=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        String s1=sentence1[i];</span><br><span class="line">        String s2=sentence2[i];</span><br><span class="line">        <span class="keyword">if</span>(s1.equals(s2))&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        q.clear();</span><br><span class="line">        visited.clear();</span><br><span class="line">        q.offer(s1);</span><br><span class="line">        <span class="type">boolean</span> found=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">            String cur=q.poll();</span><br><span class="line">            <span class="keyword">if</span>(cur.equals(s2))&#123;</span><br><span class="line">                found=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(cur))&#123;</span><br><span class="line">                <span class="keyword">for</span> (String next : map.get(cur)) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(!visited.contains(next))&#123;</span><br><span class="line">                        q.offer(next);</span><br><span class="line">                        visited.add(next);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!found)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/27/BFS-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/27/BFS-2/" class="post-title-link" itemprop="url">BFS(2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-27 20:06:34" itemprop="dateCreated datePublished" datetime="2022-11-27T20:06:34+08:00">2022-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-28 12:08:48" itemprop="dateModified" datetime="2022-11-28T12:08:48+08:00">2022-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>662</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="BFS选编（2）"><a href="#BFS选编（2）" class="headerlink" title="BFS选编（2）"></a>BFS选编（2）</h1><h2 id="733-Flood-Fill"><a href="#733-Flood-Fill" class="headerlink" title="733. Flood Fill"></a>733. Flood Fill</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[][] floodFill(<span class="type">int</span>[][] image, <span class="type">int</span> sr, <span class="type">int</span> sc, <span class="type">int</span> color) &#123;</span><br><span class="line">    Deque&lt;<span class="type">int</span>[]&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> row=image.length;</span><br><span class="line">    <span class="type">int</span> col=image[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span> c=image[sr][sc];</span><br><span class="line">    <span class="type">int</span>[] dx=&#123;<span class="number">1</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">int</span>[] dy=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">    q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;sr,sc&#125;);</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span>[] cur=q.poll();</span><br><span class="line">        <span class="type">int</span> i=cur[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> j=cur[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(image[i][j]!=color)&#123;</span><br><span class="line">            image[i][j]=color;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">                <span class="type">int</span> x=i+dx[k];</span><br><span class="line">                <span class="type">int</span> y=j+dy[k];</span><br><span class="line">                <span class="keyword">if</span>(x&gt;=<span class="number">0</span> &amp;&amp; x&lt;row &amp;&amp; y&gt;=<span class="number">0</span> &amp;&amp; y&lt;col</span><br><span class="line">                        &amp;&amp; image[x][y]==c)&#123;</span><br><span class="line">                    q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x,y&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/25/strobogrammatic-number/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -428,7 +618,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-22 12:33:57" itemprop="dateModified" datetime="2022-11-22T12:33:57+08:00">2022-11-22</time>
+                <time title="修改时间：2022-11-28 12:08:37" itemprop="dateModified" datetime="2022-11-28T12:08:37+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -446,7 +636,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.7k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -532,6 +722,14 @@
 
 
 <h2 id="663-Equal-Tree-Partition"><a href="#663-Equal-Tree-Partition" class="headerlink" title="663. Equal Tree Partition"></a>663. Equal Tree Partition</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;TreeNode,Long&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">checkEqualTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="type">long</span> l=sum(root.left);</span><br><span class="line">    <span class="type">long</span> r=sum(root.right);</span><br><span class="line">    <span class="keyword">if</span>(root.right!=<span class="literal">null</span> &amp;&amp; l+root.val==r || root.left!=<span class="literal">null</span> &amp;&amp; r+root.val==l)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">        root.left.val+=root.val+r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">        root.right.val+=root.val+l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> checkEqualTree(root.left) || checkEqualTree(root.right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="title function_">sum</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(map.containsKey(node))&#123;</span><br><span class="line">          <span class="keyword">return</span> map.get(node);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="type">long</span> res=sum(node.left)+sum(node.right)+node.val;</span><br><span class="line">      map.put(node,res);</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="690-Employee-Importance"><a href="#690-Employee-Importance" class="headerlink" title="690. Employee Importance"></a>690. Employee Importance</h2><h3 id="DFS-1"><a href="#DFS-1" class="headerlink" title="DFS:"></a>DFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (Employee employee : employees) &#123;</span><br><span class="line">    <span class="keyword">if</span>(employee.id==id)&#123;</span><br><span class="line">        res+=employee.importance;</span><br><span class="line">        <span class="keyword">for</span> (Integer next : employee.subordinates) &#123;</span><br><span class="line">            res+=getImportance(employees,next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BFS-1"><a href="#BFS-1" class="headerlink" title="BFS:"></a>BFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getImportance</span><span class="params">(List&lt;Employee&gt; employees, <span class="type">int</span> id)</span> &#123;</span><br><span class="line">    Map&lt;Integer,Employee&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Employee employee : employees) &#123;</span><br><span class="line">        map.put(employee.id,employee);</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;Integer&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(id);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        Employee cur=map.get(q.poll());</span><br><span class="line">        res+=cur.importance;</span><br><span class="line">        <span class="keyword">for</span> (Integer next : cur.subordinates) &#123;</span><br><span class="line">            q.offer(next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1155,245 +1353,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/10/10/ToyWebServer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/10/ToyWebServer/" class="post-title-link" itemprop="url">ToyWebServer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-11 13:14:48" itemprop="dateCreated datePublished" datetime="2022-10-11T13:14:48+08:00">2022-10-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-13 09:27:14" itemprop="dateModified" datetime="2022-10-13T09:27:14+08:00">2022-10-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Distributed-System-Programming-Assignment"><a href="#Distributed-System-Programming-Assignment" class="headerlink" title="Distributed System Programming Assignment"></a>Distributed System Programming Assignment</h1><h2 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h2><ul>
-<li>older and unsafer than ssh</li>
-<li>by default, disabled by Windows</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet google.com 80</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Single-threaded-Python-Web-Server"><a href="#Single-threaded-Python-Web-Server" class="headerlink" title="Single-threaded Python Web Server"></a>Single-threaded Python Web Server</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"> Implements a simple HTTP/1.0 Server</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment">#Get current directory</span></span><br><span class="line">currentPath = os.getcwd().replace(<span class="string">&#x27;\\&#x27;</span>,<span class="string">&#x27;/&#x27;</span>)   </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_request</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Handles the HTTP request.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    headers = request.split(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    filename = headers[<span class="number">0</span>].split()[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> filename == <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">        filename = <span class="string">&#x27;/index.html&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fin = <span class="built_in">open</span>(currentPath + filename)</span><br><span class="line">        content = fin.read()</span><br><span class="line">        fin.close()</span><br><span class="line"></span><br><span class="line">        response = <span class="string">&#x27;HTTP/1.0 200 OK\n\n&#x27;</span> + content</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">        response = <span class="string">&#x27;HTTP/1.0 404 NOT FOUND\n\nFile Not Found&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define socket host and port</span></span><br><span class="line">SERVER_HOST = <span class="string">&#x27;0.0.0.0&#x27;</span></span><br><span class="line">SERVER_PORT = <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create socket</span></span><br><span class="line">server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="number">1</span>)</span><br><span class="line">server_socket.bind((SERVER_HOST, SERVER_PORT))</span><br><span class="line">server_socket.listen(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Listening on port %s ...&#x27;</span> % SERVER_PORT)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># Wait for client connections</span></span><br><span class="line">    client_connection, client_address = server_socket.accept()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Get the client request</span></span><br><span class="line">    request = client_connection.recv(<span class="number">1024</span>).decode()</span><br><span class="line">    <span class="built_in">print</span>(request)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Return an HTTP response</span></span><br><span class="line">    response = handle_request(request)</span><br><span class="line">    client_connection.sendall(response.encode())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Close connection</span></span><br><span class="line">    client_connection.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Close socket</span></span><br><span class="line">server_socket.close()</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Multi-threaded-Python-Web-Server"><a href="#Multi-threaded-Python-Web-Server" class="headerlink" title="Multi-threaded Python Web Server"></a>Multi-threaded Python Web Server</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment">#Get current directory</span></span><br><span class="line">currentPath = os.getcwd().replace(<span class="string">&#x27;\\&#x27;</span>,<span class="string">&#x27;/&#x27;</span>)    </span><br><span class="line"><span class="comment"># 多线程服务器</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_conn</span>(<span class="params">sock, address</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;deal with connection ....&quot;</span>)</span><br><span class="line">    t = threading.Thread(target=process_conn, args=(sock, address))</span><br><span class="line">    t.start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_conn</span>(<span class="params">sock, address</span>):</span><br><span class="line">    <span class="built_in">print</span>(threading.current_thread())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:  <span class="comment"># 多次为一个客户端服务</span></span><br><span class="line">        recv_data = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="comment"># 如果 recv 解堵塞，客户端有两种方式 1. 发送了数据 2. 关闭了连接</span></span><br><span class="line">        <span class="keyword">if</span> recv_data:</span><br><span class="line">            <span class="comment"># 回送数据到客户端</span></span><br><span class="line">            <span class="comment"># 最好使用 sendall</span></span><br><span class="line">        </span><br><span class="line">            request=recv_data.decode()</span><br><span class="line">            <span class="built_in">print</span>(request)</span><br><span class="line"></span><br><span class="line">            headers = request.split(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">            filename = headers[<span class="number">0</span>].split()[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">            <span class="keyword">if</span> filename == <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                filename = <span class="string">&#x27;/index.html&#x27;</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                fin = <span class="built_in">open</span>(currentPath+filename)</span><br><span class="line">                content = fin.read()</span><br><span class="line">                fin.close()</span><br><span class="line"></span><br><span class="line">                response = <span class="string">&#x27;HTTP/1.0 200 OK\n\n&#x27;</span> + content</span><br><span class="line">            <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">                response = <span class="string">&#x27;HTTP/1.0 404 NOT FOUND\n\nFile Not Found&#x27;</span>    </span><br><span class="line"></span><br><span class="line">            <span class="comment"># Return an HTTP response</span></span><br><span class="line">            sock.sendall(response.encode())        </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 5. close socket</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;close socket..&quot;</span>)</span><br><span class="line">    sock.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># 1. create socket</span></span><br><span class="line">    tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. bind local information</span></span><br><span class="line">    tcp_server_socket.bind((<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>))</span><br><span class="line">    <span class="comment"># 3.</span></span><br><span class="line">    tcp_server_socket.listen()</span><br><span class="line">    <span class="comment"># 4. accept connection from client</span></span><br><span class="line">    <span class="comment"># 类似你在等待别人的电话到来</span></span><br><span class="line">    <span class="comment"># 元组解包</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span>(threading.current_thread())</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;waitting ........&quot;</span>)</span><br><span class="line">        new_client_socket, client_addr = tcp_server_socket.accept()</span><br><span class="line">        handle_conn(new_client_socket, client_addr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="another-local-example"><a href="#another-local-example" class="headerlink" title="another local example"></a>another local example</h3><p>server:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import socket programming library</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># import thread module</span></span><br><span class="line"><span class="keyword">from</span> _thread <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">print_lock = threading.Lock()</span><br><span class="line"></span><br><span class="line"><span class="comment"># thread function</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">threaded</span>(<span class="params">c</span>):</span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">		<span class="comment"># data received from client</span></span><br><span class="line">		data = c.recv(<span class="number">1024</span>)</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;Bye&#x27;</span>)</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># lock released on exit</span></span><br><span class="line">			print_lock.release()</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># reverse the given string from client</span></span><br><span class="line">		data = data[::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">		<span class="comment"># send back reversed string to client</span></span><br><span class="line">		c.send(data)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># connection closed</span></span><br><span class="line">	c.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Main</span>():</span><br><span class="line">	host = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># reserve a port on your computer</span></span><br><span class="line">	<span class="comment"># in our case it is 8888 but it</span></span><br><span class="line">	<span class="comment"># can be anything</span></span><br><span class="line">	port = <span class="number">8888</span></span><br><span class="line">	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">	s.bind((host, port))</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;socket binded to port&quot;</span>, port)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># put the socket into listening mode</span></span><br><span class="line">	s.listen(<span class="number">5</span>)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;socket is listening&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># a forever loop until client wants to exit</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">		<span class="comment"># establish connection with client</span></span><br><span class="line">		c, addr = s.accept()</span><br><span class="line"></span><br><span class="line">		<span class="comment"># lock acquired by client</span></span><br><span class="line">		print_lock.acquire()</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;Connected to :&#x27;</span>, addr[<span class="number">0</span>], <span class="string">&#x27;:&#x27;</span>, addr[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">		<span class="comment"># Start a new thread and return its identifier</span></span><br><span class="line">		start_new_thread(threaded, (c,))</span><br><span class="line">	s.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	Main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>client:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Import socket module</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Main</span>():</span><br><span class="line">	<span class="comment"># local host IP &#x27;127.0.0.1&#x27;</span></span><br><span class="line">	host = <span class="string">&#x27;127.0.0.1&#x27;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Define the port on which you want to connect</span></span><br><span class="line">	port = <span class="number">8888</span></span><br><span class="line"></span><br><span class="line">	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># connect to server on local computer</span></span><br><span class="line">	s.connect((host,port))</span><br><span class="line"></span><br><span class="line">	<span class="comment"># message you send to server</span></span><br><span class="line">	message = <span class="string">&quot;shaurya says geeksforgeeks&quot;</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">		<span class="comment"># message sent to server</span></span><br><span class="line">		s.send(message.encode(<span class="string">&#x27;ascii&#x27;</span>))</span><br><span class="line"></span><br><span class="line">		<span class="comment"># message received from server</span></span><br><span class="line">		data = s.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">		<span class="comment"># print the received message</span></span><br><span class="line">		<span class="comment"># here it would be a reverse of sent message</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;Received from the server :&#x27;</span>,<span class="built_in">str</span>(data.decode(<span class="string">&#x27;ascii&#x27;</span>)))</span><br><span class="line"></span><br><span class="line">		<span class="comment"># ask the client whether he wants to continue</span></span><br><span class="line">		ans = <span class="built_in">input</span>(<span class="string">&#x27;\nDo you want to continue(y/n) :&#x27;</span>)</span><br><span class="line">		<span class="keyword">if</span> ans == <span class="string">&#x27;y&#x27;</span>:</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">	<span class="comment"># close the connection</span></span><br><span class="line">	s.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	Main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="unsolved"><a href="#unsolved" class="headerlink" title="unsolved"></a>unsolved</h3><ol>
-<li>why the exception handler is not working?</li>
-<li>why can’t open plain text(txt) file?</li>
-<li>why more than one threads assigned to a single user?</li>
-</ol>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment">#Get current directory</span></span><br><span class="line">currentPath = os.getcwd().replace(<span class="string">&#x27;\\&#x27;</span>,<span class="string">&#x27;/&#x27;</span>)    </span><br><span class="line"><span class="comment"># multithreaded server</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_conn</span>(<span class="params">sock, address</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;deal with connection ....&quot;</span>)</span><br><span class="line">    t = threading.Thread(target=process_conn, args=(sock, address))</span><br><span class="line">    t.start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_conn</span>(<span class="params">sock, address</span>):</span><br><span class="line">    <span class="built_in">print</span>(threading.current_thread())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:  <span class="comment"># serve one client multiple times</span></span><br><span class="line">        recv_data = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># until there is no incoming request</span></span><br><span class="line">        <span class="keyword">if</span> recv_data:</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">            request=recv_data.decode()</span><br><span class="line">            <span class="built_in">print</span>(request)</span><br><span class="line"></span><br><span class="line">            headers = request.split(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">            filename = headers[<span class="number">0</span>].split()[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">            headers = <span class="string">&quot;HTTP/1.1 200 OK\n&quot;</span> + <span class="string">&quot;Content-Type: text/html\n\n&quot;</span></span><br><span class="line">            <span class="comment"># access HTML file</span></span><br><span class="line">            <span class="keyword">if</span> filename == <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                filename = <span class="string">&#x27;/index.html&#x27;</span></span><br><span class="line">            <span class="comment"># access jpg image file</span></span><br><span class="line">            <span class="keyword">elif</span> filename.endswith(<span class="string">&quot;.jpg&quot;</span>) :</span><br><span class="line">                headers = <span class="string">&quot;HTTP/1.1 200 OK\n&quot;</span> + <span class="string">&quot;Content-Type: image/jpeg\n\n&quot;</span></span><br><span class="line">            <span class="comment"># access txt file</span></span><br><span class="line">            <span class="keyword">elif</span> filename.endswith(<span class="string">&quot;.txt&quot;</span>) :</span><br><span class="line">                headers = <span class="string">&quot;HTTP/1.1 200 OK\n&quot;</span> + <span class="string">&quot;Content-Type: text/plain\n\n&quot;</span></span><br><span class="line">            </span><br><span class="line">                </span><br><span class="line">            <span class="comment">#     headers = &quot;HTTP/1.1 200 OK\n&quot; + &quot;Content-Type: text/html\n\n&quot;</span></span><br><span class="line">            <span class="comment">#     fin = open(currentPath+filename, &quot;rb&quot;)</span></span><br><span class="line">            <span class="comment">#     content = fin.read()</span></span><br><span class="line">            <span class="comment">#     fin.close()</span></span><br><span class="line">            <span class="comment">#     sock.send(headers.encode())</span></span><br><span class="line">            <span class="comment">#     sock.send(content)</span></span><br><span class="line">            <span class="comment"># elif filename.endswith(&quot;.jpg&quot;) :</span></span><br><span class="line">            <span class="comment">#     is_img=True</span></span><br><span class="line">            <span class="comment">#     headers = &quot;HTTP/1.1 200 OK\n&quot; + &quot;Content-Type: image/jpeg\n\n&quot;</span></span><br><span class="line">            <span class="comment">#     fin = open(currentPath+filename, &quot;rb&quot;)</span></span><br><span class="line">            <span class="comment">#     content = fin.read()</span></span><br><span class="line">            <span class="comment">#     fin.close()</span></span><br><span class="line">            <span class="comment">#     sock.send(headers.encode())</span></span><br><span class="line">            <span class="comment">#     sock.send(content)</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># is_img or not:</span></span><br><span class="line">                fin = <span class="built_in">open</span>(currentPath+filename, <span class="string">&quot;rb&quot;</span>)</span><br><span class="line">                content = fin.read()</span><br><span class="line">                fin.close()</span><br><span class="line">                response=headers.encode()+content</span><br><span class="line">                <span class="comment"># sock.send(headers.encode())</span></span><br><span class="line">                <span class="comment"># sock.send(content)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">#     else :</span></span><br><span class="line">            <span class="comment">#         fin = open(currentPath+filename, &quot;r&quot;)</span></span><br><span class="line">            <span class="comment">#         content = fin.read()</span></span><br><span class="line">            <span class="comment">#         fin.close()</span></span><br><span class="line">            <span class="comment">#         sock.send(headers.encode())</span></span><br><span class="line">            <span class="comment">#         sock.send(content.encode())</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># content = fin.read()</span></span><br><span class="line">                <span class="comment"># fin.close()</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">#response = &#x27;HTTP/1.0 200 OK\n\n&#x27; + content</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># Error Handling</span></span><br><span class="line">            <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">                response = <span class="string">&#x27;HTTP/1.0 404 NOT FOUND\n\nFile Not Found&#x27;</span>.encode()    </span><br><span class="line">            <span class="keyword">except</span> PermissionError:</span><br><span class="line">                response = <span class="string">&#x27;HTTP/1.0 403 FORBIDDEN\n\nNo Access Permission&#x27;</span>.encode()</span><br><span class="line">                    </span><br><span class="line">            <span class="comment"># Return an HTTP response</span></span><br><span class="line">            </span><br><span class="line">            sock.send(response)</span><br><span class="line">            <span class="comment"># sock.sendall((headers + content).encode())        </span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 5. close socket</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;close socket..&quot;</span>)</span><br><span class="line">    sock.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># 1. create socket</span></span><br><span class="line">    tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. bind local information</span></span><br><span class="line">    tcp_server_socket.bind((<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>))</span><br><span class="line">    <span class="comment"># 3.</span></span><br><span class="line">    tcp_server_socket.listen(<span class="number">5</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 4. wait and accept connection from client</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span>(threading.current_thread())</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;waitting ........&quot;</span>)</span><br><span class="line">        new_client_socket, client_addr = tcp_server_socket.accept()</span><br><span class="line">        handle_conn(new_client_socket, client_addr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/10/07/meeting-room/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/07/meeting-room/" class="post-title-link" itemprop="url">meeting room</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-07 21:15:59" itemprop="dateCreated datePublished" datetime="2022-10-07T21:15:59+08:00">2022-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-15 11:30:41" itemprop="dateModified" datetime="2022-10-15T11:30:41+08:00">2022-10-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Meeting-Rooms问题"><a href="#Meeting-Rooms问题" class="headerlink" title="Meeting Rooms问题"></a>Meeting Rooms问题</h1><h2 id="252-Meeting-Rooms"><a href="#252-Meeting-Rooms" class="headerlink" title="252. Meeting Rooms"></a>252. Meeting Rooms</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/meeting-rooms/">https://leetcode.com/problems/meeting-rooms/</a></p>
-<h3 id="解法一：merge-interval通解"><a href="#解法一：merge-interval通解" class="headerlink" title="解法一：merge interval通解"></a>解法一：merge interval通解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canAttendMeetings</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=intervals.length;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> o1[<span class="number">0</span>]!=o2[<span class="number">0</span>] ? o1[<span class="number">0</span>]-o2[<span class="number">0</span>] : o2[<span class="number">0</span>]-o1[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> start=intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> left=intervals[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> right=intervals[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(left&lt;end)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            end=right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canAttendMeetings</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    Arrays.sort(intervals, (a, b) -&gt; Integer.compare(a[<span class="number">0</span>], b[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; intervals.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals[i][<span class="number">1</span>] &gt; intervals[i + <span class="number">1</span>][<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="253-Meeting-Rooms-II"><a href="#253-Meeting-Rooms-II" class="headerlink" title="253. Meeting Rooms II"></a>253. Meeting Rooms II</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/meeting-rooms-ii/">https://leetcode.com/problems/meeting-rooms-ii/</a></p>
-<h3 id="法一：greedy-algorithm"><a href="#法一：greedy-algorithm" class="headerlink" title="法一：greedy algorithm"></a>法一：greedy algorithm</h3><p>先interval排序，尽可能让该interval去到end更小的组，并更新该组的end</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minMeetingRooms</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    <span class="comment">//minimum number of conference rooms</span></span><br><span class="line">    <span class="comment">//minimum groups of un-overlapping intervals</span></span><br><span class="line">    Arrays.sort(intervals,(a,b)-&gt;(a[<span class="number">0</span>]!=b[<span class="number">0</span>] ? a[<span class="number">0</span>]-b[<span class="number">0</span>] : b[<span class="number">1</span>]-a[<span class="number">1</span>]));</span><br><span class="line">    <span class="type">int</span> n=intervals.length;</span><br><span class="line">    PriorityQueue&lt;Integer&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>();</span><br><span class="line">    pq.add(intervals[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> left=intervals[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> right=intervals[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(left&lt;pq.peek())&#123;</span><br><span class="line">            pq.offer(right);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">int</span> min=pq.poll();</span><br><span class="line">            pq.offer(right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pq.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2402-Meeting-Rooms-III"><a href="#2402-Meeting-Rooms-III" class="headerlink" title="2402. Meeting Rooms III"></a>2402. Meeting Rooms III</h2><p>注意：</p>
-<ul>
-<li>end可能越界，要用long</li>
-<li>compare的返回值必须是int,也要强转</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">mostBooked</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] meetings)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] counts=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Arrays.sort(meetings,(a,b)-&gt;(a[<span class="number">0</span>]-b[<span class="number">0</span>]));</span><br><span class="line">    <span class="comment">//room number, meeting end time</span></span><br><span class="line">    PriorityQueue&lt;<span class="type">long</span>[]&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;(a[<span class="number">1</span>]!=b[<span class="number">1</span>] ? (<span class="type">int</span>)(a[<span class="number">1</span>]-b[<span class="number">1</span>]) : (<span class="type">int</span>)(a[<span class="number">0</span>]-b[<span class="number">0</span>])));</span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">long</span>[]&#123;<span class="number">0</span>,meetings[<span class="number">0</span>][<span class="number">1</span>]&#125;);</span><br><span class="line">    counts[<span class="number">0</span>]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; meetings.length; i++) &#123;</span><br><span class="line">        <span class="type">int</span> start=meetings[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> end=meetings[i][<span class="number">1</span>];</span><br><span class="line">        List&lt;<span class="type">long</span>[]&gt; rooms=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> count=pq.size();</span><br><span class="line">        <span class="type">long</span>[] room=<span class="literal">null</span>;    <span class="comment">//best room to offer</span></span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty() &amp;&amp; pq.peek()[<span class="number">1</span>]&lt;=start)&#123;<span class="comment">//possible rooms to choose from</span></span><br><span class="line">            <span class="type">long</span>[] first=pq.poll();</span><br><span class="line">            <span class="keyword">if</span>(room==<span class="literal">null</span> || first[<span class="number">0</span>]&lt;room[<span class="number">0</span>])&#123;</span><br><span class="line">                room=first;</span><br><span class="line">            &#125;</span><br><span class="line">            rooms.add(first);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(room!=<span class="literal">null</span>)&#123; <span class="comment">//no need to open a new room or wait</span></span><br><span class="line">            room[<span class="number">1</span>]=end;</span><br><span class="line">            counts[(<span class="type">int</span>)room[<span class="number">0</span>]]++;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">long</span>[] r : rooms) &#123;</span><br><span class="line">                pq.offer(r);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(count&lt;n)&#123;<span class="comment">// still have empty rooms, no need to wait</span></span><br><span class="line">            counts[count]++;</span><br><span class="line">            pq.offer(<span class="keyword">new</span> <span class="title class_">long</span>[]&#123;count,end&#125;);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//have to wait</span></span><br><span class="line">            room=pq.poll();</span><br><span class="line">            counts[(<span class="type">int</span>)room[<span class="number">0</span>]]++;</span><br><span class="line">            room[<span class="number">1</span>]+=end-start;</span><br><span class="line">            pq.offer(room);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> max=counts[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; counts.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(counts[i]&gt;max)&#123;</span><br><span class="line">            res=i;</span><br><span class="line">            max=counts[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1463,7 +1422,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1476,7 +1435,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1512,12 +1471,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">549k</span>
+    <span title="站点总字数">555k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:19</span>
+    <span title="站点阅读时长">8:25</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
