@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="midterm reviewChap 1   Introwhat’s a distributed system definitions:  a collection of independent computers that appears to users as a single coherent system a collection of autonomous computers linke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="COEN317_midterm">
+<meta property="og:url" content="http://invincible-nerd.github.io/2022/12/04/COEN317-midterm/index.html">
+<meta property="og:site_name" content="IVN">
+<meta property="og:description" content="midterm reviewChap 1   Introwhat’s a distributed system definitions:  a collection of independent computers that appears to users as a single coherent system a collection of autonomous computers linke">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-04T14:20:28.000Z">
+<meta property="article:modified_time" content="2022-12-05T06:23:16.958Z">
+<meta property="article:author" content="invincible-nerd">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://invincible-nerd.github.io/2022/12/04/COEN317-midterm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>COEN317_midterm | IVN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">IVN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/12/04/COEN317-midterm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          COEN317_midterm
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-04 22:20:28" itemprop="dateCreated datePublished" datetime="2022-12-04T22:20:28+08:00">2022-12-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-05 14:23:16" itemprop="dateModified" datetime="2022-12-05T14:23:16+08:00">2022-12-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="midterm-review"><a href="#midterm-review" class="headerlink" title="midterm review"></a>midterm review</h1><h2 id="Chap-1-Intro"><a href="#Chap-1-Intro" class="headerlink" title="Chap 1   Intro"></a>Chap 1   Intro</h2><h3 id="what’s-a-distributed-system"><a href="#what’s-a-distributed-system" class="headerlink" title="what’s a distributed system"></a>what’s a distributed system</h3><ul>
+<li>definitions: <ol>
+<li>a collection of independent computers that appears to users as a single coherent system</li>
+<li>a collection of autonomous computers linked by a computer network and supported by software that enables the collection to operate as an integrated facility</li>
+<li>crash you never heard of stops you from getting work done</li>
+</ol>
+</li>
+<li><strong>types:</strong></li>
+</ul>
+<h3 id="what-do-we-want-from-distributed-system"><a href="#what-do-we-want-from-distributed-system" class="headerlink" title="what do we want from distributed system"></a>what do we want from distributed system</h3><ul>
+<li><p>resource sharing: </p>
+<ol>
+<li>Quality of Service, trade-offs</li>
+</ol>
+</li>
+<li><p>transparency: information hiding applied to distributed systems</p>
+<ol>
+<li>hiding different aspects of distribution from clients</li>
+<li>make the system more user friendly</li>
+<li>appears to users and applications as a single computer system</li>
+<li>users&#x2F;apps should be able to access remote resources the same way they access local resources</li>
+</ol>
+<ul>
+<li>types:<ol>
+<li>access: hide differences in data representation and how a resource is accessed</li>
+<li>location: hide where a resource is located</li>
+<li>migration: hide that a resource may move to another location</li>
+<li>relocation: hide that a resource may be moved to another location while in use</li>
+<li>replication: hide that a resource is replicated</li>
+<li>concurrency: hide that a resource may be shared by several competitive users</li>
+<li>failure: hide the failure and recovery of a resource</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>openness:</p>
+<ul>
+<li>offer services according to standard rules</li>
+<li>In other words, the interfaces to the system are clearly specified and freely available</li>
+<li>formalized in protocols, not proprietary</li>
+<li>definitions are language and machine independent    interoperate</li>
+<li><strong>separating policy from mechanism</strong></li>
+</ul>
+</li>
+<li><p>scalability: able to grow to meet increasing demands </p>
+<ol>
+<li>3 dimensions of scalability</li>
+</ol>
+<ul>
+<li>size: users&#x2F;resources<ul>
+<li>performance bottlneck: centralized server, data, algorithms</li>
+</ul>
+</li>
+<li>geographically: topologically<ul>
+<li>LAN: synchronous, fast ,reliable</li>
+<li>WAN: asynchronous, slow, unreliable</li>
+</ul>
+</li>
+<li><strong>administratively</strong>: independent organizations&#x2F;domains</li>
+</ul>
+<ol start="2">
+<li>vertical horizontal</li>
+<li>problems:</li>
+</ol>
+<ul>
+<li>trade-off: scalability, security</li>
+</ul>
+<ol start="4">
+<li>scaling techniques</li>
+</ol>
+<ul>
+<li>caching: proximity, client decision</li>
+<li>replicate: consistency vs scalability</li>
+<li>asynchronous: hiding communication latency</li>
+<li>synchronous</li>
+<li>hierachies, domains, zones     split</li>
+</ul>
+</li>
+</ul>
+<h3 id="elements-of-distributed-system"><a href="#elements-of-distributed-system" class="headerlink" title="elements of distributed system"></a>elements of distributed system</h3><ul>
+<li>networks</li>
+<li>hosts</li>
+<li>middleware</li>
+</ul>
+<h3 id="architecture-styles"><a href="#architecture-styles" class="headerlink" title="architecture styles"></a>architecture styles</h3><ul>
+<li><p>describe a particular way to configure a collection of components and connectors</p>
+</li>
+<li><p>layered</p>
+</li>
+<li><p>object-based: object + RPC&#x2F;RMI</p>
+</li>
+<li><p>event&#x2F;publish-subscribe: </p>
+<ul>
+<li>publish to event bus &#x3D;&gt; event bus delivers</li>
+<li>asynchronous communciation, decouples senders&amp;receivers</li>
+</ul>
+</li>
+<li><p>shared data-space: </p>
+<ul>
+<li>publish to shared persistent data space &#x3D;&gt; data space delivers</li>
+</ul>
+</li>
+<li><p>client&#x2F;server model:</p>
+<ul>
+<li>user-interface level: GUI</li>
+<li>processing level: core functionality</li>
+<li>data level: interacts with database or file system</li>
+<li>two-tiered: <ul>
+<li>thin-client: GUI</li>
+<li>fat-client: user interface + processing + some data</li>
+</ul>
+</li>
+<li>three-tiered:<ul>
+<li>application server acting as a client</li>
+<li>client &#x3D;&gt; middleware &#x3D;&gt; resource management server</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="various-configurations-of-distributed-systems"><a href="#various-configurations-of-distributed-systems" class="headerlink" title="various configurations of distributed systems"></a>various configurations of distributed systems</h3><h3 id="example-distributed-systems"><a href="#example-distributed-systems" class="headerlink" title="example distributed systems"></a>example distributed systems</h3><h2 id="Chap-2-3-Communications-Foudamentals"><a href="#Chap-2-3-Communications-Foudamentals" class="headerlink" title="Chap 2,3   Communications  Foudamentals"></a>Chap 2,3   Communications  Foudamentals</h2><h3 id="packets"><a href="#packets" class="headerlink" title="packets"></a>packets</h3><ul>
+<li>segment &#x3D; original data + transport layer header</li>
+<li>packet &#x3D; segment + network layer header</li>
+<li>fram &#x3D; packet + data link layer header</li>
+</ul>
+<h3 id="protocols"><a href="#protocols" class="headerlink" title="protocols"></a>protocols</h3><ul>
+<li>connection-oriented: setup of communication first</li>
+<li>connectionless: no setup of communication</li>
+<li>application-specific vs application-independent</li>
+</ul>
+<h3 id="blocking-x2F-unblocking-communication-calls"><a href="#blocking-x2F-unblocking-communication-calls" class="headerlink" title="blocking&#x2F;unblocking communication calls"></a>blocking&#x2F;unblocking communication calls</h3><ul>
+<li>blocking: process&#x2F;thread execution is suspended until transmission finishes</li>
+<li>unblocking: execution continues without waiting for the finish of the transmission</li>
+</ul>
+<h3 id="layering"><a href="#layering" class="headerlink" title="layering"></a>layering</h3><ul>
+<li>do I need other intermediators to relay the message?</li>
+</ul>
+<h3 id="layered-protocols"><a href="#layered-protocols" class="headerlink" title="layered protocols"></a>layered protocols</h3><h3 id="application-layering"><a href="#application-layering" class="headerlink" title="application layering"></a>application layering</h3><h3 id="communication-between-processes"><a href="#communication-between-processes" class="headerlink" title="communication between processes"></a>communication between processes</h3><h3 id="middleware-and-application-protocols"><a href="#middleware-and-application-protocols" class="headerlink" title="middleware and application protocols"></a>middleware and application protocols</h3><ul>
+<li>application layer protocols</li>
+<li>between application and transport: middleware</li>
+<li>program and network layer</li>
+</ul>
+<h3 id="layered-network-models"><a href="#layered-network-models" class="headerlink" title="layered network models"></a>layered network models</h3><ul>
+<li><p>OSI 7-layer model     Open System Interconnection</p>
+<ul>
+<li>application: support application-specific needs</li>
+<li>presentation: process information format and deliver(serialize and encrypt)</li>
+<li>session: manage communication sessions among applications</li>
+<li>transport: end-to-end communication for applications</li>
+<li>network: route data packets among senders&#x2F;receivers</li>
+<li>data link: send, detect and correct data frames(units of bits)</li>
+<li>physical: transfer bits over physical interfaces(fiber optics)</li>
+</ul>
+</li>
+<li><p>TCP&#x2F;IP 4-layer</p>
+<ul>
+<li>application: SMTP,HTTP,FTP,Telnet</li>
+<li>transport: UCP,TCP</li>
+<li>network: IP</li>
+<li>link: most network hardware   Ethernet&#x2F;fiber&#x2F;satellite</li>
+</ul>
+</li>
+<li><p>Ethernet: local area network</p>
+</li>
+<li><p>Inter-network Protocols       IP</p>
+<ul>
+<li>define datagram as the basic data unit</li>
+<li>define the internet address schema</li>
+<li>routes datagrams to destinations</li>
+<li>divides and assembles datagrams</li>
+</ul>
+</li>
+</ul>
+<h3 id="addressing-and-routing"><a href="#addressing-and-routing" class="headerlink" title="addressing and routing"></a>addressing and routing</h3><ul>
+<li>TCP<ul>
+<li>Transmission Control Protocol</li>
+<li>data sent via streams of bytes</li>
+</ul>
+</li>
+<li>UDP<ul>
+<li>User Datagram Protocol</li>
+<li>data sent in messages</li>
+</ul>
+</li>
+<li>communication ports and sockets</li>
+</ul>
+<h3 id="multicast-more-than-one-recipient"><a href="#multicast-more-than-one-recipient" class="headerlink" title="multicast : more than one recipient"></a>multicast : more than one recipient</h3><h3 id="client-x2F-server-communication-protocols"><a href="#client-x2F-server-communication-protocols" class="headerlink" title="client&#x2F;server communication protocols"></a>client&#x2F;server communication protocols</h3><h3 id="processing-multiple-requests"><a href="#processing-multiple-requests" class="headerlink" title="processing multiple requests"></a>processing multiple requests</h3><ul>
+<li>iterative processing:<br>receive &#x3D;&gt; process &#x3D;&gt; return result &#x3D;&gt; wait for new</li>
+<li>concurrent processing:<br>receive &#x3D;&gt; ask another to process &#x3D;&gt; wait for new<br>                      process &#x3D;&gt; return result</li>
+<li>using replicated processes</li>
+<li>using multiple threads</li>
+<li>using message brokers&#x2F;space repository</li>
+</ul>
+<h3 id="communication-types"><a href="#communication-types" class="headerlink" title="communication types"></a>communication types</h3><ul>
+<li>transient: messages are kept in the communication temporarily only if both the sender and the receiver are live</li>
+<li>persistent: messages are kept in the communciation system until they are delivered to the receiver</li>
+<li>synchronous: <ul>
+<li>the sender waits until it knows the messages have been delivered to the receiver</li>
+<li>blocking send&#x2F;receive</li>
+</ul>
+</li>
+<li>asynchronous: <ul>
+<li>the process continues as soon as sending messages have been copied to the local buffer    </li>
+<li>non-blocking send</li>
+<li>callback mechanisms</li>
+</ul>
+</li>
+</ul>
+<h3 id="stateful-x2F-stateless-server"><a href="#stateful-x2F-stateless-server" class="headerlink" title="stateful&#x2F;stateless server"></a>stateful&#x2F;stateless server</h3><ul>
+<li>keep clients’ state information</li>
+</ul>
+<h2 id="Chap-4-5-6-9-Commuications-Programming"><a href="#Chap-4-5-6-9-Commuications-Programming" class="headerlink" title="Chap 4,5,6,9 Commuications     Programming"></a>Chap 4,5,6,9 Commuications     Programming</h2><h3 id="ports"><a href="#ports" class="headerlink" title="ports"></a>ports</h3><h3 id="sockets"><a href="#sockets" class="headerlink" title="sockets"></a>sockets</h3><ul>
+<li>how does an application use the transport layer communciation to send&#x2F;receive messages?   Transport-level socket programming via socket interface</li>
+<li>socket interface: socket APIs</li>
+<li>what is a socket: a communication end point to&#x2F;from which an application can send&#x2F;receive data through the underlying network</li>
+<li>message-oriented transient communication at transport level</li>
+<li>client: connect, send, receive</li>
+<li>server: bind, listen&#x2F;accept, recieve, process, send</li>
+</ul>
+<h3 id="binding"><a href="#binding" class="headerlink" title="binding"></a>binding</h3><ul>
+<li>attach a local address to a socket</li>
+</ul>
+<h3 id="datagram-sockets"><a href="#datagram-sockets" class="headerlink" title="datagram sockets"></a>datagram sockets</h3><h3 id="UDP-User-Datagram-Protocol"><a href="#UDP-User-Datagram-Protocol" class="headerlink" title="UDP   User Datagram Protocol"></a>UDP   User Datagram Protocol</h3><h3 id="locating-resources-on-the-network"><a href="#locating-resources-on-the-network" class="headerlink" title="locating resources on the network"></a>locating resources on the network</h3><h3 id="network-programming-sockets"><a href="#network-programming-sockets" class="headerlink" title="network programming: sockets"></a>network programming: sockets</h3><h3 id="socket-programming-with-TCP"><a href="#socket-programming-with-TCP" class="headerlink" title="socket programming with TCP"></a>socket programming with TCP</h3><h3 id="models-for-application-communications"><a href="#models-for-application-communications" class="headerlink" title="models for application communications"></a>models for application communications</h3><ul>
+<li>RPC, remote procedure call<ul>
+<li>asynchronous RPC:<ol>
+<li>synchronize at request submission</li>
+<li>synchronize at request delivery</li>
+</ol>
+</li>
+<li>synchronous RPC:<ol>
+<li>synchronize after processed by server</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>message-oriented communication<ul>
+<li>transient   socket</li>
+<li>persistent  message-queuing<ul>
+<li>time uncoupling</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>stream-oriented communication</li>
+<li>multicast communication</li>
+</ul>
+<h3 id="remote-objects-and-RMI"><a href="#remote-objects-and-RMI" class="headerlink" title="remote objects and RMI"></a>remote objects and RMI</h3><ul>
+<li>distributed&#x2F;remote objects</li>
+<li>RMI, Remote Method Invocation</li>
+</ul>
+<h3 id="web-services"><a href="#web-services" class="headerlink" title="web services"></a>web services</h3><ul>
+<li>architecture</li>
+<li>REST<ol>
+<li>resources are identified and accessed through URIs</li>
+<li>resources are data and functionality</li>
+<li>a web service manages a set of resources</li>
+<li>a client and a service exchange representation of resources via standardized interface and protocols</li>
+</ol>
+</li>
+<li>cloud computing&#x2F; cloud resources: file, storage, compute machine, middleware</li>
+</ul>
+<h3 id="stream-data-programming"><a href="#stream-data-programming" class="headerlink" title="stream data programming"></a>stream data programming</h3><ul>
+<li>data stream: a sequence of data units<br>reading bytes from a file and sending bytes via a TCP socket</li>
+<li>can be used for: <ol>
+<li>continuous media: video</li>
+<li>discrete media: stock market events&#x2F;twitter events</li>
+</ol>
+</li>
+<li>timing issues   transmission modes<ol>
+<li>asynchronous: no contraints of delay(when the transmission completes)</li>
+<li>synchronous: maximum end-to-end delay defined for each data unit</li>
+<li>iochronous: maximum and minimum delay defined</li>
+</ol>
+</li>
+</ul>
+<h3 id="group-communication"><a href="#group-communication" class="headerlink" title="group communication"></a>group communication</h3><ul>
+<li><p>use multicast messages</p>
+<ol>
+<li>IP multicast</li>
+<li>application-level multicast</li>
+</ol>
+<ul>
+<li>application processes are organized into an overlay network, in mesh or tree</li>
+</ul>
+</li>
+<li><p>atomic multicast: messages are received either by every memeber or by none of them</p>
+</li>
+<li><p>reliable multicast: messages are delivered to all members in the best effort, but not guaranteed</p>
+</li>
+</ul>
+<h3 id="gossip-based-communication"><a href="#gossip-based-communication" class="headerlink" title="gossip based communication"></a>gossip based communication</h3><ul>
+<li>why? It can spread messages fast and reliably.</li>
+<li>periodically transmit to b random targets</li>
+<li>other nodes do same after receiving multicast</li>
+</ul>
+<h2 id="Chap-10-Naming"><a href="#Chap-10-Naming" class="headerlink" title="Chap 10 Naming"></a>Chap 10 Naming</h2><h3 id="definitions"><a href="#definitions" class="headerlink" title="definitions:"></a>definitions:</h3><ul>
+<li>entity: any kind of object in distributed system:<br>process, file, printer, host, communication endpoint</li>
+<li>naming services:<ul>
+<li>usefulness: <ul>
+<li>identification</li>
+<li>providing detailed description</li>
+<li>foundations for communication, security, auditing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>name space:<ul>
+<li>contains all valid names recognized and managed by a service</li>
+</ul>
+</li>
+<li>naming domain:<ul>
+<li>name space with a single administrative authority which manages names for the name space</li>
+</ul>
+</li>
+<li>name resolution: <ul>
+<li>a process to look up information&#x2F;attributes from a name</li>
+<li>mounting: <ul>
+<li>a directory node in a remote server can be mounted into a local node</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>name: set of bits&#x2F;characters used to refer to an entity&#x2F;a collective of entities, in a context</li>
+<li>identifier: a name that uniquely identifies an entity</li>
+<li>address: the name of an access point, the location of an entity</li>
+</ul>
+<h3 id="design-principles"><a href="#design-principles" class="headerlink" title="design principles:"></a>design principles:</h3><ul>
+<li>flat naming:<ul>
+<li>identifiers have no structured description, just a set of bits<br>m-bits in distributed hash table</li>
+</ul>
+</li>
+<li>structured naming:<ul>
+<li>hard links: multiple absolute paths names referring to the same node</li>
+<li>symbolic links: leaf node storing an absolute path name</li>
+</ul>
+</li>
+<li>attribute based naming:</li>
+</ul>
+<h3 id="naming-services"><a href="#naming-services" class="headerlink" title="naming services:"></a>naming services:</h3><ul>
+<li>DNS</li>
+<li>distributed naming service<ul>
+<li>global layer: com, org, us, edu</li>
+<li>administrational layer: yale.cs.linda</li>
+<li>managerial layer: robot.txt</li>
+</ul>
+</li>
+<li>iterative&#x2F;recursive name resolution<ul>
+<li>client’s name resolver &#x3D;&gt; name server &#x3D;&gt;client’s name resolver </li>
+<li>iterative name resolution at resolver side </li>
+<li>iterative name resolution at server side</li>
+<li>recursive name resolution</li>
+</ul>
+</li>
+<li>administrative zones</li>
+<li>caching servers<ul>
+<li>scalabiltiy<ul>
+<li>response time</li>
+<li>fault tolerance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Directory Service(LDAP,RDF)<ul>
+<li>LDAP implementation, flow</li>
+</ul>
+</li>
+</ul>
+<h3 id="attributed-based-naming"><a href="#attributed-based-naming" class="headerlink" title="attributed-based naming"></a>attributed-based naming</h3><ul>
+<li>a tuple(attribute,value) can be used to describe a property</li>
+<li>directory service</li>
+<li>hierachical implementation: LDAP</li>
+<li>decentralized implementations</li>
+</ul>
+<h3 id="name-and-name-services"><a href="#name-and-name-services" class="headerlink" title="name and name services"></a>name and name services</h3><h3 id="naming-space-and-implementation"><a href="#naming-space-and-implementation" class="headerlink" title="naming space and implementation"></a>naming space and implementation</h3><h3 id="flat-naming-and-simple-resolutions"><a href="#flat-naming-and-simple-resolutions" class="headerlink" title="flat naming and simple resolutions"></a>flat naming and simple resolutions</h3><h3 id="structured-naming"><a href="#structured-naming" class="headerlink" title="structured naming"></a>structured naming</h3><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><h2 id="Virtualization"><a href="#Virtualization" class="headerlink" title="Virtualization"></a>Virtualization</h2><h3 id="definitions-1"><a href="#definitions-1" class="headerlink" title="definitions"></a>definitions</h3><ul>
+<li><p>hypervisor</p>
+<ol>
+<li>type 1:</li>
+</ol>
+<ul>
+<li>right on top of computer hardware</li>
+<li>all guest operating systems are a layer above the hypervisor</li>
+</ul>
+<ol start="2">
+<li>type 2:  VMware workstation</li>
+</ol>
+<ul>
+<li>run over a host OS</li>
+<li>the second layer over the hardware</li>
+<li>the guest OSs run a layer over the hypervisor(the third layer)</li>
+</ul>
+</li>
+<li><p>virtual machine</p>
+<ul>
+<li>virtual machine layer, VMM, hypervisor: software that runs in a layer between a hypervisor&#x2F;host OS and one of more VMs</li>
+</ul>
+</li>
+<li><p>full vs platform virtualization</p>
+<ol>
+<li>full virtualization    native VM<ul>
+<li>complete simulation of underlying hardware, all instructions</li>
+<li>hardware architectural support provided to allow virtualziation</li>
+</ul>
+</li>
+<li>platform virtualization    hosted VM<ul>
+<li>limited simulation of underlying hardware</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>native vs hosted VM</p>
+</li>
+</ul>
+<h3 id="performance-x2F-efficiency-analysis"><a href="#performance-x2F-efficiency-analysis" class="headerlink" title="performance&#x2F;efficiency analysis"></a>performance&#x2F;efficiency analysis</h3><ul>
+<li>virtual networking <ul>
+<li>bridging: guest OS is given direct access to the host’s NIC independent of the host OS</li>
+<li>NAT: guest OS is given a virtual NIC<br>network traffic &#x3D;&gt; virtual NIC &#x3D;&gt; host OS &#x3D;&gt; physical NIC</li>
+<li>Host Only: virtual NIC has no direct route to physical NIC</li>
+</ul>
+</li>
+<li>virtual IO<ul>
+<li>emulation: scalable, low performance</li>
+<li>direct IO: unscalable, high performance</li>
+</ul>
+</li>
+<li>SRIOV<ul>
+<li>solution to 50 VMs but 5 I&#x2F;O devices </li>
+<li>allow PCIe device to present itself as multiple virtual interfaces </li>
+<li>best performance</li>
+<li>limitation: VF configuration depends on PF configuration, thus can not configure</li>
+</ul>
+</li>
+<li>trade off</li>
+</ul>
+<h3 id="case-study"><a href="#case-study" class="headerlink" title="case study"></a>case study</h3><ul>
+<li>XEN architecture<ul>
+<li>domain 0 for control and I&#x2F;O</li>
+</ul>
+</li>
+<li>Amazon AWS&#x2F;Google</li>
+</ul>
+<h3 id="virtual-machine"><a href="#virtual-machine" class="headerlink" title="virtual machine"></a>virtual machine</h3><h3 id="virtual-machine-architecture"><a href="#virtual-machine-architecture" class="headerlink" title="virtual machine architecture"></a>virtual machine architecture</h3><h3 id="virtual-I-x2F-O-and-networking"><a href="#virtual-I-x2F-O-and-networking" class="headerlink" title="virtual I&#x2F;O and networking"></a>virtual I&#x2F;O and networking</h3><h2 id="Chap-13-Peer-to-Peer-System"><a href="#Chap-13-Peer-to-Peer-System" class="headerlink" title="Chap 13, Peer to Peer System"></a>Chap 13, Peer to Peer System</h2><h3 id="history-Napster"><a href="#history-Napster" class="headerlink" title="history   Napster"></a>history   Napster</h3><ul>
+<li>servers store table: filename, peer pointer(ip address, port number)</li>
+<li>peers store their own files</li>
+<li>all communications use TCP</li>
+<li>problem: <ol>
+<li>centralized server: congestion</li>
+<li>centralized server: single point of failure</li>
+<li>security: plaintext messages</li>
+</ol>
+</li>
+</ul>
+<h3 id="distributed-hash-table"><a href="#distributed-hash-table" class="headerlink" title="distributed hash table"></a>distributed hash table</h3><ul>
+<li>to insert, lookup and delete objects with keys</li>
+<li>key, object(file)</li>
+</ul>
+<h3 id="Chord"><a href="#Chord" class="headerlink" title="Chord"></a>Chord</h3><ul>
+<li>finger table: ft[m] [0,m-1]<ul>
+<li>ft[i] &#x3D; first peer with id &gt;&#x3D; (n+pow(2,i)) mod pow(2,m) </li>
+<li>file is stored at first peer with id &gt;&#x3D; file_key mod pow(2,m)</li>
+</ul>
+</li>
+<li>efficiency analysis: O(log(n)) for insertion and lookup given correct finger table entries</li>
+<li>lookup algorithm, finger table<ul>
+<li>local search</li>
+<li>query largest successor&#x2F;finger table entry &lt;&#x3D; k</li>
+<li>if none exist, query next successor</li>
+</ul>
+</li>
+<li>new nodes joining</li>
+<li>stablization algorithm: O(n^2) rounds for strict stablization</li>
+<li>rate of churn per hour: define r(successor and predecessor)</li>
+</ul>
+<h2 id="Failure-Detection"><a href="#Failure-Detection" class="headerlink" title="Failure Detection"></a>Failure Detection</h2><h3 id="two-different-system-models"><a href="#two-different-system-models" class="headerlink" title="two different system models"></a>two different system models</h3><ul>
+<li>synchronous distributed system</li>
+<li>asynchronous distributed system   <ul>
+<li>no bounds on process execution</li>
+<li>no bounds on message transmission delay </li>
+<li>the Internet</li>
+</ul>
+</li>
+</ul>
+<h3 id="failure-model"><a href="#failure-model" class="headerlink" title="failure model"></a>failure model</h3><ul>
+<li>process omission failure<ul>
+<li>crash-stop</li>
+<li>crash-recovery</li>
+</ul>
+</li>
+</ul>
+<h3 id="type-of-failure-detection"><a href="#type-of-failure-detection" class="headerlink" title="type of failure detection"></a>type of failure detection</h3><ul>
+<li>process failure</li>
+<li>arbitrary failure<ul>
+<li>arbitrary process failure</li>
+<li>arbitrary channel failure</li>
+</ul>
+</li>
+<li>communication failure<ul>
+<li>send omission</li>
+<li>channel omission</li>
+<li>receive omission</li>
+</ul>
+</li>
+<li>completeness and accuracy<ul>
+<li>completness: no misses</li>
+<li>accuracy: no mistakes<br>Every detected failure corresponds to a crashed process.</li>
+</ul>
+</li>
+<li>synchronous and asynchronous model</li>
+<li>measuring accuracy(metrics)<ul>
+<li>speed: detection time</li>
+<li>accuracy: <ol>
+<li>mistake recurrence time</li>
+<li>mistake duration time</li>
+<li>number of false failure detections per time</li>
+<li>number of undetected failures per time</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="process-failure"><a href="#process-failure" class="headerlink" title="process failure"></a>process failure</h3><p>pj fails</p>
+<ul>
+<li>ping-ack<br>pi Ping&#x3D;&gt; pj, pj Ack&#x3D;&gt; pi</li>
+<li>heartbeat<br>pj Heartbeat&#x3D;&gt; pi</li>
+<li>satifies completness and accuracy in synchronous systems</li>
+<li>satifies completness and probabilistic accuracy in asynchronous systems</li>
+</ul>
+<h3 id="implement-heartbeat-in-a-distributed-system-environment"><a href="#implement-heartbeat-in-a-distributed-system-environment" class="headerlink" title="implement heartbeat in a distributed system environment"></a>implement heartbeat in a distributed system environment</h3><ul>
+<li>want all to know the failure</li>
+<li>combine failure detection with a dissemination protocol</li>
+<li>central, ring, all-to-all</li>
+<li>heartbeat combined reliable multicast protocol</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>invincible-nerd
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://invincible-nerd.github.io/2022/12/04/COEN317-midterm/" title="COEN317_midterm">http://invincible-nerd.github.io/2022/12/04/COEN317-midterm/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/04/COEN317_final/" rel="prev" title="COEN317 Final Review">
+      <i class="fa fa-chevron-left"></i> COEN317 Final Review
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/04/COEN317/" rel="next" title="COEN317">
+      COEN317 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#midterm-review"><span class="nav-number">1.</span> <span class="nav-text">midterm review</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chap-1-Intro"><span class="nav-number">1.1.</span> <span class="nav-text">Chap 1   Intro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#what%E2%80%99s-a-distributed-system"><span class="nav-number">1.1.1.</span> <span class="nav-text">what’s a distributed system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#what-do-we-want-from-distributed-system"><span class="nav-number">1.1.2.</span> <span class="nav-text">what do we want from distributed system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elements-of-distributed-system"><span class="nav-number">1.1.3.</span> <span class="nav-text">elements of distributed system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture-styles"><span class="nav-number">1.1.4.</span> <span class="nav-text">architecture styles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#various-configurations-of-distributed-systems"><span class="nav-number">1.1.5.</span> <span class="nav-text">various configurations of distributed systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#example-distributed-systems"><span class="nav-number">1.1.6.</span> <span class="nav-text">example distributed systems</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chap-2-3-Communications-Foudamentals"><span class="nav-number">1.2.</span> <span class="nav-text">Chap 2,3   Communications  Foudamentals</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#packets"><span class="nav-number">1.2.1.</span> <span class="nav-text">packets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#protocols"><span class="nav-number">1.2.2.</span> <span class="nav-text">protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blocking-x2F-unblocking-communication-calls"><span class="nav-number">1.2.3.</span> <span class="nav-text">blocking&#x2F;unblocking communication calls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layering"><span class="nav-number">1.2.4.</span> <span class="nav-text">layering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layered-protocols"><span class="nav-number">1.2.5.</span> <span class="nav-text">layered protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-layering"><span class="nav-number">1.2.6.</span> <span class="nav-text">application layering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#communication-between-processes"><span class="nav-number">1.2.7.</span> <span class="nav-text">communication between processes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#middleware-and-application-protocols"><span class="nav-number">1.2.8.</span> <span class="nav-text">middleware and application protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layered-network-models"><span class="nav-number">1.2.9.</span> <span class="nav-text">layered network models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addressing-and-routing"><span class="nav-number">1.2.10.</span> <span class="nav-text">addressing and routing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multicast-more-than-one-recipient"><span class="nav-number">1.2.11.</span> <span class="nav-text">multicast : more than one recipient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client-x2F-server-communication-protocols"><span class="nav-number">1.2.12.</span> <span class="nav-text">client&#x2F;server communication protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#processing-multiple-requests"><span class="nav-number">1.2.13.</span> <span class="nav-text">processing multiple requests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#communication-types"><span class="nav-number">1.2.14.</span> <span class="nav-text">communication types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stateful-x2F-stateless-server"><span class="nav-number">1.2.15.</span> <span class="nav-text">stateful&#x2F;stateless server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chap-4-5-6-9-Commuications-Programming"><span class="nav-number">1.3.</span> <span class="nav-text">Chap 4,5,6,9 Commuications     Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ports"><span class="nav-number">1.3.1.</span> <span class="nav-text">ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sockets"><span class="nav-number">1.3.2.</span> <span class="nav-text">sockets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binding"><span class="nav-number">1.3.3.</span> <span class="nav-text">binding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#datagram-sockets"><span class="nav-number">1.3.4.</span> <span class="nav-text">datagram sockets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP-User-Datagram-Protocol"><span class="nav-number">1.3.5.</span> <span class="nav-text">UDP   User Datagram Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locating-resources-on-the-network"><span class="nav-number">1.3.6.</span> <span class="nav-text">locating resources on the network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#network-programming-sockets"><span class="nav-number">1.3.7.</span> <span class="nav-text">network programming: sockets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-programming-with-TCP"><span class="nav-number">1.3.8.</span> <span class="nav-text">socket programming with TCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#models-for-application-communications"><span class="nav-number">1.3.9.</span> <span class="nav-text">models for application communications</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remote-objects-and-RMI"><span class="nav-number">1.3.10.</span> <span class="nav-text">remote objects and RMI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web-services"><span class="nav-number">1.3.11.</span> <span class="nav-text">web services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stream-data-programming"><span class="nav-number">1.3.12.</span> <span class="nav-text">stream data programming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group-communication"><span class="nav-number">1.3.13.</span> <span class="nav-text">group communication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gossip-based-communication"><span class="nav-number">1.3.14.</span> <span class="nav-text">gossip based communication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chap-10-Naming"><span class="nav-number">1.4.</span> <span class="nav-text">Chap 10 Naming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#definitions"><span class="nav-number">1.4.1.</span> <span class="nav-text">definitions:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#design-principles"><span class="nav-number">1.4.2.</span> <span class="nav-text">design principles:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#naming-services"><span class="nav-number">1.4.3.</span> <span class="nav-text">naming services:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attributed-based-naming"><span class="nav-number">1.4.4.</span> <span class="nav-text">attributed-based naming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name-and-name-services"><span class="nav-number">1.4.5.</span> <span class="nav-text">name and name services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#naming-space-and-implementation"><span class="nav-number">1.4.6.</span> <span class="nav-text">naming space and implementation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flat-naming-and-simple-resolutions"><span class="nav-number">1.4.7.</span> <span class="nav-text">flat naming and simple resolutions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#structured-naming"><span class="nav-number">1.4.8.</span> <span class="nav-text">structured naming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS"><span class="nav-number">1.4.9.</span> <span class="nav-text">DNS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtualization"><span class="nav-number">1.5.</span> <span class="nav-text">Virtualization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#definitions-1"><span class="nav-number">1.5.1.</span> <span class="nav-text">definitions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#performance-x2F-efficiency-analysis"><span class="nav-number">1.5.2.</span> <span class="nav-text">performance&#x2F;efficiency analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-study"><span class="nav-number">1.5.3.</span> <span class="nav-text">case study</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-machine"><span class="nav-number">1.5.4.</span> <span class="nav-text">virtual machine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-machine-architecture"><span class="nav-number">1.5.5.</span> <span class="nav-text">virtual machine architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-I-x2F-O-and-networking"><span class="nav-number">1.5.6.</span> <span class="nav-text">virtual I&#x2F;O and networking</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chap-13-Peer-to-Peer-System"><span class="nav-number">1.6.</span> <span class="nav-text">Chap 13, Peer to Peer System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#history-Napster"><span class="nav-number">1.6.1.</span> <span class="nav-text">history   Napster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distributed-hash-table"><span class="nav-number">1.6.2.</span> <span class="nav-text">distributed hash table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chord"><span class="nav-number">1.6.3.</span> <span class="nav-text">Chord</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Failure-Detection"><span class="nav-number">1.7.</span> <span class="nav-text">Failure Detection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#two-different-system-models"><span class="nav-number">1.7.1.</span> <span class="nav-text">two different system models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#failure-model"><span class="nav-number">1.7.2.</span> <span class="nav-text">failure model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type-of-failure-detection"><span class="nav-number">1.7.3.</span> <span class="nav-text">type of failure detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process-failure"><span class="nav-number">1.7.4.</span> <span class="nav-text">process failure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-heartbeat-in-a-distributed-system-environment"><span class="nav-number">1.7.5.</span> <span class="nav-text">implement heartbeat in a distributed system environment</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">invincible-nerd</p>
+  <div class="site-description" itemprop="description">For explorer everywhere</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022-04 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">invincible-nerd</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">670k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:09</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

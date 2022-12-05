@@ -59,8 +59,10 @@
 <meta property="og:image" content="http://invincible-nerd.github.io/images/210/branch_hazard.JPG">
 <meta property="og:image" content="http://invincible-nerd.github.io/images/210/exception_interrupt.JPG">
 <meta property="og:image" content="http://invincible-nerd.github.io/images/210/pipeline_with_exceptions.JPG">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/210/TLB.JPG">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/210/Integration.JPG">
 <meta property="article:published_time" content="2022-12-04T08:34:43.000Z">
-<meta property="article:modified_time" content="2022-12-05T00:46:24.931Z">
+<meta property="article:modified_time" content="2022-12-05T06:11:11.675Z">
 <meta property="article:author" content="invincible-nerd">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://invincible-nerd.github.io/images/210/memory_layout.JPG">
@@ -256,7 +258,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 08:46:24" itemprop="dateModified" datetime="2022-12-05T08:46:24+08:00">2022-12-05</time>
+                <time title="修改时间：2022-12-05 14:11:11" itemprop="dateModified" datetime="2022-12-05T14:11:11+08:00">2022-12-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,14 +276,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
+              <span>17k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>16 分钟</span>
             </span>
 
         </div>
@@ -1015,7 +1017,280 @@
 </ul>
 </li>
 </ul>
-<h2 id="Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy"><a href="#Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy" class="headerlink" title="Chapter 5 — Large and Fast: Exploiting Memory Hierarchy"></a>Chapter 5 — Large and Fast: Exploiting Memory Hierarchy</h2>
+<h2 id="Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy"><a href="#Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy" class="headerlink" title="Chapter 5 — Large and Fast: Exploiting Memory Hierarchy"></a>Chapter 5 — Large and Fast: Exploiting Memory Hierarchy</h2><h3 id="Principle-of-Locality"><a href="#Principle-of-Locality" class="headerlink" title="Principle of Locality"></a>Principle of Locality</h3><ul>
+<li>Programs access a small portion of their  address space at any time</li>
+<li>Temporal locality<ul>
+<li>Items accessed recently are likely to be accessed  again soon</li>
+<li>e.g., instructions in a loop, induction variables</li>
+</ul>
+</li>
+<li>Spatial locality<ul>
+<li>Items near those accessed recently are likely to be  accessed soon</li>
+<li>E.g., sequential instruction access, array data</li>
+</ul>
+</li>
+</ul>
+<h3 id="Taking-Advantage-of-Locality"><a href="#Taking-Advantage-of-Locality" class="headerlink" title="Taking Advantage of Locality"></a>Taking Advantage of Locality</h3><ul>
+<li>Memory hierarchy</li>
+<li>Store everything on disk</li>
+<li>Copy recently accessed (and nearby) items  from disk to smaller DRAM memory<ul>
+<li>Main memory</li>
+</ul>
+</li>
+<li>Copy more recently accessed (and nearby)  items from DRAM to smaller SRAM memory<ul>
+<li>Cache memory attached to CPU</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cache-Block-Size-Considerations"><a href="#Cache-Block-Size-Considerations" class="headerlink" title="Cache Block Size Considerations"></a>Cache Block Size Considerations</h3><ul>
+<li>Larger blocks should reduce miss rate<ul>
+<li>Due to spatial locality</li>
+</ul>
+</li>
+<li>But in a fixed-sized cache<ul>
+<li>Larger blocks -&gt; fewer of them<ul>
+<li>More competition -&gt; increased miss rate</li>
+</ul>
+</li>
+<li>Larger blocks -&gt; pollution<ul>
+<li>Partially used before being replaced</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Larger miss penalty<ul>
+<li>Can override benefit of reduced miss rate</li>
+<li>Early restart and critical-word-first can help<ul>
+<li>early restart: don’t wait for everything to load</li>
+<li>critical-word-first: bring in the required data first</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cache-Misses"><a href="#Cache-Misses" class="headerlink" title="Cache Misses"></a>Cache Misses</h3><ul>
+<li>On cache hit, CPU proceeds normally</li>
+<li>On cache miss<ul>
+<li>Stall the CPU pipeline</li>
+<li>Fetch block from next level of hierarchy</li>
+<li>Instruction cache miss<ul>
+<li>Restart instruction fetch (PC - 4)</li>
+</ul>
+</li>
+<li>Data cache miss<ul>
+<li>Complete data access</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="On-data-write-hit"><a href="#On-data-write-hit" class="headerlink" title="On data-write hit"></a>On data-write hit</h3><ul>
+<li>Write-Through<ul>
+<li>also update memory</li>
+<li>But makes writes take longer</li>
+<li>Solution: write buffer<ul>
+<li>Holds data waiting to be written to memory</li>
+<li>CPU continues immediately<ul>
+<li>Only stalls on write if write buffer is already full</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Write-Back<ul>
+<li>Alternative: On data-write hit, just update the  block in cache<ul>
+<li>Keep track of whether each block is dirty</li>
+</ul>
+</li>
+<li>When a dirty block is replaced<ul>
+<li>Write it back to memory</li>
+<li>Can use a write buffer to allow replacing block to  be read first</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Performance-Summary"><a href="#Performance-Summary" class="headerlink" title="Performance Summary"></a>Performance Summary</h3><ul>
+<li>When CPU performance increased<ul>
+<li>Miss penalty becomes more significant</li>
+</ul>
+</li>
+<li>Decreasing base CPI<ul>
+<li>Greater proportion of time spent on memory stalls</li>
+</ul>
+</li>
+<li>Increasing clock rate<ul>
+<li>Memory stalls account for more CPU cycles</li>
+</ul>
+</li>
+<li>Can’t neglect cache behavior when evaluating  system performance</li>
+</ul>
+<h3 id="Set-Associative-Cache"><a href="#Set-Associative-Cache" class="headerlink" title="Set Associative Cache"></a>Set Associative Cache</h3><ul>
+<li>n-way set associative<ul>
+<li>Each set contains n entries</li>
+<li>Block number determines which set<ul>
+<li>(Block number) modulo (#Sets in cache)</li>
+</ul>
+</li>
+<li>Search all entries in a given set at once</li>
+<li>n comparators (less expensive)</li>
+</ul>
+</li>
+<li>Replacement Policy<ul>
+<li>Prefer non-valid entry, if there is one</li>
+<li>Otherwise, choose among entries in the set<ul>
+<li>Least-recently used (LRU)<ul>
+<li>Choose the one unused for the longest time</li>
+</ul>
+</li>
+<li>Random</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Multilevel-Caches"><a href="#Multilevel-Caches" class="headerlink" title="Multilevel Caches"></a>Multilevel Caches</h3><ul>
+<li>Primary cache attached to CPU<ul>
+<li>Focus on minimal hit time</li>
+</ul>
+</li>
+<li>Level-2 cache services misses  from primary cache<ul>
+<li>Focus on low miss rate to avoid main memory  access</li>
+<li>Hit time has less overall impact</li>
+</ul>
+</li>
+<li>Main memory services L-2  cache misses</li>
+<li>Some high-end systems include  L-3 cache</li>
+</ul>
+<h3 id="Dependability-Measures"><a href="#Dependability-Measures" class="headerlink" title="Dependability Measures"></a>Dependability Measures</h3><ul>
+<li>Reliability: mean time to failure (MTTF)</li>
+<li>Service interruption: mean time to repair (MTTR)</li>
+<li>Availability &#x3D; MTTF &#x2F; (MTTF + MTTR)</li>
+<li>Improving Availability<ul>
+<li>Increase MTTF: fault avoidance, fault tolerance, fault  forecasting</li>
+<li>Reduce MTTR: improved tools and processes for diagnosis  and repair</li>
+</ul>
+</li>
+</ul>
+<h3 id="The-Hamming-SEC-Code"><a href="#The-Hamming-SEC-Code" class="headerlink" title="The Hamming SEC Code"></a>The Hamming SEC Code</h3><ul>
+<li>Hamming distance<ul>
+<li>Number of bits that are different between two bit  patterns, e.g. 2 in 011011 and 001111</li>
+</ul>
+</li>
+<li>Code with minimum distance &#x3D; 2 provides  single bit error detection<ul>
+<li>E.g. parity code</li>
+</ul>
+</li>
+<li>Minimum distance &#x3D; 3 provides single error  correction, 2 bit error detection</li>
+</ul>
+<h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><ul>
+<li><p>Use main memory as a “cache” for secondary  (disk) storage</p>
+<ul>
+<li>Managed jointly by CPU hardware and the  operating system (OS)</li>
+</ul>
+</li>
+<li><p>Programs share main memory</p>
+<ul>
+<li>Each gets a private virtual address space holding its  frequently used code and data</li>
+<li>Protected from other programs</li>
+</ul>
+</li>
+<li><p>CPU and OS translate virtual addresses to  physical addresses</p>
+<ul>
+<li>VM “block” is called a page</li>
+<li>VM translation “miss” is called a page fault</li>
+</ul>
+</li>
+<li><p>PTE: Page Table Entry</p>
+</li>
+<li><p>TLB: Translation Look-aside Buffer</p>
+</li>
+</ul>
+<p><img src="/images/210/TLB.JPG"></p>
+<p><img src="/images/210/Integration.JPG"></p>
+<h3 id="Pitfalls-3"><a href="#Pitfalls-3" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ul>
+<li>Byte vs. word addressing<ul>
+<li>Example: 32-byte direct-mapped cache, 4-byte blocks<ul>
+<li>Byte 36 maps to block 1</li>
+<li>Word 36 maps to block 4</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ignoring memory system effects when writing  or generating code<ul>
+<li>Example: iterating over rows vs. columns of arrays</li>
+<li>Large strides result in poor locality</li>
+</ul>
+</li>
+<li>In multiprocessor with shared L2 or L3 cache<ul>
+<li>Less associativity than cores results in conflict  misses</li>
+<li>More cores -&gt; need to increase associativity</li>
+</ul>
+</li>
+<li>Using AMAT to evaluate performance of out-of-order processors<ul>
+<li>Ignores effect of non-blocked accesses</li>
+<li>Instead, evaluate performance by simulation</li>
+</ul>
+</li>
+<li>Extending address range using segments<ul>
+<li>E.g., Intel 80286</li>
+<li>But a segment is not always big enough</li>
+<li>Makes address arithmetic complicated</li>
+</ul>
+</li>
+<li>Implementing a VMM on an ISA not designed  for virtualization<ul>
+<li>E.g., non-privileged instructions accessing  hardware resources</li>
+<li>Either extend ISA, or require guest OS not to use  problematic instructions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Concluding-Remarks-1"><a href="#Concluding-Remarks-1" class="headerlink" title="Concluding Remarks"></a>Concluding Remarks</h3><ul>
+<li>Fast memories are small, large memories are slow<ul>
+<li>We really want fast, large memories</li>
+<li>Caching gives this illusion</li>
+</ul>
+</li>
+<li>Principle of locality<ul>
+<li>Programs use a small part of their memory space frequently</li>
+</ul>
+</li>
+<li>Memory hierarchy<ul>
+<li>L1 cache &lt;-&gt; L2 cache &lt;-&gt; … &lt;-&gt; DRAM memory &lt;-&gt; disk</li>
+</ul>
+</li>
+<li>Memory system design is critical for multiprocessors</li>
+</ul>
+<h2 id="Chapter-6-—-Parallel-Processors-from-Client-to-Cloud"><a href="#Chapter-6-—-Parallel-Processors-from-Client-to-Cloud" class="headerlink" title="Chapter 6 — Parallel Processors from Client to Cloud"></a>Chapter 6 — Parallel Processors from Client to Cloud</h2><h3 id="GPU-Architectures"><a href="#GPU-Architectures" class="headerlink" title="GPU Architectures"></a>GPU Architectures</h3><ul>
+<li>Processing is highly data-parallel<ul>
+<li>GPUs are highly multithreaded</li>
+<li>Use thread switching to hide memory latency<ul>
+<li>Less reliance on multi-level caches</li>
+</ul>
+</li>
+<li>Graphics memory is wide and high-bandwidth</li>
+</ul>
+</li>
+<li>Trend toward general purpose GPUs<ul>
+<li>Heterogeneous CPU&#x2F;GPU systems</li>
+<li>CPU for sequential code, GPU for parallel code</li>
+</ul>
+</li>
+<li>Programming languages&#x2F;APIs<ul>
+<li>DirectX, OpenGL</li>
+<li>C for Graphics (Cg), High Level Shader Language (HLSL)</li>
+<li>Compute Unified Device Architecture (CUDA</li>
+</ul>
+</li>
+</ul>
+<h3 id="Concluding-Remarks-2"><a href="#Concluding-Remarks-2" class="headerlink" title="Concluding Remarks"></a>Concluding Remarks</h3><ul>
+<li>Goal: higher performance by using multiple  processors</li>
+<li>Difficulties</li>
+<li>SaaS importance is growing and clusters are a good  match</li>
+<li>Performance per dollar and performance per Joule  drive both mobile and WSC</li>
+<li>SIMD and vector  operations match  multimedia applications  and are easy to program</li>
+</ul>
+
     </div>
 
     
@@ -1051,7 +1326,7 @@
       <i class="fa fa-chevron-left"></i> Web Developer Bootcamp
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/12/04/COEN317/" rel="next" title="COEN317 Final Review">
+    <a href="/2022/12/04/COEN317_final/" rel="next" title="COEN317 Final Review">
       COEN317 Final Review <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -1112,7 +1387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#COEN-210-Computer-Architecture"><span class="nav-number">1.</span> <span class="nav-text">COEN 210 Computer Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1-%E2%80%94-Computer-Abstraction-and-Technology"><span class="nav-number">1.1.</span> <span class="nav-text">Chapter 1 — Computer Abstraction and Technology</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Understanding-Performance"><span class="nav-number">1.1.1.</span> <span class="nav-text">Understanding Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eight-Great-Ideas"><span class="nav-number">1.1.2.</span> <span class="nav-text">Eight Great Ideas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls"><span class="nav-number">1.1.3.</span> <span class="nav-text">Pitfalls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2-%E2%80%94-Instructions-Language-of-the-Computer"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 2 — Instructions: Language of the Computer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Design-Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Design Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Registers"><span class="nav-number">1.2.2.</span> <span class="nav-text">LEGv8 Registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-Layout"><span class="nav-number">1.2.3.</span> <span class="nav-text">Memory Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Addressing-Summary"><span class="nav-number">1.2.4.</span> <span class="nav-text">LEGv8 Addressing Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Encoding-Summary"><span class="nav-number">1.2.5.</span> <span class="nav-text">LEGv8 Encoding Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronization"><span class="nav-number">1.2.6.</span> <span class="nav-text">Synchronization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Translation-and-Startup"><span class="nav-number">1.2.7.</span> <span class="nav-text">Translation and Startup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loading-a-Program"><span class="nav-number">1.2.8.</span> <span class="nav-text">Loading a Program</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Linking"><span class="nav-number">1.2.9.</span> <span class="nav-text">Dynamic Linking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lessons-Learnt"><span class="nav-number">1.2.10.</span> <span class="nav-text">Lessons Learnt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fallacies"><span class="nav-number">1.2.11.</span> <span class="nav-text">Fallacies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls-1"><span class="nav-number">1.2.12.</span> <span class="nav-text">Pitfalls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-4-%E2%80%94-The-Processor"><span class="nav-number">1.3.</span> <span class="nav-text">Chapter 4 — The Processor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logic-Design-Basics"><span class="nav-number">1.3.1.</span> <span class="nav-text">Logic Design Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clocking-Methodology"><span class="nav-number">1.3.2.</span> <span class="nav-text">Clocking Methodology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-Datapath"><span class="nav-number">1.3.3.</span> <span class="nav-text">Full Datapath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datapath-With-Control"><span class="nav-number">1.3.4.</span> <span class="nav-text">Datapath With Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-Type-Instruction"><span class="nav-number">1.3.5.</span> <span class="nav-text">R-Type Instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-Instruction"><span class="nav-number">1.3.6.</span> <span class="nav-text">Load Instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CBZ-Instruction"><span class="nav-number">1.3.7.</span> <span class="nav-text">CBZ Instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datapath-With-B-Added"><span class="nav-number">1.3.8.</span> <span class="nav-text">Datapath With B Added</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Cycle-Performance-Issues"><span class="nav-number">1.3.9.</span> <span class="nav-text">Single Cycle Performance Issues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelining-Analogy"><span class="nav-number">1.3.10.</span> <span class="nav-text">Pipelining Analogy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Pipeline"><span class="nav-number">1.3.11.</span> <span class="nav-text">LEGv8 Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-Performance"><span class="nav-number">1.3.12.</span> <span class="nav-text">Pipeline Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-Speedup"><span class="nav-number">1.3.13.</span> <span class="nav-text">Pipeline Speedup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelining-and-ISA-Design"><span class="nav-number">1.3.14.</span> <span class="nav-text">Pipelining and ISA Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hazards"><span class="nav-number">1.3.15.</span> <span class="nav-text">Hazards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Branch-Prediction"><span class="nav-number">1.3.16.</span> <span class="nav-text">Branch Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-Realistic-Branch-Prediction"><span class="nav-number">1.3.17.</span> <span class="nav-text">More-Realistic Branch Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-Summary"><span class="nav-number">1.3.18.</span> <span class="nav-text">Pipeline Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Pipelined-Datapath"><span class="nav-number">1.3.19.</span> <span class="nav-text">LEGv8 Pipelined Datapath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-registers"><span class="nav-number">1.3.20.</span> <span class="nav-text">Pipeline registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Cycle-Pipeline-Diagram"><span class="nav-number">1.3.21.</span> <span class="nav-text">Multi-Cycle Pipeline Diagram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Cycle-Pipeline-Diagram"><span class="nav-number">1.3.22.</span> <span class="nav-text">Single-Cycle Pipeline Diagram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelined-Control"><span class="nav-number">1.3.23.</span> <span class="nav-text">Pipelined Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forwarding-and-Hazard-Detection"><span class="nav-number">1.3.24.</span> <span class="nav-text">Forwarding and Hazard Detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stalls-and-Performance"><span class="nav-number">1.3.25.</span> <span class="nav-text">Stalls and Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Branch-Prediction"><span class="nav-number">1.3.26.</span> <span class="nav-text">Dynamic Branch Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exceptions-and-Interrupts"><span class="nav-number">1.3.27.</span> <span class="nav-text">Exceptions and Interrupts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handling-Exceptions"><span class="nav-number">1.3.28.</span> <span class="nav-text">Handling Exceptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exception-Properties"><span class="nav-number">1.3.29.</span> <span class="nav-text">Exception Properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Instruction-Level-Parallelism-ILP"><span class="nav-number">1.3.30.</span> <span class="nav-text">Instruction-Level Parallelism (ILP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Issue"><span class="nav-number">1.3.31.</span> <span class="nav-text">Multiple Issue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Speculation"><span class="nav-number">1.3.32.</span> <span class="nav-text">Speculation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loop-Unrolling"><span class="nav-number">1.3.33.</span> <span class="nav-text">Loop Unrolling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Does-Multiple-Issue-Work"><span class="nav-number">1.3.34.</span> <span class="nav-text">Does Multiple Issue Work?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fallacies-1"><span class="nav-number">1.3.35.</span> <span class="nav-text">Fallacies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls-2"><span class="nav-number">1.3.36.</span> <span class="nav-text">Pitfalls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concluding-Remarks"><span class="nav-number">1.3.37.</span> <span class="nav-text">Concluding Remarks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-5-%E2%80%94-Large-and-Fast-Exploiting-Memory-Hierarchy"><span class="nav-number">1.4.</span> <span class="nav-text">Chapter 5 — Large and Fast: Exploiting Memory Hierarchy</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#COEN-210-Computer-Architecture"><span class="nav-number">1.</span> <span class="nav-text">COEN 210 Computer Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1-%E2%80%94-Computer-Abstraction-and-Technology"><span class="nav-number">1.1.</span> <span class="nav-text">Chapter 1 — Computer Abstraction and Technology</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Understanding-Performance"><span class="nav-number">1.1.1.</span> <span class="nav-text">Understanding Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eight-Great-Ideas"><span class="nav-number">1.1.2.</span> <span class="nav-text">Eight Great Ideas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls"><span class="nav-number">1.1.3.</span> <span class="nav-text">Pitfalls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2-%E2%80%94-Instructions-Language-of-the-Computer"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 2 — Instructions: Language of the Computer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Design-Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Design Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Registers"><span class="nav-number">1.2.2.</span> <span class="nav-text">LEGv8 Registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-Layout"><span class="nav-number">1.2.3.</span> <span class="nav-text">Memory Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Addressing-Summary"><span class="nav-number">1.2.4.</span> <span class="nav-text">LEGv8 Addressing Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Encoding-Summary"><span class="nav-number">1.2.5.</span> <span class="nav-text">LEGv8 Encoding Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronization"><span class="nav-number">1.2.6.</span> <span class="nav-text">Synchronization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Translation-and-Startup"><span class="nav-number">1.2.7.</span> <span class="nav-text">Translation and Startup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loading-a-Program"><span class="nav-number">1.2.8.</span> <span class="nav-text">Loading a Program</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Linking"><span class="nav-number">1.2.9.</span> <span class="nav-text">Dynamic Linking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lessons-Learnt"><span class="nav-number">1.2.10.</span> <span class="nav-text">Lessons Learnt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fallacies"><span class="nav-number">1.2.11.</span> <span class="nav-text">Fallacies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls-1"><span class="nav-number">1.2.12.</span> <span class="nav-text">Pitfalls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-4-%E2%80%94-The-Processor"><span class="nav-number">1.3.</span> <span class="nav-text">Chapter 4 — The Processor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logic-Design-Basics"><span class="nav-number">1.3.1.</span> <span class="nav-text">Logic Design Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clocking-Methodology"><span class="nav-number">1.3.2.</span> <span class="nav-text">Clocking Methodology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-Datapath"><span class="nav-number">1.3.3.</span> <span class="nav-text">Full Datapath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datapath-With-Control"><span class="nav-number">1.3.4.</span> <span class="nav-text">Datapath With Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-Type-Instruction"><span class="nav-number">1.3.5.</span> <span class="nav-text">R-Type Instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-Instruction"><span class="nav-number">1.3.6.</span> <span class="nav-text">Load Instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CBZ-Instruction"><span class="nav-number">1.3.7.</span> <span class="nav-text">CBZ Instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datapath-With-B-Added"><span class="nav-number">1.3.8.</span> <span class="nav-text">Datapath With B Added</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Cycle-Performance-Issues"><span class="nav-number">1.3.9.</span> <span class="nav-text">Single Cycle Performance Issues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelining-Analogy"><span class="nav-number">1.3.10.</span> <span class="nav-text">Pipelining Analogy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Pipeline"><span class="nav-number">1.3.11.</span> <span class="nav-text">LEGv8 Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-Performance"><span class="nav-number">1.3.12.</span> <span class="nav-text">Pipeline Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-Speedup"><span class="nav-number">1.3.13.</span> <span class="nav-text">Pipeline Speedup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelining-and-ISA-Design"><span class="nav-number">1.3.14.</span> <span class="nav-text">Pipelining and ISA Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hazards"><span class="nav-number">1.3.15.</span> <span class="nav-text">Hazards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Branch-Prediction"><span class="nav-number">1.3.16.</span> <span class="nav-text">Branch Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-Realistic-Branch-Prediction"><span class="nav-number">1.3.17.</span> <span class="nav-text">More-Realistic Branch Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-Summary"><span class="nav-number">1.3.18.</span> <span class="nav-text">Pipeline Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEGv8-Pipelined-Datapath"><span class="nav-number">1.3.19.</span> <span class="nav-text">LEGv8 Pipelined Datapath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline-registers"><span class="nav-number">1.3.20.</span> <span class="nav-text">Pipeline registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Cycle-Pipeline-Diagram"><span class="nav-number">1.3.21.</span> <span class="nav-text">Multi-Cycle Pipeline Diagram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Cycle-Pipeline-Diagram"><span class="nav-number">1.3.22.</span> <span class="nav-text">Single-Cycle Pipeline Diagram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelined-Control"><span class="nav-number">1.3.23.</span> <span class="nav-text">Pipelined Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forwarding-and-Hazard-Detection"><span class="nav-number">1.3.24.</span> <span class="nav-text">Forwarding and Hazard Detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stalls-and-Performance"><span class="nav-number">1.3.25.</span> <span class="nav-text">Stalls and Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Branch-Prediction"><span class="nav-number">1.3.26.</span> <span class="nav-text">Dynamic Branch Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exceptions-and-Interrupts"><span class="nav-number">1.3.27.</span> <span class="nav-text">Exceptions and Interrupts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handling-Exceptions"><span class="nav-number">1.3.28.</span> <span class="nav-text">Handling Exceptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exception-Properties"><span class="nav-number">1.3.29.</span> <span class="nav-text">Exception Properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Instruction-Level-Parallelism-ILP"><span class="nav-number">1.3.30.</span> <span class="nav-text">Instruction-Level Parallelism (ILP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Issue"><span class="nav-number">1.3.31.</span> <span class="nav-text">Multiple Issue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Speculation"><span class="nav-number">1.3.32.</span> <span class="nav-text">Speculation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loop-Unrolling"><span class="nav-number">1.3.33.</span> <span class="nav-text">Loop Unrolling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Does-Multiple-Issue-Work"><span class="nav-number">1.3.34.</span> <span class="nav-text">Does Multiple Issue Work?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fallacies-1"><span class="nav-number">1.3.35.</span> <span class="nav-text">Fallacies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls-2"><span class="nav-number">1.3.36.</span> <span class="nav-text">Pitfalls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concluding-Remarks"><span class="nav-number">1.3.37.</span> <span class="nav-text">Concluding Remarks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-5-%E2%80%94-Large-and-Fast-Exploiting-Memory-Hierarchy"><span class="nav-number">1.4.</span> <span class="nav-text">Chapter 5 — Large and Fast: Exploiting Memory Hierarchy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-of-Locality"><span class="nav-number">1.4.1.</span> <span class="nav-text">Principle of Locality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Taking-Advantage-of-Locality"><span class="nav-number">1.4.2.</span> <span class="nav-text">Taking Advantage of Locality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Block-Size-Considerations"><span class="nav-number">1.4.3.</span> <span class="nav-text">Cache Block Size Considerations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Misses"><span class="nav-number">1.4.4.</span> <span class="nav-text">Cache Misses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#On-data-write-hit"><span class="nav-number">1.4.5.</span> <span class="nav-text">On data-write hit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance-Summary"><span class="nav-number">1.4.6.</span> <span class="nav-text">Performance Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-Associative-Cache"><span class="nav-number">1.4.7.</span> <span class="nav-text">Set Associative Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multilevel-Caches"><span class="nav-number">1.4.8.</span> <span class="nav-text">Multilevel Caches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependability-Measures"><span class="nav-number">1.4.9.</span> <span class="nav-text">Dependability Measures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Hamming-SEC-Code"><span class="nav-number">1.4.10.</span> <span class="nav-text">The Hamming SEC Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Memory"><span class="nav-number">1.4.11.</span> <span class="nav-text">Virtual Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pitfalls-3"><span class="nav-number">1.4.12.</span> <span class="nav-text">Pitfalls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concluding-Remarks-1"><span class="nav-number">1.4.13.</span> <span class="nav-text">Concluding Remarks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-6-%E2%80%94-Parallel-Processors-from-Client-to-Cloud"><span class="nav-number">1.5.</span> <span class="nav-text">Chapter 6 — Parallel Processors from Client to Cloud</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-Architectures"><span class="nav-number">1.5.1.</span> <span class="nav-text">GPU Architectures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concluding-Remarks-2"><span class="nav-number">1.5.2.</span> <span class="nav-text">Concluding Remarks</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1126,7 +1401,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1175,12 +1450,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">632k</span>
+    <span title="站点总字数">670k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:34</span>
+    <span title="站点阅读时长">10:09</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
