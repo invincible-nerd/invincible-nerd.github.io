@@ -3940,6 +3940,28 @@
 
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode162</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findPeakElement</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="comment">//nums[i-1]&lt;nums[i]&gt;nums[i+1]</span></span><br><span class="line">        <span class="comment">//nums[i-1]&gt;nums[i]&lt;nums[i+1], i=i+1	波谷时向左向右都可</span></span><br><span class="line">        <span class="comment">//nums[i-1]&gt;nums[i]&gt;nums[i+1], i=i-1</span></span><br><span class="line">        <span class="comment">//nums[i-1]&lt;nums[i]&lt;nums[i+1], i=i+1</span></span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)&#123;</span><br><span class="line">            <span class="type">int</span> mid=left+(right-left)/<span class="number">2</span>;</span><br><span class="line">            <span class="type">int</span> c=compare(nums,mid-<span class="number">1</span>,mid,mid+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(c==<span class="number">0</span>)&#123;</span><br><span class="line">                res=mid;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                left=mid+<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                right=mid-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> pre, <span class="type">int</span> cur, <span class="type">int</span> post)</span>&#123;</span><br><span class="line">        <span class="type">int</span> preVal= pre==-<span class="number">1</span> ? Integer.MIN_VALUE : nums[pre];</span><br><span class="line">        <span class="type">int</span> postVal= post==nums.length ? Integer.MIN_VALUE : nums[post];</span><br><span class="line">        <span class="type">int</span> curVal=nums[cur];</span><br><span class="line">        <span class="keyword">if</span>(curVal&gt;preVal &amp;&amp; curVal&gt;postVal)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(curVal&lt;preVal &amp;&amp; curVal&gt;postVal)&#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="167-Two-Sum-II-Input-Array-Is-Sorted"><a href="#167-Two-Sum-II-Input-Array-Is-Sorted" class="headerlink" title="167. Two Sum II - Input Array Is Sorted"></a>167. Two Sum II - Input Array Is Sorted</h2><p>注意：</p>
+<ol>
+<li>already <strong>sorted in non-decreasing order</strong></li>
+<li>there is <strong>exactly one solution</strong></li>
+<li>must use <strong>only constant extra space</strong></li>
+</ol>
+<p>time and space complexity:</p>
+<ul>
+<li>Two pointers: O(n) time and O(1) space</li>
+<li>Dictionary: O(n) time and O(n) space</li>
+<li>Binary search: O(nlogn) time and O(1) space</li>
+</ul>
+<h3 id="法一：-two-pointers"><a href="#法一：-two-pointers" class="headerlink" title="法一： two pointers"></a>法一： two pointers</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] numbers, <span class="type">int</span> target) &#123;</span><br><span class="line">    <span class="type">int</span> n=numbers.length;</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="type">int</span> sum=numbers[left]+numbers[right];</span><br><span class="line">        <span class="keyword">if</span>(sum==target)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;left+<span class="number">1</span>,right+<span class="number">1</span>&#125;;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;target)&#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：-binary-search"><a href="#法二：-binary-search" class="headerlink" title="法二： binary search"></a>法二： binary search</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] numbers, <span class="type">int</span> target) &#123;</span><br><span class="line">            <span class="type">int</span> n=numbers.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> temp=target-numbers[i];</span><br><span class="line">        <span class="type">int</span> left=i+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> mid=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)&#123;</span><br><span class="line">            mid=left+(right-left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(numbers[mid]==temp)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;i+<span class="number">1</span>,mid+<span class="number">1</span>&#125;;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(numbers[mid]&lt;temp)&#123;</span><br><span class="line">                left=mid+<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                right=mid-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -7599,5 +7621,740 @@
         <tag>MongoDB</tag>
         <tag>Heroku</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>COEN317</title>
+    <url>/2022/12/04/COEN317/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>COEN 210 — Computer Architecture</title>
+    <url>/2022/12/04/COEN210/</url>
+    <content><![CDATA[<h1 id="COEN-210-Computer-Architecture"><a href="#COEN-210-Computer-Architecture" class="headerlink" title="COEN 210 Computer Architecture"></a>COEN 210 Computer Architecture</h1><h2 id="Chapter-1-—-Computer-Abstraction-and-Technology"><a href="#Chapter-1-—-Computer-Abstraction-and-Technology" class="headerlink" title="Chapter 1 — Computer Abstraction and Technology"></a>Chapter 1 — Computer Abstraction and Technology</h2><h3 id="Understanding-Performance"><a href="#Understanding-Performance" class="headerlink" title="Understanding Performance"></a>Understanding Performance</h3><ul>
+<li><p>Algorithm </p>
+<ul>
+<li>Determines number of operations executed</li>
+</ul>
+</li>
+<li><p>Programming language, compiler, architecture </p>
+<ul>
+<li>Determine number of machine instructions  executed per operation</li>
+</ul>
+</li>
+<li><p>Processor and memory system </p>
+<ul>
+<li>Determine how fast instructions are executed</li>
+</ul>
+</li>
+<li><p>I&#x2F;O system (including OS) </p>
+<ul>
+<li>Determines how fast I&#x2F;O operations are executed</li>
+</ul>
+</li>
+</ul>
+<h3 id="Eight-Great-Ideas"><a href="#Eight-Great-Ideas" class="headerlink" title="Eight Great Ideas"></a>Eight Great Ideas</h3><ul>
+<li>Design for Moore’s Law</li>
+<li>Use abstraction to simplify design</li>
+<li>Make the common case fast</li>
+<li>Performance via parallelism</li>
+<li>Performance via pipelining</li>
+<li>Performance via prediction</li>
+<li>Hierarchy of memories</li>
+<li>Dependability via redundancy</li>
+</ul>
+<h3 id="Pitfalls"><a href="#Pitfalls" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ul>
+<li><p>Amdahl’s Law</p>
+<ul>
+<li>Improving an aspect of a computer and expecting a  proportional improvement in overall performance</li>
+<li>Corollary: make the common case fast</li>
+</ul>
+</li>
+<li><p>Low Power at Idle</p>
+<ul>
+<li>Google data center <ul>
+<li>Mostly operates at 10% – 50% load </li>
+<li>At 100% load less than 1% of the time</li>
+</ul>
+</li>
+<li>Consider designing processors to make power  proportional to load</li>
+</ul>
+</li>
+<li><p>MIPS as a Performance Metric</p>
+<ul>
+<li>MIPS: Millions of Instructions Per Second</li>
+<li>Doesn’t account for<ul>
+<li>Differences in ISAs between computers</li>
+<li>Differences in complexity between instructions</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-2-—-Instructions-Language-of-the-Computer"><a href="#Chapter-2-—-Instructions-Language-of-the-Computer" class="headerlink" title="Chapter 2 — Instructions: Language of the Computer"></a>Chapter 2 — Instructions: Language of the Computer</h2><h3 id="Design-Principle"><a href="#Design-Principle" class="headerlink" title="Design Principle"></a>Design Principle</h3><ol>
+<li><p>Simplicity favors regularity</p>
+<ul>
+<li><p>All arithmetic operations have this form</p>
+<p><strong>ADD a, b, c &#x2F;&#x2F; a &#x3D; b + c</strong></p>
+</li>
+<li><p>Regularity makes implementation simpler</p>
+</li>
+<li><p>Simplicity enables higher performance at lower  cost</p>
+</li>
+</ul>
+</li>
+<li><p>Smaller is faster</p>
+<ul>
+<li>LEGv8 has a 32 × 64-bit register file</li>
+<li>64-bit data is called a “doubleword” <ul>
+<li>31 x 64-bit general purpose registers X0 to X30</li>
+</ul>
+</li>
+<li>c.f. main memory: millions of locations</li>
+</ul>
+</li>
+<li><p>Make the common case fast</p>
+<ul>
+<li><p>Constant data specified in an instruction </p>
+<p><strong>ADDI X22, X22, #4</strong></p>
+</li>
+<li><p>Small constants are common</p>
+</li>
+<li><p>Immediate operand avoids a load instruction</p>
+</li>
+</ul>
+</li>
+<li><p>Good design demands good compromises</p>
+<ul>
+<li>Different formats complicate decoding, but allow 32-bit instructions  uniformly</li>
+<li>Keep formats as similar as possible</li>
+</ul>
+</li>
+</ol>
+<h3 id="LEGv8-Registers"><a href="#LEGv8-Registers" class="headerlink" title="LEGv8 Registers"></a>LEGv8 Registers</h3><ul>
+<li>X0 – X7: procedure arguments&#x2F;results </li>
+<li>X8: indirect result location register </li>
+<li>X9 – X15: temporaries </li>
+<li>X16 – X17 (IP0 – IP1): may be used by linker as a scratch  register, other times as temporary register</li>
+<li>X18: platform register for platform independent code;  otherwise a temporary register </li>
+<li>X19 – X27: saved </li>
+<li>X28 (SP): stack pointer </li>
+<li>X29 (FP): frame pointer </li>
+<li>X30 (LR): link register (return address) </li>
+<li>XZR (register 31): the constant value 0</li>
+</ul>
+<h3 id="Memory-Layout"><a href="#Memory-Layout" class="headerlink" title="Memory Layout"></a>Memory Layout</h3><ul>
+<li>Text: program code</li>
+<li>Static data: global variables <ul>
+<li>e.g., static variables in C,  constant arrays and strings</li>
+</ul>
+</li>
+<li>Dynamic data: heap <ul>
+<li>E.g., malloc in C, new in Java</li>
+</ul>
+</li>
+<li>Stack: automatic storage</li>
+</ul>
+<p><img src="/images/210/memory_layout.JPG"></p>
+<h3 id="LEGv8-Addressing-Summary"><a href="#LEGv8-Addressing-Summary" class="headerlink" title="LEGv8 Addressing Summary"></a>LEGv8 Addressing Summary</h3><p><img src="/images/210/addressing.JPG"></p>
+<h3 id="LEGv8-Encoding-Summary"><a href="#LEGv8-Encoding-Summary" class="headerlink" title="LEGv8 Encoding Summary"></a>LEGv8 Encoding Summary</h3><p><img src="/images/210/encoding.JPG"></p>
+<h3 id="Synchronization"><a href="#Synchronization" class="headerlink" title="Synchronization"></a>Synchronization</h3><ul>
+<li>Two processors sharing an area of memory<ul>
+<li>P1 writes, then P2 reads</li>
+<li>Data race if P1 and P2 don’t synchronize<ul>
+<li>Result depends on order of accesses</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hardware support required<ul>
+<li>Atomic read&#x2F;write memory operation</li>
+<li>No other access to the location allowed between the read  and write</li>
+</ul>
+</li>
+<li>Could be a single instruction<ul>
+<li>E.g., atomic swap of register ↔ memory</li>
+<li>Or an atomic pair of instructions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Translation-and-Startup"><a href="#Translation-and-Startup" class="headerlink" title="Translation and Startup"></a>Translation and Startup</h3><p><img src="/images/210/translation_startup.JPG"></p>
+<p><img src="/images/210/java_startup.JPG"></p>
+<h3 id="Loading-a-Program"><a href="#Loading-a-Program" class="headerlink" title="Loading a Program"></a>Loading a Program</h3><p>Load from image file on disk into memory</p>
+<ol>
+<li>Read header to determine segment sizes</li>
+<li>Create virtual address space</li>
+<li>Copy text and initialized data into memory <ul>
+<li>Or set page table entries so they can be faulted in</li>
+</ul>
+</li>
+<li>Set up arguments on stack</li>
+<li>Initialize registers (including SP, FP)</li>
+<li>Jump to startup routine<ul>
+<li>Copies arguments to X0, … and calls main</li>
+<li>When main returns, do exit syscall</li>
+</ul>
+</li>
+</ol>
+<h3 id="Dynamic-Linking"><a href="#Dynamic-Linking" class="headerlink" title="Dynamic Linking"></a>Dynamic Linking</h3><ul>
+<li>Only link&#x2F;load library procedure when it is  called<ul>
+<li>Requires procedure code to be relocatable</li>
+<li>Avoids image bloat caused by static linking of all  (transitively) referenced libraries</li>
+<li>Automatically picks up new library versions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Lessons-Learnt"><a href="#Lessons-Learnt" class="headerlink" title="Lessons Learnt"></a>Lessons Learnt</h3><ul>
+<li>Instruction count and CPI are not good  performance indicators in isolation</li>
+<li>Compiler optimizations are sensitive to the  algorithm</li>
+<li>Java&#x2F;JIT compiled code is significantly faster  than JVM interpreted<ul>
+<li>Comparable to optimized C in some cases</li>
+</ul>
+</li>
+<li>Nothing can fix a dumb algorithm!</li>
+</ul>
+<h3 id="Fallacies"><a href="#Fallacies" class="headerlink" title="Fallacies"></a>Fallacies</h3><ol>
+<li>Powerful instruction -&gt; higher performance<ul>
+<li>Fewer instructions required</li>
+<li>But complex instructions are hard to implement<ul>
+<li>May slow down all instructions, including simple ones</li>
+</ul>
+</li>
+<li>Compilers are good at making fast code from simple  instructions</li>
+</ul>
+</li>
+<li>Use assembly code for high performance<ul>
+<li>But modern compilers are better at dealing with modern  processors</li>
+<li>More lines of code -&gt; more errors and less productivity</li>
+</ul>
+</li>
+<li>Backward compatibility -&gt; instruction set  doesn’t change<ul>
+<li>But they do accrete more instructions</li>
+</ul>
+</li>
+</ol>
+<h3 id="Pitfalls-1"><a href="#Pitfalls-1" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ol>
+<li>Sequential words are not at sequential  addresses<ul>
+<li>Increment by 4, not by 1!</li>
+</ul>
+</li>
+<li>Keeping a pointer to an automatic variable  after procedure returns<ul>
+<li>e.g., passing pointer back via an argument</li>
+<li>Pointer becomes invalid when stack popped</li>
+</ul>
+</li>
+</ol>
+<h2 id="Chapter-4-—-The-Processor"><a href="#Chapter-4-—-The-Processor" class="headerlink" title="Chapter 4 — The Processor"></a>Chapter 4 — The Processor</h2><h3 id="Logic-Design-Basics"><a href="#Logic-Design-Basics" class="headerlink" title="Logic Design Basics"></a>Logic Design Basics</h3><ul>
+<li>Information encoded in binary<ul>
+<li>Low voltage &#x3D; 0, High voltage &#x3D; 1</li>
+<li>One wire per bit</li>
+<li>Multi-bit data encoded on multi-wire buses</li>
+</ul>
+</li>
+<li>Combinational element<ul>
+<li>Operate on data</li>
+<li>Output is a function of input<ul>
+<li>AND-gate</li>
+<li>Multiplexer</li>
+<li>Adder</li>
+<li>Arithmetic&#x2F;Logic Unit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>State (sequential) elements<ul>
+<li>Store information</li>
+<li>Register: stores data in a circuit<ul>
+<li>Uses a clock signal to determine when to update  the stored value</li>
+<li>Edge-triggered: update when Clk changes from 0  to 1</li>
+</ul>
+</li>
+<li>Register with write control<ul>
+<li>Only updates on clock edge when write control  input is 1</li>
+<li>Used when stored value is required later</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Clocking-Methodology"><a href="#Clocking-Methodology" class="headerlink" title="Clocking Methodology"></a>Clocking Methodology</h3><ul>
+<li>Combinational logic transforms data during  clock cycles<ul>
+<li>Between clock edges</li>
+<li>Input from state elements, output to state element</li>
+<li>Longest delay determines clock period</li>
+</ul>
+</li>
+</ul>
+<h3 id="Full-Datapath"><a href="#Full-Datapath" class="headerlink" title="Full Datapath"></a>Full Datapath</h3><p>control signals derived from instruction</p>
+<p><img src="/images/210/full_datapath.JPG"></p>
+<h3 id="Datapath-With-Control"><a href="#Datapath-With-Control" class="headerlink" title="Datapath With Control"></a>Datapath With Control</h3><p><img src="/images/210/datapath_with_control.JPG"></p>
+<h3 id="R-Type-Instruction"><a href="#R-Type-Instruction" class="headerlink" title="R-Type Instruction"></a>R-Type Instruction</h3><p><img src="/images/210/r_type.JPG"></p>
+<h3 id="Load-Instruction"><a href="#Load-Instruction" class="headerlink" title="Load Instruction"></a>Load Instruction</h3><p><img src="/images/210/load.JPG"></p>
+<h3 id="CBZ-Instruction"><a href="#CBZ-Instruction" class="headerlink" title="CBZ Instruction"></a>CBZ Instruction</h3><p><img src="/images/210/CBZ.JPG"></p>
+<h3 id="Datapath-With-B-Added"><a href="#Datapath-With-B-Added" class="headerlink" title="Datapath With B Added"></a>Datapath With B Added</h3><p><img src="/images/210/B_added.JPG"></p>
+<h3 id="Single-Cycle-Performance-Issues"><a href="#Single-Cycle-Performance-Issues" class="headerlink" title="Single Cycle Performance Issues"></a>Single Cycle Performance Issues</h3><ul>
+<li>Longest delay determines clock period<ul>
+<li>Critical path: load instruction</li>
+<li>Instruction memory → register file → ALU → data  memory → register file</li>
+</ul>
+</li>
+<li>Not feasible to vary period for different  instructions</li>
+<li>Violates design principle<ul>
+<li>Making the common case fast</li>
+</ul>
+</li>
+<li>We will improve performance by pipelining</li>
+</ul>
+<h3 id="Pipelining-Analogy"><a href="#Pipelining-Analogy" class="headerlink" title="Pipelining Analogy"></a>Pipelining Analogy</h3><ul>
+<li>Pipelined laundry: overlapping execution<ul>
+<li>Parallelism improves performance</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/pipeline_analogy.JPG"></p>
+<h3 id="LEGv8-Pipeline"><a href="#LEGv8-Pipeline" class="headerlink" title="LEGv8 Pipeline"></a>LEGv8 Pipeline</h3><ul>
+<li>Five stages, one step per stage<ol>
+<li>IF: Instruction fetch from memory</li>
+<li>ID: Instruction decode &amp; register read</li>
+<li>EX: Execute operation or calculate address</li>
+<li>MEM: Access memory operand</li>
+<li>WB: Write result back to register</li>
+</ol>
+</li>
+</ul>
+<h3 id="Pipeline-Performance"><a href="#Pipeline-Performance" class="headerlink" title="Pipeline Performance"></a>Pipeline Performance</h3><p><img src="D:\Blog\source\images\210\pipeline_performance1.JPG"></p>
+<p><img src="/images/210/pipeline_performance2.JPG"></p>
+<h3 id="Pipeline-Speedup"><a href="#Pipeline-Speedup" class="headerlink" title="Pipeline Speedup"></a>Pipeline Speedup</h3><ul>
+<li>If all stages take the same time (balanced)<ul>
+<li>Time between instructions(pipelined) &#x3D; Time between instructions(nonpipelined) &#x2F; Number of stages</li>
+</ul>
+</li>
+<li>If not balanced, speedup is less</li>
+<li>Speedup due to increased throughput<ul>
+<li>Latency (time for each instruction) does not  decrease</li>
+</ul>
+</li>
+</ul>
+<h3 id="Pipelining-and-ISA-Design"><a href="#Pipelining-and-ISA-Design" class="headerlink" title="Pipelining and ISA Design"></a>Pipelining and ISA Design</h3><ul>
+<li>LEGv8 ISA designed for pipelining<ul>
+<li>All instructions are 32-bits<ul>
+<li>Easier to fetch and decode in one cycle</li>
+<li>c.f. x86: 1- to 17-byte instructions</li>
+</ul>
+</li>
+<li>Few and regular instruction formats<ul>
+<li>Can decode and read registers in one step</li>
+</ul>
+</li>
+<li>Load&#x2F;store addressing<ul>
+<li>Can calculate address in 3rd stage, access memory in 4th stage</li>
+</ul>
+</li>
+<li>Alignment of memory operands<ul>
+<li>Memory access takes only one cycle</li>
+<li>registers &amp; stack</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Hazards"><a href="#Hazards" class="headerlink" title="Hazards"></a>Hazards</h3><p>Situations that prevent starting the next  instruction in the next cycle</p>
+<ol>
+<li><p>Structure hazards</p>
+<ul>
+<li>A required resource is busy</li>
+<li>Conflict for use of a resource</li>
+<li>In LEGv8 pipeline with a single memory<ul>
+<li>Load&#x2F;store requires data access</li>
+<li>Instruction fetch would have to stall for that cycle<ul>
+<li>Would cause a pipeline “bubble”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hence, pipelined datapaths require separate  instruction&#x2F;data memories<ul>
+<li>Or separate instruction&#x2F;data caches</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Data hazard</p>
+<ul>
+<li><p>Need to wait for previous instruction to complete  its data read&#x2F;write</p>
+</li>
+<li><p>An instruction depends on completion of data  access by a previous instruction</p>
+<p><strong>ADD <em>X19</em>, X0, X1</strong> </p>
+<p><strong>SUB X2, <em>X19</em>, X3</strong></p>
+</li>
+<li><p>Forwarding (aka Bypassing)</p>
+<ul>
+<li>Use result when it is computed</li>
+<li>Don’t wait for it to be stored in a register</li>
+<li>Requires extra connections in the datapath</li>
+</ul>
+<p><img src="/images/210/forwarding.JPG"></p>
+</li>
+<li><p>Load-Use Data Hazard</p>
+<ul>
+<li>Can’t always avoid stalls by forwarding<ul>
+<li>If value not computed when needed</li>
+<li>Can’t forward backward in time!</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/bubble.JPG"></p>
+<ul>
+<li>Code Scheduling to Avoid Stalls<ul>
+<li>Reorder code to avoid use of load result in the  next instruction</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/code_scheduling.JPG"></p>
+</li>
+</ul>
+</li>
+<li><p>Control hazard</p>
+<ul>
+<li>Deciding on control action depends on previous  instruction</li>
+<li>Branch determines flow of control<ul>
+<li>Fetching next instruction depends on branch  outcome</li>
+<li>Pipeline can’t always fetch correct instruction<ul>
+<li>Still working on ID stage of branch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>In LEGv8 pipeline<ul>
+<li>Need to compare registers and compute target  early in the pipeline</li>
+<li>Add hardware to do it in ID stage</li>
+</ul>
+</li>
+<li>Stall on Branch<ul>
+<li>Wait until branch outcome determined before  fetching next instruction</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/stall_on_branch.JPG"></p>
+</li>
+</ol>
+<h3 id="Branch-Prediction"><a href="#Branch-Prediction" class="headerlink" title="Branch Prediction"></a>Branch Prediction</h3><ul>
+<li>Longer pipelines can’t readily determine  branch outcome early<ul>
+<li>Stall penalty becomes unacceptable</li>
+</ul>
+</li>
+<li>Predict outcome of branch<ul>
+<li>Only stall if prediction is wrong</li>
+</ul>
+</li>
+<li>In LEGv8 pipeline<ul>
+<li>Can predict branches not taken</li>
+<li>Fetch instruction after branch, with no delay</li>
+</ul>
+</li>
+</ul>
+<h3 id="More-Realistic-Branch-Prediction"><a href="#More-Realistic-Branch-Prediction" class="headerlink" title="More-Realistic Branch Prediction"></a>More-Realistic Branch Prediction</h3><ul>
+<li><p>Static branch prediction</p>
+<ul>
+<li><p>Based on typical branch behavior</p>
+</li>
+<li><p>Example: loop and if-statement branches</p>
+<ul>
+<li><p>Predict backward branches taken</p>
+<p>do loop</p>
+</li>
+<li><p>Predict forward branches not taken</p>
+<p>for loop</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Dynamic branch prediction</p>
+<ul>
+<li>Hardware measures actual branch behavior<ul>
+<li>e.g., record recent history of each branch</li>
+</ul>
+</li>
+<li>Assume future behavior will continue the trend<ul>
+<li>When wrong, stall while re-fetching, and update history</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Pipeline-Summary"><a href="#Pipeline-Summary" class="headerlink" title="Pipeline Summary"></a>Pipeline Summary</h3><ul>
+<li>Pipelining improves performance by increasing  instruction throughput<ul>
+<li>Executes multiple instructions in parallel</li>
+<li>Each instruction has the same latency</li>
+</ul>
+</li>
+<li>Subject to hazards<ul>
+<li>Structure, data, control</li>
+</ul>
+</li>
+<li>Instruction set design affects complexity of  pipeline implementation</li>
+</ul>
+<h3 id="LEGv8-Pipelined-Datapath"><a href="#LEGv8-Pipelined-Datapath" class="headerlink" title="LEGv8 Pipelined Datapath"></a>LEGv8 Pipelined Datapath</h3><p><img src="/images/210/legv8_pipelined_datapath.JPG"></p>
+<h3 id="Pipeline-registers"><a href="#Pipeline-registers" class="headerlink" title="Pipeline registers"></a>Pipeline registers</h3><p>Need registers between stages</p>
+<ul>
+<li>To hold information produced in previous cycle</li>
+</ul>
+<p><img src="/images/210/pipeline_registers.JPG"></p>
+<h3 id="Multi-Cycle-Pipeline-Diagram"><a href="#Multi-Cycle-Pipeline-Diagram" class="headerlink" title="Multi-Cycle Pipeline Diagram"></a>Multi-Cycle Pipeline Diagram</h3><p><img src="/images/210/multi_cycle_pipeline.JPG"></p>
+<h3 id="Single-Cycle-Pipeline-Diagram"><a href="#Single-Cycle-Pipeline-Diagram" class="headerlink" title="Single-Cycle Pipeline Diagram"></a>Single-Cycle Pipeline Diagram</h3><p><img src="/images/210/single_cycle_pipeline.JPG"></p>
+<h3 id="Pipelined-Control"><a href="#Pipelined-Control" class="headerlink" title="Pipelined Control"></a>Pipelined Control</h3><p><img src="/images/210/pipelined_control2.JPG"></p>
+<h3 id="Forwarding-and-Hazard-Detection"><a href="#Forwarding-and-Hazard-Detection" class="headerlink" title="Forwarding and Hazard Detection"></a>Forwarding and Hazard Detection</h3><ul>
+<li><p>Detecting the Need to Forward</p>
+<p><img src="/images/210/need_to_forward.JPG"></p>
+<p><img src="/images/210/need_to_forward2.JPG"></p>
+</li>
+</ul>
+<p>​        <img src="/images/210/forwarding_path.JPG"></p>
+<p>​    <img src="/images/210/revised_forwarding_condition.JPG"></p>
+<ul>
+<li>Hazard in ALU</li>
+<li>Load-use hazard</li>
+</ul>
+<p>​        <img src="/images/210/load_use_data_hazard.JPG"></p>
+<p><img src="/images/210/datapath_with_hazard_detection.JPG"></p>
+<ul>
+<li>Branch hazard</li>
+</ul>
+<p><img src="/images/210/branch_hazard.JPG"></p>
+<h3 id="Stalls-and-Performance"><a href="#Stalls-and-Performance" class="headerlink" title="Stalls and Performance"></a>Stalls and Performance</h3><ul>
+<li>Stalls reduce performance<ul>
+<li>But are required to get correct results</li>
+</ul>
+</li>
+<li>Compiler can arrange code to avoid hazards  and stalls<ul>
+<li>Requires knowledge of the pipeline structure</li>
+</ul>
+</li>
+</ul>
+<h3 id="Dynamic-Branch-Prediction"><a href="#Dynamic-Branch-Prediction" class="headerlink" title="Dynamic Branch Prediction"></a>Dynamic Branch Prediction</h3><ul>
+<li>In deeper and superscalar pipelines, branch penalty is  more significant</li>
+<li>Use dynamic prediction<ul>
+<li>Branch prediction buffer (aka branch history table)</li>
+<li>Indexed by recent branch instruction addresses</li>
+<li>Stores outcome (taken&#x2F;not taken)</li>
+<li>To execute a branch<ul>
+<li>Check table, expect the same outcome</li>
+<li>Start fetching from fall-through or target</li>
+<li>If wrong, flush pipeline and flip prediction</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>1-Bit Predictor: Shortcoming<ul>
+<li>Inner loop branches mispredicted twice!</li>
+</ul>
+</li>
+<li>2-Bit Predictor<ul>
+<li>Only change prediction on two successive  mispredictions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Exceptions-and-Interrupts"><a href="#Exceptions-and-Interrupts" class="headerlink" title="Exceptions and Interrupts"></a>Exceptions and Interrupts</h3><ul>
+<li>“Unexpected” events requiring change in flow of control<ul>
+<li>Different ISAs use the terms differently</li>
+</ul>
+</li>
+<li>Exception<ul>
+<li>Arises within the CPU<ul>
+<li>e.g., undefined opcode, overflow, syscall, …</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Interrupt<ul>
+<li>From an external I&#x2F;O controller</li>
+</ul>
+</li>
+<li>Dealing with them without sacrificing performance is hard</li>
+</ul>
+<p><img src="/images/210/exception_interrupt.JPG"></p>
+<h3 id="Handling-Exceptions"><a href="#Handling-Exceptions" class="headerlink" title="Handling Exceptions"></a>Handling Exceptions</h3><ul>
+<li><p>Save PC of offending (or interrupted) instruction <strong>&#x3D;EPC</strong></p>
+<ul>
+<li>In LEGv8: Exception Link Register (ELR)</li>
+</ul>
+</li>
+<li><p>Save indication of the problem</p>
+<ul>
+<li>In LEGv8: Exception Syndrome Rregister (ESR)</li>
+<li>We’ll assume 1-bit<ul>
+<li>0 for undefined opcode, 1 for overflow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/pipeline_with_exceptions.JPG"></p>
+<h3 id="Exception-Properties"><a href="#Exception-Properties" class="headerlink" title="Exception Properties"></a>Exception Properties</h3><ul>
+<li>Restartable exceptions<ul>
+<li>Pipeline can flush the instruction</li>
+<li>Handler executes, then returns to the instruction<ul>
+<li>Refetched and executed from scratch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PC saved in ELR register<ul>
+<li>Identifies causing instruction</li>
+<li>Actually PC + 4 is saved<ul>
+<li>Actually PC + 4 is saved</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Instruction-Level-Parallelism-ILP"><a href="#Instruction-Level-Parallelism-ILP" class="headerlink" title="Instruction-Level Parallelism (ILP)"></a>Instruction-Level Parallelism (ILP)</h3><ul>
+<li>Pipelining: multiple instructions in parallel</li>
+<li>To increase ILP<ul>
+<li>Deeper pipeline<ul>
+<li>Less work per stage -&gt; shorter clock cycle</li>
+</ul>
+</li>
+<li>Multiple issue<ul>
+<li>Replicate pipeline stages -&gt; multiple pipelines</li>
+<li>Start multiple instructions per clock cycle</li>
+<li>CPI &lt; 1, so use Instructions Per Cycle (IPC)</li>
+<li>E.g., 4GHz 4-way multiple-issue<ul>
+<li>16 BIPS, peak CPI &#x3D; 0.25, peak IPC &#x3D; 4</li>
+</ul>
+</li>
+<li>But dependencies reduce this in practice</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Multiple-Issue"><a href="#Multiple-Issue" class="headerlink" title="Multiple Issue"></a>Multiple Issue</h3><ul>
+<li>Static multiple issue (compile time)<ul>
+<li>Compiler groups instructions to be issued together</li>
+<li>Packages them into “issue slots”</li>
+<li>Compiler detects and avoids hazards</li>
+</ul>
+</li>
+<li>Dynamic multiple issue (run time)<ul>
+<li>CPU examines instruction stream and chooses instructions  to issue each cycle</li>
+<li>Compiler can help by reordering instructions</li>
+<li>CPU resolves hazards using advanced techniques at runtime</li>
+</ul>
+</li>
+</ul>
+<h3 id="Speculation"><a href="#Speculation" class="headerlink" title="Speculation"></a>Speculation</h3><ul>
+<li>“Guess” what to do with an instruction<ul>
+<li>Start the guessed operation as soon as possible</li>
+<li>Check whether guess was right<ul>
+<li>If so, complete the operation</li>
+<li>If not, roll-back and do the right thing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Common to static and dynamic multiple issue</li>
+<li>Examples<ul>
+<li>Speculate on branch outcome<ul>
+<li>Roll back if path taken is different</li>
+</ul>
+</li>
+<li>Speculate on load<ul>
+<li>Roll back if location is updated</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Loop-Unrolling"><a href="#Loop-Unrolling" class="headerlink" title="Loop Unrolling"></a>Loop Unrolling</h3><ul>
+<li>Replicate loop body to expose more  parallelism<ul>
+<li>Reduces loop-control overhead</li>
+</ul>
+</li>
+<li>Use different registers per replication<ul>
+<li>Called “register renaming”</li>
+<li>Avoid loop-carried “anti-dependencies”<ul>
+<li>Store followed by a load of the same register</li>
+<li>Aka “name dependence”<ul>
+<li>Reuse of a register name</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Does-Multiple-Issue-Work"><a href="#Does-Multiple-Issue-Work" class="headerlink" title="Does Multiple Issue Work?"></a>Does Multiple Issue Work?</h3><ul>
+<li>Yes, but not as much as we’d like</li>
+<li>Programs have real dependencies that limit ILP</li>
+<li>Some dependencies are hard to eliminate<ul>
+<li>e.g., pointer aliasing</li>
+</ul>
+</li>
+<li>Some parallelism is hard to expose<ul>
+<li>Limited window size during instruction issue</li>
+</ul>
+</li>
+<li>Memory delays and limited bandwidth<ul>
+<li>Hard to keep pipelines full</li>
+</ul>
+</li>
+<li>Speculation can help if done well</li>
+</ul>
+<h3 id="Fallacies-1"><a href="#Fallacies-1" class="headerlink" title="Fallacies"></a>Fallacies</h3><ol>
+<li>Pipelining is easy (!)<ul>
+<li>The basic idea is easy</li>
+<li>The devil is in the details<ul>
+<li>e.g., detecting data hazards</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Pipelining is independent of technology<ul>
+<li>So why haven’t we always done pipelining?</li>
+<li>More transistors make more advanced techniques feasible</li>
+<li>Pipeline-related ISA design needs to take account of  technology trends<ul>
+<li>e.g., predicated instructions</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Pitfalls-2"><a href="#Pitfalls-2" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ul>
+<li>Poor ISA design can make pipelining harder<ul>
+<li>e.g., complex instruction sets (VAX, IA-32)<ul>
+<li>Significant overhead to make pipelining work</li>
+<li>IA-32 micro-op approach</li>
+</ul>
+</li>
+<li>e.g., complex addressing modes<ul>
+<li>Register update side effects, memory indirection</li>
+</ul>
+</li>
+<li>e.g., delayed branches<ul>
+<li>Advanced pipelines have long delay slots</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Concluding-Remarks"><a href="#Concluding-Remarks" class="headerlink" title="Concluding Remarks"></a>Concluding Remarks</h3><ul>
+<li>ISA influences design of datapath and control</li>
+<li>Datapath and control influence design of ISA</li>
+<li>Pipelining improves instruction throughput using parallelism<ul>
+<li>More instructions completed per second</li>
+<li>Latency for each instruction not reduced</li>
+</ul>
+</li>
+<li>Hazards: structural, data, control</li>
+<li>Multiple issue and dynamic scheduling (ILP)<ul>
+<li>Dependencies limit achievable parallelism</li>
+<li>Complexity leads to the power wall</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy"><a href="#Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy" class="headerlink" title="Chapter 5 — Large and Fast: Exploiting Memory Hierarchy"></a>Chapter 5 — Large and Fast: Exploiting Memory Hierarchy</h2>]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
   </entry>
 </search>
