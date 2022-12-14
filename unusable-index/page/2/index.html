@@ -190,6 +190,281 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/25/shortest-word-distance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/25/shortest-word-distance/" class="post-title-link" itemprop="url">Shortest Word Distance</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-25 18:19:47" itemprop="dateCreated datePublished" datetime="2022-11-25T18:19:47+08:00">2022-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-26 10:54:40" itemprop="dateModified" datetime="2022-11-26T10:54:40+08:00">2022-11-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shortest-Word-Distance"><a href="#Shortest-Word-Distance" class="headerlink" title="Shortest Word Distance"></a>Shortest Word Distance</h1><h2 id="243-Shortest-Word-Distance"><a href="#243-Shortest-Word-Distance" class="headerlink" title="243. Shortest Word Distance"></a>243. Shortest Word Distance</h2><h3 id="法一："><a href="#法一：" class="headerlink" title="法一："></a>法一：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortestDistance</span><span class="params">(String[] wordsDict, String word1, String word2)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n= wordsDict.length;</span><br><span class="line">    List&lt;Integer&gt; list1=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    List&lt;Integer&gt; list2=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(wordsDict[i].equals(word1))&#123;</span><br><span class="line">            list1.add(i);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(wordsDict[i].equals(word2))&#123;</span><br><span class="line">            list2.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (Integer a : list1) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer b : list2) &#123;</span><br><span class="line">            res=Math.min(res,Math.abs(a-b));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortestWordDistance</span><span class="params">(String[] words, String word1, String word2)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> words.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; words.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (words[i].equals(word1) || words[i].equals(word2)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (index != -<span class="number">1</span> &amp;&amp; !words[index].equals(words[i])) &#123;</span><br><span class="line">                min = Math.min(i - index, min);</span><br><span class="line">            &#125;</span><br><span class="line">            index = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="244-Shortest-Word-Distance-II"><a href="#244-Shortest-Word-Distance-II" class="headerlink" title="244. Shortest Word Distance II"></a>244. Shortest Word Distance II</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">WordDistance</span> &#123;</span><br><span class="line"></span><br><span class="line">    HashMap&lt;String, List&lt;Integer&gt;&gt; map;</span><br><span class="line">    HashMap&lt;String,Integer&gt; res;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">WordDistance</span><span class="params">(String[] wordsDict)</span> &#123;</span><br><span class="line">        map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        res=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> n= wordsDict.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            map.putIfAbsent(wordsDict[i],<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">            map.get(wordsDict[i]).add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortest</span><span class="params">(String word1, String word2)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(res.containsKey(word1+<span class="string">&quot;,&quot;</span>+word2))&#123;</span><br><span class="line">            <span class="keyword">return</span> res.get(word1+<span class="string">&quot;,&quot;</span>+word2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(res.containsKey(word2+<span class="string">&quot;,&quot;</span>+word1))&#123;</span><br><span class="line">            <span class="keyword">return</span> res.get(word2+<span class="string">&quot;,&quot;</span>+word1);</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Integer&gt; list1=map.get(word1);</span><br><span class="line">        List&lt;Integer&gt; list2=map.get(word2);</span><br><span class="line">        <span class="type">int</span> min=Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (Integer a : list1) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Integer b : list2) &#123;</span><br><span class="line">                min=Math.min(min,Math.abs(a-b));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.put(word1+<span class="string">&quot;,&quot;</span>+word2,min);</span><br><span class="line">        <span class="keyword">return</span> min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="245-Shortest-Word-Distance-III"><a href="#245-Shortest-Word-Distance-III" class="headerlink" title="245. Shortest Word Distance III"></a>245. Shortest Word Distance III</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortestWordDistance</span><span class="params">(String[] wordsDict, String word1, String word2)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=wordsDict.length;</span><br><span class="line">    <span class="type">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">    <span class="type">int</span> index=-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (wordsDict[i].equals(word1) || wordsDict[i].equals(word2)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(index!=-<span class="number">1</span> &amp;&amp; (word1.equals(word2) || !wordsDict[index].equals(wordsDict[i])))&#123;</span><br><span class="line">                res=Math.min(res,i-index);</span><br><span class="line">            &#125;</span><br><span class="line">            index=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/14/DFS-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/14/DFS-2/" class="post-title-link" itemprop="url">DFS(2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-14 22:58:14" itemprop="dateCreated datePublished" datetime="2022-11-14T22:58:14+08:00">2022-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-08 08:57:42" itemprop="dateModified" datetime="2022-12-08T08:57:42+08:00">2022-12-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="DFS选编（2）"><a href="#DFS选编（2）" class="headerlink" title="DFS选编（2）"></a>DFS选编（2）</h1><h2 id="472-Concatenated-Words"><a href="#472-Concatenated-Words" class="headerlink" title="472. Concatenated Words"></a>472. Concatenated Words</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;String&gt; <span class="title function_">findAllConcatenatedWordsInADict</span><span class="params">(String[] words)</span> &#123;</span><br><span class="line">    List&lt;String&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">        set.add(word);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; word.length()-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//[0,i]</span></span><br><span class="line">            <span class="keyword">if</span>(set.contains(word.substring(<span class="number">0</span>,i+<span class="number">1</span>))</span><br><span class="line">                    &amp;&amp; dfs(word,i+<span class="number">1</span>))&#123;</span><br><span class="line">                res.add(word);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(String s, <span class="type">int</span> start)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start==s.length())&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; s.length(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(set.contains(s.substring(start,i+<span class="number">1</span>)) &amp;&amp; dfs(s,i+<span class="number">1</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="508-Most-Frequent-Subtree-Sum"><a href="#508-Most-Frequent-Subtree-Sum" class="headerlink" title="508. Most Frequent Subtree Sum"></a>508. Most Frequent Subtree Sum</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">  <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] findFrequentTreeSum(TreeNode root) &#123;</span><br><span class="line">    dfs(root);</span><br><span class="line">    List&lt;Integer&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Integer i : map.keySet()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(map.get(i)==max)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[list.size()];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; res.length; i++) &#123;</span><br><span class="line">        res[i]=list.get(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">dfs</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> l=dfs(node.left);</span><br><span class="line">    <span class="type">int</span> r=dfs(node.right);</span><br><span class="line">    <span class="type">int</span> sum=l+r+node.val;</span><br><span class="line">    map.put(sum,map.getOrDefault(sum,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">    <span class="type">int</span> freq=map.get(sum);</span><br><span class="line">    max=Math.max(max,freq);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="529-Minesweeper"><a href="#529-Minesweeper" class="headerlink" title="529. Minesweeper"></a>529. Minesweeper</h2><p>注意adjacent的定义：</p>
+<ul>
+<li><code>&#39;B&#39;</code> represents a revealed blank square that has no adjacent mines (i.e., <strong>above, below, left, right, and all 4 diagonals</strong>)</li>
+</ul>
+<h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS:"></a>DFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">    <span class="type">int</span> row;</span><br><span class="line">    <span class="type">int</span> col;</span><br><span class="line">    <span class="type">char</span>[][] board;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">char</span>[][] updateBoard(<span class="type">char</span>[][] board, <span class="type">int</span>[] click) &#123;</span><br><span class="line">        row=board.length;</span><br><span class="line">        col=board[<span class="number">0</span>].length;</span><br><span class="line">        <span class="built_in">this</span>.board=board;</span><br><span class="line">        <span class="type">int</span> i=click[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> j=click[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(board[i][j]==<span class="string">&#x27;M&#x27;</span>)&#123;</span><br><span class="line">            board[i][j]=<span class="string">&#x27;X&#x27;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            dfs(i,j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> board;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* [[&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;M&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;E&quot;,&quot;E&quot;,&quot;M&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;M&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;],</span></span><br><span class="line"><span class="comment">        [&quot;E&quot;,&quot;E&quot;,&quot;M&quot;,&quot;M&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;,&quot;E&quot;]]</span></span><br><span class="line"><span class="comment">[0,0]*/</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=row || j&lt;<span class="number">0</span> || j&gt;=col || board[i][j]!=<span class="string">&#x27;E&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> x=i-<span class="number">1</span>; x&lt;=i+<span class="number">1</span>; x++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> y=j-<span class="number">1</span>; y&lt;=j+<span class="number">1</span>; y++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(x&gt;=<span class="number">0</span> &amp;&amp; x&lt;row &amp;&amp; y&gt;=<span class="number">0</span> &amp;&amp; y&lt;col &amp;&amp; board[x][y]==<span class="string">&#x27;M&#x27;</span>)&#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(count==<span class="number">0</span>)&#123;</span><br><span class="line">            board[i][j]=<span class="string">&#x27;B&#x27;</span>;</span><br><span class="line">            dfs(i-<span class="number">1</span>,j-<span class="number">1</span>);</span><br><span class="line">            dfs(i-<span class="number">1</span>,j);</span><br><span class="line">            dfs(i-<span class="number">1</span>,j+<span class="number">1</span>);</span><br><span class="line">            dfs(i,j-<span class="number">1</span>);</span><br><span class="line">            dfs(i,j+<span class="number">1</span>);</span><br><span class="line">            dfs(i+<span class="number">1</span>,j-<span class="number">1</span>);</span><br><span class="line">            dfs(i+<span class="number">1</span>,j);</span><br><span class="line">            dfs(i+<span class="number">1</span>,j+<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            board[i][j]=(<span class="type">char</span>)(<span class="string">&#x27;0&#x27;</span>+count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS:"></a>BFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">char</span>[][] updateBoard(<span class="type">char</span>[][] board, <span class="type">int</span>[] click) &#123;</span><br><span class="line">    <span class="type">int</span> row=board.length;</span><br><span class="line">    <span class="type">int</span> col=board[<span class="number">0</span>].length;</span><br><span class="line">    Deque&lt;<span class="type">int</span>[]&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span>(board[click[<span class="number">0</span>]][click[<span class="number">1</span>]]==<span class="string">&#x27;M&#x27;</span>)&#123;</span><br><span class="line">        board[click[<span class="number">0</span>]][click[<span class="number">1</span>]]=<span class="string">&#x27;X&#x27;</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        q.offer(click);</span><br><span class="line">        <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">            <span class="type">int</span>[] cur=q.poll();</span><br><span class="line">            <span class="type">int</span> i=cur[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> j=cur[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(board[i][j]!=<span class="string">&#x27;E&#x27;</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> x=i-<span class="number">1</span>; x&lt;=i+<span class="number">1</span>; x++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> y=j-<span class="number">1</span>; y&lt;=j+<span class="number">1</span>; y++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(x&gt;=<span class="number">0</span> &amp;&amp; x&lt;row &amp;&amp; y&gt;=<span class="number">0</span> &amp;&amp; y&lt;col</span><br><span class="line">                            &amp;&amp; board[x][y]==<span class="string">&#x27;M&#x27;</span>)&#123;</span><br><span class="line">                        count++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(count==<span class="number">0</span>)&#123;</span><br><span class="line">                board[i][j]=<span class="string">&#x27;B&#x27;</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> x=i-<span class="number">1</span>; x&lt;=i+<span class="number">1</span>; x++)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> y=j-<span class="number">1</span>; y&lt;=j+<span class="number">1</span>; y++)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(x&gt;=<span class="number">0</span> &amp;&amp; x&lt;row &amp;&amp; y&gt;=<span class="number">0</span> &amp;&amp; y&lt;col</span><br><span class="line">                                &amp;&amp; board[x][y]==<span class="string">&#x27;E&#x27;</span>)&#123;</span><br><span class="line">                            q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x,y&#125;);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                board[i][j]=(<span class="type">char</span>)(<span class="string">&#x27;0&#x27;</span>+count);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> board;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="545-Boundary-of-Binary-Tree"><a href="#545-Boundary-of-Binary-Tree" class="headerlink" title="545. Boundary of Binary Tree"></a>545. Boundary of Binary Tree</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; res=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">boundaryOfBinaryTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    res.add(root.val);</span><br><span class="line">    leftBoundary(root.left);</span><br><span class="line">    leaf(root.left);</span><br><span class="line">    leaf(root.right);</span><br><span class="line">    rightBoundary(root.right);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">leaf</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(node.left==<span class="literal">null</span> &amp;&amp; node.right==<span class="literal">null</span>)&#123;</span><br><span class="line">        res.add(node.val);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    leaf(node.left);</span><br><span class="line">    leaf(node.right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">leftBoundary</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span> || node.left==<span class="literal">null</span> &amp;&amp; node.right==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    res.add(node.val);</span><br><span class="line">    <span class="keyword">if</span>(node.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">        leftBoundary(node.left);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        leftBoundary(node.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">rightBoundary</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span> || node.left==<span class="literal">null</span> &amp;&amp; node.right==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(node.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">        rightBoundary(node.right);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        rightBoundary(node.left);</span><br><span class="line">    &#125;</span><br><span class="line">    res.add(node.val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="549-Binary-Tree-Longest-Consecutive-Sequence-II"><a href="#549-Binary-Tree-Longest-Consecutive-Sequence-II" class="headerlink" title="549. Binary Tree Longest Consecutive Sequence II"></a>549. Binary Tree Longest Consecutive Sequence II</h2><p>好题！需要返回两个值怎么办？</p>
+<ul>
+<li>返回arr</li>
+<li>arr[0] 为increasing consecutive sequence的长度</li>
+<li>arr[1] 为decreasing consecutive sequence的长度</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> max=<span class="number">1</span>;</span><br><span class="line">  <span class="comment">//[icr,dcr]</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestConsecutive</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    dfs(root);</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[] dfs(TreeNode node)&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> icr=<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> dcr=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(node.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">int</span>[] l=dfs(node.left);</span><br><span class="line">        <span class="keyword">if</span>(node.val==node.left.val+<span class="number">1</span>)&#123;</span><br><span class="line">            icr+=l[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(node.val==node.left.val-<span class="number">1</span>)&#123;</span><br><span class="line">            dcr+=l[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(node.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">int</span>[] r=dfs(node.right);</span><br><span class="line">        <span class="keyword">if</span>(node.val==node.right.val+<span class="number">1</span>)&#123;</span><br><span class="line">            icr=Math.max(icr,<span class="number">1</span>+r[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(node.val==node.right.val-<span class="number">1</span>)&#123;</span><br><span class="line">            dcr=Math.max(dcr,<span class="number">1</span>+r[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    max=Math.max(max,icr+dcr-<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;icr,dcr&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="563-Binary-Tree-Tilt"><a href="#563-Binary-Tree-Tilt" class="headerlink" title="563. Binary Tree Tilt"></a>563. Binary Tree Tilt</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line"> <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findTilt</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">     sum(root);</span><br><span class="line">     <span class="keyword">return</span> res;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">sum</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">     &#125;</span><br><span class="line">   </span><br><span class="line">     <span class="keyword">if</span>(node.left==<span class="literal">null</span> &amp;&amp; node.right==<span class="literal">null</span>)&#123;</span><br><span class="line">           <span class="type">int</span> val=node.val;</span><br><span class="line">           node.val=<span class="number">0</span>;</span><br><span class="line">           <span class="keyword">return</span> val;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="type">int</span> l=sum(node.left);</span><br><span class="line">     <span class="type">int</span> r=sum(node.right);</span><br><span class="line">     <span class="type">int</span> val=node.val;</span><br><span class="line">     node.val=Math.abs(l-r);</span><br><span class="line">     res+=node.val;</span><br><span class="line">     <span class="keyword">return</span> l+r+val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="565-Array-Nesting"><a href="#565-Array-Nesting" class="headerlink" title="565. Array Nesting"></a>565. Array Nesting</h2><h3 id="Time-Limit-Exceeded"><a href="#Time-Limit-Exceeded" class="headerlink" title="Time Limit Exceeded"></a>Time Limit Exceeded</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">arrayNesting</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        dfs(nums,nums[i],<span class="keyword">new</span> <span class="title class_">boolean</span>[nums.length],<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> cur, <span class="type">boolean</span>[] visited, <span class="type">int</span> l)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(visited[cur])&#123;</span><br><span class="line">        max=Math.max(max,l);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[cur]=<span class="literal">true</span>;</span><br><span class="line">    dfs(nums,nums[cur],visited,l+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="无需重复考虑元素："><a href="#无需重复考虑元素：" class="headerlink" title="无需重复考虑元素："></a>无需重复考虑元素：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">arrayNesting</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    HashSet&lt;Integer&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        dfs(nums,nums[i],set,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> cur, Set&lt;Integer&gt; visited, <span class="type">int</span> l)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(visited.contains(cur))&#123;</span><br><span class="line">        max=Math.max(max,l);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited.add(cur);</span><br><span class="line">    dfs(nums,nums[cur],visited,l+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="572-Subtree-of-Another-Tree"><a href="#572-Subtree-of-Another-Tree" class="headerlink" title="572. Subtree of Another Tree"></a>572. Subtree of Another Tree</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isSubtree</span><span class="params">(TreeNode root, TreeNode subRoot)</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">if</span>(isEqual(root,subRoot))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isSubtree(root.left,subRoot) || isSubtree(root.right,subRoot);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isEqual</span><span class="params">(TreeNode root, TreeNode subRoot)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">null</span> &amp;&amp; subRoot==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">null</span> || subRoot==<span class="literal">null</span> || root.val!=subRoot.val)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isEqual(root.left,subRoot.left) &amp;&amp; isEqual(root.right,subRoot.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="589-N-ary-Tree-Preorder-Traversal"><a href="#589-N-ary-Tree-Preorder-Traversal" class="headerlink" title="589. N-ary Tree Preorder Traversal"></a>589. N-ary Tree Preorder Traversal</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">preorder</span><span class="params">(Node root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;Node&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    stack.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">        <span class="comment">//root, 0,1,2</span></span><br><span class="line">        <span class="comment">//2,1,0, root</span></span><br><span class="line">        Node node=stack.pop();</span><br><span class="line">        <span class="keyword">if</span>(node!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> node.children.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">                stack.push(node.children.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">            stack.push(node);</span><br><span class="line">            stack.push(<span class="literal">null</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            node=stack.poll();</span><br><span class="line">            res.add(node.val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="590-N-ary-Tree-Postorder-Traversal"><a href="#590-N-ary-Tree-Postorder-Traversal" class="headerlink" title="590. N-ary Tree Postorder Traversal"></a>590. N-ary Tree Postorder Traversal</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">postorder</span><span class="params">(Node root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;Node&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    stack.offer(root);</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">        Node cur=stack.pop();</span><br><span class="line">        <span class="keyword">if</span>(cur!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//out: left right root</span></span><br><span class="line">            <span class="comment">//in:  root right left</span></span><br><span class="line">            stack.push(cur);</span><br><span class="line">            stack.push(<span class="literal">null</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> cur.children.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">                stack.push(cur.children.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res.add(stack.pop().val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="652-Find-Duplicate-Subtrees"><a href="#652-Find-Duplicate-Subtrees" class="headerlink" title="652. Find Duplicate Subtrees"></a>652. Find Duplicate Subtrees</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">List&lt;TreeNode&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">Map&lt;String,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;TreeNode&gt; <span class="title function_">findDuplicateSubtrees</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    dfs(root);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">String <span class="title function_">dfs</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;#&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    String l=dfs(node.left);</span><br><span class="line">    String r=dfs(node.right);</span><br><span class="line">    String cur=node.val+<span class="string">&quot;,&quot;</span>+l+<span class="string">&quot;,&quot;</span>+r;</span><br><span class="line">    map.put(cur,map.getOrDefault(cur,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(map.get(cur)==<span class="number">2</span>)&#123;</span><br><span class="line">        res.add(node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cur;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="663-Equal-Tree-Partition"><a href="#663-Equal-Tree-Partition" class="headerlink" title="663. Equal Tree Partition"></a>663. Equal Tree Partition</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;TreeNode,Long&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">checkEqualTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(root==<span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="type">long</span> l=sum(root.left);</span><br><span class="line">    <span class="type">long</span> r=sum(root.right);</span><br><span class="line">    <span class="keyword">if</span>(root.right!=<span class="literal">null</span> &amp;&amp; l+root.val==r || root.left!=<span class="literal">null</span> &amp;&amp; r+root.val==l)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">        root.left.val+=root.val+r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">        root.right.val+=root.val+l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> checkEqualTree(root.left) || checkEqualTree(root.right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="title function_">sum</span><span class="params">(TreeNode node)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(map.containsKey(node))&#123;</span><br><span class="line">          <span class="keyword">return</span> map.get(node);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="type">long</span> res=sum(node.left)+sum(node.right)+node.val;</span><br><span class="line">      map.put(node,res);</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="690-Employee-Importance"><a href="#690-Employee-Importance" class="headerlink" title="690. Employee Importance"></a>690. Employee Importance</h2><h3 id="DFS-1"><a href="#DFS-1" class="headerlink" title="DFS:"></a>DFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (Employee employee : employees) &#123;</span><br><span class="line">    <span class="keyword">if</span>(employee.id==id)&#123;</span><br><span class="line">        res+=employee.importance;</span><br><span class="line">        <span class="keyword">for</span> (Integer next : employee.subordinates) &#123;</span><br><span class="line">            res+=getImportance(employees,next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BFS-1"><a href="#BFS-1" class="headerlink" title="BFS:"></a>BFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getImportance</span><span class="params">(List&lt;Employee&gt; employees, <span class="type">int</span> id)</span> &#123;</span><br><span class="line">    Map&lt;Integer,Employee&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Employee employee : employees) &#123;</span><br><span class="line">        map.put(employee.id,employee);</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;Integer&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(id);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        Employee cur=map.get(q.poll());</span><br><span class="line">        res+=cur.importance;</span><br><span class="line">        <span class="keyword">for</span> (Integer next : cur.subordinates) &#123;</span><br><span class="line">            q.offer(next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="687-Longest-Univalue-Path"><a href="#687-Longest-Univalue-Path" class="headerlink" title="687. Longest Univalue Path"></a>687. Longest Univalue Path</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestUnivaluePath</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    dfs(root);</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[] dfs(TreeNode node)&#123;</span><br><span class="line">     <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//[val,len]</span></span><br><span class="line">     <span class="type">int</span>[] l=dfs(node.left);</span><br><span class="line">     <span class="type">int</span>[] r=dfs(node.right);</span><br><span class="line">     <span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">     <span class="keyword">if</span>(l!=<span class="literal">null</span> &amp;&amp; l[<span class="number">0</span>]==node.val)&#123;</span><br><span class="line">         len+=l[<span class="number">1</span>];</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">if</span>(r!=<span class="literal">null</span> &amp;&amp; r[<span class="number">0</span>]==node.val)&#123;</span><br><span class="line">        len+=r[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    max=Math.max(max,len-<span class="number">1</span>);</span><br><span class="line">    <span class="type">int</span> path=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(l!=<span class="literal">null</span> &amp;&amp; l[<span class="number">0</span>]==node.val)&#123;</span><br><span class="line">        path+=l[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(r!=<span class="literal">null</span> &amp;&amp; r[<span class="number">0</span>]==node.val)&#123;</span><br><span class="line">        path=Math.max(path,<span class="number">1</span>+r[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;node.val,path&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/11/NestedList/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1258,180 +1533,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/07/29/%E6%96%B0%E6%96%87%E7%AB%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/29/%E6%96%B0%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">新文章</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-30 04:28:44 / 修改时间：04:29:20" itemprop="dateCreated datePublished" datetime="2022-07-30T04:28:44+08:00">2022-07-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="我是新的文章"><a href="#我是新的文章" class="headerlink" title="我是新的文章"></a>我是新的文章</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/07/29/tiny-URL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/29/tiny-URL/" class="post-title-link" itemprop="url">tiny_URL</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-29 16:15:42 / 修改时间：16:17:03" itemprop="dateCreated datePublished" datetime="2022-07-29T16:15:42+08:00">2022-07-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Shorten-URL"><a href="#Shorten-URL" class="headerlink" title="Shorten URL"></a>Shorten URL</h1><p>system design，很实用！</p>
-<h2 id="535-Encode-and-Decode-TinyURL"><a href="#535-Encode-and-Decode-TinyURL" class="headerlink" title="535. Encode and Decode TinyURL"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/encode-and-decode-tinyurl/">535. Encode and Decode TinyURL</a></h2><p>如果想要实现相同的<code>URL</code> 加密成同一个 <code>TinyURL</code>，则额外保存一个从<code>URL</code> 到 <code>TinyURL</code> 的映射。</p>
-<h3 id="法一：自增"><a href="#法一：自增" class="headerlink" title="法一：自增"></a>法一：自增</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line">    Map&lt;Integer,String&gt; database=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    String prefix=<span class="string">&quot;https://ivn.com/&quot;</span>;</span><br><span class="line">    <span class="comment">// Encodes a URL to a shortened URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String longUrl)</span> &#123;</span><br><span class="line">        database.put(++count,longUrl);</span><br><span class="line">        <span class="keyword">return</span> prefix+count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes a shortened URL to its original URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">decode</span><span class="params">(String shortUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> p=shortUrl.lastIndexOf(<span class="string">&#x27;/&#x27;</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> val=Integer.parseInt(shortUrl.substring(p));</span><br><span class="line">        <span class="keyword">return</span> database.get(val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="法二：哈希生成"><a href="#法二：哈希生成" class="headerlink" title="法二：哈希生成"></a>法二：哈希生成</h3><p>为了防止相同的 longUrl 多次调用，确保 encode 服务的「幂等性」，我们再额外建立哈希表 origin2Tiny 来记录原串和映射标识的对应关系。</p>
-<h3 id="法三：随机"><a href="#法三：随机" class="headerlink" title="法三：随机"></a>法三：随机</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line"></span><br><span class="line">    Random random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    Map&lt;Integer,String&gt; database=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    String prefix=<span class="string">&quot;https://ivn.com/&quot;</span>;</span><br><span class="line">    <span class="comment">// Encodes a URL to a shortened URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String longUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> num= random.nextInt();</span><br><span class="line">        <span class="keyword">while</span>(database.containsKey(num))&#123;</span><br><span class="line">            num= random.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">        database.put(num,longUrl);</span><br><span class="line">        <span class="keyword">return</span> prefix+num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes a shortened URL to its original URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">decode</span><span class="params">(String shortUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> p=shortUrl.lastIndexOf(<span class="string">&#x27;/&#x27;</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> num=Integer.parseInt(shortUrl.substring(p));</span><br><span class="line">        <span class="keyword">return</span> database.get(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/unusable-index/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/unusable-index/">1</a><span class="page-number current">2</span><a class="page-number" href="/unusable-index/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/unusable-index/page/6/">6</a><a class="extend next" rel="next" href="/unusable-index/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/unusable-index/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/unusable-index/">1</a><span class="page-number current">2</span><a class="page-number" href="/unusable-index/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/unusable-index/page/7/">7</a><a class="extend next" rel="next" href="/unusable-index/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1497,7 +1602,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1546,12 +1651,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">670k</span>
+    <span title="站点总字数">685k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10:09</span>
+    <span title="站点阅读时长">10:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
