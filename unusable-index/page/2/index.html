@@ -190,6 +190,1088 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/12/04/COEN210/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/04/COEN210/" class="post-title-link" itemprop="url">COEN 210 — Computer Architecture</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-04 16:34:43" itemprop="dateCreated datePublished" datetime="2022-12-04T16:34:43+08:00">2022-12-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-05 14:11:11" itemprop="dateModified" datetime="2022-12-05T14:11:11+08:00">2022-12-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="COEN-210-Computer-Architecture"><a href="#COEN-210-Computer-Architecture" class="headerlink" title="COEN 210 Computer Architecture"></a>COEN 210 Computer Architecture</h1><h2 id="Chapter-1-—-Computer-Abstraction-and-Technology"><a href="#Chapter-1-—-Computer-Abstraction-and-Technology" class="headerlink" title="Chapter 1 — Computer Abstraction and Technology"></a>Chapter 1 — Computer Abstraction and Technology</h2><h3 id="Understanding-Performance"><a href="#Understanding-Performance" class="headerlink" title="Understanding Performance"></a>Understanding Performance</h3><ul>
+<li><p>Algorithm </p>
+<ul>
+<li>Determines number of operations executed</li>
+</ul>
+</li>
+<li><p>Programming language, compiler, architecture </p>
+<ul>
+<li>Determine number of machine instructions  executed per operation</li>
+</ul>
+</li>
+<li><p>Processor and memory system </p>
+<ul>
+<li>Determine how fast instructions are executed</li>
+</ul>
+</li>
+<li><p>I&#x2F;O system (including OS) </p>
+<ul>
+<li>Determines how fast I&#x2F;O operations are executed</li>
+</ul>
+</li>
+</ul>
+<h3 id="Eight-Great-Ideas"><a href="#Eight-Great-Ideas" class="headerlink" title="Eight Great Ideas"></a>Eight Great Ideas</h3><ul>
+<li>Design for Moore’s Law</li>
+<li>Use abstraction to simplify design</li>
+<li>Make the common case fast</li>
+<li>Performance via parallelism</li>
+<li>Performance via pipelining</li>
+<li>Performance via prediction</li>
+<li>Hierarchy of memories</li>
+<li>Dependability via redundancy</li>
+</ul>
+<h3 id="Pitfalls"><a href="#Pitfalls" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ul>
+<li><p>Amdahl’s Law</p>
+<ul>
+<li>Improving an aspect of a computer and expecting a  proportional improvement in overall performance</li>
+<li>Corollary: make the common case fast</li>
+</ul>
+</li>
+<li><p>Low Power at Idle</p>
+<ul>
+<li>Google data center <ul>
+<li>Mostly operates at 10% – 50% load </li>
+<li>At 100% load less than 1% of the time</li>
+</ul>
+</li>
+<li>Consider designing processors to make power  proportional to load</li>
+</ul>
+</li>
+<li><p>MIPS as a Performance Metric</p>
+<ul>
+<li>MIPS: Millions of Instructions Per Second</li>
+<li>Doesn’t account for<ul>
+<li>Differences in ISAs between computers</li>
+<li>Differences in complexity between instructions</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-2-—-Instructions-Language-of-the-Computer"><a href="#Chapter-2-—-Instructions-Language-of-the-Computer" class="headerlink" title="Chapter 2 — Instructions: Language of the Computer"></a>Chapter 2 — Instructions: Language of the Computer</h2><h3 id="Design-Principle"><a href="#Design-Principle" class="headerlink" title="Design Principle"></a>Design Principle</h3><ol>
+<li><p>Simplicity favors regularity</p>
+<ul>
+<li><p>All arithmetic operations have this form</p>
+<p><strong>ADD a, b, c &#x2F;&#x2F; a &#x3D; b + c</strong></p>
+</li>
+<li><p>Regularity makes implementation simpler</p>
+</li>
+<li><p>Simplicity enables higher performance at lower  cost</p>
+</li>
+</ul>
+</li>
+<li><p>Smaller is faster</p>
+<ul>
+<li>LEGv8 has a 32 × 64-bit register file</li>
+<li>64-bit data is called a “doubleword” <ul>
+<li>31 x 64-bit general purpose registers X0 to X30</li>
+</ul>
+</li>
+<li>c.f. main memory: millions of locations</li>
+</ul>
+</li>
+<li><p>Make the common case fast</p>
+<ul>
+<li><p>Constant data specified in an instruction </p>
+<p><strong>ADDI X22, X22, #4</strong></p>
+</li>
+<li><p>Small constants are common</p>
+</li>
+<li><p>Immediate operand avoids a load instruction</p>
+</li>
+</ul>
+</li>
+<li><p>Good design demands good compromises</p>
+<ul>
+<li>Different formats complicate decoding, but allow 32-bit instructions  uniformly</li>
+<li>Keep formats as similar as possible</li>
+</ul>
+</li>
+</ol>
+<h3 id="LEGv8-Registers"><a href="#LEGv8-Registers" class="headerlink" title="LEGv8 Registers"></a>LEGv8 Registers</h3><ul>
+<li>X0 – X7: procedure arguments&#x2F;results </li>
+<li>X8: indirect result location register </li>
+<li>X9 – X15: temporaries </li>
+<li>X16 – X17 (IP0 – IP1): may be used by linker as a scratch  register, other times as temporary register</li>
+<li>X18: platform register for platform independent code;  otherwise a temporary register </li>
+<li>X19 – X27: saved </li>
+<li>X28 (SP): stack pointer </li>
+<li>X29 (FP): frame pointer </li>
+<li>X30 (LR): link register (return address) </li>
+<li>XZR (register 31): the constant value 0</li>
+</ul>
+<h3 id="Memory-Layout"><a href="#Memory-Layout" class="headerlink" title="Memory Layout"></a>Memory Layout</h3><ul>
+<li>Text: program code</li>
+<li>Static data: global variables <ul>
+<li>e.g., static variables in C,  constant arrays and strings</li>
+</ul>
+</li>
+<li>Dynamic data: heap <ul>
+<li>E.g., malloc in C, new in Java</li>
+</ul>
+</li>
+<li>Stack: automatic storage</li>
+</ul>
+<p><img src="/images/210/memory_layout.JPG"></p>
+<h3 id="LEGv8-Addressing-Summary"><a href="#LEGv8-Addressing-Summary" class="headerlink" title="LEGv8 Addressing Summary"></a>LEGv8 Addressing Summary</h3><p><img src="/images/210/addressing.JPG"></p>
+<h3 id="LEGv8-Encoding-Summary"><a href="#LEGv8-Encoding-Summary" class="headerlink" title="LEGv8 Encoding Summary"></a>LEGv8 Encoding Summary</h3><p><img src="/images/210/encoding.JPG"></p>
+<h3 id="Synchronization"><a href="#Synchronization" class="headerlink" title="Synchronization"></a>Synchronization</h3><ul>
+<li>Two processors sharing an area of memory<ul>
+<li>P1 writes, then P2 reads</li>
+<li>Data race if P1 and P2 don’t synchronize<ul>
+<li>Result depends on order of accesses</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hardware support required<ul>
+<li>Atomic read&#x2F;write memory operation</li>
+<li>No other access to the location allowed between the read  and write</li>
+</ul>
+</li>
+<li>Could be a single instruction<ul>
+<li>E.g., atomic swap of register ↔ memory</li>
+<li>Or an atomic pair of instructions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Translation-and-Startup"><a href="#Translation-and-Startup" class="headerlink" title="Translation and Startup"></a>Translation and Startup</h3><p><img src="/images/210/translation_startup.JPG"></p>
+<p><img src="/images/210/java_startup.JPG"></p>
+<h3 id="Loading-a-Program"><a href="#Loading-a-Program" class="headerlink" title="Loading a Program"></a>Loading a Program</h3><p>Load from image file on disk into memory</p>
+<ol>
+<li>Read header to determine segment sizes</li>
+<li>Create virtual address space</li>
+<li>Copy text and initialized data into memory <ul>
+<li>Or set page table entries so they can be faulted in</li>
+</ul>
+</li>
+<li>Set up arguments on stack</li>
+<li>Initialize registers (including SP, FP)</li>
+<li>Jump to startup routine<ul>
+<li>Copies arguments to X0, … and calls main</li>
+<li>When main returns, do exit syscall</li>
+</ul>
+</li>
+</ol>
+<h3 id="Dynamic-Linking"><a href="#Dynamic-Linking" class="headerlink" title="Dynamic Linking"></a>Dynamic Linking</h3><ul>
+<li>Only link&#x2F;load library procedure when it is  called<ul>
+<li>Requires procedure code to be relocatable</li>
+<li>Avoids image bloat caused by static linking of all  (transitively) referenced libraries</li>
+<li>Automatically picks up new library versions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Lessons-Learnt"><a href="#Lessons-Learnt" class="headerlink" title="Lessons Learnt"></a>Lessons Learnt</h3><ul>
+<li>Instruction count and CPI are not good  performance indicators in isolation</li>
+<li>Compiler optimizations are sensitive to the  algorithm</li>
+<li>Java&#x2F;JIT compiled code is significantly faster  than JVM interpreted<ul>
+<li>Comparable to optimized C in some cases</li>
+</ul>
+</li>
+<li>Nothing can fix a dumb algorithm!</li>
+</ul>
+<h3 id="Fallacies"><a href="#Fallacies" class="headerlink" title="Fallacies"></a>Fallacies</h3><ol>
+<li>Powerful instruction -&gt; higher performance<ul>
+<li>Fewer instructions required</li>
+<li>But complex instructions are hard to implement<ul>
+<li>May slow down all instructions, including simple ones</li>
+</ul>
+</li>
+<li>Compilers are good at making fast code from simple  instructions</li>
+</ul>
+</li>
+<li>Use assembly code for high performance<ul>
+<li>But modern compilers are better at dealing with modern  processors</li>
+<li>More lines of code -&gt; more errors and less productivity</li>
+</ul>
+</li>
+<li>Backward compatibility -&gt; instruction set  doesn’t change<ul>
+<li>But they do accrete more instructions</li>
+</ul>
+</li>
+</ol>
+<h3 id="Pitfalls-1"><a href="#Pitfalls-1" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ol>
+<li>Sequential words are not at sequential  addresses<ul>
+<li>Increment by 4, not by 1!</li>
+</ul>
+</li>
+<li>Keeping a pointer to an automatic variable  after procedure returns<ul>
+<li>e.g., passing pointer back via an argument</li>
+<li>Pointer becomes invalid when stack popped</li>
+</ul>
+</li>
+</ol>
+<h2 id="Chapter-4-—-The-Processor"><a href="#Chapter-4-—-The-Processor" class="headerlink" title="Chapter 4 — The Processor"></a>Chapter 4 — The Processor</h2><h3 id="Logic-Design-Basics"><a href="#Logic-Design-Basics" class="headerlink" title="Logic Design Basics"></a>Logic Design Basics</h3><ul>
+<li>Information encoded in binary<ul>
+<li>Low voltage &#x3D; 0, High voltage &#x3D; 1</li>
+<li>One wire per bit</li>
+<li>Multi-bit data encoded on multi-wire buses</li>
+</ul>
+</li>
+<li>Combinational element<ul>
+<li>Operate on data</li>
+<li>Output is a function of input<ul>
+<li>AND-gate</li>
+<li>Multiplexer</li>
+<li>Adder</li>
+<li>Arithmetic&#x2F;Logic Unit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>State (sequential) elements<ul>
+<li>Store information</li>
+<li>Register: stores data in a circuit<ul>
+<li>Uses a clock signal to determine when to update  the stored value</li>
+<li>Edge-triggered: update when Clk changes from 0  to 1</li>
+</ul>
+</li>
+<li>Register with write control<ul>
+<li>Only updates on clock edge when write control  input is 1</li>
+<li>Used when stored value is required later</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Clocking-Methodology"><a href="#Clocking-Methodology" class="headerlink" title="Clocking Methodology"></a>Clocking Methodology</h3><ul>
+<li>Combinational logic transforms data during  clock cycles<ul>
+<li>Between clock edges</li>
+<li>Input from state elements, output to state element</li>
+<li>Longest delay determines clock period</li>
+</ul>
+</li>
+</ul>
+<h3 id="Full-Datapath"><a href="#Full-Datapath" class="headerlink" title="Full Datapath"></a>Full Datapath</h3><p>control signals derived from instruction</p>
+<p><img src="/images/210/full_datapath.JPG"></p>
+<h3 id="Datapath-With-Control"><a href="#Datapath-With-Control" class="headerlink" title="Datapath With Control"></a>Datapath With Control</h3><p><img src="/images/210/datapath_with_control.JPG"></p>
+<h3 id="R-Type-Instruction"><a href="#R-Type-Instruction" class="headerlink" title="R-Type Instruction"></a>R-Type Instruction</h3><p><img src="/images/210/r_type.JPG"></p>
+<h3 id="Load-Instruction"><a href="#Load-Instruction" class="headerlink" title="Load Instruction"></a>Load Instruction</h3><p><img src="/images/210/load.JPG"></p>
+<h3 id="CBZ-Instruction"><a href="#CBZ-Instruction" class="headerlink" title="CBZ Instruction"></a>CBZ Instruction</h3><p><img src="/images/210/CBZ.JPG"></p>
+<h3 id="Datapath-With-B-Added"><a href="#Datapath-With-B-Added" class="headerlink" title="Datapath With B Added"></a>Datapath With B Added</h3><p><img src="/images/210/B_added.JPG"></p>
+<h3 id="Single-Cycle-Performance-Issues"><a href="#Single-Cycle-Performance-Issues" class="headerlink" title="Single Cycle Performance Issues"></a>Single Cycle Performance Issues</h3><ul>
+<li>Longest delay determines clock period<ul>
+<li>Critical path: load instruction</li>
+<li>Instruction memory → register file → ALU → data  memory → register file</li>
+</ul>
+</li>
+<li>Not feasible to vary period for different  instructions</li>
+<li>Violates design principle<ul>
+<li>Making the common case fast</li>
+</ul>
+</li>
+<li>We will improve performance by pipelining</li>
+</ul>
+<h3 id="Pipelining-Analogy"><a href="#Pipelining-Analogy" class="headerlink" title="Pipelining Analogy"></a>Pipelining Analogy</h3><ul>
+<li>Pipelined laundry: overlapping execution<ul>
+<li>Parallelism improves performance</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/pipeline_analogy.JPG"></p>
+<h3 id="LEGv8-Pipeline"><a href="#LEGv8-Pipeline" class="headerlink" title="LEGv8 Pipeline"></a>LEGv8 Pipeline</h3><ul>
+<li>Five stages, one step per stage<ol>
+<li>IF: Instruction fetch from memory</li>
+<li>ID: Instruction decode &amp; register read</li>
+<li>EX: Execute operation or calculate address</li>
+<li>MEM: Access memory operand</li>
+<li>WB: Write result back to register</li>
+</ol>
+</li>
+</ul>
+<h3 id="Pipeline-Performance"><a href="#Pipeline-Performance" class="headerlink" title="Pipeline Performance"></a>Pipeline Performance</h3><p><img src="D:\Blog\source\images\210\pipeline_performance1.JPG"></p>
+<p><img src="/images/210/pipeline_performance2.JPG"></p>
+<h3 id="Pipeline-Speedup"><a href="#Pipeline-Speedup" class="headerlink" title="Pipeline Speedup"></a>Pipeline Speedup</h3><ul>
+<li>If all stages take the same time (balanced)<ul>
+<li>Time between instructions(pipelined) &#x3D; Time between instructions(nonpipelined) &#x2F; Number of stages</li>
+</ul>
+</li>
+<li>If not balanced, speedup is less</li>
+<li>Speedup due to increased throughput<ul>
+<li>Latency (time for each instruction) does not  decrease</li>
+</ul>
+</li>
+</ul>
+<h3 id="Pipelining-and-ISA-Design"><a href="#Pipelining-and-ISA-Design" class="headerlink" title="Pipelining and ISA Design"></a>Pipelining and ISA Design</h3><ul>
+<li>LEGv8 ISA designed for pipelining<ul>
+<li>All instructions are 32-bits<ul>
+<li>Easier to fetch and decode in one cycle</li>
+<li>c.f. x86: 1- to 17-byte instructions</li>
+</ul>
+</li>
+<li>Few and regular instruction formats<ul>
+<li>Can decode and read registers in one step</li>
+</ul>
+</li>
+<li>Load&#x2F;store addressing<ul>
+<li>Can calculate address in 3rd stage, access memory in 4th stage</li>
+</ul>
+</li>
+<li>Alignment of memory operands<ul>
+<li>Memory access takes only one cycle</li>
+<li>registers &amp; stack</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Hazards"><a href="#Hazards" class="headerlink" title="Hazards"></a>Hazards</h3><p>Situations that prevent starting the next  instruction in the next cycle</p>
+<ol>
+<li><p>Structure hazards</p>
+<ul>
+<li>A required resource is busy</li>
+<li>Conflict for use of a resource</li>
+<li>In LEGv8 pipeline with a single memory<ul>
+<li>Load&#x2F;store requires data access</li>
+<li>Instruction fetch would have to stall for that cycle<ul>
+<li>Would cause a pipeline “bubble”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hence, pipelined datapaths require separate  instruction&#x2F;data memories<ul>
+<li>Or separate instruction&#x2F;data caches</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Data hazard</p>
+<ul>
+<li><p>Need to wait for previous instruction to complete  its data read&#x2F;write</p>
+</li>
+<li><p>An instruction depends on completion of data  access by a previous instruction</p>
+<p><strong>ADD <em>X19</em>, X0, X1</strong> </p>
+<p><strong>SUB X2, <em>X19</em>, X3</strong></p>
+</li>
+<li><p>Forwarding (aka Bypassing)</p>
+<ul>
+<li>Use result when it is computed</li>
+<li>Don’t wait for it to be stored in a register</li>
+<li>Requires extra connections in the datapath</li>
+</ul>
+<p><img src="/images/210/forwarding.JPG"></p>
+</li>
+<li><p>Load-Use Data Hazard</p>
+<ul>
+<li>Can’t always avoid stalls by forwarding<ul>
+<li>If value not computed when needed</li>
+<li>Can’t forward backward in time!</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/bubble.JPG"></p>
+<ul>
+<li>Code Scheduling to Avoid Stalls<ul>
+<li>Reorder code to avoid use of load result in the  next instruction</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/code_scheduling.JPG"></p>
+</li>
+</ul>
+</li>
+<li><p>Control hazard</p>
+<ul>
+<li>Deciding on control action depends on previous  instruction</li>
+<li>Branch determines flow of control<ul>
+<li>Fetching next instruction depends on branch  outcome</li>
+<li>Pipeline can’t always fetch correct instruction<ul>
+<li>Still working on ID stage of branch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>In LEGv8 pipeline<ul>
+<li>Need to compare registers and compute target  early in the pipeline</li>
+<li>Add hardware to do it in ID stage</li>
+</ul>
+</li>
+<li>Stall on Branch<ul>
+<li>Wait until branch outcome determined before  fetching next instruction</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/stall_on_branch.JPG"></p>
+</li>
+</ol>
+<h3 id="Branch-Prediction"><a href="#Branch-Prediction" class="headerlink" title="Branch Prediction"></a>Branch Prediction</h3><ul>
+<li>Longer pipelines can’t readily determine  branch outcome early<ul>
+<li>Stall penalty becomes unacceptable</li>
+</ul>
+</li>
+<li>Predict outcome of branch<ul>
+<li>Only stall if prediction is wrong</li>
+</ul>
+</li>
+<li>In LEGv8 pipeline<ul>
+<li>Can predict branches not taken</li>
+<li>Fetch instruction after branch, with no delay</li>
+</ul>
+</li>
+</ul>
+<h3 id="More-Realistic-Branch-Prediction"><a href="#More-Realistic-Branch-Prediction" class="headerlink" title="More-Realistic Branch Prediction"></a>More-Realistic Branch Prediction</h3><ul>
+<li><p>Static branch prediction</p>
+<ul>
+<li><p>Based on typical branch behavior</p>
+</li>
+<li><p>Example: loop and if-statement branches</p>
+<ul>
+<li><p>Predict backward branches taken</p>
+<p>do loop</p>
+</li>
+<li><p>Predict forward branches not taken</p>
+<p>for loop</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Dynamic branch prediction</p>
+<ul>
+<li>Hardware measures actual branch behavior<ul>
+<li>e.g., record recent history of each branch</li>
+</ul>
+</li>
+<li>Assume future behavior will continue the trend<ul>
+<li>When wrong, stall while re-fetching, and update history</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Pipeline-Summary"><a href="#Pipeline-Summary" class="headerlink" title="Pipeline Summary"></a>Pipeline Summary</h3><ul>
+<li>Pipelining improves performance by increasing  instruction throughput<ul>
+<li>Executes multiple instructions in parallel</li>
+<li>Each instruction has the same latency</li>
+</ul>
+</li>
+<li>Subject to hazards<ul>
+<li>Structure, data, control</li>
+</ul>
+</li>
+<li>Instruction set design affects complexity of  pipeline implementation</li>
+</ul>
+<h3 id="LEGv8-Pipelined-Datapath"><a href="#LEGv8-Pipelined-Datapath" class="headerlink" title="LEGv8 Pipelined Datapath"></a>LEGv8 Pipelined Datapath</h3><p><img src="/images/210/legv8_pipelined_datapath.JPG"></p>
+<h3 id="Pipeline-registers"><a href="#Pipeline-registers" class="headerlink" title="Pipeline registers"></a>Pipeline registers</h3><p>Need registers between stages</p>
+<ul>
+<li>To hold information produced in previous cycle</li>
+</ul>
+<p><img src="/images/210/pipeline_registers.JPG"></p>
+<h3 id="Multi-Cycle-Pipeline-Diagram"><a href="#Multi-Cycle-Pipeline-Diagram" class="headerlink" title="Multi-Cycle Pipeline Diagram"></a>Multi-Cycle Pipeline Diagram</h3><p><img src="/images/210/multi_cycle_pipeline.JPG"></p>
+<h3 id="Single-Cycle-Pipeline-Diagram"><a href="#Single-Cycle-Pipeline-Diagram" class="headerlink" title="Single-Cycle Pipeline Diagram"></a>Single-Cycle Pipeline Diagram</h3><p><img src="/images/210/single_cycle_pipeline.JPG"></p>
+<h3 id="Pipelined-Control"><a href="#Pipelined-Control" class="headerlink" title="Pipelined Control"></a>Pipelined Control</h3><p><img src="/images/210/pipelined_control2.JPG"></p>
+<h3 id="Forwarding-and-Hazard-Detection"><a href="#Forwarding-and-Hazard-Detection" class="headerlink" title="Forwarding and Hazard Detection"></a>Forwarding and Hazard Detection</h3><ul>
+<li><p>Detecting the Need to Forward</p>
+<p><img src="/images/210/need_to_forward.JPG"></p>
+<p><img src="/images/210/need_to_forward2.JPG"></p>
+</li>
+</ul>
+<p>​        <img src="/images/210/forwarding_path.JPG"></p>
+<p>​    <img src="/images/210/revised_forwarding_condition.JPG"></p>
+<ul>
+<li>Hazard in ALU</li>
+<li>Load-use hazard</li>
+</ul>
+<p>​        <img src="/images/210/load_use_data_hazard.JPG"></p>
+<p><img src="/images/210/datapath_with_hazard_detection.JPG"></p>
+<ul>
+<li>Branch hazard</li>
+</ul>
+<p><img src="/images/210/branch_hazard.JPG"></p>
+<h3 id="Stalls-and-Performance"><a href="#Stalls-and-Performance" class="headerlink" title="Stalls and Performance"></a>Stalls and Performance</h3><ul>
+<li>Stalls reduce performance<ul>
+<li>But are required to get correct results</li>
+</ul>
+</li>
+<li>Compiler can arrange code to avoid hazards  and stalls<ul>
+<li>Requires knowledge of the pipeline structure</li>
+</ul>
+</li>
+</ul>
+<h3 id="Dynamic-Branch-Prediction"><a href="#Dynamic-Branch-Prediction" class="headerlink" title="Dynamic Branch Prediction"></a>Dynamic Branch Prediction</h3><ul>
+<li>In deeper and superscalar pipelines, branch penalty is  more significant</li>
+<li>Use dynamic prediction<ul>
+<li>Branch prediction buffer (aka branch history table)</li>
+<li>Indexed by recent branch instruction addresses</li>
+<li>Stores outcome (taken&#x2F;not taken)</li>
+<li>To execute a branch<ul>
+<li>Check table, expect the same outcome</li>
+<li>Start fetching from fall-through or target</li>
+<li>If wrong, flush pipeline and flip prediction</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>1-Bit Predictor: Shortcoming<ul>
+<li>Inner loop branches mispredicted twice!</li>
+</ul>
+</li>
+<li>2-Bit Predictor<ul>
+<li>Only change prediction on two successive  mispredictions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Exceptions-and-Interrupts"><a href="#Exceptions-and-Interrupts" class="headerlink" title="Exceptions and Interrupts"></a>Exceptions and Interrupts</h3><ul>
+<li>“Unexpected” events requiring change in flow of control<ul>
+<li>Different ISAs use the terms differently</li>
+</ul>
+</li>
+<li>Exception<ul>
+<li>Arises within the CPU<ul>
+<li>e.g., undefined opcode, overflow, syscall, …</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Interrupt<ul>
+<li>From an external I&#x2F;O controller</li>
+</ul>
+</li>
+<li>Dealing with them without sacrificing performance is hard</li>
+</ul>
+<p><img src="/images/210/exception_interrupt.JPG"></p>
+<h3 id="Handling-Exceptions"><a href="#Handling-Exceptions" class="headerlink" title="Handling Exceptions"></a>Handling Exceptions</h3><ul>
+<li><p>Save PC of offending (or interrupted) instruction <strong>&#x3D;EPC</strong></p>
+<ul>
+<li>In LEGv8: Exception Link Register (ELR)</li>
+</ul>
+</li>
+<li><p>Save indication of the problem</p>
+<ul>
+<li>In LEGv8: Exception Syndrome Rregister (ESR)</li>
+<li>We’ll assume 1-bit<ul>
+<li>0 for undefined opcode, 1 for overflow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/210/pipeline_with_exceptions.JPG"></p>
+<h3 id="Exception-Properties"><a href="#Exception-Properties" class="headerlink" title="Exception Properties"></a>Exception Properties</h3><ul>
+<li>Restartable exceptions<ul>
+<li>Pipeline can flush the instruction</li>
+<li>Handler executes, then returns to the instruction<ul>
+<li>Refetched and executed from scratch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PC saved in ELR register<ul>
+<li>Identifies causing instruction</li>
+<li>Actually PC + 4 is saved<ul>
+<li>Actually PC + 4 is saved</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Instruction-Level-Parallelism-ILP"><a href="#Instruction-Level-Parallelism-ILP" class="headerlink" title="Instruction-Level Parallelism (ILP)"></a>Instruction-Level Parallelism (ILP)</h3><ul>
+<li>Pipelining: multiple instructions in parallel</li>
+<li>To increase ILP<ul>
+<li>Deeper pipeline<ul>
+<li>Less work per stage -&gt; shorter clock cycle</li>
+</ul>
+</li>
+<li>Multiple issue<ul>
+<li>Replicate pipeline stages -&gt; multiple pipelines</li>
+<li>Start multiple instructions per clock cycle</li>
+<li>CPI &lt; 1, so use Instructions Per Cycle (IPC)</li>
+<li>E.g., 4GHz 4-way multiple-issue<ul>
+<li>16 BIPS, peak CPI &#x3D; 0.25, peak IPC &#x3D; 4</li>
+</ul>
+</li>
+<li>But dependencies reduce this in practice</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Multiple-Issue"><a href="#Multiple-Issue" class="headerlink" title="Multiple Issue"></a>Multiple Issue</h3><ul>
+<li>Static multiple issue (compile time)<ul>
+<li>Compiler groups instructions to be issued together</li>
+<li>Packages them into “issue slots”</li>
+<li>Compiler detects and avoids hazards</li>
+</ul>
+</li>
+<li>Dynamic multiple issue (run time)<ul>
+<li>CPU examines instruction stream and chooses instructions  to issue each cycle</li>
+<li>Compiler can help by reordering instructions</li>
+<li>CPU resolves hazards using advanced techniques at runtime</li>
+</ul>
+</li>
+</ul>
+<h3 id="Speculation"><a href="#Speculation" class="headerlink" title="Speculation"></a>Speculation</h3><ul>
+<li>“Guess” what to do with an instruction<ul>
+<li>Start the guessed operation as soon as possible</li>
+<li>Check whether guess was right<ul>
+<li>If so, complete the operation</li>
+<li>If not, roll-back and do the right thing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Common to static and dynamic multiple issue</li>
+<li>Examples<ul>
+<li>Speculate on branch outcome<ul>
+<li>Roll back if path taken is different</li>
+</ul>
+</li>
+<li>Speculate on load<ul>
+<li>Roll back if location is updated</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Loop-Unrolling"><a href="#Loop-Unrolling" class="headerlink" title="Loop Unrolling"></a>Loop Unrolling</h3><ul>
+<li>Replicate loop body to expose more  parallelism<ul>
+<li>Reduces loop-control overhead</li>
+</ul>
+</li>
+<li>Use different registers per replication<ul>
+<li>Called “register renaming”</li>
+<li>Avoid loop-carried “anti-dependencies”<ul>
+<li>Store followed by a load of the same register</li>
+<li>Aka “name dependence”<ul>
+<li>Reuse of a register name</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Does-Multiple-Issue-Work"><a href="#Does-Multiple-Issue-Work" class="headerlink" title="Does Multiple Issue Work?"></a>Does Multiple Issue Work?</h3><ul>
+<li>Yes, but not as much as we’d like</li>
+<li>Programs have real dependencies that limit ILP</li>
+<li>Some dependencies are hard to eliminate<ul>
+<li>e.g., pointer aliasing</li>
+</ul>
+</li>
+<li>Some parallelism is hard to expose<ul>
+<li>Limited window size during instruction issue</li>
+</ul>
+</li>
+<li>Memory delays and limited bandwidth<ul>
+<li>Hard to keep pipelines full</li>
+</ul>
+</li>
+<li>Speculation can help if done well</li>
+</ul>
+<h3 id="Fallacies-1"><a href="#Fallacies-1" class="headerlink" title="Fallacies"></a>Fallacies</h3><ol>
+<li>Pipelining is easy (!)<ul>
+<li>The basic idea is easy</li>
+<li>The devil is in the details<ul>
+<li>e.g., detecting data hazards</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Pipelining is independent of technology<ul>
+<li>So why haven’t we always done pipelining?</li>
+<li>More transistors make more advanced techniques feasible</li>
+<li>Pipeline-related ISA design needs to take account of  technology trends<ul>
+<li>e.g., predicated instructions</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Pitfalls-2"><a href="#Pitfalls-2" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ul>
+<li>Poor ISA design can make pipelining harder<ul>
+<li>e.g., complex instruction sets (VAX, IA-32)<ul>
+<li>Significant overhead to make pipelining work</li>
+<li>IA-32 micro-op approach</li>
+</ul>
+</li>
+<li>e.g., complex addressing modes<ul>
+<li>Register update side effects, memory indirection</li>
+</ul>
+</li>
+<li>e.g., delayed branches<ul>
+<li>Advanced pipelines have long delay slots</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Concluding-Remarks"><a href="#Concluding-Remarks" class="headerlink" title="Concluding Remarks"></a>Concluding Remarks</h3><ul>
+<li>ISA influences design of datapath and control</li>
+<li>Datapath and control influence design of ISA</li>
+<li>Pipelining improves instruction throughput using parallelism<ul>
+<li>More instructions completed per second</li>
+<li>Latency for each instruction not reduced</li>
+</ul>
+</li>
+<li>Hazards: structural, data, control</li>
+<li>Multiple issue and dynamic scheduling (ILP)<ul>
+<li>Dependencies limit achievable parallelism</li>
+<li>Complexity leads to the power wall</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy"><a href="#Chapter-5-—-Large-and-Fast-Exploiting-Memory-Hierarchy" class="headerlink" title="Chapter 5 — Large and Fast: Exploiting Memory Hierarchy"></a>Chapter 5 — Large and Fast: Exploiting Memory Hierarchy</h2><h3 id="Principle-of-Locality"><a href="#Principle-of-Locality" class="headerlink" title="Principle of Locality"></a>Principle of Locality</h3><ul>
+<li>Programs access a small portion of their  address space at any time</li>
+<li>Temporal locality<ul>
+<li>Items accessed recently are likely to be accessed  again soon</li>
+<li>e.g., instructions in a loop, induction variables</li>
+</ul>
+</li>
+<li>Spatial locality<ul>
+<li>Items near those accessed recently are likely to be  accessed soon</li>
+<li>E.g., sequential instruction access, array data</li>
+</ul>
+</li>
+</ul>
+<h3 id="Taking-Advantage-of-Locality"><a href="#Taking-Advantage-of-Locality" class="headerlink" title="Taking Advantage of Locality"></a>Taking Advantage of Locality</h3><ul>
+<li>Memory hierarchy</li>
+<li>Store everything on disk</li>
+<li>Copy recently accessed (and nearby) items  from disk to smaller DRAM memory<ul>
+<li>Main memory</li>
+</ul>
+</li>
+<li>Copy more recently accessed (and nearby)  items from DRAM to smaller SRAM memory<ul>
+<li>Cache memory attached to CPU</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cache-Block-Size-Considerations"><a href="#Cache-Block-Size-Considerations" class="headerlink" title="Cache Block Size Considerations"></a>Cache Block Size Considerations</h3><ul>
+<li>Larger blocks should reduce miss rate<ul>
+<li>Due to spatial locality</li>
+</ul>
+</li>
+<li>But in a fixed-sized cache<ul>
+<li>Larger blocks -&gt; fewer of them<ul>
+<li>More competition -&gt; increased miss rate</li>
+</ul>
+</li>
+<li>Larger blocks -&gt; pollution<ul>
+<li>Partially used before being replaced</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Larger miss penalty<ul>
+<li>Can override benefit of reduced miss rate</li>
+<li>Early restart and critical-word-first can help<ul>
+<li>early restart: don’t wait for everything to load</li>
+<li>critical-word-first: bring in the required data first</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cache-Misses"><a href="#Cache-Misses" class="headerlink" title="Cache Misses"></a>Cache Misses</h3><ul>
+<li>On cache hit, CPU proceeds normally</li>
+<li>On cache miss<ul>
+<li>Stall the CPU pipeline</li>
+<li>Fetch block from next level of hierarchy</li>
+<li>Instruction cache miss<ul>
+<li>Restart instruction fetch (PC - 4)</li>
+</ul>
+</li>
+<li>Data cache miss<ul>
+<li>Complete data access</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="On-data-write-hit"><a href="#On-data-write-hit" class="headerlink" title="On data-write hit"></a>On data-write hit</h3><ul>
+<li>Write-Through<ul>
+<li>also update memory</li>
+<li>But makes writes take longer</li>
+<li>Solution: write buffer<ul>
+<li>Holds data waiting to be written to memory</li>
+<li>CPU continues immediately<ul>
+<li>Only stalls on write if write buffer is already full</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Write-Back<ul>
+<li>Alternative: On data-write hit, just update the  block in cache<ul>
+<li>Keep track of whether each block is dirty</li>
+</ul>
+</li>
+<li>When a dirty block is replaced<ul>
+<li>Write it back to memory</li>
+<li>Can use a write buffer to allow replacing block to  be read first</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Performance-Summary"><a href="#Performance-Summary" class="headerlink" title="Performance Summary"></a>Performance Summary</h3><ul>
+<li>When CPU performance increased<ul>
+<li>Miss penalty becomes more significant</li>
+</ul>
+</li>
+<li>Decreasing base CPI<ul>
+<li>Greater proportion of time spent on memory stalls</li>
+</ul>
+</li>
+<li>Increasing clock rate<ul>
+<li>Memory stalls account for more CPU cycles</li>
+</ul>
+</li>
+<li>Can’t neglect cache behavior when evaluating  system performance</li>
+</ul>
+<h3 id="Set-Associative-Cache"><a href="#Set-Associative-Cache" class="headerlink" title="Set Associative Cache"></a>Set Associative Cache</h3><ul>
+<li>n-way set associative<ul>
+<li>Each set contains n entries</li>
+<li>Block number determines which set<ul>
+<li>(Block number) modulo (#Sets in cache)</li>
+</ul>
+</li>
+<li>Search all entries in a given set at once</li>
+<li>n comparators (less expensive)</li>
+</ul>
+</li>
+<li>Replacement Policy<ul>
+<li>Prefer non-valid entry, if there is one</li>
+<li>Otherwise, choose among entries in the set<ul>
+<li>Least-recently used (LRU)<ul>
+<li>Choose the one unused for the longest time</li>
+</ul>
+</li>
+<li>Random</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Multilevel-Caches"><a href="#Multilevel-Caches" class="headerlink" title="Multilevel Caches"></a>Multilevel Caches</h3><ul>
+<li>Primary cache attached to CPU<ul>
+<li>Focus on minimal hit time</li>
+</ul>
+</li>
+<li>Level-2 cache services misses  from primary cache<ul>
+<li>Focus on low miss rate to avoid main memory  access</li>
+<li>Hit time has less overall impact</li>
+</ul>
+</li>
+<li>Main memory services L-2  cache misses</li>
+<li>Some high-end systems include  L-3 cache</li>
+</ul>
+<h3 id="Dependability-Measures"><a href="#Dependability-Measures" class="headerlink" title="Dependability Measures"></a>Dependability Measures</h3><ul>
+<li>Reliability: mean time to failure (MTTF)</li>
+<li>Service interruption: mean time to repair (MTTR)</li>
+<li>Availability &#x3D; MTTF &#x2F; (MTTF + MTTR)</li>
+<li>Improving Availability<ul>
+<li>Increase MTTF: fault avoidance, fault tolerance, fault  forecasting</li>
+<li>Reduce MTTR: improved tools and processes for diagnosis  and repair</li>
+</ul>
+</li>
+</ul>
+<h3 id="The-Hamming-SEC-Code"><a href="#The-Hamming-SEC-Code" class="headerlink" title="The Hamming SEC Code"></a>The Hamming SEC Code</h3><ul>
+<li>Hamming distance<ul>
+<li>Number of bits that are different between two bit  patterns, e.g. 2 in 011011 and 001111</li>
+</ul>
+</li>
+<li>Code with minimum distance &#x3D; 2 provides  single bit error detection<ul>
+<li>E.g. parity code</li>
+</ul>
+</li>
+<li>Minimum distance &#x3D; 3 provides single error  correction, 2 bit error detection</li>
+</ul>
+<h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><ul>
+<li><p>Use main memory as a “cache” for secondary  (disk) storage</p>
+<ul>
+<li>Managed jointly by CPU hardware and the  operating system (OS)</li>
+</ul>
+</li>
+<li><p>Programs share main memory</p>
+<ul>
+<li>Each gets a private virtual address space holding its  frequently used code and data</li>
+<li>Protected from other programs</li>
+</ul>
+</li>
+<li><p>CPU and OS translate virtual addresses to  physical addresses</p>
+<ul>
+<li>VM “block” is called a page</li>
+<li>VM translation “miss” is called a page fault</li>
+</ul>
+</li>
+<li><p>PTE: Page Table Entry</p>
+</li>
+<li><p>TLB: Translation Look-aside Buffer</p>
+</li>
+</ul>
+<p><img src="/images/210/TLB.JPG"></p>
+<p><img src="/images/210/Integration.JPG"></p>
+<h3 id="Pitfalls-3"><a href="#Pitfalls-3" class="headerlink" title="Pitfalls"></a>Pitfalls</h3><ul>
+<li>Byte vs. word addressing<ul>
+<li>Example: 32-byte direct-mapped cache, 4-byte blocks<ul>
+<li>Byte 36 maps to block 1</li>
+<li>Word 36 maps to block 4</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ignoring memory system effects when writing  or generating code<ul>
+<li>Example: iterating over rows vs. columns of arrays</li>
+<li>Large strides result in poor locality</li>
+</ul>
+</li>
+<li>In multiprocessor with shared L2 or L3 cache<ul>
+<li>Less associativity than cores results in conflict  misses</li>
+<li>More cores -&gt; need to increase associativity</li>
+</ul>
+</li>
+<li>Using AMAT to evaluate performance of out-of-order processors<ul>
+<li>Ignores effect of non-blocked accesses</li>
+<li>Instead, evaluate performance by simulation</li>
+</ul>
+</li>
+<li>Extending address range using segments<ul>
+<li>E.g., Intel 80286</li>
+<li>But a segment is not always big enough</li>
+<li>Makes address arithmetic complicated</li>
+</ul>
+</li>
+<li>Implementing a VMM on an ISA not designed  for virtualization<ul>
+<li>E.g., non-privileged instructions accessing  hardware resources</li>
+<li>Either extend ISA, or require guest OS not to use  problematic instructions</li>
+</ul>
+</li>
+</ul>
+<h3 id="Concluding-Remarks-1"><a href="#Concluding-Remarks-1" class="headerlink" title="Concluding Remarks"></a>Concluding Remarks</h3><ul>
+<li>Fast memories are small, large memories are slow<ul>
+<li>We really want fast, large memories</li>
+<li>Caching gives this illusion</li>
+</ul>
+</li>
+<li>Principle of locality<ul>
+<li>Programs use a small part of their memory space frequently</li>
+</ul>
+</li>
+<li>Memory hierarchy<ul>
+<li>L1 cache &lt;-&gt; L2 cache &lt;-&gt; … &lt;-&gt; DRAM memory &lt;-&gt; disk</li>
+</ul>
+</li>
+<li>Memory system design is critical for multiprocessors</li>
+</ul>
+<h2 id="Chapter-6-—-Parallel-Processors-from-Client-to-Cloud"><a href="#Chapter-6-—-Parallel-Processors-from-Client-to-Cloud" class="headerlink" title="Chapter 6 — Parallel Processors from Client to Cloud"></a>Chapter 6 — Parallel Processors from Client to Cloud</h2><h3 id="GPU-Architectures"><a href="#GPU-Architectures" class="headerlink" title="GPU Architectures"></a>GPU Architectures</h3><ul>
+<li>Processing is highly data-parallel<ul>
+<li>GPUs are highly multithreaded</li>
+<li>Use thread switching to hide memory latency<ul>
+<li>Less reliance on multi-level caches</li>
+</ul>
+</li>
+<li>Graphics memory is wide and high-bandwidth</li>
+</ul>
+</li>
+<li>Trend toward general purpose GPUs<ul>
+<li>Heterogeneous CPU&#x2F;GPU systems</li>
+<li>CPU for sequential code, GPU for parallel code</li>
+</ul>
+</li>
+<li>Programming languages&#x2F;APIs<ul>
+<li>DirectX, OpenGL</li>
+<li>C for Graphics (Cg), High Level Shader Language (HLSL)</li>
+<li>Compute Unified Device Architecture (CUDA</li>
+</ul>
+</li>
+</ul>
+<h3 id="Concluding-Remarks-2"><a href="#Concluding-Remarks-2" class="headerlink" title="Concluding Remarks"></a>Concluding Remarks</h3><ul>
+<li>Goal: higher performance by using multiple  processors</li>
+<li>Difficulties</li>
+<li>SaaS importance is growing and clusters are a good  match</li>
+<li>Performance per dollar and performance per Joule  drive both mobile and WSC</li>
+<li>SIMD and vector  operations match  multimedia applications  and are easy to program</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/28/Web-Developer-Bootcamp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1666,7 +2748,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-04 15:12:11" itemprop="dateModified" datetime="2023-01-04T15:12:11+08:00">2023-01-04</time>
+                <time title="修改时间：2023-01-21 14:01:37" itemprop="dateModified" datetime="2023-01-21T14:01:37+08:00">2023-01-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1684,14 +2766,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.3k</span>
+              <span>9.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -1743,6 +2825,18 @@
 
 
 <h2 id="787-Cheapest-Flights-Within-K-Stops"><a href="#787-Cheapest-Flights-Within-K-Stops" class="headerlink" title="787. Cheapest Flights Within K Stops"></a>787. Cheapest Flights Within K Stops</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">State</span>&#123;</span><br><span class="line">    <span class="type">int</span> index;</span><br><span class="line">    <span class="type">int</span> distToSrc;</span><br><span class="line">    <span class="type">int</span> nodeToSrc;</span><br><span class="line">    State(<span class="type">int</span> i, <span class="type">int</span> distToSrc, <span class="type">int</span> nodeToSrc)&#123;</span><br><span class="line">        <span class="built_in">this</span>.index=i;</span><br><span class="line">        <span class="built_in">this</span>.distToSrc=distToSrc;</span><br><span class="line">        <span class="built_in">this</span>.nodeToSrc=nodeToSrc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findCheapestPrice</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] flights, <span class="type">int</span> src, <span class="type">int</span> dst, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt;[] graph=<span class="keyword">new</span> <span class="title class_">List</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        graph[i]=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] flight : flights) &#123;</span><br><span class="line">        <span class="type">int</span> from=flight[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> to=flight[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> cost=flight[<span class="number">2</span>];</span><br><span class="line">        graph[from].add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;to,cost&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    k++;</span><br><span class="line">    <span class="type">int</span>[] distTo=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="type">int</span>[] nodeTo=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Arrays.fill(distTo,Integer.MAX_VALUE);</span><br><span class="line">    Arrays.fill(nodeTo,Integer.MAX_VALUE);</span><br><span class="line">    distTo[src]=<span class="number">0</span>;</span><br><span class="line">    nodeTo[src]=<span class="number">0</span>;</span><br><span class="line">    PriorityQueue&lt;State&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;(a.distToSrc-b.distToSrc));</span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(src,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">        State curNode=pq.poll();</span><br><span class="line">        <span class="type">int</span> cur= curNode.index;</span><br><span class="line">        <span class="type">int</span> curDistToSrc=curNode.distToSrc;</span><br><span class="line">        <span class="type">int</span> curNodeToSrc=curNode.nodeToSrc;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(cur==dst)&#123;</span><br><span class="line">            <span class="keyword">return</span> curDistToSrc;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(curNodeToSrc+<span class="number">1</span>&gt;k)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] ints : graph[cur]) &#123;</span><br><span class="line">            <span class="type">int</span> next=ints[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> costToNext=curDistToSrc+ints[<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> nodeToNext=curNodeToSrc+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(costToNext&lt;distTo[next])&#123;</span><br><span class="line">                distTo[next]=costToNext;</span><br><span class="line">                nodeTo[next]=nodeToNext;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(costToNext&gt;distTo[next] &amp;&amp; nodeToNext&gt;nodeTo[next])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pq.offer(<span class="keyword">new</span> <span class="title class_">State</span>(next,costToNext,nodeToNext));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="994-Rotting-Oranges"><a href="#994-Rotting-Oranges" class="headerlink" title="994. Rotting Oranges"></a>994. Rotting Oranges</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">orangesRotting</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">    <span class="type">int</span> row=grid.length;</span><br><span class="line">    <span class="type">int</span> col=grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span>[] dx=<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">int</span>[] dy=<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">    Deque&lt;<span class="type">int</span>[]&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(grid[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(grid[i][j]==<span class="number">2</span>)&#123;</span><br><span class="line">                q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;i,j&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> minute=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> size=q.size();</span><br><span class="line">        <span class="keyword">while</span>(size--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span>[] cur=q.poll();</span><br><span class="line">            <span class="type">int</span> i=cur[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> j=cur[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">                <span class="type">int</span> x=i+dx[k];</span><br><span class="line">                <span class="type">int</span> y=j+dy[k];</span><br><span class="line">                <span class="keyword">if</span>(x&lt;<span class="number">0</span> || x&gt;=row || y&lt;<span class="number">0</span> || y&gt;=col || grid[x][y]!=<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                grid[x][y]=<span class="number">2</span>;</span><br><span class="line">                count--;</span><br><span class="line">                q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x,y&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!q.isEmpty())&#123;</span><br><span class="line">            minute++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count==<span class="number">0</span> ? minute : -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="934-Shortest-Bridge"><a href="#934-Shortest-Bridge" class="headerlink" title="934. Shortest Bridge"></a>934. Shortest Bridge</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortestBridge</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">    <span class="type">int</span> row=grid.length;</span><br><span class="line">    <span class="type">int</span> col=grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span>[] dx=<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="type">int</span>[] dy=<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    a:<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(grid[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                set(grid,i,j,row,col);</span><br><span class="line">                <span class="keyword">break</span> a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;<span class="type">int</span>[]&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(grid[i][j]==<span class="number">2</span>)&#123;</span><br><span class="line">                q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;i,j&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> depth=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> size=q.size();</span><br><span class="line">        <span class="keyword">while</span>(size--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span>[] cur=q.poll();</span><br><span class="line">            <span class="type">int</span> i=cur[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> j=cur[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">                <span class="type">int</span> x=i+dx[k];</span><br><span class="line">                <span class="type">int</span> y=j+dy[k];</span><br><span class="line">                <span class="keyword">if</span>(x&lt;<span class="number">0</span> || x&gt;=row || y&lt;<span class="number">0</span> || y&gt;=col || grid[x][y]==<span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(grid[x][y]==<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> depth;</span><br><span class="line">                &#125;</span><br><span class="line">                q.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x,y&#125;);</span><br><span class="line">                grid[x][y]=<span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        depth++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">set</span><span class="params">(<span class="type">int</span>[][] grid, <span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> row, <span class="type">int</span> col)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=row || j&lt;<span class="number">0</span> || j&gt;=col || grid[i][j]!=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    grid[i][j]=<span class="number">2</span>;</span><br><span class="line">    set(grid,i+<span class="number">1</span>,j,row,col);</span><br><span class="line">    set(grid,i-<span class="number">1</span>,j,row,col);</span><br><span class="line">    set(grid,i,j+<span class="number">1</span>,row,col);</span><br><span class="line">    set(grid,i,j-<span class="number">1</span>,row,col);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -2000,7 +3094,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-10 10:16:40" itemprop="dateModified" datetime="2023-01-10T10:16:40+08:00">2023-01-10</time>
+                <time title="修改时间：2023-01-21 13:18:10" itemprop="dateModified" datetime="2023-01-21T13:18:10+08:00">2023-01-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2018,14 +3112,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>13k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -2140,6 +3234,36 @@
 
 
 <h2 id="841-Keys-and-Rooms"><a href="#841-Keys-and-Rooms" class="headerlink" title="841. Keys and Rooms"></a>841. Keys and Rooms</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode841</span> &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; rooms;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    Set&lt;Integer&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canVisitAllRooms</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.rooms=rooms;</span><br><span class="line">        <span class="built_in">this</span>.n=rooms.size();</span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> cur)</span>&#123;</span><br><span class="line">        set.add(cur);</span><br><span class="line">        <span class="keyword">if</span>(set.size()==n)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">boolean</span> res=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer next : rooms.get(cur)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(set.contains(next))&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(dfs(next))&#123;</span><br><span class="line">                res=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="397-Integer-Replacement"><a href="#397-Integer-Replacement" class="headerlink" title="397. Integer Replacement"></a>397. Integer Replacement</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Long,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">integerReplacement</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> dfs(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">long</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(map.containsKey(n))&#123;</span><br><span class="line">        <span class="keyword">return</span> map.get(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        res=<span class="number">1</span>+dfs(n/<span class="number">2</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        res=<span class="number">1</span>+Math.min(dfs(n+<span class="number">1</span>),dfs(n-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    map.put((<span class="type">long</span>)n,res);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="473-Matchsticks-to-Square"><a href="#473-Matchsticks-to-Square" class="headerlink" title="473. Matchsticks to Square"></a>473. Matchsticks to Square</h2><p>NP problem: best solution is exponential</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/matchsticks-to-square/discuss/95744/cpp-6ms-solution-with-DFS">https://leetcode.com/problems/matchsticks-to-square/discuss/95744/cpp-6ms-solution-with-DFS</a></p>
+<p>3 optimizations:</p>
+<ol>
+<li>bigger nums added first, if any side &gt; target, return false</li>
+<li>if 2 sides have the same length, avoid repetitions</li>
+<li>check in advance if sum%4&#x3D;&#x3D;0</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span>[] sides=<span class="keyword">new</span> <span class="title class_">long</span>[<span class="number">4</span>];</span><br><span class="line"><span class="type">long</span> target;</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">makesquare</span><span class="params">(<span class="type">int</span>[] matchsticks)</span> &#123;</span><br><span class="line">    <span class="type">long</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> n=matchsticks.length;</span><br><span class="line">    Arrays.sort(matchsticks);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> matchstick : matchsticks) &#123;</span><br><span class="line">        sum+=matchstick;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum%<span class="number">4</span>!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    target=sum/<span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> dfs(matchsticks,n-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i==-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(sides[<span class="number">0</span>]==sides[<span class="number">1</span>] &amp;&amp; sides[<span class="number">1</span>]==sides[<span class="number">2</span>] &amp;&amp; sides[<span class="number">2</span>]==sides[<span class="number">3</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) &#123;</span><br><span class="line">        <span class="type">boolean</span> skip=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">0</span>; p&lt;j; p++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sides[p]==sides[j])&#123;</span><br><span class="line">                skip=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(skip || sides[j]+nums[i]&gt;target)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sides[j]+=nums[i];</span><br><span class="line">        <span class="keyword">if</span>(dfs(nums,i-<span class="number">1</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sides[j]-=nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="988-Smallest-String-Starting-From-Leaf"><a href="#988-Smallest-String-Starting-From-Leaf" class="headerlink" title="988. Smallest String Starting From Leaf"></a>988. Smallest String Starting From Leaf</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">String res;</span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">smallestFromLeaf</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    dfs(root, <span class="keyword">new</span> <span class="title class_">StringBuilder</span>());</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode node, StringBuilder sb)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sb.append((<span class="type">char</span>)(<span class="string">&#x27;a&#x27;</span>+node.val));</span><br><span class="line">    <span class="keyword">if</span>(node.left==<span class="literal">null</span> &amp;&amp; node.right==<span class="literal">null</span>)&#123;</span><br><span class="line">        sb.reverse();</span><br><span class="line">        String s=sb.toString();</span><br><span class="line">        <span class="keyword">if</span>(res==<span class="literal">null</span> || s.compareTo(res)&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            res=s;</span><br><span class="line">        &#125;</span><br><span class="line">        sb.reverse();</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(node.left,sb);</span><br><span class="line">    dfs(node.right,sb);</span><br><span class="line">    sb.deleteCharAt(sb.length()-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -2458,133 +3582,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/06/lines/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/06/lines/" class="post-title-link" itemprop="url">lines</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-06 18:50:54" itemprop="dateCreated datePublished" datetime="2022-11-06T18:50:54+08:00">2022-11-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-08 03:41:30" itemprop="dateModified" datetime="2022-11-08T03:41:30+08:00">2022-11-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="lines选编"><a href="#lines选编" class="headerlink" title="lines选编"></a>lines选编</h1><h2 id="149-Max-Points-on-a-Line"><a href="#149-Max-Points-on-a-Line" class="headerlink" title="149. Max Points on a Line"></a>149. Max Points on a Line</h2><p> return <em>the maximum number of points that lie on the same straight line</em>.</p>
-<h3 id="Approach-1-Enumeration"><a href="#Approach-1-Enumeration" class="headerlink" title="Approach 1: Enumeration"></a>Approach 1: Enumeration</h3><p>Therefore, it is not wise to use the float&#x2F;double value to represent a unique slope, since they are not accurate.</p>
-<blockquote>
-<p>To circumvent the above issue, one could use a pair of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Coprime_integers">co-prime integers</a> to represent unique slope.</p>
-</blockquote>
-<p>As a reminder, two integers are co-primes, if and only if their greatest common divisor is 1.</p>
-<p>注意： 有现成的Pair可以用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2010, 2015, Oracle and/or its affiliates. All rights reserved.</span></span><br><span class="line"><span class="comment"> * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> javafx.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> javafx.beans.NamedArg;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * &lt;p&gt;A convenience class to represent name-value pairs.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@since</span> JavaFX 2.0</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Pair</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Key of this &lt;code&gt;Pair&lt;/code&gt;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> K key;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Gets the key for this pair.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> key for this pair</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> K <span class="title function_">getKey</span><span class="params">()</span> &#123; <span class="keyword">return</span> key; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Value of this this &lt;code&gt;Pair&lt;/code&gt;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> V value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Gets the value for this pair.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> value for this pair</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> V <span class="title function_">getValue</span><span class="params">()</span> &#123; <span class="keyword">return</span> value; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new pair</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key The key for this pair</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value The value to use for this pair</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Pair</span><span class="params">(<span class="meta">@NamedArg(&quot;key&quot;)</span> K key, <span class="meta">@NamedArg(&quot;value&quot;)</span> V value)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.key = key;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;&lt;code&gt;String&lt;/code&gt; representation of this</span></span><br><span class="line"><span class="comment">     * &lt;code&gt;Pair&lt;/code&gt;.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;The default name/value delimiter &#x27;=&#x27; is always used.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  <span class="doctag">@return</span> &lt;code&gt;String&lt;/code&gt; representation of this &lt;code&gt;Pair&lt;/code&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> key + <span class="string">&quot;=&quot;</span> + value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Generate a hash code for this &lt;code&gt;Pair&lt;/code&gt;.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;The hash code is calculated using both the name and</span></span><br><span class="line"><span class="comment">     * the value of the &lt;code&gt;Pair&lt;/code&gt;.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> hash code for this &lt;code&gt;Pair&lt;/code&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">hash</span> <span class="operator">=</span> <span class="number">7</span>;</span><br><span class="line">        hash = <span class="number">31</span> * hash + (key != <span class="literal">null</span> ? key.hashCode() : <span class="number">0</span>);</span><br><span class="line">        hash = <span class="number">31</span> * hash + (value != <span class="literal">null</span> ? value.hashCode() : <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> hash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">      * &lt;p&gt;Test this &lt;code&gt;Pair&lt;/code&gt; for equality with another</span></span><br><span class="line"><span class="comment">      * &lt;code&gt;Object&lt;/code&gt;.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">      *</span></span><br><span class="line"><span class="comment">      * &lt;p&gt;If the &lt;code&gt;Object&lt;/code&gt; to be tested is not a</span></span><br><span class="line"><span class="comment">      * &lt;code&gt;Pair&lt;/code&gt; or is &lt;code&gt;null&lt;/code&gt;, then this method</span></span><br><span class="line"><span class="comment">      * returns &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">      *</span></span><br><span class="line"><span class="comment">      * &lt;p&gt;Two &lt;code&gt;Pair&lt;/code&gt;s are considered equal if and only if</span></span><br><span class="line"><span class="comment">      * both the names and values are equal.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">      *</span></span><br><span class="line"><span class="comment">      * <span class="doctag">@param</span> o the &lt;code&gt;Object&lt;/code&gt; to test for</span></span><br><span class="line"><span class="comment">      * equality with this &lt;code&gt;Pair&lt;/code&gt;</span></span><br><span class="line"><span class="comment">      * <span class="doctag">@return</span> &lt;code&gt;true&lt;/code&gt; if the given &lt;code&gt;Object&lt;/code&gt; is</span></span><br><span class="line"><span class="comment">      * equal to this &lt;code&gt;Pair&lt;/code&gt; else &lt;code&gt;false&lt;/code&gt;</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">         <span class="keyword">if</span> (<span class="built_in">this</span> == o) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">         <span class="keyword">if</span> (o <span class="keyword">instanceof</span> Pair) &#123;</span><br><span class="line">             <span class="type">Pair</span> <span class="variable">pair</span> <span class="operator">=</span> (Pair) o;</span><br><span class="line">             <span class="keyword">if</span> (key != <span class="literal">null</span> ? !key.equals(pair.key) : pair.key != <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">             <span class="keyword">if</span> (value != <span class="literal">null</span> ? !value.equals(pair.value) : pair.value != <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">             <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意：</p>
-<ul>
-<li><p>分别考察穿过每一点的直线的最大点数</p>
-</li>
-<li><p>无需考虑某一点之前的点</p>
-<p>例如, 若考察点1时，若点1, 点2同线，且点1,点0同线，则点0，点2必同线，已在之前考察过</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javafx.util.Pair;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode149</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Map&lt;Pair&lt;Integer,Integer&gt;, Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> horizontals=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    Pair&lt;Integer,Integer&gt; <span class="title function_">getLine</span><span class="params">(<span class="type">int</span> dx, <span class="type">int</span> dy)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(dy==<span class="number">0</span>)&#123;</span><br><span class="line">            Pair&lt;Integer,Integer&gt; line=<span class="keyword">new</span> <span class="title class_">Pair</span>&lt;&gt;(Integer.MAX_VALUE,Integer.MAX_VALUE);</span><br><span class="line">            <span class="keyword">return</span> line;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dx&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            dx=-dx;</span><br><span class="line">            dy=-dy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> gcd=BigInteger.valueOf(dx).gcd(BigInteger.valueOf(dy)).intValue();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Pair</span>&lt;&gt;(dx/gcd,dy/gcd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxPoints</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=points.length;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            horizontals=<span class="number">1</span>;</span><br><span class="line">            map.clear();</span><br><span class="line">            <span class="comment">//[0,1], [0,2], [0,3]</span></span><br><span class="line">            <span class="comment">//[1,2], [1,3]</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="type">int</span> dx=points[i][<span class="number">0</span>]-points[j][<span class="number">0</span>];</span><br><span class="line">                <span class="type">int</span> dy=points[i][<span class="number">1</span>]-points[j][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(dx==<span class="number">0</span>)&#123;</span><br><span class="line">                    horizontals++;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                Pair&lt;Integer,Integer&gt; line=getLine(dx,dy);</span><br><span class="line">                map.put(line,map.getOrDefault(line,<span class="number">1</span>)+<span class="number">1</span>);</span><br><span class="line">                res=Math.max(res,map.get(line));</span><br><span class="line">            &#125;</span><br><span class="line">            res=Math.max(res,horizontals);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span>[][] points;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    HashMap&lt;Pair&lt;Integer, Integer&gt;, Integer&gt; lines = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Pair&lt;Integer, Integer&gt;, Integer&gt;();</span><br><span class="line">    <span class="type">int</span> horizontal_lines;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * To avoid the precision issue with float/double numbers, using a pair of co-prime numbers to</span></span><br><span class="line"><span class="comment">     * represent the slope.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Pair&lt;Integer, Integer&gt; <span class="title function_">slope_coprime</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">deltaX</span> <span class="operator">=</span> x1 - x2, deltaY = y1 - y2;</span><br><span class="line">        <span class="keyword">if</span> (deltaX == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Pair</span>&lt;&gt;(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (deltaY == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Pair</span>&lt;&gt;(Integer.MAX_VALUE, Integer.MAX_VALUE);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (deltaX &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            deltaX = -deltaX;</span><br><span class="line">            deltaY = -deltaY;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">gcd</span> <span class="operator">=</span> BigInteger.valueOf(deltaX).gcd(BigInteger.valueOf(deltaY)).intValue();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Pair</span>&lt;Integer, Integer&gt;(deltaX / gcd, deltaY / gcd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Pair&lt;Integer, Integer&gt; <span class="title function_">add_line</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> count, <span class="type">int</span> duplicates)</span> &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * Add a line passing through i and j points. Update max number of points on a line</span></span><br><span class="line"><span class="comment">         * containing point i. Update a number of duplicates of i point.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// rewrite points as coordinates</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> points[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">y1</span> <span class="operator">=</span> points[i][<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">x2</span> <span class="operator">=</span> points[j][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">y2</span> <span class="operator">=</span> points[j][<span class="number">1</span>];</span><br><span class="line">        <span class="comment">// add a duplicate point</span></span><br><span class="line">        <span class="keyword">if</span> ((x1 == x2) &amp;&amp; (y1 == y2))</span><br><span class="line">            duplicates++;</span><br><span class="line">        <span class="comment">// add a horisontal line : y = const</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (y1 == y2) &#123;</span><br><span class="line">            horizontal_lines += <span class="number">1</span>;</span><br><span class="line">            count = Math.max(horizontal_lines, count);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// add a line : x = slope * y + c</span></span><br><span class="line">        <span class="comment">// only slope is needed for a hash-map</span></span><br><span class="line">        <span class="comment">// since we always start from the same point</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Pair&lt;Integer, Integer&gt; slope = <span class="built_in">this</span>.slope_coprime(x1, y1, x2, y2);</span><br><span class="line">            lines.put(slope, lines.getOrDefault(slope, <span class="number">1</span>) + <span class="number">1</span>);</span><br><span class="line">            count = Math.max(lines.get(slope), count);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Pair</span>(count, duplicates);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">max_points_on_a_line_containing_point_i</span><span class="params">(<span class="type">int</span> i)</span> &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * Compute the max number of points for a line containing point i.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// init lines passing through point i</span></span><br><span class="line">        lines.clear();</span><br><span class="line">        horizontal_lines = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// One starts with just one point on a line : point i.</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// There is no duplicates of a point i so far.</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">duplicates</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Compute lines passing through point i (fixed)</span></span><br><span class="line">        <span class="comment">// and point j.</span></span><br><span class="line">        <span class="comment">// Update in a loop the number of points on a line</span></span><br><span class="line">        <span class="comment">// and the number of duplicates of point i.</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            Pair&lt;Integer, Integer&gt; p = add_line(i, j, count, duplicates);</span><br><span class="line">            count = p.getKey();</span><br><span class="line">            duplicates = p.getValue();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count + duplicates;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxPoints</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.points = points;</span><br><span class="line">        <span class="comment">// If the number of points is less than 3</span></span><br><span class="line">        <span class="comment">// they are all on the same line.</span></span><br><span class="line">        n = points.length;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">3</span>)</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">max_count</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// Compute in a loop a max number of points</span></span><br><span class="line">        <span class="comment">// on a line containing point i.</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">            max_count = Math.max(max_points_on_a_line_containing_point_i(i), max_count);</span><br><span class="line">        <span class="keyword">return</span> max_count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="356-Line-Reflection"><a href="#356-Line-Reflection" class="headerlink" title="356. Line Reflection"></a>356. Line Reflection</h2><p>思路：</p>
-<ol>
-<li>先存入每个点</li>
-<li>再考察每个点的reflection是否存在</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isReflected</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">    Set&lt;String&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> min=Integer.MAX_VALUE;</span><br><span class="line">    <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] point : points) &#123;</span><br><span class="line">        min=Math.min(min,point[<span class="number">0</span>]);</span><br><span class="line">        max=Math.max(max,point[<span class="number">0</span>]);</span><br><span class="line">        set.add(point[<span class="number">0</span>]+<span class="string">&quot;,&quot;</span>+point[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] point : points) &#123;</span><br><span class="line">        <span class="type">int</span> rx=min+max-point[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(!set.contains(rx+<span class="string">&quot;,&quot;</span>+point[<span class="number">1</span>]))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2152-Minimum-Number-of-Lines-to-Cover-Points"><a href="#2152-Minimum-Number-of-Lines-to-Cover-Points" class="headerlink" title="2152. Minimum Number of Lines to Cover Points"></a>2152. Minimum Number of Lines to Cover Points</h2><h2 id="2280-Minimum-Lines-to-Represent-a-Line-Chart"><a href="#2280-Minimum-Lines-to-Represent-a-Line-Chart" class="headerlink" title="2280. Minimum Lines to Represent a Line Chart"></a>2280. Minimum Lines to Represent a Line Chart</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2654,7 +3651,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2703,12 +3700,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">721k</span>
+    <span title="站点总字数">761k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10:56</span>
+    <span title="站点阅读时长">11:31</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
