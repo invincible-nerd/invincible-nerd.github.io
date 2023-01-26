@@ -190,6 +190,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/01/24/Max-Consecutive-Ones/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/24/Max-Consecutive-Ones/" class="post-title-link" itemprop="url">Max_Consecutive_Ones</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-01-24 20:50:26" itemprop="dateCreated datePublished" datetime="2023-01-24T20:50:26+08:00">2023-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-25 13:01:37" itemprop="dateModified" datetime="2023-01-25T13:01:37+08:00">2023-01-25</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Max-Consecutive-Ones"><a href="#Max-Consecutive-Ones" class="headerlink" title="Max Consecutive Ones"></a>Max Consecutive Ones</h1><h2 id="485-Max-Consecutive-Ones"><a href="#485-Max-Consecutive-Ones" class="headerlink" title="485. Max Consecutive Ones"></a>485. Max Consecutive Ones</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMaxConsecutiveOnes</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> cur=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i]==<span class="number">1</span>)&#123;</span><br><span class="line">            cur++;</span><br><span class="line">            res=Math.max(res,cur);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cur=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="487-Max-Consecutive-Ones-II"><a href="#487-Max-Consecutive-Ones-II" class="headerlink" title="487. Max Consecutive Ones II"></a>487. Max Consecutive Ones II</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMaxConsecutiveOnes</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">boolean</span> firstZero=<span class="literal">true</span>;</span><br><span class="line">    <span class="type">int</span> pre=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> cur=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i]==<span class="number">1</span>)&#123;</span><br><span class="line">            cur++;</span><br><span class="line">            firstZero=<span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(firstZero)&#123;</span><br><span class="line">                res=Math.max(res,pre+cur+<span class="number">1</span>);</span><br><span class="line">                pre=cur;</span><br><span class="line">                cur=<span class="number">0</span>;</span><br><span class="line">                firstZero=<span class="literal">false</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">               pre=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    res=Math.max(res,pre+cur+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> res&gt;n ? n : res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1004-Max-Consecutive-Ones-III"><a href="#1004-Max-Consecutive-Ones-III" class="headerlink" title="1004. Max Consecutive Ones III"></a>1004. Max Consecutive Ones III</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestOnes</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> curZero=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(right&lt;n)&#123;</span><br><span class="line">        <span class="comment">//[left,right)</span></span><br><span class="line">        <span class="type">int</span> cur=nums[right++];</span><br><span class="line">        <span class="keyword">if</span>(cur==<span class="number">0</span>)&#123;</span><br><span class="line">            curZero++;</span><br><span class="line">            <span class="keyword">while</span>(curZero&gt;k)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[left]==<span class="number">0</span>)&#123;</span><br><span class="line">                    curZero--;</span><br><span class="line">                &#125;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res=Math.max(res,right-left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/01/13/Minimum-Moves/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -366,7 +455,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-21 13:44:38" itemprop="dateModified" datetime="2023-01-21T13:44:38+08:00">2023-01-21</time>
+                <time title="修改时间：2023-01-26 14:33:32" itemprop="dateModified" datetime="2023-01-26T14:33:32+08:00">2023-01-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -384,14 +473,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -540,6 +629,23 @@
 
 <h3 id="Approach-5-Without-Using-Extra-Space"><a href="#Approach-5-Without-Using-Extra-Space" class="headerlink" title="Approach 5: Without Using Extra Space"></a>Approach 5: Without Using Extra Space</h3><h2 id="554-Brick-Wall"><a href="#554-Brick-Wall" class="headerlink" title="554. Brick Wall"></a>554. Brick Wall</h2><p>妙用hashmap</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">leastBricks</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; wall)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=wall.size();</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (List&lt;Integer&gt; row : wall) &#123;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; row.size()-<span class="number">1</span>; j++) &#123;</span><br><span class="line">            <span class="type">int</span> brick=row.get(j);</span><br><span class="line">            i+=brick;</span><br><span class="line">            map.put(i,map.getOrDefault(i,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Integer i : map.keySet()) &#123;</span><br><span class="line">        max=Math.max(max,map.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n-max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="611-Valid-Triangle-Number"><a href="#611-Valid-Triangle-Number" class="headerlink" title="611. Valid Triangle Number"></a>611. Valid Triangle Number</h2><p>花里胡哨，不如brute force</p>
+<p>why: nums.length较小，未发挥出优势</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 1000</code></li>
+<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">triangleNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">1001</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">        arr[num]++;</span><br><span class="line">    &#125;</span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i]==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i; j &lt;= <span class="number">1000</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j]==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> j; k &lt;= <span class="number">1000</span>; k++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i+j&lt;=k)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(arr[k]==<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">                        res+=arr[i]*(arr[i]-<span class="number">1</span>)*(arr[i]-<span class="number">2</span>)/<span class="number">6</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        res+=arr[i]*(arr[i]-<span class="number">1</span>)*arr[k]/<span class="number">2</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">                    res+=arr[i]*arr[j]*(arr[j]-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    res+=arr[i]*arr[j]*arr[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">triangleNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> j+<span class="number">1</span>; k &lt; n; k++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]&lt;=nums[k])&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                res++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -878,7 +984,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-21 14:10:49" itemprop="dateModified" datetime="2023-01-21T14:10:49+08:00">2023-01-21</time>
+                <time title="修改时间：2023-01-26 03:56:37" itemprop="dateModified" datetime="2023-01-26T03:56:37+08:00">2023-01-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -896,14 +1002,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -1014,6 +1120,51 @@
 
 
 <h2 id="583-Delete-Operation-for-Two-Strings"><a href="#583-Delete-Operation-for-Two-Strings" class="headerlink" title="583. Delete Operation for Two Strings"></a>583. Delete Operation for Two Strings</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minDistance</span><span class="params">(String word1, String word2)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n1=word1.length();</span><br><span class="line">    <span class="type">int</span> n2=word2.length();</span><br><span class="line">    <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n1+<span class="number">1</span>][n2+<span class="number">1</span>];</span><br><span class="line">    <span class="comment">//0 1 ... n2</span></span><br><span class="line">    <span class="comment">//1</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//n1</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n2; i++) &#123;</span><br><span class="line">        dp[<span class="number">0</span>][i]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n1; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(word1.charAt(i-<span class="number">1</span>)==word2.charAt(j-<span class="number">1</span>))&#123;</span><br><span class="line">                dp[i][j]=dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][j]=Math.min(dp[i-<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>])+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n1][n2];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="467-Unique-Substrings-in-Wraparound-String"><a href="#467-Unique-Substrings-in-Wraparound-String" class="headerlink" title="467. Unique Substrings in Wraparound String"></a>467. Unique Substrings in Wraparound String</h2><p>Brute Force超时</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findSubstringInWraproundString</span><span class="params">(String p)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=p.length();</span><br><span class="line">    Set&lt;String&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        StringBuilder sb=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="type">char</span> cur=p.charAt(j);</span><br><span class="line">            <span class="keyword">if</span>(sb.length()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="type">char</span> last=sb.charAt(sb.length()-<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(!(last==<span class="string">&#x27;z&#x27;</span> &amp;&amp; cur==<span class="string">&#x27;a&#x27;</span> || cur-last==<span class="number">1</span>))&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            sb.append(cur);</span><br><span class="line">            set.add(sb.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> set.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/unique-substrings-in-wraparound-string/discuss/95439/Concise-Java-solution-using-DP">https://leetcode.com/problems/unique-substrings-in-wraparound-string/discuss/95439/Concise-Java-solution-using-DP</a></p>
+<p>另类DP: </p>
+<ul>
+<li>子问题为由每个字母结尾的 longest continuous substring</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findSubstringInWraproundString</span><span class="params">(String p)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=p.length();</span><br><span class="line">    <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="type">int</span> cur=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(cur==<span class="number">0</span> || p.charAt(i-<span class="number">1</span>)==<span class="string">&#x27;z&#x27;</span> &amp;&amp; p.charAt(i)==<span class="string">&#x27;a&#x27;</span></span><br><span class="line">                || p.charAt(i)-p.charAt(i-<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cur=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> idx=p.charAt(i)-<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        arr[idx]=Math.max(arr[idx],cur);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        res+=arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2546-Apply-Bitwise-Operations-to-Make-Strings-Equal"><a href="#2546-Apply-Bitwise-Operations-to-Make-Strings-Equal" class="headerlink" title="2546. Apply Bitwise Operations to Make Strings Equal"></a>2546. Apply Bitwise Operations to Make Strings Equal</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/apply-bitwise-operations-to-make-strings-equal/discuss/3083831/JavaC%2B%2BPython-1-line-Check-1">https://leetcode.com/problems/apply-bitwise-operations-to-make-strings-equal/discuss/3083831/JavaC%2B%2BPython-1-line-Check-1</a></p>
+<p>Enumerate the values for <code>s[i]</code> and <code>s[j]</code><br><code>(0, 0)</code> -&gt; <code>(0, 0)</code><br><code>(1, 0)</code> -&gt; <code>(1, 1)</code><br><code>(0, 1)</code> -&gt; <code>(1, 1)</code><br><code>(1, 1)</code> -&gt; <code>(1, 0)</code></p>
+<p><strong>To summrize the rule</strong></p>
+<ol>
+<li>Two 0s stay 0s.</li>
+<li>If we have 1, we can make any 0 to 1.</li>
+<li>If we have at least two 1s, we can make any 1 to 0.</li>
+</ol>
+<p><strong>Continue to sunmmrize</strong></p>
+<ol>
+<li>All 0 string can not change.</li>
+<li>Any other strings can transform from each other.</li>
+</ol>
+<p><strong>So we only need to check</strong><br>if <code>s</code> has 1.<br>if <code>target</code> has 1.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">makeStringsEqual</span><span class="params">(String s, String target)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> s.contains(<span class="string">&quot;1&quot;</span>)==target.contains(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2531-Make-Number-of-Distinct-Characters-Equal"><a href="#2531-Make-Number-of-Distinct-Characters-Equal" class="headerlink" title="2531. Make Number of Distinct Characters Equal"></a>2531. Make Number of Distinct Characters Equal</h2><p>every possible swap, 26*26</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isItPossible</span><span class="params">(String word1, String word2)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr1=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="type">int</span>[] arr2=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="type">int</span> count1=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> count2=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; word1.length(); i++) &#123;</span><br><span class="line">        <span class="type">char</span> c=word1.charAt(i);</span><br><span class="line">        <span class="keyword">if</span>(arr1[c-<span class="string">&#x27;a&#x27;</span>]==<span class="number">0</span>)&#123;</span><br><span class="line">            count1++;</span><br><span class="line">        &#125;</span><br><span class="line">        arr1[c-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; word2.length(); i++) &#123;</span><br><span class="line">        <span class="type">char</span> c=word2.charAt(i);</span><br><span class="line">        <span class="keyword">if</span>(arr2[c-<span class="string">&#x27;a&#x27;</span>]==<span class="number">0</span>)&#123;</span><br><span class="line">            count2++;</span><br><span class="line">        &#125;</span><br><span class="line">        arr2[c-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(arr1[i]==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(arr2[j]==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(i==j &amp;&amp; count1==count2)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> a=count1;</span><br><span class="line">            <span class="keyword">if</span>(arr1[i]==<span class="number">1</span>)&#123;</span><br><span class="line">                a--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(arr1[j]==<span class="number">0</span> || arr1[i]==<span class="number">1</span> &amp;&amp; i==j)&#123;</span><br><span class="line">                a++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> b=count2;</span><br><span class="line">            <span class="keyword">if</span>(arr2[j]==<span class="number">1</span>)&#123;</span><br><span class="line">                b--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(arr2[i]==<span class="number">0</span> || arr2[j]==<span class="number">1</span> &amp;&amp; i==j)&#123;</span><br><span class="line">                b++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a==b)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -3144,902 +3295,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/12/04/COEN317_final/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/04/COEN317_final/" class="post-title-link" itemprop="url">COEN317 Final Review</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-04 16:34:54" itemprop="dateCreated datePublished" datetime="2022-12-04T16:34:54+08:00">2022-12-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 11:49:59" itemprop="dateModified" datetime="2022-12-05T11:49:59+08:00">2022-12-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>19k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>17 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="COEN317-Final-Review"><a href="#COEN317-Final-Review" class="headerlink" title="COEN317 Final Review"></a>COEN317 Final Review</h1><h2 id="Global-Time-and-Global-State"><a href="#Global-Time-and-Global-State" class="headerlink" title="Global Time and Global State"></a>Global Time and Global State</h2><ul>
-<li>Asynchronous distributed systems consist of several  processes without common memory which communicate  via messages with <strong>unpredictable transmission delays</strong></li>
-<li>Global time &amp; global state are hard to realize in distributed  systems<ul>
-<li>Processes are distributed geographically</li>
-<li>Rate of event occurrence can be high (unpredictable)</li>
-<li>Event execution times can be small</li>
-</ul>
-</li>
-<li>We can only approximate the global view<ul>
-<li>Simulate a global time – Logical Clocks</li>
-<li>Simulate a global state – Global Snapshots</li>
-</ul>
-</li>
-</ul>
-<h2 id="Simulating-global-time"><a href="#Simulating-global-time" class="headerlink" title="Simulating global time"></a>Simulating global time</h2><ul>
-<li><p>An accurate notion of global time is difficult to achieve in distributed systems.</p>
-<ul>
-<li>We often derive “causality” from loosely synchronized clocks</li>
-</ul>
-</li>
-<li><p>Clocks in a distributed system drift</p>
-<ul>
-<li>Relative to each other</li>
-<li>Relative to a real world clock<ul>
-<li>Determination of this real world clock itself may be an issue</li>
-</ul>
-</li>
-<li>Clock Skew versus Drift<ul>
-<li>Clock Skew &#x3D; Relative Difference in clock values of two processes</li>
-<li>Clock Drift &#x3D; Relative Difference in clock frequencies (rates) of two  processes</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Clock synchronization is needed to simulate global time</p>
-<ul>
-<li>Correctness – consistency, fairness</li>
-</ul>
-</li>
-<li><p>Physical Clocks vs. Logical clocks </p>
-<ul>
-<li>Physical clocks - must not deviate from the real-time by more than a  certain amount.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Cristian’s-Time-Server-Algorithm"><a href="#Cristian’s-Time-Server-Algorithm" class="headerlink" title="Cristian’s (Time Server) Algorithm"></a>Cristian’s (Time Server) Algorithm</h2><ul>
-<li><p>Uses <strong>a time server</strong> to synchronize clocks</p>
-<ul>
-<li>Time server keeps the reference time (say UTC)</li>
-<li>A client asks the time server for time, the server responds with its current  time, and the client uses the received value <strong>T</strong> to set its clock</li>
-</ul>
-</li>
-<li><p>But network round-trip time introduces errors…</p>
-<ul>
-<li><p>Let <strong>RTT</strong> &#x3D; response-received-time – request-sent-time (measurable at  client),</p>
-</li>
-<li><p>If we know </p>
-<ul>
-<li>(a) <strong>min1</strong> &#x3D; minimum P -&gt; S latency </li>
-<li>(b) <strong>min2</strong> &#x3D; minimum S -&gt; P latency </li>
-<li>(c) that the server timestamped the message at the last possible instant  before sending it back</li>
-</ul>
-</li>
-<li><p>Then, the actual time could be between <strong>[T+min2,T+RTT— min1]</strong></p>
-</li>
-<li><p>P sets its time to halfway through this interval</p>
-<ul>
-<li>To: t + (RTT+min2-min1)&#x2F;2</li>
-</ul>
-</li>
-<li><p>Error is at most (RTT-min2-min1)&#x2F;2 </p>
-<ul>
-<li>Bounded!</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Berkeley-UNIX-algorithm"><a href="#Berkeley-UNIX-algorithm" class="headerlink" title="Berkeley UNIX algorithm"></a>Berkeley UNIX algorithm</h2><ul>
-<li>One daemon without UTC</li>
-<li>Periodically, this <strong>daemon</strong> polls and asks all the machines for their  time</li>
-<li>The machines respond.</li>
-<li>The daemon computes an average time and then broadcasts this  average time.</li>
-</ul>
-<h2 id="Decentralized-Averaging-Algorithm"><a href="#Decentralized-Averaging-Algorithm" class="headerlink" title="Decentralized Averaging Algorithm"></a>Decentralized Averaging Algorithm</h2><ul>
-<li>Each machine has a daemon without UTC</li>
-<li>Periodically, at fixed agreed-upon times, each machine broadcasts its  local time.</li>
-<li>Each of them calculates the average time by averaging all the received  local times.</li>
-</ul>
-<h2 id="Network-Time-Protocol-NTP"><a href="#Network-Time-Protocol-NTP" class="headerlink" title="Network Time Protocol (NTP)"></a>Network Time Protocol (NTP)</h2><ul>
-<li>Most widely used physical clock synchronization protocol on the Internet</li>
-<li>Hierarchical tree of time servers.<ul>
-<li>The primary server at the root synchronizes with the UTC.</li>
-<li>Secondary servers - backup to primary server.</li>
-<li>Lowest</li>
-<li>synchronization subnet with clients.</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/317/NTP.JPG"></p>
-<p><img src="/images/317/NTP1.JPG"></p>
-<p><img src="/images/317/NTP2.JPG"></p>
-<p><img src="/images/317/NTP3.JPG"></p>
-<p><img src="/images/317/NTP4.JPG"></p>
-<h2 id="Event-Ordering"><a href="#Event-Ordering" class="headerlink" title="Event Ordering"></a>Event Ordering</h2><ul>
-<li>Lamport defined the “happens before” (-&gt;) relation<ul>
-<li>If a and b are events in the same process, and a occurs before b, then  a-&gt;b.</li>
-<li>If a is the event of a message being sent by one process and b is the  event of the message being received by another process, then a -&gt; b.</li>
-<li>If X -&gt; Y and Y-&gt; Z then X -&gt; Z.</li>
-</ul>
-</li>
-<li>If a -&gt; b then time (a) &lt; time (b)</li>
-</ul>
-<h2 id="Causal-Ordering"><a href="#Causal-Ordering" class="headerlink" title="Causal Ordering"></a>Causal Ordering</h2><ul>
-<li><p>“Happens Before” also called causal ordering</p>
-</li>
-<li><p>Possible to draw a causality relation between 2 events if</p>
-<ul>
-<li>They happen in the same process</li>
-<li>There is a chain of messages between them</li>
-</ul>
-</li>
-<li><p>“Happens Before” notion is not straightforward in distributed system</p>
-<ul>
-<li><p>No guarantees of synchronized clocks</p>
-</li>
-<li><p>Communication latency</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Types-of-Logical-Clocks"><a href="#Types-of-Logical-Clocks" class="headerlink" title="Types of Logical Clocks"></a>Types of Logical Clocks</h2><ul>
-<li>Systems of logical clocks differ in their representation of logical time  and also in the protocol to update the logical clocks.</li>
-<li>2 kinds of logical clocks<ul>
-<li>Lamport</li>
-<li>Vector</li>
-</ul>
-</li>
-</ul>
-<h2 id="Lamport-Clock"><a href="#Lamport-Clock" class="headerlink" title="Lamport Clock"></a>Lamport Clock</h2><ul>
-<li><p>Proposed by Lamport in 1978 as an attempt to totally order events in  a distributed system.</p>
-</li>
-<li><p>Each process uses a local counter (clock) which is an integer</p>
-<ul>
-<li><p>initial value of counter is set to a non-negative integer or zero</p>
-</li>
-<li><p>A process increments its counter when a send or an instruction happens at it.</p>
-<p>The counter is assigned to the event as its timestamp.</p>
-</li>
-<li><p>Each process keeps its own logical clock used to timestamp events</p>
-</li>
-</ul>
-</li>
-<li><p>A send (message) event carries its timestamp</p>
-</li>
-<li><p>For a receive (message) event the counter is updated by</p>
-<ul>
-<li>max(local clock, message timestamp) + 1</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/317/Lamport1.JPG"></p>
-<h2 id="Vector-Timestamp"><a href="#Vector-Timestamp" class="headerlink" title="Vector Timestamp"></a>Vector Timestamp</h2><ul>
-<li>In the system of vector clocks, the time domain is represented by a set of  n-dimensional non-negative integer vectors.</li>
-<li>Each process has a clock Ci consisting of a vector of length n, where n is  the total number of processes vt[1..n], where vt[j ] is the local logical  clock of Pj and describes the logical time progress at process Pj .</li>
-<li>Incrementing vector clocks<ul>
-<li>On an instruction or send event at process i, it increments only its ith element of its vector clock</li>
-</ul>
-</li>
-<li>Each message carries the send-event’s vector timestamp  Vmessage[1…N]</li>
-<li>On receiving a message at process i:<ul>
-<li>Vi[i] &#x3D; Vi[i] + 1</li>
-<li>Vi[j] &#x3D; max(Vmessage[j], Vi[j]) for j≠ i</li>
-</ul>
-</li>
-<li>Vector Clocks example</li>
-</ul>
-<p><img src="/images/317/Vector.JPG"></p>
-<p><img src="/images/317/Vector1.JPG"></p>
-<p><img src="/images/317/Vector2.JPG"></p>
-<p><img src="/images/317/Vector3.JPG"></p>
-<p><img src="/images/317/Vector4.JPG"></p>
-<h2 id="Global-State"><a href="#Global-State" class="headerlink" title="Global State"></a>Global State</h2><ul>
-<li>Recording the global state of a distributed system on-the-fly is an  important paradigm.<ul>
-<li>Challenge: lack of globally shared memory, global clock and unpredictable message  delays in a distributed system</li>
-</ul>
-</li>
-<li>Notions of global time and global state closely related</li>
-<li>A process can (without freezing the whole computation) compute the  best possible approximation of global state</li>
-<li>A global state that could have occurred<ul>
-<li>No process in the system can decide whether the state did really occur</li>
-<li>Guarantee stable properties (i.e. once they become true, they remain true)</li>
-</ul>
-</li>
-</ul>
-<h2 id="Consistent-Cuts"><a href="#Consistent-Cuts" class="headerlink" title="Consistent Cuts"></a>Consistent Cuts</h2><ul>
-<li>A cut (or time slice) is a zigzag line cutting a time diagram  into 2 parts (past and future)</li>
-<li>Consistent Cut: a cut that obeys causality<ul>
-<li>A cut C is a consistent cut if and only if:<ul>
-<li>for (each pair of events e, f in the system)</li>
-<li>Such that event e is in the cut C, and if f-&gt;e (f happens-before e)</li>
-<li>Then: Event f is also in the cut C</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/317/Cut.JPG"></p>
-<h2 id="System-Model-for-Global-Snapshots"><a href="#System-Model-for-Global-Snapshots" class="headerlink" title="System Model for Global Snapshots"></a>System Model for Global Snapshots</h2><ul>
-<li>The system consists of a collection of n processes p1, p2, …, pn that are  connected by channels.</li>
-<li>There are no globally shared memory and physical global clock and processes  communicate by passing messages through communication channels.</li>
-<li>Cij denotes the channel from process pi to process pj and its state is denoted by Si</li>
-<li>The actions performed by a process are modeled as three types of events:<ul>
-<li>Internal events,the message send event and the message receive event.</li>
-<li>For a message mij that is sent by process pi to process pj , let send(mij ) and rec(mij ) denote  its send and receive events.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Chandy-Lamport-Distributed-Snapshot-Algorithm"><a href="#Chandy-Lamport-Distributed-Snapshot-Algorithm" class="headerlink" title="Chandy-Lamport Distributed Snapshot Algorithm"></a>Chandy-Lamport Distributed Snapshot Algorithm</h2><ul>
-<li>Assumes FIFO communication in channels</li>
-<li>Uses a marker message to separate messages in the channels.<ul>
-<li>After a process has recorded its snapshot, it sends a marker, along all of its  outgoing channels before sending out any more messages.</li>
-<li>The marker separates the messages in the channel into those to be included  in the snapshot from those not to be recorded in the snapshot.</li>
-</ul>
-</li>
-<li>A process must record its snapshot no later than when it receives a marker on  any of its incoming channels.</li>
-<li>The algorithm terminates after each process has received a marker on all of its  incoming channels.</li>
-<li>All the local snapshots get disseminated to all other processes and all the  processes can determine the global state</li>
-</ul>
-<p><img src="/images/317/Chandy_Lamport1.JPG"></p>
-<p><img src="/images/317/Chandy_Lamport2.JPG"></p>
-<p><img src="/images/317/Chandy_Lamport3.JPG"></p>
-<ul>
-<li>Global Snapshot calculated by Chandy-Lamport algorithm is  causally correct</li>
-</ul>
-<h2 id="Distributed-Mutual-Exclusion"><a href="#Distributed-Mutual-Exclusion" class="headerlink" title="Distributed Mutual Exclusion"></a>Distributed Mutual Exclusion</h2><ul>
-<li>Mutual exclusion<ul>
-<li>ensures that concurrent processes have serialized access to  shared resources - the critical section problem</li>
-<li>At any point in time, only one process can be executing in its  critical section</li>
-</ul>
-</li>
-<li>Shared variables (semaphores) cannot be used in a distributed  system<ul>
-<li>Mutual exclusion must be based on message passing, in the  context of unpredictable delays and incomplete knowledge</li>
-</ul>
-</li>
-</ul>
-<h2 id="Approaches-to-Distributed-Mutual-Exclusion"><a href="#Approaches-to-Distributed-Mutual-Exclusion" class="headerlink" title="Approaches to Distributed Mutual Exclusion"></a>Approaches to Distributed Mutual Exclusion</h2><ul>
-<li>Central coordinator-based approach<ul>
-<li>A centralized coordinator determines who enters the CS</li>
-</ul>
-</li>
-<li>Distributed approaches to mutual exclusion<ul>
-<li>Token based approach<ul>
-<li>A unique token is shared among the processes. A process is allowed to  enter its CS if it possesses the token.</li>
-<li>Mutual exclusion is ensured because the token is unique.</li>
-</ul>
-</li>
-<li>Non-token based approach<ul>
-<li>Two or more successive rounds of messages are exchanged among the  processes to determine which process will enter the CS next.</li>
-</ul>
-</li>
-<li>Quorum based approach<ul>
-<li>Each process requests permission to execute the CS from a subset of  processes (called a quorum).</li>
-<li>Any two quorums contain a common process. This common process makes sure that only one request executes the CS at any time.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Requirements-x2F-Conditions"><a href="#Requirements-x2F-Conditions" class="headerlink" title="Requirements&#x2F;Conditions"></a>Requirements&#x2F;Conditions</h3><ul>
-<li>Safety Property<ul>
-<li>At any instant, only one process can execute the critical section.</li>
-</ul>
-</li>
-<li>Liveness Property<ul>
-<li>This property states the absence of deadlock and starvation. Two or more  processess should not endlessly wait for messages which will never arrive.</li>
-</ul>
-</li>
-<li>Ordering&#x2F;Fairness<ul>
-<li>Each process gets a fair chance to execute the CS which means the CS  execution requests are executed in the order of their arrival (time is  determined by a logical clock) in the system.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Mutual-Exclusion-Techniques-Covered"><a href="#Mutual-Exclusion-Techniques-Covered" class="headerlink" title="Mutual Exclusion Techniques Covered"></a>Mutual Exclusion Techniques Covered</h2><ul>
-<li><p>Central Coordinator Algorithm</p>
-<p><img src="/images/317/central_coordinator.JPG"></p>
-</li>
-<li><p>In a distributed environment it seems more natural to implement  mutual exclusion, based upon distributed agreement - not on a  central coordinator.</p>
-</li>
-<li><p>Distributed Non-token based</p>
-<ul>
-<li>Ricart-Agrawala Algorithm</li>
-<li>Maekawa’s Algorithm</li>
-</ul>
-</li>
-</ul>
-<h2 id="Ricart-Agrawala-Algorithm"><a href="#Ricart-Agrawala-Algorithm" class="headerlink" title="Ricart-Agrawala Algorithm"></a>Ricart-Agrawala Algorithm</h2><ul>
-<li>Uses only two types of messages – REQUEST and REPLY.</li>
-<li>It is assumed that all processes keep a (Lamport’s) logical clock which is updated  according to the clock rules.<ul>
-<li>Requests are ordered according to their global logical timestamps; if  timestamps are equal, process identifiers are compared to order them.</li>
-</ul>
-</li>
-<li>The process that requires entry to a CS multicasts the request message to all  other processes competing for the same resource.<ul>
-<li>Process is allowed to enter the CS when all processes have replied to this  message.</li>
-<li>The request message consists of the requesting process’ timestamp (logical  clock) and its identifier.</li>
-</ul>
-</li>
-<li>Each process keeps its state with respect to the CS: released, requested, or held.</li>
-</ul>
-<p><img src="/images/317/RA.JPG"></p>
-<h3 id="Analysis-Ricart-Agrawala’s-Algorithm"><a href="#Analysis-Ricart-Agrawala’s-Algorithm" class="headerlink" title="Analysis: Ricart-Agrawala’s Algorithm"></a>Analysis: Ricart-Agrawala’s Algorithm</h3><ul>
-<li>Safety<ul>
-<li>Two processes Pi and Pj cannot both have access to CS</li>
-</ul>
-</li>
-<li>Liveness<ul>
-<li>Worst-case: wait for all other (N-1) processes to send Reply</li>
-</ul>
-</li>
-<li>Ordering<ul>
-<li>Requests with lower Lamport timestamps are granted earlier</li>
-</ul>
-</li>
-</ul>
-<h3 id="Performance-Ricart-Agrawala’s-Algorithm"><a href="#Performance-Ricart-Agrawala’s-Algorithm" class="headerlink" title="Performance: Ricart-Agrawala’s Algorithm"></a>Performance: Ricart-Agrawala’s Algorithm</h3><ul>
-<li>Bandwidth: 2*(N-1) messages per enter() operation</li>
-<li>Client delay: one round-trip time</li>
-<li>Synchronization delay: one message transmission time</li>
-</ul>
-<h2 id="Quorum-Based-–-Maekawa’s-Algorithm"><a href="#Quorum-Based-–-Maekawa’s-Algorithm" class="headerlink" title="Quorum-Based – Maekawa’s Algorithm"></a>Quorum-Based – Maekawa’s Algorithm</h2><ul>
-<li><p>Site obtains permission only from a subset of sites to enter CS</p>
-</li>
-<li><p>Multicasts messages to a voting subset of processes</p>
-<ul>
-<li><p>Each process pi is associated with a voting set vi (of processes)</p>
-<ul>
-<li>Each process belongs to its own voting set</li>
-<li>The intersection of any two voting sets is non-empty</li>
-<li>Each voting set is of size K</li>
-<li>Each process belongs to M other voting sets</li>
-</ul>
-</li>
-<li><p>To access a critical section, pi requests permission from all other processes in  its own voting set vi</p>
-<ul>
-<li><p>Voting set member gives permission to only one requestor at a time, and  queues all other requests</p>
-</li>
-<li><p>Guarantees safety </p>
-</li>
-<li><p>May not guarantee liveness (may deadlock)</p>
-<p><img src="/images/317/M_liveness.JPG"></p>
-</li>
-<li><p>Maekawa showed that K&#x3D;M&#x3D;N^0.5 works best</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/317/Maekawa1.JPG"></p>
-<p><img src="/images/317/Maekawa2.JPG"></p>
-<h2 id="Election-Algorithms"><a href="#Election-Algorithms" class="headerlink" title="Election Algorithms"></a>Election Algorithms</h2><ul>
-<li>It doesn’t matter which process is elected.<ul>
-<li>What is important is that one and only one process is chosen (we call this  process the coordinator) and all processes agree on this decision</li>
-</ul>
-</li>
-<li>Assume that each process has a unique number (identifier)<ul>
-<li>In general, election algorithms attempt to locate the process with the highest  number, among those which currently are up</li>
-</ul>
-</li>
-<li>Election is typically started after a failure occurs<ul>
-<li>The detection of a failure (e.g. the crash of the current coordinator) is  normally based on time-out → a process that gets no response for a period of  time suspects a failure and initiates an election process.</li>
-</ul>
-</li>
-<li>An election process is typically performed in two phases:<ul>
-<li>Select a leader with the highest priority.</li>
-<li>Inform all processes about the winner.</li>
-</ul>
-</li>
-</ul>
-<h2 id="The-Ring-based-Algorithm"><a href="#The-Ring-based-Algorithm" class="headerlink" title="The Ring-based Algorithm"></a>The Ring-based Algorithm</h2><ul>
-<li>We assume that the processes are arranged in a logical ring<ul>
-<li>Each process knows the address of one other process, which is its  neighbor in the clockwise direction</li>
-</ul>
-</li>
-<li>The algorithm elects a single coordinator, which is the highest id process.</li>
-<li>Election is started by a process which detects the coordinator failure<ul>
-<li>The process prepares an election message which includes its id and passed it to the successor process.</li>
-<li>When a process receives an election message<ul>
-<li>It compares the identifier in the message with its own</li>
-<li>If the arrived identifier is greater, it forwards the received election  message to its neighbor</li>
-<li>If the arrived identifier is smaller, it substitutes its own identifier in the  election message before forwarding it.</li>
-<li>If the received id is that of the receiver itself → this will be the  coordinator.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>The new coordinator sends an elected message through the ring</li>
-</ul>
-<p><img src="/images/317/ring.JPG"></p>
-<h2 id="The-Bully-Algorithm"><a href="#The-Bully-Algorithm" class="headerlink" title="The Bully Algorithm"></a>The Bully Algorithm</h2><ul>
-<li>A process has to know the identifier of all other processes <ul>
-<li>(it doesn’t know, however, which one is still up); the process with the highest identifier, among those which are  up, is selected.</li>
-</ul>
-</li>
-<li>Any process could fail during the election procedure.</li>
-<li>When a process Pi detects a failure and a coordinator has to be elected<ul>
-<li>it sends an election message to all the processes with a higher identifier and then waits for an answer message:</li>
-<li>If no response arrives within a time limit<ul>
-<li>Pi becomes the coordinator (all processes with higher identifier are down)</li>
-<li>it broadcasts a coordinator message to all processes to let them know.</li>
-</ul>
-</li>
-<li>If an answer message arrives, <ul>
-<li>Pi knows that another process has to become the coordinator → it waits in order to receive the  coordinator message.</li>
-<li>If this message fails to arrive within a time limit (which means that a potential coordinator crashed after  sending the answer message) Pi resends the election message.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>When receiving an election message from Pi<ul>
-<li>a process Pj replies with an answer message to Pi and</li>
-<li>then starts an election procedure itself( unless it has already started one) it sends an election message to all  processes with higher identifier.</li>
-</ul>
-</li>
-<li>Finally all processes get an answer message, except the one which becomes the coordinator.</li>
-</ul>
-<p><img src="D:\Blog\source\images\317\bully.JPG"></p>
-<h2 id="Distributed-File-System-DFS"><a href="#Distributed-File-System-DFS" class="headerlink" title="Distributed File System (DFS)"></a>Distributed File System (DFS)</h2><ul>
-<li>Files are stored on a server machine<ul>
-<li>client machine does RPCs to server to perform operations on file</li>
-</ul>
-</li>
-<li>Desirable Properties from a DFS<ul>
-<li>Transparency: client accesses DFS files as if it were accessing local files<ul>
-<li>Same API as local files, i.e., client code doesn’t change</li>
-<li>Need to make location, replication, etc. invisible to client</li>
-</ul>
-</li>
-<li>Support concurrent clients<ul>
-<li>Multiple client processes reading&#x2F;writing the file concurrently</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Replication: for fault-tolerance</li>
-</ul>
-<h2 id="File-Sharing-Semantics"><a href="#File-Sharing-Semantics" class="headerlink" title="File Sharing Semantics"></a>File Sharing Semantics</h2><ul>
-<li>One-copy Serializability<ul>
-<li>Updates are written to the single copy and are available immediately</li>
-</ul>
-</li>
-<li>Serializability<ul>
-<li>Transaction semantics (file locking protocols implemented - share for  read, exclusive for write).</li>
-</ul>
-</li>
-</ul>
-<h2 id="Example-Sun-NFS"><a href="#Example-Sun-NFS" class="headerlink" title="Example: Sun-NFS"></a>Example: Sun-NFS</h2><ul>
-<li><p>Network File System</p>
-</li>
-<li><p>Supports heterogeneous systems</p>
-</li>
-<li><p>Architecture</p>
-<ul>
-<li>Server exports one or more directory trees for access by  remote clients</li>
-<li>Clients access exported directory trees by mounting them  to the client local tree</li>
-</ul>
-</li>
-<li><p>Protocols</p>
-<ul>
-<li>Mounting protocol</li>
-<li>Directory and file access protocol - stateless, no open-close  messages, full access path on read&#x2F;write</li>
-</ul>
-</li>
-</ul>
-<h3 id="NFS-Architecture"><a href="#NFS-Architecture" class="headerlink" title="NFS Architecture"></a>NFS Architecture</h3><p><img src="/images/317/NFS.JPG"></p>
-<h2 id="Example-Andrew-File-System"><a href="#Example-Andrew-File-System" class="headerlink" title="Example: Andrew File System"></a>Example: Andrew File System</h2><ul>
-<li><p>Designed at CMU</p>
-<ul>
-<li>Named after Andrew Carnegie and Andrew Mellon, the “C” and  “M” in CMU</li>
-</ul>
-</li>
-<li><p>In use today in some clusters (especially University  clusters)</p>
-</li>
-<li><p>Supports information sharing on a large scale</p>
-</li>
-<li><p>Uses a session semantics</p>
-<ul>
-<li>Entire file is copied to the local machine (Venus) from the server  (Vice) when open. If file is changed, it is copied to server when  closed.<ul>
-<li>Works because in practice, most files are changed by one  person</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Replication"><a href="#Replication" class="headerlink" title="Replication"></a>Replication</h2><ul>
-<li><p>Enhances a service by replicating data</p>
-<ul>
-<li><p>Increased Availability</p>
-<ul>
-<li>Of service. When servers fail or when the network is partitioned.</li>
-</ul>
-</li>
-<li><p>Fault Tolerance</p>
-<ul>
-<li>Under the fail-stop model, if up to f of f+1 servers crash, at least one is alive</li>
-</ul>
-</li>
-<li><p>Load Balancing</p>
-<ul>
-<li>One approach: Multiple server IPs can be assigned to the same name in DNS,  which returns answers round-robin.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Passive-Replication"><a href="#Passive-Replication" class="headerlink" title="Passive Replication"></a>Passive Replication</h3><ul>
-<li><p>uses a primary replica (master)</p>
-<p>master: elected leader</p>
-</li>
-</ul>
-<p><img src="/images/317/passive_replication.JPG"></p>
-<h3 id="Active-Replication"><a href="#Active-Replication" class="headerlink" title="Active Replication"></a>Active Replication</h3><ul>
-<li><p>treats all replicas identically</p>
-</li>
-<li><p>multicast inside replica group</p>
-</li>
-<li><p>can use any flavor of multicast ordering</p>
-<ul>
-<li>FIFO ordering</li>
-<li>causal ordering</li>
-<li>total ordering</li>
-<li>hybrid ordering</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/317/active_replication.JPG"></p>
-<h2 id="Transactions"><a href="#Transactions" class="headerlink" title="Transactions"></a>Transactions</h2><ul>
-<li><p>Sequence of Read&#x2F;Write operations that act as ONE unit of execution</p>
-</li>
-<li><p>ACID Properties</p>
-<ul>
-<li>Atomicity<ul>
-<li>All or nothing</li>
-<li>a transaction should either <ul>
-<li>i)complete successfully, so its effects are recorded in the  server objects; </li>
-<li>or ii) the transaction has no effect at all.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Consistency<ul>
-<li>if the server starts in a consistent state,  the transaction ends the server in a consistent state.</li>
-</ul>
-</li>
-<li>Isolation<ul>
-<li>Each transaction must be performed  without interference from other transactions</li>
-<li>i.e.,  non-final effects of a transaction must not be visible  to other transactions</li>
-</ul>
-</li>
-<li>Durability<ul>
-<li>After a transaction has completed  successfully, all its effects are saved in permanent  storage.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Serializable Schedule </p>
-<ul>
-<li>Goal: increase <strong>concurrency</strong> while maintaining  <strong>correctness (ACID)</strong></li>
-<li>Equivalent to some Serial execution → Correctness</li>
-<li>Serial Equivalency Test</li>
-</ul>
-</li>
-<li><p>serial</p>
-<ul>
-<li>An interleaving (say O) of transaction operations is  <strong>serially equivalent</strong> iff (if and only if):<ul>
-<li>Cannot distinguish end-result of real  operation O from (fake) serial transaction order O’</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Distributed-Transactions"><a href="#Distributed-Transactions" class="headerlink" title="Distributed Transactions"></a>Distributed Transactions</h2><ul>
-<li>Transactions distributed based on which entity hosts the  object&#x2F;replica</li>
-<li>One-phase Commit: Issues<ul>
-<li>Server with object has no say in whether transaction  commits or aborts<ul>
-<li>If object corrupted, it just cannot commit (while other servers have  committed)</li>
-</ul>
-</li>
-<li>Server may crash before receiving commit message,  with some updates still in memory</li>
-</ul>
-</li>
-<li>Uses 2 Phase Commit protocol for guaranteeing atomic commit (in  contrast to 1 Phase Commit)<ul>
-<li>Failures in Two-phase Commit <ul>
-<li>To deal with server crashes<ul>
-<li>Each server saves tentative updates into permanent storage, right  before replying Yes&#x2F;No in first phase. Retrievable after crash  recovery</li>
-</ul>
-</li>
-<li>To deal with coordinator crashes<ul>
-<li>Coordinator logs all decisions and received&#x2F;sent messages on disk</li>
-<li>After recovery or new election &#x3D;&gt; new coordinator takes over</li>
-</ul>
-</li>
-<li>To deal with Yes&#x2F;No message loss, <ul>
-<li>coordinator aborts  the transaction after a timeout (pessimistic!)</li>
-</ul>
-</li>
-<li>To deal with Commit or Abort message loss<ul>
-<li>Server can poll coordinator (repeatedly)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Concurrency-Control"><a href="#Concurrency-Control" class="headerlink" title="Concurrency Control"></a>Concurrency Control</h2><ul>
-<li>Optimistic Concurrency Control<ul>
-<li>Used in Dropbox, Google apps, Wikipedia, key-value  stores like Cassandra, Riak, and Amazon’s Dynamo</li>
-<li>Used for Read&#x2F;Read-Only transaction</li>
-<li>Allow the transaction to execute</li>
-<li>If Serial Equivalency passed, then commit. Otherwise, abort</li>
-</ul>
-</li>
-<li>Pessimistic Concurrency Control<ul>
-<li>Use Locking (Mutual Exclusion)</li>
-</ul>
-</li>
-<li>2 Phase Locking protocol (2PL)<ul>
-<li>Growing&#x2F;expanding phase – Acquire locks</li>
-<li>Shrinking phase – release locks and no new locks can be acquired</li>
-</ul>
-</li>
-<li>Strict 2PL – hold on to locks until transactions commits&#x2F;aborts</li>
-</ul>
-<h2 id="Deadlocks"><a href="#Deadlocks" class="headerlink" title="Deadlocks"></a>Deadlocks</h2><ul>
-<li><p>3 necessary conditions for a deadlock to occur</p>
-<ol>
-<li>Some objects are accessed in exclusive lock modes</li>
-<li>Transactions holding locks cannot be preempted</li>
-<li>There is a circular wait (cycle) in the Wait-for graph</li>
-</ol>
-</li>
-</ul>
-<h2 id="Handling-Deadlocks"><a href="#Handling-Deadlocks" class="headerlink" title="Handling Deadlocks"></a>Handling Deadlocks</h2><ol>
-<li><p>Lock timeout: </p>
-<ul>
-<li>abort transaction if lock cannot be  acquired within timeout</li>
-<li>Expensive; leads to wasted work</li>
-</ul>
-</li>
-<li><p>Deadlock Detection:</p>
-<ul>
-<li>keep track of Wait-for graph (e.g., via Global  Snapshot algorithm), and</li>
-<li>find cycles in it (e.g., periodically)</li>
-<li>If find cycle, there’s a deadlock &#x3D;&gt; Abort one or  more transactions to break cycle</li>
-<li>Still allows deadlocks to occur</li>
-</ul>
-</li>
-<li><p>Deadlock Prevention</p>
-</li>
-</ol>
-<ul>
-<li><p>Set up the system so one of the necessary conditions is violated</p>
-<ol>
-<li><p>Some objects are accessed in exclusive lock modes</p>
-<p>Fix: Allow read-only access to objects</p>
-</li>
-<li><p>Transactions holding locks cannot be preempted</p>
-<p>Fix: Allow preemption of some transactions</p>
-</li>
-<li><p>There is a circular wait (cycle) in the Wait-for graph</p>
-<p>Fix: Lock all objects in the beginning; if fail any, abort  transaction &#x3D;&gt; No cycles in Wait-for graph</p>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><ul>
-<li>Threats<ul>
-<li>Leakage<ul>
-<li>Unauthorized access to service or data</li>
-<li>E.g., Someone knows your bank balance</li>
-</ul>
-</li>
-<li>Tampering<ul>
-<li>Unauthorized modification of service or data</li>
-<li>E.g., Someone modifies your bank balance</li>
-</ul>
-</li>
-<li>Vandalism<ul>
-<li>Interference with normal service, without  direct gain to attacker</li>
-<li>E.g., Denial of Service attacks</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Common Attacks<ul>
-<li>Eavesdropping<ul>
-<li>Attacker taps into network</li>
-</ul>
-</li>
-<li>Masquerading<ul>
-<li>Attacker pretends to be someone else, i.e.,  identity theft</li>
-</ul>
-</li>
-<li>Message tampering<ul>
-<li>Attacker modifies messages</li>
-</ul>
-</li>
-<li>Replay attack<ul>
-<li>Attacker replays old messages</li>
-</ul>
-</li>
-<li>Denial of service<ul>
-<li>bombard a port</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>CIA properties<ul>
-<li>Confidentiality<ul>
-<li>Protection against disclosure to unauthorized  individuals</li>
-<li>Addresses Leakage threat</li>
-</ul>
-</li>
-<li>Integrity<ul>
-<li>Protection against unauthorized alteration or  corruption</li>
-<li>Addresses Tampering threat</li>
-</ul>
-</li>
-<li>Availability<ul>
-<li>Service&#x2F;data is always readable&#x2F;writable</li>
-<li>Addresses Vandalism threat</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Policy vs Mechanism<ul>
-<li>Many scientists (e.g., Hansen) have argued for a  separation of policy vs. mechanism</li>
-<li>A security policy indicates what a secure system  accomplishes</li>
-<li>A security mechanism indicates how these goals  are accomplished</li>
-<li>E.g.,<ul>
-<li>Policy: in a file system, only authorized individuals  allowed to access files (i.e., CIA properties)</li>
-<li>Mechanism: Encryption, capabilities, etc.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Mechanisms: Golden A’s<ul>
-<li>Authentication<ul>
-<li>Is a user (communicating over the network)  claiming to be Alice, really Alice?</li>
-</ul>
-</li>
-<li>Authorization<ul>
-<li>Yes, the user is Alice, but is she allowed to  perform her requested operation on this  object?</li>
-</ul>
-</li>
-<li>Auditing<ul>
-<li>How did Eve manage to attack the system and  breach defenses? Usually done by  continuously logging all operations.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Encryption<ul>
-<li>Symmetric Keys<ul>
-<li>Same key (KAB) used to both encrypt and decrypt a  message</li>
-<li>E.g., DES (Data Encryption Standard): 56 b key  operates on 64 b blocks from the message</li>
-</ul>
-</li>
-<li>Public-Private keys<ul>
-<li>Anything encrypted with KApriv can be decrypted only with  KApub</li>
-<li>Anything encrypted with KApub can be decrypted only with  KApri</li>
-<li>If Alice wants to send a secret message M that can  be read only by Bob<ol>
-<li>Alice encrypts it with Bob’s public key</li>
-<li>KBpub(M)</li>
-<li>Bob only one able to decrypt it</li>
-<li>KBpriv(KBpub(M)) &#x3D; M</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>Shared&#x2F;Symmetric vs. Public&#x2F;Private<ul>
-<li>Shared keys reveal too much information<ul>
-<li>Hard to revoke permissions from principals</li>
-<li>E.g., group of principals shares one key <ul>
-<li>want to remove one principal from group</li>
-<li>need everyone in group to change key</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Public&#x2F;private keys involve costly encryption or  decryption<ul>
-<li>At least one of these 2 operations is costly</li>
-</ul>
-</li>
-<li>Many systems use public&#x2F;private key system to  generate shared key, and use latter on messages</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Digital Signature&#x2F;Certificate<ul>
-<li>To sign a message M, Alice encrypts message with her  own private key<ul>
-<li>Signed message: [M, KApriv(M)]</li>
-<li>Anyone can verify, using Alice’s public key, that Alice signed it</li>
-</ul>
-</li>
-<li>Digital Certificates implemented using digital signatures</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4109,7 +3364,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -4158,12 +3413,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">761k</span>
+    <span title="站点总字数">772k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:31</span>
+    <span title="站点阅读时长">11:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
