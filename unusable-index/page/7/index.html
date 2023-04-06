@@ -190,6 +190,556 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/12/DDIA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/12/DDIA/" class="post-title-link" itemprop="url">DDIA学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-12 15:41:23" itemprop="dateCreated datePublished" datetime="2022-05-12T15:41:23+08:00">2022-05-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 17:16:31" itemprop="dateModified" datetime="2022-05-13T17:16:31+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据系统的基石"><a href="#数据系统的基石" class="headerlink" title="数据系统的基石"></a>数据系统的基石</h1><h2 id="可靠性、可伸缩性、可维护性"><a href="#可靠性、可伸缩性、可维护性" class="headerlink" title="可靠性、可伸缩性、可维护性"></a>可靠性、可伸缩性、可维护性</h2><h3 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h3><ul>
+<li><p>系统在 <strong>困境</strong>（adversity，比如硬件故障、软件故障、人为错误）中仍可正常工作（正确完成功能，并能达到期望的性能水准）</p>
+</li>
+<li><p>造成错误的原因叫做 <strong>故障（fault）</strong>，能预料并应对故障的系统特性可称为 <strong>容错（fault-tolerant）</strong> 或 <strong>韧性（resilient）</strong></p>
+</li>
+<li><p>注意 <strong>故障（fault）</strong> 不同于 <strong>失效（failure）</strong>。<strong>故障</strong> 通常定义为系统的一部分状态偏离其标准，而 <strong>失效</strong> 则是系统作为一个整体停止向用户提供服务。故障的概率不可能降到零，因此最好设计容错机制以防因 <strong>故障</strong> 而导致 <strong>失效</strong></p>
+</li>
+<li><p><strong>硬件故障（hardware faults）</strong>:</p>
+<ol>
+<li><p>硬盘崩溃、内存出错、机房断电、有人拔错网线……</p>
+</li>
+<li><p>硬盘的 <strong>平均无故障时间（MTTF, mean time to failure）</strong> 约为 10 到 50 年</p>
+</li>
+<li><p>对策：</p>
+<ul>
+<li>增加单个硬件的冗余度</li>
+<li>云平台的设计优先考虑 <strong>灵活性（flexibility）</strong> 和 <strong>弹性（elasticity）</strong>，而不是单机可靠性</li>
+<li>在硬件冗余的基础上进一步引入软件容错机制</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>软件错误 系统性错误（systematic error）</strong></p>
+</li>
+</ul>
+<ol>
+<li><p>例子：</p>
+<ul>
+<li>接受特定的错误输入，便导致所有应用服务器实例崩溃的 BUG。例如 2012 年 6 月 30 日的闰秒，由于 Linux 内核中的一个错误，许多应用同时挂掉了。</li>
+<li>失控进程会用尽一些共享资源，包括 CPU 时间、内存、磁盘空间或网络带宽。</li>
+<li>系统依赖的服务变慢，没有响应，或者开始返回错误的响应。</li>
+</ul>
+</li>
+<li><p>导致这类软件故障的 BUG 通常会潜伏很长时间，直到被异常情况触发为止。这种情况意味着软件对其环境做出了某种假设 —— 虽然这种假设通常来说是正确的，但由于某种原因最后不再成立了</p>
+</li>
+<li><p>对策：</p>
+<ul>
+<li><p>仔细考虑系统中的假设和交互</p>
+</li>
+<li><p>彻底的测试</p>
+</li>
+<li><p>进程隔离；允许进程崩溃并重启</p>
+</li>
+<li><p>测量、监控并分析生产环境中的系统行为。如果系统能够提供一些保证（例如在一个消息队列中，进入与发出的消息数量相等），那么系统就可以在运行时不断自检，并在出现 <strong>差异（discrepancy）</strong> 时报警</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>人为错误</strong></p>
+<ol>
+<li><p>设计并构建了软件系统的工程师是人类，维持系统运行的运维也是人类。即使他们怀有最大的善意，人类也是不可靠的。</p>
+</li>
+<li><p>对策：</p>
+<ul>
+<li>以最小化犯错机会的方式设计系统。例如，精心设计的抽象、API 和管理后台使做对事情更容易，搞砸事情更困难。但如果接口限制太多，人们就会忽略它们的好处而想办法绕开。很难正确把握这种微妙的平衡。</li>
+<li>将人们最容易犯错的地方与可能导致失效的地方 <strong>解耦（decouple）</strong>。特别是提供一个功能齐全的非生产环境 <strong>沙箱（sandbox）</strong>，使人们可以在不影响真实用户的情况下，使用真实数据安全地探索和实验。</li>
+<li>在各个层次进行彻底的测试，从单元测试、全系统集成测试到手动测试。自动化测试易于理解，已经被广泛使用，特别适合用来覆盖正常情况中少见的 <strong>边缘场景（corner case）</strong>。</li>
+<li>允许从人为错误中简单快速地恢复，以最大限度地减少失效情况带来的影响。 例如，快速回滚配置变更，分批发布新代码（以便任何意外错误只影响一小部分用户），并提供数据重算工具（以备旧的计算出错）。</li>
+<li>配置详细和明确的监控，比如性能指标和错误率。 在其他工程学科中这指的是 <strong>遥测（telemetry）</strong>（一旦火箭离开了地面，遥测技术对于跟踪发生的事情和理解失败是至关重要的）。监控可以向我们发出预警信号，并允许我们检查是否有任何地方违反了假设和约束。当出现问题时，指标数据对于问题诊断是非常宝贵的。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>可靠性有多重要</strong></p>
+<ol>
+<li><p>即使在 “非关键” 应用中，我们也对用户负有责任。</p>
+</li>
+<li><p>我们偷工减料时，应该清楚意识到自己在做什么。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h3><ul>
+<li><p>有合理的办法应对系统的增长（数据量、流量、复杂性）</p>
+</li>
+<li><p>系统今天能可靠运行，并不意味未来也能可靠运行。服务 <strong>降级（degradation）</strong> 的一个常见原因是负载增加，例如：系统负载已经从一万个并发用户增长到十万个并发用户，或者从一百万增长到一千万。也许现在处理的数据量级要比过去大得多。</p>
+</li>
+<li><p><strong>描述负载</strong></p>
+<ol>
+<li><p>负载可以用一些称为 <strong>负载参数（load parameters）</strong> 的数字来描述。参数的最佳选择取决于系统架构，它可能是每秒向 Web 服务器发出的请求、数据库中的读写比率、聊天室中同时活跃的用户数量、缓存命中率或其他东西。除此之外，也许平均情况对你很重要，也许你的瓶颈是少数极端场景。</p>
+</li>
+<li><p>例子：twitter业务:</p>
+<ul>
+<li><p>发布推文</p>
+<p>用户可以向其粉丝发布新消息（平均 4.6k 请求 &#x2F; 秒，峰值超过 12k 请求 &#x2F; 秒）</p>
+</li>
+<li><p>主页时间线</p>
+<p>用户可以查阅他们关注的人发布的推文（300k 请求 &#x2F; 秒）</p>
+</li>
+<li><p>方法一：全局推文集合，关系型数据库</p>
+<p>发布推文时，只需将新推文插入全局推文集合即可。当一个用户请求自己的主页时间线时，首先查找他关注的所有人，查询这些被关注用户发布的推文并按时间顺序合并。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tweets.<span class="operator">*</span>, users.<span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> tweets</span><br><span class="line">  <span class="keyword">JOIN</span> users   <span class="keyword">ON</span> tweets.sender_id <span class="operator">=</span> users.id</span><br><span class="line">  <span class="keyword">JOIN</span> follows <span class="keyword">ON</span> follows.followee_id <span class="operator">=</span> users.id</span><br><span class="line">  <span class="keyword">WHERE</span> follows.follower_id <span class="operator">=</span> <span class="built_in">current_user</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>方法二：为每个用户的主页时间线维护一个缓存。</p>
+<p>当一个用户发布推文时，查找所有关注该用户的人，并将新的推文插入到每个主页时间线缓存中。 因此读取主页时间线的请求开销很小，因为结果已经提前计算好了。</p>
+</li>
+<li><p>推特的第一个版本使用了方法 1，但系统很难跟上主页时间线查询的负载。所以公司转向了方法 2，方法 2 的效果更好，因为发推频率比查询主页时间线的频率几乎低了两个数量级，所以在这种情况下，最好在写入时做更多的工作，而在读取时做更少的工作。</p>
+</li>
+<li><p>然而方法 2 的缺点是，发推现在需要大量的额外工作。平均来说，一条推文会发往约 75 个关注者，所以每秒 4.6k 的发推写入，变成了对主页时间线缓存每秒 345k 的写入。但这个平均值隐藏了用户粉丝数差异巨大这一现实，一些用户有超过 3000 万的粉丝，这意味着一条推文就可能会导致主页时间线缓存的 3000 万次写入！及时完成这种操作是一个巨大的挑战 —— 推特尝试在 5 秒内向粉丝发送推文。</p>
+</li>
+<li><p>在推特的例子中，每个用户粉丝数的分布（可能按这些用户的发推频率来加权）是探讨可伸缩性的一个关键负载参数，因为它决定了扇出负载。你的应用程序可能具有非常不同的特征，但可以采用相似的原则来考虑它的负载。</p>
+</li>
+<li><p>推特轶事的最终转折：现在已经稳健地实现了方法 2，推特逐步转向了两种方法的混合。大多数用户发的推文会被扇出写入其粉丝主页时间线缓存中。但是少数拥有海量粉丝的用户（即名流）会被排除在外。当用户读取主页时间线时，分别地获取出该用户所关注的每位名流的推文，再与用户的主页时间线缓存合并，如方法 1 所示。这种混合方法能始终如一地提供良好性能。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>描述性能</strong></p>
+<ol>
+<li><p>一旦系统的负载被描述好，就可以研究当负载增加会发生什么。我们可以从两种角度来看：</p>
+<ul>
+<li>增加负载参数并保持系统资源（CPU、内存、网络带宽等）不变时，系统性能将受到什么影响？</li>
+<li>增加负载参数并希望保持性能不变时，需要增加多少系统资源？</li>
+</ul>
+</li>
+<li><p>对于 Hadoop 这样的批处理系统，通常关心的是 <strong>吞吐量（throughput）</strong>，即每秒可以处理的记录数量，或者在特定规模数据集上运行作业的总时间 </p>
+</li>
+<li><p>对于在线系统，通常更重要的是服务的 <strong>响应时间（response time）</strong>，即客户端发送请求到接收响应之间的时间</p>
+<ul>
+<li><p><strong>延迟（latency）</strong> 和 <strong>响应时间（response time）</strong> 经常用作同义词，但实际上它们并不一样。</p>
+</li>
+<li><p>响应时间是客户所看到的，除了实际处理请求的时间（ <strong>服务时间（service time）</strong> ）之外，还包括网络延迟和排队延迟。</p>
+</li>
+<li><p>延迟是某个请求等待处理的 <strong>持续时长</strong>，在此期间它处于 <strong>休眠（latent）</strong> 状态，并等待服务</p>
+</li>
+<li><p>即使不断重复发送同样的请求，每次得到的响应时间也都会略有不同。现实世界的系统会处理各式各样的请求，响应时间可能会有很大差异。因此我们需要将响应时间视为一个可以测量的数值 <strong>分布（distribution）</strong>，而不是单个数值。</p>
+</li>
+<li><p>响应时间的高百分位点（也称为 <strong>尾部延迟</strong>，即 <strong>tail latencies</strong>）非常重要，因为它们直接影响用户的服务体验。例如亚马逊在描述内部服务的响应时间要求时是以 <strong>99.9 百分位点</strong>为准，即使它只影响一千个请求中的一个。这是因为<strong>请求响应最慢的客户往往也是数据最多的客户</strong>，也可以说是最有价值的客户 ——<strong>因为他们掏钱了</strong>。保证网站响应迅速对于保持客户的满意度非常重要，亚马逊观察到：响应时间增加 100 毫秒，销售量就减少 1%；而另一些报告说：慢 1 秒钟会让客户满意度指标减少 16%。</p>
+<p>另一方面，优化第 99.99 百分位点（一万个请求中最慢的一个）被认为太昂贵了，不能为亚马逊的目标带来足够好处。减小高百分位点处的响应时间相当困难，因为它很容易受到随机事件的影响，这超出了控制范围，而且效益也很小。</p>
+</li>
+<li><p>百分位点通常用于 <strong>服务级别目标（SLO, service level objectives）</strong> 和 <strong>服务级别协议（SLA, service level agreements）</strong>，即定义服务预期性能和可用性的合同。 SLA 可能会声明，如果服务响应时间的中位数小于 200 毫秒，且 99.9 百分位点低于 1 秒，则认为服务工作正常（如果响应时间更长，就认为服务不达标）。这些指标为客户设定了期望值，并允许客户在 SLA 未达标的情况下要求退款。</p>
+</li>
+<li><p><strong>排队延迟（queueing delay）</strong> 通常占了高百分位点处响应时间的很大一部分。由于服务器只能并行处理少量的事务（如受其 CPU 核数的限制），所以只要有少量缓慢的请求就能阻碍后续请求的处理，这种效应有时被称为 <strong>头部阻塞（head-of-line blocking）</strong> 。即使后续请求在服务器上处理的非常迅速，由于需要等待先前请求完成，客户端最终看到的是缓慢的总体响应时间。因为存在这种效应，测量客户端的响应时间非常重要。</p>
+</li>
+<li><p>为测试系统的可伸缩性而人为产生负载时，产生负载的客户端要独立于响应时间不断发送请求。如果客户端在发送下一个请求之前等待先前的请求完成，这种行为会产生人为排队的效果，使得测试时的队列比现实情况更短，使测量结果产生偏差。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>应对负载的方法</strong></p>
+<ol>
+<li><p><strong>纵向伸缩</strong>（scaling up，也称为垂直伸缩，即 vertical scaling，转向更强大的机器）</p>
+</li>
+<li><p><strong>横向伸缩</strong>（scaling out，也称为水平伸缩，即 horizontal scaling，将负载分布到多台小机器上）</p>
+</li>
+<li><p>跨多台机器部署 <strong>无状态服务（stateless services）</strong> 非常简单，但将带状态的数据系统从单节点变为分布式配置则可能引入许多额外复杂度。出于这个原因，常识告诉我们应该将数据库放在单个节点上（纵向伸缩），直到伸缩成本或可用性需求迫使其改为分布式。</p>
+</li>
+<li><p>随着分布式系统的工具和抽象越来越好，至少对于某些类型的应用而言，这种常识可能会改变。可以预见分布式数据系统将成为未来的默认设置，即使对不处理大量数据或流量的场景也如此。本书的其余部分将介绍多种分布式数据系统，不仅讨论它们在可伸缩性方面的表现，还包括易用性和可维护性。</p>
+</li>
+<li><p>大规模的系统架构通常是应用特定的 —— 没有一招鲜吃遍天的通用可伸缩架构（不正式的叫法：<strong>万金油（magic scaling sauce）</strong> ）。应用的问题可能是读取量、写入量、要存储的数据量、数据的复杂度、响应时间要求、访问模式或者所有问题的大杂烩。</p>
+<p>举个例子，用于处理每秒十万个请求（每个大小为 1 kB）的系统与用于处理每分钟 3 个请求（每个大小为 2GB）的系统看上去会非常不一样，尽管两个系统有同样的数据吞吐量。</p>
+</li>
+<li><p>一个良好适配应用的可伸缩架构，是围绕着 <strong>假设（assumption）</strong> 建立的：哪些操作是常见的？哪些操作是罕见的？这就是所谓负载参数。如果假设最终是错误的，那么为伸缩所做的工程投入就白费了，最糟糕的是适得其反。在早期创业公司或非正式产品中，通常支持产品快速迭代的能力，要比可伸缩至未来的假想负载要重要的多。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Maintainability"><a href="#Maintainability" class="headerlink" title="Maintainability"></a>Maintainability</h3><ul>
+<li><p>许多不同的人（工程师、运维）在不同的生命周期，都能高效地在系统上工作（使系统保持现有行为，并适应新的应用场景）</p>
+</li>
+<li><p>可操作性（Operability）</p>
+<p>便于运维团队保持系统平稳运行</p>
+</li>
+<li><p>简单性（Simplicity）</p>
+<p>从系统中消除尽可能多的 <strong>复杂度（complexity）</strong>，使新工程师也能轻松理解系统（注意这和用户接口的简单性不一样）</p>
+<ol>
+<li><p>简化系统并不一定意味着减少功能；它也可以意味着消除 <strong>额外的（accidental）</strong> 的复杂度。 Moseley 和 Marks把 <strong>额外复杂度</strong> 定义为：由具体实现中涌现，而非（从用户视角看，系统所解决的）问题本身固有的复杂度。</p>
+</li>
+<li><p>用于消除 <strong>额外复杂度</strong> 的最好工具之一是 <strong>抽象（abstraction）</strong>。一个好的抽象可以将大量实现细节隐藏在一个干净，简单易懂的外观下面。一个好的抽象也可以广泛用于各类不同应用。比起重复造很多轮子，重用抽象不仅更有效率，而且有助于开发高质量的软件。抽象组件的质量改进将使所有使用它的应用受益。</p>
+<p>例如，高级编程语言是一种抽象，隐藏了机器码、CPU 寄存器和系统调用。 SQL 也是一种抽象，隐藏了复杂的磁盘 &#x2F; 内存数据结构、来自其他客户端的并发请求、崩溃后的不一致性。当然在用高级语言编程时，我们仍然用到了机器码；只不过没有 <strong>直接（directly）</strong> 使用罢了，正是因为编程语言的抽象，我们才不必去考虑这些实现细节。</p>
+</li>
+</ol>
+</li>
+<li><p>可演化性（evolvability）</p>
+<p>使工程师在未来能轻松地对系统进行更改，当需求变化时为新应用场景做适配。也称为 <strong>可伸缩性（extensibility）</strong>、<strong>可修改性（modifiability）</strong> 或 <strong>可塑性（plasticity）</strong></p>
+</li>
+</ul>
+<h2 id="数据模型与查询语言"><a href="#数据模型与查询语言" class="headerlink" title="数据模型与查询语言"></a>数据模型与查询语言</h2><p>多数应用使用层层叠加的数据模型构建。对于每层数据模型的关键问题是：它是如何用低一层数据模型来 <strong>表示</strong> 的？例如：</p>
+<ol>
+<li>作为一名应用开发人员，你观察现实世界（里面有人员、组织、货物、行为、资金流向、传感器等），并采用对象或数据结构，以及操控那些数据结构的 API 来进行建模。那些结构通常是特定于应用程序的。</li>
+<li>当要存储那些数据结构时，你可以利用通用数据模型来表示它们，如 JSON 或 XML 文档、关系数据库中的表或图模型。</li>
+<li>数据库软件的工程师选定如何以内存、磁盘或网络上的字节来表示 JSON &#x2F; XML&#x2F; 关系 &#x2F; 图数据。这类表示形式使数据有可能以各种方式来查询，搜索，操纵和处理。</li>
+<li>在更低的层次上，硬件工程师已经想出了使用电流、光脉冲、磁场或者其他东西来表示字节的方法。</li>
+</ol>
+<p>一个复杂的应用程序可能会有更多的中间层次，比如基于 API 的 API，不过基本思想仍然是一样的：每个层都通过提供一个明确的数据模型来隐藏更低层次中的复杂性。这些抽象允许不同的人群有效地协作（例如数据库厂商的工程师和使用数据库的应用程序开发人员）。</p>
+<h3 id="关系模型与文档模型"><a href="#关系模型与文档模型" class="headerlink" title="关系模型与文档模型"></a>关系模型与文档模型</h3><ul>
+<li><p>NoSQL 被追溯性地重新解释为 <strong>不仅是 SQL（Not Only SQL）</strong>，其背后的驱动因素有：</p>
+<ol>
+<li>需要比关系数据库更好的可伸缩性，包括非常大的数据集或非常高的写入吞吐量</li>
+<li>相比商业数据库产品，免费和开源软件更受偏爱</li>
+<li>关系模型不能很好地支持一些特殊的查询操作</li>
+<li>受挫于关系模型的限制性，渴望一种更具多动态性与表现力的数据模型</li>
+</ol>
+</li>
+<li><p>新的非关系型 “NoSQL” 数据存储在两个主要方向上存在分歧：</p>
+<ol>
+<li><strong>文档数据库</strong> 的应用场景是：数据通常是自我包含的，而且文档之间的关系非常稀少。</li>
+<li><strong>图形数据库</strong> 用于相反的场景：任意事物都可能与任何事物相关联。</li>
+</ol>
+</li>
+<li><p>在可预见的未来，关系数据库似乎可能会继续与各种非关系数据库一起使用 - 这种想法有时也被称为 <strong>混合持久化（polyglot persistence）</strong>。</p>
+</li>
+<li><p>目前大多数应用程序开发都使用面向对象的编程语言来开发，这导致了对 SQL 数据模型的普遍批评：如果数据存储在关系表中，那么需要一个笨拙的转换层，处于应用程序代码中的对象和表，行，列的数据库模型之间。模型之间的不连贯有时被称为 <strong>阻抗不匹配（impedance mismatch）</strong></p>
+<ol>
+<li><p>像 ActiveRecord 和 Hibernate 这样的 <strong>对象关系映射（ORM object-relational mapping）</strong> 框架可以减少这个转换层所需的样板代码的数量，但是它们不能完全隐藏这两个模型之间的差异。</p>
+</li>
+<li><p>对于一个像简历这样自包含文档的数据结构而言，JSON 表示是非常合适的。JSON 比 XML 更简单。面向文档的数据库（如 MongoDB ，RethinkDB ，CouchDB 和 Espresso）支持这种数据模型。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;user_id&quot;</span><span class="punctuation">:</span> <span class="number">251</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;first_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bill&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;last_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Gates&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;summary&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Co-chair of the Bill &amp; Melinda Gates... Active blogger.&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;region_id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;us:91&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;industry_id&quot;</span><span class="punctuation">:</span> <span class="number">131</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;photo_url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/p/7/000/253/05b/308dd6e.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;positions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;job_title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Co-chair&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;organization&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bill &amp; Melinda Gates Foundation&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;job_title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Co-founder, Chairman&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;organization&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Microsoft&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;education&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;school_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Harvard University&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">1973</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">1975</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;school_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Lakeside School, Seattle&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;contact_info&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;blog&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://thegatesnotes.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;twitter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://twitter.com/BillGates&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="数据查询语言"><a href="#数据查询语言" class="headerlink" title="数据查询语言"></a>数据查询语言</h3><ul>
+<li><p>SQL 是一种 <strong>声明式</strong> 查询语言</p>
+</li>
+<li><p>许多常用的编程语言是命令式的。</p>
+</li>
+<li><p>web上的声明式查询：用css选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-class">.selected</span> &gt; <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>web上的命令式查询：在 Javascript 中，使用 <strong>文档对象模型（DOM）</strong> API</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> liElements = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;li&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; liElements.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (liElements[i].<span class="property">className</span> === <span class="string">&quot;selected&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> children = liElements[i].<span class="property">childNodes</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; children.<span class="property">length</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">var</span> child = children[j];</span><br><span class="line">            <span class="keyword">if</span> (child.<span class="property">nodeType</span> === <span class="title class_">Node</span>.<span class="property">ELEMENT_NODE</span> &amp;&amp; child.<span class="property">tagName</span> === <span class="string">&quot;P&quot;</span>) &#123;</span><br><span class="line">                child.<span class="title function_">setAttribute</span>(<span class="string">&quot;style&quot;</span>, <span class="string">&quot;background-color: blue&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>MapReduce 是一个由 Google 推广的编程模型，用于在多台机器上批量处理大规模的数据。一些 NoSQL 数据存储（包括 MongoDB 和 CouchDB）支持有限形式的 MapReduce，作为在多个文档中执行只读查询的机制。</p>
+<p>MapReduce 既不是一个声明式的查询语言，也不是一个完全命令式的查询 API，而是处于两者之间：查询的逻辑用代码片段来表示，这些代码片段会被处理框架重复性调用。它基于 <code>map</code>（也称为 <code>collect</code>）和 <code>reduce</code>（也称为 <code>fold</code> 或 <code>inject</code>）函数，两个函数存在于许多函数式编程语言中。</p>
+</li>
+</ul>
+<h3 id="图数据模型"><a href="#图数据模型" class="headerlink" title="图数据模型"></a>图数据模型</h3><p>一个图由两种对象组成：<strong>顶点</strong>（vertices，也称为 <strong>节点</strong>，即 nodes，或 <strong>实体</strong>，即 entities），和 <strong>边</strong>（edges，也称为 <strong>关系</strong>，即 relationships，或 <strong>弧</strong>，即 arcs）。多种数据可以被建模为一个图形。典型的例子包括：</p>
+<ul>
+<li><p>社交图谱</p>
+<p>顶点是人，边指示哪些人彼此认识。</p>
+</li>
+<li><p>网络图谱</p>
+<p>顶点是网页，边缘表示指向其他页面的 HTML 链接。</p>
+</li>
+<li><p>公路或铁路网络</p>
+<p>顶点是交叉路口，边线代表它们之间的道路或铁路线。</p>
+</li>
+</ul>
+<p>可以将那些众所周知的算法运用到这些图上：例如，汽车导航系统搜索道路网络中两点之间的最短路径，PageRank 可以用在网络图上来确定网页的流行程度，从而确定该网页在搜索结果中的排名。</p>
+<p>在刚刚给出的例子中，图中的所有顶点代表了相同类型的事物（人、网页或交叉路口）。不过，图并不局限于这样的同类数据：同样强大地是，图提供了一种一致的方式，用来在单个数据存储中存储完全不同类型的对象。例如，Facebook 维护一个包含许多不同类型的顶点和边的单个图：顶点表示人，地点，事件，签到和用户的评论；边缘表示哪些人是彼此的朋友，哪个签到发生在何处，谁评论了哪条消息，谁参与了哪个事件，等等。</p>
+<h2 id="存储与检索"><a href="#存储与检索" class="headerlink" title="存储与检索"></a>存储与检索</h2><ul>
+<li><p>数据模型和查询语言:</p>
+<p>程序员将数据录入数据库的格式，以及再次要回数据的机制。</p>
+</li>
+<li><p>存储与检索:</p>
+<p>数据库如何存储程序员提供的数据，以及如何在程序员需要时重新找到数据。</p>
+</li>
+</ul>
+<h3 id="驱动数据库的数据结构"><a href="#驱动数据库的数据结构" class="headerlink" title="驱动数据库的数据结构"></a>驱动数据库的数据结构</h3><ul>
+<li><p>bash: set与get</p>
+</li>
+<li><p><strong>日志（log）</strong> 这个词通常指应用日志：即应用程序输出的描述正在发生的事情的文本。本书在更普遍的意义下使用 <strong>日志</strong> 这一词：一个<strong>仅追加（append-only）</strong>的记录序列。它可能压根就不是给人类看的，它可以使用二进制格式，并仅能由其他程序读取。</p>
+</li>
+<li><p>为了高效查找数据库中特定键的值，我们需要一个数据结构：<strong>索引（index）</strong>。索引背后的大致思想是通过保存一些额外的元数据作为路标来帮助你找到想要的数据。如果你想以几种不同的方式搜索同一份数据，那么你也许需要在数据的不同部分上建立多个索引。</p>
+</li>
+<li><p>索引是从主数据衍生的 <strong>额外的（additional）</strong> 结构。许多数据库允许添加与删除索引，这不会影响数据的内容，而只会影响查询的性能。维护额外的结构会产生开销，特别是在写入时。写入性能很难超过简单地追加写入文件，因为追加写入是最简单的写入操作。任何类型的索引通常都会减慢写入速度，因为每次写入数据时都需要更新索引。</p>
+</li>
+</ul>
+<h4 id="散列索引"><a href="#散列索引" class="headerlink" title="散列索引"></a>散列索引</h4><ol>
+<li><p><strong>键值数据（key-value Data）</strong> 的索引。</p>
+</li>
+<li><p>键值存储与在大多数编程语言中可以找到的 <strong>字典（dictionary）</strong> 类型非常相似，通常字典都是用 <strong>散列映射（hash map）</strong> 或 <strong>散列表（hash table）</strong> 实现的。既然我们已经可以用散列映射来表示 <strong>内存中</strong> 的数据结构，为什么不使用它来索引 <strong>硬盘上</strong> 的数据呢？</p>
+</li>
+<li><p>假设我们的数据存储只是一个追加写入的文件，就像前面的例子一样，那么最简单的索引策略就是：保留一个内存中的散列映射，其中每个键都映射到数据文件中的一个字节偏移量，指明了可以找到对应值的位置。当你将新的键值对追加写入文件中时，还要更新散列映射，以反映刚刚写入的数据的偏移量（这同时适用于插入新键与更新现有键）。当你想查找一个值时，使用散列映射来查找数据文件中的偏移量，<strong>寻找（seek）</strong> 该位置并读取该值即可。</p>
+</li>
+<li><p>现实中，Bitcask 实际上就是这么做的（Riak 中默认的存储引擎）</p>
+<p>像 Bitcask 这样的存储引擎非常适合每个键的值经常更新的情况。例如，键可能是某个猫咪视频的网址（URL），而值可能是该视频被播放的次数（每次有人点击播放按钮时递增）。在这种类型的工作负载中，有很多写操作，但是没有太多不同的键 —— 每个键有很多的写操作，但是将所有键保存在内存中是可行的。</p>
+</li>
+<li><p>直到现在，我们只是追加写入一个文件 —— 所以如何避免最终用完硬盘空间？一种好的解决方案是，将日志分为特定大小的段（segment），当日志增长到特定尺寸时关闭当前段文件，并开始写入一个新的段文件。然后，我们就可以对这些段进行 <strong>压缩（compaction）</strong>。这里的压缩意味着在日志中丢弃重复的键，只保留每个键的最近更新。</p>
+</li>
+<li><p>可以同时执行压缩和分段合并</p>
+</li>
+<li><p>每个段现在都有自己的内存散列表，将键映射到文件偏移量。为了找到一个键的值，我们首先检查最近的段的散列映射；如果键不存在，我们就检查第二个最近的段，依此类推。合并过程将保持段的数量足够小，所以查找过程不需要检查太多的散列映射。</p>
+</li>
+<li><p>值得考虑的问题：</p>
+<ul>
+<li><p>文件格式</p>
+<p>CSV 不是日志的最佳格式。使用二进制格式更快，更简单：首先以字节为单位对字符串的长度进行编码，然后是原始的字符串（不需要转义）。</p>
+</li>
+<li><p>删除记录</p>
+<p>如果要删除一个键及其关联的值，则必须在数据文件中追加一个特殊的删除记录（逻辑删除，有时被称为墓碑，即 tombstone）。当日志段被合并时，合并过程会通过这个墓碑知道要将被删除键的所有历史值都丢弃掉。</p>
+</li>
+<li><p>崩溃恢复</p>
+<p>如果数据库重新启动，则内存散列映射将丢失。原则上，你可以通过从头到尾读取整个段文件并记录下来每个键的最近值来恢复每个段的散列映射。但是，如果段文件很大，可能需要很长时间，这会使服务的重启比较痛苦。 Bitcask 通过将每个段的散列映射的快照存储在硬盘上来加速恢复，可以使散列映射更快地加载到内存中。</p>
+</li>
+<li><p>部分写入记录</p>
+<p>数据库随时可能崩溃，包括在将记录追加到日志的过程中。 Bitcask 文件包含校验和，允许检测和忽略日志中的这些损坏部分。</p>
+</li>
+<li><p>并发控制</p>
+<p>由于写操作是以严格的顺序追加到日志中的，所以常见的实现是只有一个写入线程。也因为数据文件段是仅追加的或者说是不可变的，所以它们可以被多个线程同时读取。</p>
+</li>
+</ul>
+</li>
+<li><p>append-only的优势：</p>
+<ul>
+<li>追加和分段合并都是顺序写入操作，通常比随机写入快得多，尤其是在磁性机械硬盘上。在某种程度上，顺序写入在基于闪存的 <strong>固态硬盘（SSD）</strong> 上也是好的选择。</li>
+<li>如果段文件是仅追加的或不可变的，并发和崩溃恢复就简单多了。例如，当一个数据值被更新的时候发生崩溃，你不用担心文件里将会同时包含旧值和新值各自的一部分。</li>
+<li>合并旧段的处理也可以避免数据文件随着时间的推移而碎片化的问题。</li>
+</ul>
+</li>
+<li><p>散列表索引也有其局限性：</p>
+<ul>
+<li>散列表必须能放进内存。如果你有非常多的键，那真是倒霉。原则上可以在硬盘上维护一个散列映射，不幸的是硬盘散列映射很难表现优秀。它需要大量的随机访问 I&#x2F;O，当它用满时想要再增长是很昂贵的，并且散列冲突的处理也需要很烦琐的逻辑。</li>
+<li>范围查询效率不高。例如，你无法轻松扫描 kitty00000 和 kitty99999 之间的所有键 —— 你必须在散列映射中单独查找每个键。</li>
+</ul>
+</li>
+</ol>
+<h4 id="SSTable和LSM树"><a href="#SSTable和LSM树" class="headerlink" title="SSTable和LSM树"></a>SSTable和LSM树</h4><ol>
+<li><p><strong>排序字符串表（Sorted String Table）</strong>，简称 SSTable</p>
+<ul>
+<li>对段文件的格式做一个简单的改变：要求键值对的序列按键排序</li>
+<li>还要求每个键只在每个合并的段文件中出现一次（压缩过程已经保证）</li>
+</ul>
+</li>
+<li><p>现在我们可以让我们的存储引擎以如下方式工作：</p>
+<ul>
+<li>有新写入时，将其添加到内存中的平衡树数据结构（例如红黑树）。这个内存树有时被称为 <strong>内存表（memtable）</strong>。</li>
+<li>当 <strong>内存表</strong> 大于某个阈值（通常为几兆字节）时，将其作为 SSTable 文件写入硬盘。这可以高效地完成，因为树已经维护了按键排序的键值对。新的 SSTable 文件将成为数据库中最新的段。当该 SSTable 被写入硬盘时，新的写入可以在一个新的内存表实例上继续进行。</li>
+<li>收到读取请求时，首先尝试在内存表中找到对应的键，如果没有就在最近的硬盘段中寻找，如果还没有就在下一个较旧的段中继续寻找，以此类推。</li>
+<li>时不时地，在后台运行一个合并和压缩过程，以合并段文件并将已覆盖或已删除的值丢弃掉。</li>
+</ul>
+</li>
+<li><p>用SSTables制作LSM树（日志结构合并树）</p>
+<p>LSM 树的基本思想 —— 保存一系列在后台合并的 SSTables —— 简单而有效。即使数据集比可用内存大得多，它仍能继续正常工作。由于数据按排序顺序存储，你可以高效地执行范围查询（扫描所有从某个最小值到某个最大值之间的所有键），并且因为硬盘写入是连续的，所以 LSM 树可以支持非常高的写入吞吐量。</p>
+</li>
+</ol>
+<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><ol>
+<li><p>像 SSTables 一样，B 树保持按键排序的键值对，这允许高效的键值查找和范围查询。但这也就是所有的相似之处了：B 树有着非常不同的设计理念。</p>
+</li>
+<li><p>日志结构索引将数据库分解为可变大小的段，通常是几兆字节或更大的大小，并且总是按顺序写入段。相比之下，B 树将数据库分解成固定大小的块（block）或页面（page），传统上大小为 4KB（有时会更大），并且一次只能读取或写入一个页面。这种设计更接近于底层硬件，因为硬盘空间也是按固定大小的块来组织的。</p>
+</li>
+<li><p>每个页面都可以使用地址或位置来标识，这允许一个页面引用另一个页面 —— 类似于指针，但在硬盘而不是在内存中。我们可以使用这些页面引用来构建一个<strong>页面树</strong></p>
+<p>一个页面会被指定为 B 树的根；在索引中查找一个键时，就从这里开始。该页面包含几个键和对子页面的引用。每个子页面负责一段连续范围的键，引用之间的键，指明了引用子页面的键范围。</p>
+</li>
+<li><p>在 B 树的一个页面中对子页面的引用的数量称为分支因子。在实践中，分支因子取决于存储页面引用和范围边界所需的空间量，但通常是几百个。</p>
+</li>
+<li><p>如果要更新 B 树中现有键的值，需要搜索包含该键的叶子页面，更改该页面中的值，并将该页面写回到硬盘（对该页面的任何引用都将保持有效）。如果你想添加一个新的键，你需要找到其范围能包含新键的页面，并将其添加到该页面。如果页面中没有足够的可用空间容纳新键，则将其分成两个半满页面，并更新父页面以反映新的键范围分区</p>
+</li>
+<li><p>这个算法可以确保树保持平衡：具有 n 个键的 B 树总是具有 O (log n)的深度。大多数数据库可以放入一个三到四层的 B 树，所以你不需要追踪多个页面引用来找到你正在查找的页面（分支因子为 500 的 4KB 页面的四层树可以存储多达 256TB 的数据）。</p>
+</li>
+<li><p>让B树更可靠:</p>
+<ul>
+<li>B 树的基本底层写操作是用新数据覆写硬盘上的页面，并假定覆写不改变页面的位置：即，当页面被覆写时，对该页面的所有引用保持完整。这与日志结构索引（如 LSM 树）形成鲜明对比，后者只追加到文件（并最终删除过时的文件），但从不修改文件中已有的内容。</li>
+<li>你可以把覆写硬盘上的页面对应为实际的硬件操作。在磁性硬盘驱动器上，这意味着将磁头移动到正确的位置，等待旋转盘上的正确位置出现，然后用新的数据覆写适当的扇区。在固态硬盘上，由于 SSD 必须一次擦除和重写相当大的存储芯片块，所以会发生更复杂的事情</li>
+<li>注意，一些操作需要覆写几个不同的页面。例如，如果因为插入导致页面过满而拆分页面，则需要写入新拆分的两个页面，并覆写其父页面以更新对两个子页面的引用。这是一个危险的操作，因为如果数据库在仅有部分页面被写入时崩溃，那么最终将导致一个损坏的索引（例如，可能有一个孤儿页面不是任何父项的子项） 。</li>
+<li>为了使数据库能处理异常崩溃的场景，B 树实现通常会带有一个额外的硬盘数据结构：<strong>预写式日志</strong>（WAL，即 write-ahead log，也称为 <strong>重做日志</strong>，即 redo log）。这是一个仅追加的文件，每个 B 树的修改在其能被应用到树本身的页面之前都必须先写入到该文件。当数据库在崩溃后恢复时，这个日志将被用来使 B 树恢复到一致的状态</li>
+<li>另外还有一个更新页面的复杂情况是，如果多个线程要同时访问 B 树，则需要仔细的并发控制 —— 否则线程可能会看到树处于不一致的状态。这通常是通过使用 <strong>锁存器</strong>（latches，轻量级锁）保护树的数据结构来完成。日志结构化的方法在这方面更简单，因为它们在后台进行所有的合并，而不会干扰新接收到的查询，并且能够时不时地将旧的段原子交换为新的段。</li>
+</ul>
+</li>
+<li><p>B树的优化：</p>
+<ul>
+<li><p>一些数据库（如 LMDB）使用写时复制方案，而不是覆盖页面并维护 WAL 以支持崩溃恢复。修改的页面被写入到不同的位置，并且还在树中创建了父页面的新版本，以指向新的位置。这种方法对于并发控制也很有用</p>
+</li>
+<li><p>B+树</p>
+<p>我们可以通过不存储整个键，而是缩短其大小，来节省页面空间。特别是在树内部的页面上，键只需要提供足够的信息来充当键范围之间的边界。在页面中包含更多的键允许树具有更高的分支因子，因此也就允许更少的层级 </p>
+</li>
+<li><p>额外的指针已被添加到树中。例如，每个叶子页面可以引用其左边和右边的兄弟页面，使得不用跳回父页面就能按顺序对键进行扫描。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>比较LSM树和B树</strong></p>
+<ol>
+<li><p>根据经验，通常 LSM 树的写入速度更快，而 B 树的读取速度更快。 LSM 树上的读取通常比较慢，因为它们必须检查几种不同的数据结构和不同压缩（Compaction）层级的 SSTables。</p>
+</li>
+<li><p>LSM树的优点：</p>
+<ul>
+<li><p>B 树索引中的每块数据都必须至少写入两次：一次写入预先写入日志（WAL），一次写入树页面本身（如果有分页还需要再写入一次）。即使在该页面中只有几个字节发生了变化，也需要接受写入整个页面的开销。有些存储引擎甚至会覆写同一个页面两次，以免在电源故障的情况下导致页面部分更新</p>
+</li>
+<li><p>由于反复压缩和合并 SSTables，日志结构索引也会多次重写数据。这种影响 —— 在数据库的生命周期中每次写入数据库导致对硬盘的多次写入 —— 被称为 <strong>写放大（write amplification）</strong>。需要特别注意的是固态硬盘，固态硬盘的闪存寿命在覆写有限次数后就会耗尽。</p>
+</li>
+<li><p>LSM 树通常能够比 B 树支持更高的写入吞吐量，部分原因是它们有时具有较低的写放大（尽管这取决于存储引擎的配置和工作负载），部分是因为它们顺序地写入紧凑的 SSTable 文件而不是必须覆写树中的几个页面。这种差异在磁性硬盘驱动器上尤其重要，其顺序写入比随机写入要快得多。</p>
+</li>
+<li><p>LSM 树可以被压缩得更好，因此通常能比 B 树在硬盘上产生更小的文件。B 树存储引擎会由于碎片化（fragmentation）而留下一些未使用的硬盘空间：当页面被拆分或某行不能放入现有页面时，页面中的某些空间仍未被使用。由于 LSM 树不是面向页面的，并且会通过定期重写 SSTables 以去除碎片，所以它们具有较低的存储开销，特别是当使用分层压缩（leveled compaction）时。</p>
+</li>
+<li><p>在许多固态硬盘上，固件内部使用了日志结构化算法，以将随机写入转变为顺序写入底层存储芯片，因此存储引擎写入模式的影响不太明显。但是，<strong>较低的写入放大率</strong>和<strong>减少的碎片</strong>仍然对固态硬盘更有利：更紧凑地表示数据允许在可用的 I&#x2F;O 带宽内处理更多的读取和写入请求。</p>
+</li>
+</ul>
+</li>
+<li><p>LSM树的缺点:</p>
+<ul>
+<li><p>日志结构存储的缺点是压缩过程有时会干扰正在进行的读写操作。尽管存储引擎尝试增量地执行压缩以尽量不影响并发访问，但是硬盘资源有限，所以很容易发生某个请求需要等待硬盘先完成昂贵的压缩操作。对吞吐量和平均响应时间的影响通常很小，但是日志结构化存储引擎在更高百分位的响应时间有时会相当长，而 B 树的行为则相对更具有可预测性。</p>
+</li>
+<li><p>压缩的另一个问题出现在高写入吞吐量时：硬盘的有限写入带宽需要在初始写入（记录日志和刷新内存表到硬盘）和在后台运行的压缩线程之间共享。写入空数据库时，可以使用全硬盘带宽进行初始写入，但数据库越大，压缩所需的硬盘带宽就越多。</p>
+</li>
+<li><p>如果写入吞吐量很高，并且压缩没有仔细配置好，有可能导致压缩跟不上写入速率。在这种情况下，硬盘上未合并段的数量不断增加，直到硬盘空间用完，读取速度也会减慢，因为它们需要检查更多的段文件。通常情况下，即使压缩无法跟上，基于 SSTable 的存储引擎也不会限制传入写入的速率，所以你需要进行明确的监控来检测这种情况。</p>
+</li>
+<li><p>B 树的一个优点是每个键只存在于索引中的一个位置，而日志结构化的存储引擎可能在不同的段中有相同键的多个副本。这个方面使得 B 树在想要提供强大的事务语义的数据库中很有吸引力：在许多关系数据库中，事务隔离是通过在键范围上使用锁来实现的，在 B 树索引中，这些锁可以直接附加到树上。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="事务处理还是分析"><a href="#事务处理还是分析" class="headerlink" title="事务处理还是分析"></a>事务处理还是分析</h3><p><strong>在线事务处理（OLTP, OnLine Transaction Processing）</strong></p>
+<ul>
+<li><p>博客文章的评论，游戏中的动作，地址簿中的联系人，处理商业交易</p>
+</li>
+<li><p>应用程序通常使用索引通过某个键查找少量记录。根据用户的输入插入或更新记录。</p>
+</li>
+</ul>
+<p> <strong>在线分析处理（OLAP, OnLine Analytice Processing）</strong></p>
+<ul>
+<li><p>哪个牌子的婴儿食品最常与 X 品牌的尿布同时购买？一月份每个商店的总收入是多少？</p>
+</li>
+<li><p>通常，分析查询需要扫描大量记录，每个记录只读取几列，并计算汇总统计信息（如计数、总和或平均值），而不是将原始数据返回给用户。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">事务处理系统 OLTP</th>
+<th align="center">分析系统 OLAP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">主要读取模式</td>
+<td align="center">查询少量记录，按键读取</td>
+<td align="center">在大批量记录上聚合</td>
+</tr>
+<tr>
+<td align="center">主要写入模式</td>
+<td align="center">随机访问，写入要求低延时</td>
+<td align="center">批量导入（ETL）或者事件流</td>
+</tr>
+<tr>
+<td align="center">主要用户</td>
+<td align="center">终端用户，通过 Web 应用</td>
+<td align="center">内部数据分析师，用于决策支持</td>
+</tr>
+<tr>
+<td align="center">处理的数据</td>
+<td align="center">数据的最新状态（当前时间点）</td>
+<td align="center">随时间推移的历史事件</td>
+</tr>
+<tr>
+<td align="center">数据集尺寸</td>
+<td align="center">GB ~ TB</td>
+<td align="center">TB ~ PB</td>
+</tr>
+</tbody></table>
+<h4 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h4><ol>
+<li><p>在二十世纪八十年代末和九十年代初期，企业有停止使用 OLTP 系统进行分析的趋势，转而在单独的数据库上运行分析。这个单独的数据库被称为 <strong>数据仓库（data warehouse）</strong>。</p>
+</li>
+<li><p>将数据存入仓库的过程称为 “<strong>抽取 - 转换 - 加载（ETL）</strong>”</p>
+<p>extract, transform, load</p>
+</li>
+<li><p>事实表</p>
+</li>
+<li><p>维度表</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/11/%E5%B2%9B%E5%B1%BF%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1565,7 +2115,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-11 10:54:09" itemprop="dateModified" datetime="2023-03-11T10:54:09+08:00">2023-03-11</time>
+                <time title="修改时间：2023-04-05 13:24:55" itemprop="dateModified" datetime="2023-04-05T13:24:55+08:00">2023-04-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1583,14 +2133,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.7k</span>
+              <span>7.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -1665,6 +2215,11 @@
 <li>find the subarray of ones length with maximum number of 1</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minSwaps</span><span class="params">(<span class="type">int</span>[] data)</span> &#123;</span><br><span class="line">    <span class="type">int</span> ones=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : data) &#123;</span><br><span class="line">        <span class="keyword">if</span>(num==<span class="number">1</span>)&#123;</span><br><span class="line">            ones++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ones&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> n=data.length;</span><br><span class="line">    <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(right&lt;n)&#123;</span><br><span class="line">        <span class="comment">//[left,right)</span></span><br><span class="line">        <span class="keyword">if</span>(data[right++]==<span class="number">1</span>)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(right-left&gt;ones)&#123;</span><br><span class="line">            <span class="keyword">if</span>(data[left++]==<span class="number">1</span>)&#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(right-left==ones)&#123;</span><br><span class="line">            max=Math.max(max,count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ones-max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="992-Subarrays-with-K-Different-Integers"><a href="#992-Subarrays-with-K-Different-Integers" class="headerlink" title="992. Subarrays with K Different Integers"></a>992. Subarrays with K Different Integers</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/subarrays-with-k-different-integers/discuss/523136/JavaC%2B%2BPython-Sliding-Window">https://leetcode.com/problems/subarrays-with-k-different-integers/discuss/523136/JavaC%2B%2BPython-Sliding-Window</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subarraysWithKDistinct</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> atMostK(nums,k)-atMostK(nums,k-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">atMostK</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span>&#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>; r &lt; n; r++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(map.getOrDefault(nums[r],<span class="number">0</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">            k--;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(nums[r],map.getOrDefault(nums[r],<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">while</span>(k&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            map.put(nums[l],map.get(nums[l])-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(map.get(nums[l])==<span class="number">0</span>)&#123;</span><br><span class="line">                k++;</span><br><span class="line">            &#125;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//[l,r] [l+1,r], .. [r,r]</span></span><br><span class="line">        res+=r-l+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -2033,258 +2588,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/24/filecenter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/24/filecenter/" class="post-title-link" itemprop="url">filecenter</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-25 09:19:51" itemprop="dateCreated datePublished" datetime="2022-04-25T09:19:51+08:00">2022-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 15:26:20" itemprop="dateModified" datetime="2022-11-29T15:26:20+08:00">2022-11-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>21k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>19 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-杂记"><a href="#1-杂记" class="headerlink" title="1. 杂记"></a>1. 杂记</h1><p>SSP: self-service platform<br>IDR: 标识解析展现 ID Read<br>API: </p>
-<p>FileCenter</p>
-<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
-<p>handle是通信协议</p>
-<p>公共：上传-&gt;重新命名uuid 路径固定<br>加密：无法通过url直接访问，没有密码只是乱码<br>自定义：admin可以改路径 年月日uuid.jpg<br>临时：每天12点清空</p>
-<p>有时，上传时，先去临时，再去公告&#x2F;加密<br>选择文件后，已经去服务器了</p>
-<p>&#x2F;&#x2F;<br>uploadFile<br>&#x2F;&#x2F;按钮：选择加密或不加密 传到不同的区域 默认<br>全部传到公共区域,不考虑上传到自定义页面</p>
-<p>1.控制上传文件的类型 图片&#x2F;视频&#x2F;文档<br>2.调filecenter时 需要先申请令牌？</p>
-<p>文件中心是一个服务 下属多个服务器</p>
-<p>&#x2F;&#x2F;<br>iic-table 实现了watch searchParams</p>
-<h1 id="2-filecenter"><a href="#2-filecenter" class="headerlink" title="2. filecenter"></a>2. filecenter</h1><h2 id="2-1-iic-file-api"><a href="#2-1-iic-file-api" class="headerlink" title="2.1 iic-file-api"></a>2.1 iic-file-api</h2><p>api中的功能，调用web来实现</p>
-<h3 id="2-1-1-proxy"><a href="#2-1-1-proxy" class="headerlink" title="2.1.1 proxy"></a>2.1.1 proxy</h3><h4 id="2-1-1-1-LllFileV2"><a href="#2-1-1-1-LllFileV2" class="headerlink" title="2.1.1.1 LllFileV2"></a>2.1.1.1 LllFileV2</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LllFileV2</span> &#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">TYPE_COMMON</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">TYPE_SECRET</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">TYPE_TEMP</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> String fileId;</span><br><span class="line">   <span class="keyword">private</span> String userId;</span><br><span class="line">   <span class="keyword">private</span> Integer type;        <span class="comment">//COMMON,SECRET,TEMP</span></span><br><span class="line">   <span class="keyword">private</span> Date createTime;</span><br><span class="line">   <span class="keyword">private</span> String fileName;      <span class="comment">//文件名(包含后缀)</span></span><br><span class="line">   <span class="keyword">private</span> String savePath;      <span class="comment">//文件保存路径   (不包含文件名)</span></span><br><span class="line">   <span class="keyword">private</span> String fileSuffix;    <span class="comment">//文件后缀</span></span><br><span class="line">   <span class="keyword">private</span> String oldName;          <span class="comment">//文件原名</span></span><br><span class="line">   <span class="keyword">private</span> String url;             <span class="comment">//完整的URL访问地址(包含Https)</span></span><br><span class="line">   <span class="keyword">private</span> String secKey;       <span class="comment">//SM4密钥</span></span><br><span class="line">   <span class="keyword">private</span> String hash;         <span class="comment">//文件的Hash值</span></span><br><span class="line">   <span class="keyword">private</span> String appName;          <span class="comment">//系统账号名称,如：IIC</span></span><br><span class="line">   <span class="keyword">private</span> <span class="type">byte</span>[] cont;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">create</span><span class="params">(JsonObject data)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">      <span class="type">LllFileV2</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LllFileV2</span>();</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">_fileId</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;fileId&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_userId</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;userId&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_type</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;type&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_createTime</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;createTime&quot;</span>);</span><br><span class="line">      <span class="type">Date</span> <span class="variable">_time</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">if</span>(!ToolUtil.isNull(_createTime)) &#123;</span><br><span class="line">         _time = <span class="keyword">new</span> <span class="title class_">Date</span>(Long.valueOf(_createTime));</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="type">String</span> <span class="variable">_fileName</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;fileName&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_savePath</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;savePath&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_fileSuffix</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;fileSuffix&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_oldName</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;oldName&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_url</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;url&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_secKey</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;secKey&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_hash</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;hash&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_appName</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;appName&quot;</span>);</span><br><span class="line">      <span class="type">String</span> <span class="variable">_cont64</span> <span class="operator">=</span> JsonUtil.getString(data, <span class="string">&quot;cont&quot;</span>);</span><br><span class="line">      <span class="type">byte</span>[] _cont = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">if</span>(!ToolUtil.isNull(_cont64)) &#123;</span><br><span class="line">         _cont = Base64Util.decode(_cont64);</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      file.setFileId(_fileId);</span><br><span class="line">      file.setUserId(_userId);</span><br><span class="line">      file.setType(Integer.valueOf(_type));</span><br><span class="line">      file.setCreateTime(_time);</span><br><span class="line">      file.setFileName(_fileName);</span><br><span class="line">      file.setSavePath(_savePath);</span><br><span class="line">      file.setFileSuffix(_fileSuffix);</span><br><span class="line">      file.setOldName(_oldName);</span><br><span class="line">      file.setUrl(_url);</span><br><span class="line">      file.setSecKey(_secKey);</span><br><span class="line">      file.setHash(_hash);</span><br><span class="line">      file.setAppName(_appName);</span><br><span class="line">      file.setCont(_cont);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">fetchBase64Cont</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> Base64Util.encode(cont);</span><br><span class="line">      &#125;<span class="keyword">catch</span>(Exception ex) &#123;&#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">fetchContToStr</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(cont, Charset.forName(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getFileId</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fileId;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFileId</span><span class="params">(String fileId)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.fileId = fileId;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getUserId</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> userId;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUserId</span><span class="params">(String userId)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.userId = userId;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> Integer <span class="title function_">getType</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> type;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setType</span><span class="params">(Integer type)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.type = type;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> Date <span class="title function_">getCreateTime</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> createTime;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCreateTime</span><span class="params">(Date createTime)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.createTime = createTime;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getFileName</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fileName;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFileName</span><span class="params">(String fileName)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.fileName = fileName;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getSavePath</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> savePath;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSavePath</span><span class="params">(String savePath)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.savePath = savePath;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getFileSuffix</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fileSuffix;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFileSuffix</span><span class="params">(String fileSuffix)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.fileSuffix = fileSuffix;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getOldName</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> oldName;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOldName</span><span class="params">(String oldName)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.oldName = oldName;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getUrl</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> url;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUrl</span><span class="params">(String url)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.url = url;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getSecKey</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> secKey;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSecKey</span><span class="params">(String secKey)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.secKey = secKey;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getHash</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> hash;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setHash</span><span class="params">(String hash)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.hash = hash;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> String <span class="title function_">getAppName</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> appName;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAppName</span><span class="params">(String appName)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.appName = appName;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="type">byte</span>[] getCont() &#123;</span><br><span class="line">      <span class="keyword">return</span> cont;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCont</span><span class="params">(<span class="type">byte</span>[] cont)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.cont = cont;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h4 id="2-1-1-2-FileV2Proxy"><a href="#2-1-1-2-FileV2Proxy" class="headerlink" title="2.1.1.2 FileV2Proxy"></a>2.1.1.2 FileV2Proxy</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileV2Proxy</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@description</span>:申请文件中心token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 11:13 2022/4/13</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> java.lang.String</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getToken</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getInSideUrlRoot() + <span class="string">&quot;/api/v2/token?authId=&quot;</span> + authId;</span><br><span class="line">        <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendGet(url);</span><br><span class="line">        <span class="type">JsonResult</span> <span class="variable">json</span> <span class="operator">=</span> JSON.parseObject(res, JsonResult.class);</span><br><span class="line">        <span class="keyword">if</span> ( !json.getSuccess() ) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>( String.format(<span class="string">&quot;token申请失败:%s&quot;</span>, res) );</span><br><span class="line">        <span class="keyword">return</span> String.valueOf( json.getData() );</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 读取普通文件</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileId</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] readFile(String fileId) <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getOutSideUrlRoot() + <span class="string">&quot;/api/v2/ext/&quot;</span> + fileId;</span><br><span class="line">      </span><br><span class="line">      <span class="type">byte</span>[] file = visitUrl(url);</span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 读取加密文件 </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileId</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] readFile(String fileId, String key) <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>( getOutSideUrlRoot() )</span><br><span class="line">                .append(<span class="string">&quot;/api/v2/ext/&quot;</span>)</span><br><span class="line">                .append(fileId)</span><br><span class="line">                .append(<span class="string">&quot;?key=&quot;</span>)</span><br><span class="line">                .append(key).toString();</span><br><span class="line">      </span><br><span class="line">      <span class="type">byte</span>[] file = visitUrl(url);</span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 上传文件</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileInfo    上传文件信息对象</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> cont       文件内容</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">uploadFile</span><span class="params">(ULFileInfoVo fileInfo, <span class="type">byte</span>[] cont)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       <span class="keyword">if</span> (ToolUtil.isNull( fileInfo.getToken() ))&#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> getToken();</span><br><span class="line">            fileInfo.setToken(token);</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getOutSideUrlRoot() + <span class="string">&quot;/api/v2/ext/uploadFile&quot;</span>;</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">base64Cont</span> <span class="operator">=</span> Base64Util.encode(cont);</span><br><span class="line">      Map&lt;String,String&gt; params = fileInfo.toMap();</span><br><span class="line">      params.put(<span class="string">&quot;base64Cont&quot;</span>, base64Cont);</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendPost(url, params);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//解析结果</span></span><br><span class="line">      <span class="type">LllFileV2</span> <span class="variable">file</span> <span class="operator">=</span> parseLllFileV2(res);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 转存临时文件,自动设置authId</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileId         临时文件ID</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileInfo       新的文件信息</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">transferTempFile</span><span class="params">(String fileId, ULFileInfoVo fileInfo)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getInSideUrlRoot() + <span class="string">&quot;/api/v2/transfer-temp-file&quot;</span>;</span><br><span class="line">      <span class="comment">//设置authId</span></span><br><span class="line">        <span class="keyword">if</span> ( StringUtil.isNull( fileInfo.getToken() ) )&#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">            fileInfo.setToken(authId);</span><br><span class="line">        &#125;</span><br><span class="line">      Map&lt;String,String&gt; params = fileInfo.toMap();</span><br><span class="line">      params.put(<span class="string">&quot;fileId&quot;</span>, fileId);</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendPost(url, params);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//解析结果</span></span><br><span class="line">      <span class="type">LllFileV2</span> <span class="variable">file</span> <span class="operator">=</span> parseLllFileV2(res);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 读取用户图片列表</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> authId      授权id</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> params      查询参数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> isCont      是否包含文件内容(true:包含，false:不包含)</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> List&lt;LllFileV2&gt; <span class="title function_">listFile</span><span class="params">(String authId, FileSearchParam params, <span class="type">boolean</span> isCont)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getInSideUrlRoot() + <span class="string">&quot;/api/v2/list&quot;</span>;</span><br><span class="line">      </span><br><span class="line">      Map&lt;String,String&gt; _params = params.toMap();</span><br><span class="line">      _params.put(<span class="string">&quot;authId&quot;</span>, authId);</span><br><span class="line"></span><br><span class="line">      <span class="type">int</span> <span class="variable">readContent</span> <span class="operator">=</span> isCont ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">      _params.put(<span class="string">&quot;cont&quot;</span>, String.valueOf(readContent));</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendPost(url, _params);</span><br><span class="line">      <span class="comment">//解析结果</span></span><br><span class="line">      List&lt;LllFileV2&gt; datas = parseLllFileV2List(res);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> datas;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> List&lt;LllFileV2&gt; <span class="title function_">listFile</span><span class="params">(String authId, FileSearchParam params)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="keyword">return</span> listFile(authId, params, <span class="literal">false</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;LllFileV2&gt; <span class="title function_">listFile</span><span class="params">(FileSearchParam params, <span class="type">boolean</span> isCont)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> listFile(authId, params, isCont);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 查询文件总数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> authId         授权id</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> params      查询参数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">countFile</span><span class="params">(String authId, FileSearchParam params)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getInSideUrlRoot() + <span class="string">&quot;/api/v2/count&quot;</span>;</span><br><span class="line">      </span><br><span class="line">      Map&lt;String,String&gt; _params = params.toMap();</span><br><span class="line">      _params.put(<span class="string">&quot;authId&quot;</span>, authId);</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendPost(url, _params);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//解析结果</span></span><br><span class="line">      <span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> parseLllFileV2Int(res);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> total;</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">countFile</span><span class="params">(FileSearchParam params)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> countFile(authId, params);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 读取文件信息</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> authId      授权id</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileId      文件ID</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> cont       是否包含文件内容(true:包含，false:不包含)</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">getFile</span><span class="params">(String authId, String fileId, <span class="type">boolean</span> cont)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getInSideUrlRoot() + <span class="string">&quot;/api/v2/getFileInfo&quot;</span>;</span><br><span class="line">      </span><br><span class="line">      Map&lt;String, String&gt; params = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">      params.put(<span class="string">&quot;authId&quot;</span>, authId);</span><br><span class="line">      params.put(<span class="string">&quot;fileId&quot;</span>, fileId);</span><br><span class="line"></span><br><span class="line">      <span class="type">int</span> <span class="variable">readContent</span> <span class="operator">=</span> cont ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">      params.put(<span class="string">&quot;cont&quot;</span>, String.valueOf(readContent));</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendPost(url, params);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//解析结果</span></span><br><span class="line">      <span class="type">LllFileV2</span> <span class="variable">file</span> <span class="operator">=</span> parseLllFileV2(res);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">getFile</span><span class="params">(String authId, String fileId)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="keyword">return</span> getFile(authId, fileId, <span class="literal">false</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">getFile</span><span class="params">(String fileId, <span class="type">boolean</span> cont)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> getFile(authId, fileId, cont);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 删除文件</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> authId 授权id</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fileIds</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeFile</span><span class="params">(String authId, List&lt;String&gt; fileIds)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> getInSideUrlRoot() + <span class="string">&quot;/api/v2/removeFile&quot;</span>;</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">_fileIds</span> <span class="operator">=</span> packFileIds(fileIds);</span><br><span class="line">      </span><br><span class="line">      Map&lt;String, String&gt; params = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">      params.put(<span class="string">&quot;authId&quot;</span>, authId);</span><br><span class="line">      params.put(<span class="string">&quot;fileIds&quot;</span>, _fileIds);</span><br><span class="line">   </span><br><span class="line">      <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> HttpUtil2.sendPost(url, params);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//解析结果</span></span><br><span class="line">      parseResult(res);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeFile</span><span class="params">(List&lt;String&gt; fileIds)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">        removeFile(authId, fileIds);</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeFile</span><span class="params">(String authId, String fileId)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      List&lt;String&gt; ls = Arrays.asList(fileId);</span><br><span class="line">      removeFile(authId, ls);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeFile</span><span class="params">(String fileId)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">authId</span> <span class="operator">=</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.authId&quot;</span>);</span><br><span class="line">        removeFile(authId, fileId);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">packFileIds</span><span class="params">(List&lt;String&gt; fileIds)</span> &#123;</span><br><span class="line">       <span class="type">StringJoiner</span> <span class="variable">joiner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringJoiner</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">       fileIds.forEach(s -&gt; joiner.add(s));</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> joiner.toString();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">getOutSideUrlRoot</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.rootUrl.outside&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">getInSideUrlRoot</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SpringUtil.getEvnProperty(<span class="string">&quot;file.rootUrl.inside&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">byte</span>[] visitUrl(String url) <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="keyword">return</span> HttpUtil2.sendGet(url, <span class="literal">null</span>, <span class="literal">null</span>, content -&gt; content.asBytes());</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> LllFileV2 <span class="title function_">parseLllFileV2</span><span class="params">(String res)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">JsonObject</span> <span class="variable">data</span> <span class="operator">=</span> parseJsonObject(res);</span><br><span class="line">      </span><br><span class="line">      <span class="type">LllFileV2</span> <span class="variable">file</span> <span class="operator">=</span> LllFileV2.create(data);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> file;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> List&lt;LllFileV2&gt; <span class="title function_">parseLllFileV2List</span><span class="params">(String res)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">JsonArray</span> <span class="variable">datas</span> <span class="operator">=</span> parseJsonArray(res);</span><br><span class="line">      </span><br><span class="line">      List&lt;LllFileV2&gt; ls = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;LllFileV2&gt;();</span><br><span class="line">      <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;datas.size();i++) &#123;</span><br><span class="line">         <span class="type">JsonObject</span> <span class="variable">json</span> <span class="operator">=</span> datas.get(i).getAsJsonObject();</span><br><span class="line">         <span class="type">LllFileV2</span> <span class="variable">file</span> <span class="operator">=</span> LllFileV2.create(json);</span><br><span class="line">         ls.add(file);</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> ls;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">parseLllFileV2Int</span><span class="params">(String res)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">data</span> <span class="operator">=</span> parseResult(res);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> Integer.valueOf(data);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">parseResultSucc</span><span class="params">(JsonObject json)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> JsonUtil.getBoolean(json, <span class="string">&quot;success&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span>(!success) &#123;</span><br><span class="line">         <span class="type">JsonObject</span> <span class="variable">exJson</span> <span class="operator">=</span> JsonUtil.getJsonObject(json, <span class="string">&quot;ex&quot;</span>);</span><br><span class="line">         <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> JsonUtil.getString(exJson, <span class="string">&quot;code&quot;</span>);</span><br><span class="line">         <span class="type">String</span> <span class="variable">reason</span> <span class="operator">=</span> JsonUtil.getString(exJson, <span class="string">&quot;reason&quot;</span>);</span><br><span class="line">         <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;[&quot;</span>+code+<span class="string">&quot;]&quot;</span>+reason;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(msg);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">parseResult</span><span class="params">(String res)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">JsonObject</span> <span class="variable">json</span> <span class="operator">=</span> JsonUtil.parseJsonObject(res);</span><br><span class="line">      </span><br><span class="line">      parseResultSucc(json);</span><br><span class="line">      </span><br><span class="line">      <span class="type">String</span> <span class="variable">data</span> <span class="operator">=</span> JsonUtil.getString(json, <span class="string">&quot;data&quot;</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> data;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> JsonObject <span class="title function_">parseJsonObject</span><span class="params">(String res)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">JsonObject</span> <span class="variable">json</span> <span class="operator">=</span> JsonUtil.parseJsonObject(res);</span><br><span class="line">      </span><br><span class="line">      parseResultSucc(json);</span><br><span class="line">      </span><br><span class="line">      <span class="type">JsonObject</span> <span class="variable">data</span> <span class="operator">=</span> JsonUtil.getJsonObject(json, <span class="string">&quot;data&quot;</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> data;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> JsonArray <span class="title function_">parseJsonArray</span><span class="params">(String res)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">      <span class="type">JsonObject</span> <span class="variable">json</span> <span class="operator">=</span> JsonUtil.parseJsonObject(res);</span><br><span class="line">      </span><br><span class="line">      parseResultSucc(json);</span><br><span class="line">      </span><br><span class="line">      <span class="type">JsonArray</span> <span class="variable">data</span> <span class="operator">=</span> JsonUtil.getJsonArray(json, <span class="string">&quot;data&quot;</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">return</span> data;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-2-iic-file-dao"><a href="#2-2-iic-file-dao" class="headerlink" title="2.2 iic-file-dao"></a>2.2 iic-file-dao</h2><p>mapper, model, service+mybatis-xxx.xml 经典四件套</p>
-<p>操作GdssFileTeFile.xml和GdssFileTeWhitelist.xml两张表</p>
-<h3 id="2-2-1-GdssFileTeFile-xml"><a href="#2-2-1-GdssFileTeFile-xml" class="headerlink" title="2.2.1 GdssFileTeFile.xml"></a>2.2.1 GdssFileTeFile.xml</h3><p>其中SAVE_PATH字段即为文件的保存路径，可以通过<a target="_blank" rel="noopener" href="https://test-static.gdsinsing.com/TEMP/83d48b7de7014fb48f427b7d1ee2214b.png%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%E5%88%B0%E6%96%87%E4%BB%B6%EF%BC%8C%E5%8D%B3%E5%9F%9F%E5%90%8D+SAVE_PATH">https://test-static.gdsinsing.com/TEMP/83d48b7de7014fb48f427b7d1ee2214b.png直接访问到文件，即域名+SAVE_PATH</a></p>
-<p><a target="_blank" rel="noopener" href="https://test-static.gdsinsing.com/">https://test-static.gdsinsing.com</a>即为文件中心的公网地址</p>
-<h3 id="2-2-2-GdssFileTeWhitelist-xml"><a href="#2-2-2-GdssFileTeWhitelist-xml" class="headerlink" title="2.2.2 GdssFileTeWhitelist.xml"></a>2.2.2 GdssFileTeWhitelist.xml</h3><p>“ID”    “APP_NAME”    “PUBLIC_KEY”    “PRIVATE_KEY”</p>
-<p>授予某应用调用http内部接口的权限</p>
-<h2 id="2-3-iic-file-web"><a href="#2-3-iic-file-web" class="headerlink" title="2.3 iic-file-web"></a>2.3 iic-file-web</h2><h3 id="2-3-1-cache"><a href="#2-3-1-cache" class="headerlink" title="2.3.1 cache"></a>2.3.1 cache</h3><h3 id="2-3-2-controller"><a href="#2-3-2-controller" class="headerlink" title="2.3.2 controller"></a>2.3.2 controller</h3><h3 id="2-3-3-service"><a href="#2-3-3-service" class="headerlink" title="2.3.3 service"></a>2.3.3 service</h3><h4 id="2-3-3-1-component"><a href="#2-3-3-1-component" class="headerlink" title="2.3.3.1 component"></a>2.3.3.1 component</h4><h5 id="1-BaseUploadFileComponent"><a href="#1-BaseUploadFileComponent" class="headerlink" title="(1) BaseUploadFileComponent"></a>(1) BaseUploadFileComponent</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseUploadFileComponent</span> <span class="keyword">extends</span> <span class="title class_">BaseFileService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">protected</span> ICfgService iCfgService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">protected</span> IGdssFileTeFileService iGdssFileTeFileService;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">abstract</span> LllFileV2 <span class="title function_">upload</span><span class="params">(ULFileInfoVo fileInfo, String base64Cont)</span> <span class="keyword">throws</span> BusException;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">abstract</span> LllFileV2 <span class="title function_">upload</span><span class="params">(ULFileInfoVo fileInfo, <span class="type">byte</span>[] contents)</span> <span class="keyword">throws</span> BusException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-UploadFileNormalComponent"><a href="#2-UploadFileNormalComponent" class="headerlink" title="(2) UploadFileNormalComponent"></a>(2) UploadFileNormalComponent</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 上传普通文件组件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liangxinyi</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UploadFileNormalComponent</span> <span class="keyword">extends</span> <span class="title class_">BaseUploadFileComponent</span> &#123;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Log</span> <span class="variable">log</span> <span class="operator">=</span> LogFactory.getLog(UploadFileNormalComponent.class);</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> LllFileV2 <span class="title function_">upload</span><span class="params">(ULFileInfoVo fileInfo, String base64Cont)</span> <span class="keyword">throws</span> BusException &#123;</span><br><span class="line">      <span class="comment">//解码</span></span><br><span class="line">        <span class="type">byte</span>[] contents = Base64Util.decode(base64Cont);</span><br><span class="line">        <span class="keyword">return</span> upload(fileInfo, contents);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> LllFileV2 <span class="title function_">upload</span><span class="params">(ULFileInfoVo fileInfo, <span class="type">byte</span>[] contents)</span> <span class="keyword">throws</span> BusException &#123;</span><br><span class="line">       <span class="comment">//入库</span></span><br><span class="line">        <span class="type">GdssFileTeFile</span> <span class="variable">file</span> <span class="operator">=</span> saveToDb(fileInfo, contents);</span><br><span class="line">        <span class="comment">//写入硬盘</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">savePath</span> <span class="operator">=</span> iCfgService.getCfgString(<span class="string">&quot;FILE_ROOT_PATH&quot;</span>) + file.getSavePath();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">dirPath</span> <span class="operator">=</span> findDirectory(savePath);</span><br><span class="line">            <span class="comment">//创建文件夹，如果文件夹不存在</span></span><br><span class="line">            Files.createDirectories( Paths.get(dirPath) );</span><br><span class="line">            <span class="comment">//写入文件</span></span><br><span class="line">            Files.write(Paths.get(savePath), contents, StandardOpenOption.CREATE);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> buildLllFile(file);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex)&#123;</span><br><span class="line">            log.error(<span class="string">&quot;&quot;</span>, ex);</span><br><span class="line">            <span class="keyword">if</span> (ex <span class="keyword">instanceof</span> BusException) <span class="keyword">throw</span> (BusException) ex;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusException</span>(<span class="string">&quot;01200002&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> GdssFileTeFile <span class="title function_">saveToDb</span><span class="params">(ULFileInfoVo fileInfoVo, <span class="type">byte</span>[] contents)</span> <span class="keyword">throws</span> BusException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> getAppName( fileInfoVo.getToken() );</span><br><span class="line">        <span class="type">GdssFileTeFile</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GdssFileTeFile</span>();</span><br><span class="line">        file.setPkidValue( UUID.getUUID() );</span><br><span class="line">        file.setAppName(appName);</span><br><span class="line">        file.setType(GdssFileTeFile.TYPE_COMMON);</span><br><span class="line">        <span class="type">String</span> <span class="variable">suffix</span> <span class="operator">=</span> FileUtil.getFileExt( fileInfoVo.getOldName() );</span><br><span class="line">        file.setFileSuffix(suffix);</span><br><span class="line">        file.setCreateTime( Calendar.getInstance().getTime() );</span><br><span class="line">        <span class="comment">//处理文件名</span></span><br><span class="line">        <span class="keyword">if</span> ( ToolUtil.isNull( fileInfoVo.getNewName() ) )&#123;</span><br><span class="line">            <span class="comment">//如果newName为空，则以ID作为文件名</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">newName</span> <span class="operator">=</span> file.getId();</span><br><span class="line">            <span class="keyword">if</span>( !ToolUtil.isNull( file.getFileSuffix() ) ) &#123;</span><br><span class="line">                newName = newName + file.getFileSuffix();</span><br><span class="line">            &#125;</span><br><span class="line">            file.setFileName(newName);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            file.setFileName( fileInfoVo.getNewName() );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">savePath</span> <span class="operator">=</span> packSavePath(fileInfoVo, file.getFileName());</span><br><span class="line">        file.setSavePath(savePath);</span><br><span class="line">        file.setOriginalName( fileInfoVo.getOldName() );</span><br><span class="line">        file.setUserId( fileInfoVo.getUserId() );</span><br><span class="line">        file.setEncrypt(LllBaseModel.NO);</span><br><span class="line">        <span class="comment">//预览url</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">domain</span> <span class="operator">=</span> iCfgService.getCfgString(<span class="string">&quot;FILE_ROOT_URL&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> domain + <span class="string">&quot;/&quot;</span> + savePath;</span><br><span class="line">        file.setUrl(url);</span><br><span class="line">        file.setHash( Base64Util.Byte2SHA256(contents) );</span><br><span class="line">        <span class="comment">//入库</span></span><br><span class="line">        iGdssFileTeFileService.addEntity(file);</span><br><span class="line">        <span class="keyword">return</span> file;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-UploadFileEncryptComponent"><a href="#3-UploadFileEncryptComponent" class="headerlink" title="(3) UploadFileEncryptComponent"></a>(3) UploadFileEncryptComponent</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 上传加密文件组件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liangxinyi</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UploadFileEncryptComponent</span> <span class="keyword">extends</span> <span class="title class_">BaseUploadFileComponent</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Log</span> <span class="variable">log</span> <span class="operator">=</span> LogFactory.getLog(UploadFileEncryptComponent.class);</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> LllFileV2 <span class="title function_">upload</span><span class="params">(ULFileInfoVo fileInfo, String base64Cont)</span> <span class="keyword">throws</span> BusException &#123;</span><br><span class="line">      <span class="comment">// TODO 解密</span></span><br><span class="line">        <span class="type">byte</span>[] contents = Base64Util.decode(base64Cont);</span><br><span class="line">        <span class="comment">//TODO 保存</span></span><br><span class="line">        <span class="keyword">return</span> upload(fileInfo, contents);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> LllFileV2 <span class="title function_">upload</span><span class="params">(ULFileInfoVo fileInfo, <span class="type">byte</span>[] contents)</span> <span class="keyword">throws</span> BusException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">GdssFileTeFile</span> <span class="variable">file</span> <span class="operator">=</span> saveToDb(fileInfo, contents);</span><br><span class="line">            <span class="comment">//加密</span></span><br><span class="line">            <span class="type">byte</span>[] encryptedBytes = SM4.encrypt(file.getEncryptKey(), contents);</span><br><span class="line"></span><br><span class="line">            <span class="type">String</span> <span class="variable">savePath</span> <span class="operator">=</span> iCfgService.getCfgString(<span class="string">&quot;FILE_ROOT_PATH&quot;</span>) + file.getSavePath();</span><br><span class="line">            <span class="type">String</span> <span class="variable">dirPath</span> <span class="operator">=</span> findDirectory(savePath);</span><br><span class="line">            <span class="comment">//创建文件夹，如果文件夹不存在</span></span><br><span class="line">            Files.createDirectories( Paths.get(dirPath) );</span><br><span class="line">            <span class="comment">//写入文件</span></span><br><span class="line">            Files.write(Paths.get(savePath), encryptedBytes, StandardOpenOption.CREATE);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> buildLllFile(file);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;&quot;</span>, e);</span><br><span class="line">            <span class="keyword">if</span> (e <span class="keyword">instanceof</span> BusException) <span class="keyword">throw</span> (BusException) e;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusException</span>(<span class="string">&quot;01200002&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> GdssFileTeFile <span class="title function_">saveToDb</span><span class="params">(ULFileInfoVo fileInfoVo, <span class="type">byte</span>[] contents)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> getAppName( fileInfoVo.getToken() );</span><br><span class="line">        <span class="type">GdssFileTeFile</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GdssFileTeFile</span>();</span><br><span class="line">        file.setPkidValue( UUID.getUUID() );</span><br><span class="line">        file.setAppName(appName);</span><br><span class="line">        file.setType(GdssFileTeFile.TYPE_SECRET);</span><br><span class="line">        <span class="type">String</span> <span class="variable">suffix</span> <span class="operator">=</span> FileUtil.getFileExt( fileInfoVo.getOldName() );</span><br><span class="line">        file.setFileSuffix(suffix);</span><br><span class="line">        file.setCreateTime( Calendar.getInstance().getTime() );</span><br><span class="line">        <span class="comment">//处理文件名</span></span><br><span class="line">        <span class="keyword">if</span> ( ToolUtil.isNull( fileInfoVo.getNewName() ) )&#123;</span><br><span class="line">            <span class="comment">//如果newName为空，则以ID作为文件名</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">newName</span> <span class="operator">=</span> file.getId();</span><br><span class="line">            <span class="keyword">if</span>( !ToolUtil.isNull( file.getFileSuffix() ) ) &#123;</span><br><span class="line">                newName = newName + file.getFileSuffix();</span><br><span class="line">            &#125;</span><br><span class="line">            file.setFileName(newName);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            file.setFileName( fileInfoVo.getNewName() );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">savePath</span> <span class="operator">=</span> packSavePath(fileInfoVo, file.getFileName());</span><br><span class="line">        file.setSavePath(savePath);</span><br><span class="line">        file.setOriginalName( fileInfoVo.getOldName() );</span><br><span class="line">        file.setUserId( fileInfoVo.getUserId() );</span><br><span class="line">        <span class="comment">//密钥</span></span><br><span class="line">        file.setEncrypt(LllBaseModel.YES);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> SM4.generateBase64KeyStr();</span><br><span class="line">        file.setEncryptKey(key);</span><br><span class="line">        <span class="comment">//预览url</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">domain</span> <span class="operator">=</span> iCfgService.getCfgString(<span class="string">&quot;FILE_ROOT_URL&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> domain + <span class="string">&quot;/&quot;</span> + savePath;</span><br><span class="line">        file.setUrl(url);</span><br><span class="line">        file.setHash( Base64Util.Byte2SHA256(contents) );</span><br><span class="line">        <span class="comment">//入库</span></span><br><span class="line">        iGdssFileTeFileService.addEntity(file);</span><br><span class="line">        <span class="keyword">return</span> file;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-UploadFileSpecifyPathComponent"><a href="#4-UploadFileSpecifyPathComponent" class="headerlink" title="(4) UploadFileSpecifyPathComponent"></a>(4) UploadFileSpecifyPathComponent</h5><h5 id="5-UploadFileTempComponent"><a href="#5-UploadFileTempComponent" class="headerlink" title="(5) UploadFileTempComponent"></a>(5) UploadFileTempComponent</h5><h3 id="2-3-4-resources"><a href="#2-3-4-resources" class="headerlink" title="2.3.4 resources"></a>2.3.4 resources</h3><h4 id="2-3-4-1-application-yml"><a href="#2-3-4-1-application-yml" class="headerlink" title="2.3.4.1 application.yml"></a>2.3.4.1 application.yml</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8097</span></span><br><span class="line">    <span class="attr">tomcat:</span></span><br><span class="line">      <span class="attr">basedir:</span> <span class="string">/Users/wit/Desktop/temp</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">http:</span></span><br><span class="line">    <span class="attr">multipart:</span></span><br><span class="line">      <span class="attr">maxFileSize:</span> <span class="string">20MB</span></span><br><span class="line">      <span class="attr">maxRequestSize:</span> <span class="string">20MB</span></span><br><span class="line">  <span class="attr">thymeleaf:</span></span><br><span class="line">    <span class="attr">prefix:</span> <span class="string">classpath:/templates/</span></span><br><span class="line">    <span class="attr">suffix:</span> <span class="string">.html</span></span><br><span class="line">  <span class="attr">jackson:</span></span><br><span class="line">    <span class="attr">date-format:</span> <span class="string">yyyy-MM-dd</span> <span class="string">HH:mm:ss</span></span><br><span class="line">    <span class="attr">time-zone:</span> <span class="string">GMT+8</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line">    <span class="attr">active:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">    <span class="comment"># config-location: classpath:mybatis-config.xml</span></span><br><span class="line">    <span class="attr">mapper-locations:</span> <span class="string">classpath*:**/mybatis-*.xml</span></span><br><span class="line">  <span class="comment">#type-aliases-package: cn.lll.tsp.model</span></span><br><span class="line">    <span class="attr">configuration:</span></span><br><span class="line">      <span class="attr">use-actual-param-name:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">cache-enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#标识业务统计</span></span><br><span class="line"><span class="attr">stat:</span></span><br><span class="line">  <span class="attr">redis-ip:</span> <span class="number">114.67</span><span class="number">.117</span><span class="number">.77</span></span><br><span class="line">  <span class="attr">redis-pwd:</span> <span class="string">y0aoQ67K62pHrPjp</span></span><br><span class="line">  <span class="attr">redis-key:</span> <span class="string">IIC_STAT_DEV</span></span><br><span class="line"><span class="comment">#  配置中心配置</span></span><br><span class="line"><span class="attr">cfg:</span></span><br><span class="line">  <span class="attr">FILE_ROOT_PATH:</span> <span class="string">/home/iic/STATIC_ROOT_PATH/</span></span><br><span class="line"><span class="comment">#  FILE_ROOT_URL: 启动命令传入</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="2-3-4-2-application-dao-prod-yml"><a href="#2-3-4-2-application-dao-prod-yml" class="headerlink" title="2.3.4.2 application-dao-prod.yml"></a>2.3.4.2 application-dao-prod.yml</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">prod</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://mysql-cn-south-1-740dbfbd9a254713.rds.jdcloud.com:3306/iic-filecenter-db?characterEncoding=utf8</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">gdxx_file</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">42RsHfmzOdr1eWaHlxo0OmTnTBGfnGSb</span></span><br><span class="line">        <span class="comment"># 使用druid数据源</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line">        <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">3600000</span></span><br><span class="line">        <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span><span class="string">;</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">300</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">5000</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">maxOpenPreparedStatements:</span> <span class="number">20</span></span><br><span class="line">        <span class="comment"># 数据库备份使用</span></span><br><span class="line">        <span class="attr">databaseName:</span> <span class="string">eb_yunxin</span></span><br><span class="line">        <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.4</span><span class="number">.159</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">4406</span></span><br><span class="line">        <span class="attr">mySqlPath:</span> <span class="string">/usr/local/mysql/</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">tomcat:</span></span><br><span class="line">    <span class="attr">basedir:</span> <span class="string">/home/tomcat/dir/file</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="3-HTTP接口"><a href="#3-HTTP接口" class="headerlink" title="3.HTTP接口"></a>3.HTTP接口</h1><h2 id="3-1-HTTP外部接口"><a href="#3-1-HTTP外部接口" class="headerlink" title="3.1 HTTP外部接口"></a>3.1 HTTP外部接口</h2><p>上传文件：<a target="_blank" rel="noopener" href="https://static.gdsinsing.com/api/v2/ext/upload">https://static.gdsinsing.com/api/v2/ext/upload</a></p>
-<p>查询文件信息：<a target="_blank" rel="noopener" href="https://static.gdsinsing.com/api/v2/ext/fileinfo/%7BfileId%7D">https://static.gdsinsing.com/api/v2/ext/fileinfo/{fileId}</a></p>
-<p>读取文件：<a target="_blank" rel="noopener" href="https://static.gdsinsing.com/api/v2/ext/%7BfileId%7D?key=%7Bkey%7D">https://static.gdsinsing.com/api/v2/ext/{fileId}?key={key}</a></p>
-<h2 id="3-2-HTTP内部接口"><a href="#3-2-HTTP内部接口" class="headerlink" title="3.2 HTTP内部接口"></a>3.2 HTTP内部接口</h2><p>申请临时权限令牌：https:&#x2F;&#x2F;{文件中心内网地址}&#x2F;api&#x2F;v2&#x2F;token?authId&#x3D;{authId}</p>
-<p>转存临时文件：https:&#x2F;&#x2F;{文件中心内网地址}&#x2F;api&#x2F;v2&#x2F;transfer-temp-file</p>
-<p>读取用户图片列表：https:&#x2F;&#x2F;{文件中心内网地址}&#x2F;api&#x2F;v2&#x2F;list</p>
-<p>查询文件总数：https:&#x2F;&#x2F;{文件中心内网地址}&#x2F;api&#x2F;v2&#x2F;count</p>
-<p>查询文件信息：https:&#x2F;&#x2F;{文件中心内网地址}&#x2F;api&#x2F;v2&#x2F;getFileInfo</p>
-<p>删除文件：https:&#x2F;&#x2F;{文件中心内网地址}&#x2F;api&#x2F;v2&#x2F;removeFile</p>
-<h2 id="3-3-附件"><a href="#3-3-附件" class="headerlink" title="3.3 附件"></a>3.3 附件</h2><p>LllFileV2</p>
-<p>概述</p>
-<blockquote>
-<p>文件中心文件对象。</p>
-</blockquote>
-<p>文件类型</p>
-<table>
-<thead>
-<tr>
-<th>属性名</th>
-<th>类型</th>
-<th>值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>LllFileV2.TYPE_COMMON</td>
-<td>int</td>
-<td>1</td>
-<td>公共区文件</td>
-</tr>
-<tr>
-<td>LllFileV2.TYPE_SECRET</td>
-<td>int</td>
-<td>2</td>
-<td>加密区文件</td>
-</tr>
-<tr>
-<td>LllFileV2.TYPE_TEMP</td>
-<td>int</td>
-<td>3</td>
-<td>临时区文件</td>
-</tr>
-</tbody></table>
-<p>属性说明</p>
-<table>
-<thead>
-<tr>
-<th>属性名</th>
-<th>类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>fileId</td>
-<td>String</td>
-<td align="left">文件ID</td>
-</tr>
-<tr>
-<td>userId</td>
-<td>String</td>
-<td align="left">用户ID</td>
-</tr>
-<tr>
-<td>type</td>
-<td>Integer</td>
-<td align="left">文件类型 (1:公共区 2:加密区 3:临时区)</td>
-</tr>
-<tr>
-<td>createTime</td>
-<td>Date</td>
-<td align="left">上传时间</td>
-</tr>
-<tr>
-<td>fileName</td>
-<td>String</td>
-<td align="left">文件名(包含后缀)</td>
-</tr>
-<tr>
-<td>savePath</td>
-<td>String</td>
-<td align="left">文件保存路径 (不包含文件名)</td>
-</tr>
-<tr>
-<td>fileSuffix</td>
-<td>String</td>
-<td align="left">文件后缀</td>
-</tr>
-<tr>
-<td>oldName</td>
-<td>String</td>
-<td align="left">文件原名</td>
-</tr>
-<tr>
-<td>url</td>
-<td>String</td>
-<td align="left">完整的URL访问地址(包含Https)</td>
-</tr>
-<tr>
-<td>secKey</td>
-<td>String</td>
-<td align="left">SM4密钥</td>
-</tr>
-<tr>
-<td>hash</td>
-<td>String</td>
-<td align="left">文件的Hash值</td>
-</tr>
-<tr>
-<td>appName</td>
-<td>String</td>
-<td align="left">系统账号名称,如：IIC</td>
-</tr>
-<tr>
-<td>cont</td>
-<td>byte[]</td>
-<td align="left">文件内容</td>
-</tr>
-</tbody></table>
-<h1 id="4-SSP"><a href="#4-SSP" class="headerlink" title="4.SSP"></a>4.SSP</h1><h2 id="4-1-admin-file-controller"><a href="#4-1-admin-file-controller" class="headerlink" title="4.1 admin.file.controller"></a>4.1 admin.file.controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(path = &quot;/mgrapi/admin/file&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdminFileController</span> <span class="keyword">extends</span> <span class="title class_">MgrBaseController</span></span><br></pre></td></tr></table></figure>
-
-<p>内有upload方法</p>
-<h2 id="4-2-pages-filecenter-file-upload-js"><a href="#4-2-pages-filecenter-file-upload-js" class="headerlink" title="4.2 pages.filecenter.file-upload.js"></a>4.2 pages.filecenter.file-upload.js</h2><p>Vue组件 调controller中的upload方法</p>
-<h2 id="4-3-pages-filecenter-file-upload-html"><a href="#4-3-pages-filecenter-file-upload-html" class="headerlink" title="4.3 pages.filecenter.file-upload.html"></a>4.3 pages.filecenter.file-upload.html</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2354,7 +2657,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2403,12 +2706,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">927k</span>
+    <span title="站点总字数">946k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14:03</span>
+    <span title="站点阅读时长">14:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
