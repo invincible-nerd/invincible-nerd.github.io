@@ -190,6 +190,342 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/07/29/System%20Design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/29/System%20Design/" class="post-title-link" itemprop="url">System Design</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-29 16:12:40 / 修改时间：16:14:01" itemprop="dateCreated datePublished" datetime="2022-07-29T16:12:40+08:00">2022-07-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="GLOSSARY-OF-SYSTEM-DESIGN-BASICS"><a href="#GLOSSARY-OF-SYSTEM-DESIGN-BASICS" class="headerlink" title="GLOSSARY OF SYSTEM DESIGN BASICS"></a>GLOSSARY OF SYSTEM DESIGN BASICS</h1><h2 id="System-Design-Basics"><a href="#System-Design-Basics" class="headerlink" title="System Design Basics"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/system-design-basics.html">System Design Basics</a></h2><h2 id="Key-Characteristics-of-Distributed-Systems"><a href="#Key-Characteristics-of-Distributed-Systems" class="headerlink" title="Key Characteristics of Distributed Systems"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/key-charactersitics-of-distributed-systems.html">Key Characteristics of Distributed Systems</a></h2><p><strong>Scalability</strong></p>
+<ul>
+<li>Scalability is the capability of a system, process, or a network to grow and manage increased demand. </li>
+<li>Any distributed system that can continuously evolve in order to support the growing amount of work is considered to be scalable.</li>
+<li>horizontal scaling</li>
+<li>vertical scaling</li>
+</ul>
+<p><strong>Reliability</strong></p>
+<ul>
+<li>By definition, reliability is the probability a system will fail in a given period. </li>
+<li>In simple terms, a distributed system is considered reliable if it keeps delivering its services even when one or several of its software or hardware components fail.</li>
+<li>A reliable distributed system achieves this through <strong>redundancy of both the software components and data.</strong> </li>
+<li>Obviously, redundancy has a cost and a reliable system has to pay that to achieve such resilience for services by <em><strong>eliminating every single point of failure</strong></em>.</li>
+</ul>
+<p><strong>Availability</strong></p>
+<ul>
+<li><p>By definition, availability is the time a system remains operational to perform its required function in a specific period.</p>
+</li>
+<li><p>It is a simple measure of the percentage of time that a system, service, or a machine remains operational under normal conditions.</p>
+</li>
+<li><p>If a system is reliable, it is available. However, if it is available, it is not necessarily reliable.</p>
+</li>
+<li><p>In other words, high reliability contributes to high availability, but it is possible to achieve a high availability even with an unreliable product by minimizing repair time and ensuring that spares are always available when they are needed.</p>
+</li>
+</ul>
+<p><strong>Efficiency</strong></p>
+<ul>
+<li>response time (or latency)</li>
+<li>throughput (or bandwidth)</li>
+</ul>
+<p><strong>Serviceability or Manageability</strong></p>
+<ul>
+<li>the simplicity and speed with which a system can be repaired or maintained</li>
+</ul>
+<h2 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/load-balancing.html">Load Balancing</a></h2><p>To utilize full scalability and redundancy, we can try to balance the load at each layer of the system. We can add LBs at three places:</p>
+<ul>
+<li>Between the user and the web server</li>
+<li>Between web servers and an internal platform layer, like application servers or cache servers</li>
+<li>Between internal platform layer and database.</li>
+</ul>
+<p>Load Blancing Algorithms:</p>
+<ul>
+<li><strong>Health Checks</strong></li>
+</ul>
+<ol>
+<li><strong>Least Connection Method</strong></li>
+<li><strong>Least Response Time Method</strong></li>
+<li><strong>Least Bandwidth Method</strong></li>
+<li><strong>Round Robin Method</strong></li>
+<li><strong>Weighted Round Robin Method</strong> </li>
+<li><strong>IP Hash</strong></li>
+</ol>
+<h2 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/caching.html">Caching</a></h2><ul>
+<li><p>Caches take advantage of the locality of reference principle: <strong>recently requested data is likely to be requested again.</strong></p>
+</li>
+<li><p>They are used in almost every layer of computing: <strong>hardware, operating systems, web browsers, web applications</strong>, and more.</p>
+</li>
+<li><p>Application server cache</p>
+</li>
+<li><p>Content Distribution Network (CDN)</p>
+</li>
+<li><p>Cache Invalidation:</p>
+<ol>
+<li><p>keep cache coherent with the source of truth (e.g., database).</p>
+</li>
+<li><p><strong>Write-through cache</strong></p>
+<p>Under this scheme, data is written into the cache and the corresponding database at the same time. </p>
+</li>
+<li><p><strong>Write-around cache</strong></p>
+<p>This technique is similar to write through cache, but data is written directly to permanent storage, bypassing the cache.</p>
+</li>
+<li><p><strong>Write-back cache</strong></p>
+<p>Under this scheme, data is written to cache alone and completion is immediately confirmed to the client. The write to the permanent storage is done after specified intervals or under certain conditions.</p>
+</li>
+</ol>
+</li>
+<li><p>Cache eviction policies:</p>
+<ol>
+<li>First In First Out (FIFO)</li>
+<li>Last In First Out (LIFO)</li>
+<li>Least Recently Used (LRU)</li>
+<li>Most Recently Used (MRU)</li>
+<li>Least Frequently Used (LFU)</li>
+<li>Random Replacement (RR)</li>
+</ol>
+</li>
+</ul>
+<h2 id="Data-Partitioning"><a href="#Data-Partitioning" class="headerlink" title="Data Partitioning"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/data-partitioning.html">Data Partitioning</a></h2><ul>
+<li><p>Data partitioning is a technique to break up a big database (DB) into many smaller parts. </p>
+</li>
+<li><p>Partitioning methods:</p>
+<ol>
+<li><p><strong>Horizontal partitioning</strong></p>
+<p>In this scheme, we put different rows into different tables. </p>
+</li>
+<li><p><strong>Vertical Partitioning</strong></p>
+<p>In this scheme, we divide our data to store tables related to a specific feature in their own server.</p>
+</li>
+<li><p><strong>Directory Based Partitioning</strong></p>
+</li>
+</ol>
+</li>
+<li><p>Partitioning criteria:</p>
+<ol>
+<li><strong>Key or Hash-based partitioning</strong></li>
+<li><strong>List partitioning</strong></li>
+<li><strong>Round-robin partitioning</strong></li>
+<li><strong>Composite partitioning</strong></li>
+</ol>
+</li>
+<li><p>Common problems of data partitioning:</p>
+<ol>
+<li><strong>Joins and Denormalization</strong></li>
+<li><strong>Referential integrity</strong></li>
+<li><strong>Rebalancing</strong></li>
+</ol>
+</li>
+</ul>
+<h2 id="Indexes"><a href="#Indexes" class="headerlink" title="Indexes"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/indexes.html">Indexes</a></h2><ul>
+<li><p>The goal of creating an index on a particular table in a database is to make it faster to search through the table and find the row or rows that we want. </p>
+</li>
+<li><p>Indexes can be created using one or more columns of a database table, providing the basis for both <em><strong>rapid random lookups</strong></em> and <em><strong>efficient access of ordered records</strong></em>.</p>
+</li>
+<li><p>An index can dramatically <strong>speed up data retrieval</strong> but may itself be large due to the additional keys, which <strong>slow down data insertion &amp; update</strong>.</p>
+</li>
+</ul>
+<h2 id="Proxies"><a href="#Proxies" class="headerlink" title="Proxies"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/proxies.html">Proxies</a></h2><p>In short, a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Proxy_server">proxy server</a> is a piece of software or hardware that acts as an intermediary for requests from clients seeking resources from other servers.</p>
+<ul>
+<li>Typically, proxies are used to <em><strong>filter requests, log requests</strong></em>, or sometimes <em><strong>transform requests</strong></em> (by adding&#x2F;removing headers, encrypting&#x2F;decrypting, or compressing a resource). </li>
+<li>Another advantage of a proxy server is that <em><strong>its cache can serve a lot of requests</strong></em>. If multiple clients access a particular resource, the proxy server can cache it and serve it to all the clients without going to the remote server.</li>
+</ul>
+<p><strong>Open Proxy</strong>:</p>
+<ol>
+<li><strong>Anonymous Proxy</strong></li>
+<li><strong>Trаnspаrent Proxy</strong></li>
+</ol>
+<p><strong>Reverse Proxy</strong>:    反向代理</p>
+<ul>
+<li>A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Reverse_proxy">reverse proxy</a> retrieves resources on behalf of a client from one or more servers. These resources are then returned to the client, appearing as if they originated from the proxy server itself</li>
+</ul>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="Redundancy-and-Replication"><a href="#Redundancy-and-Replication" class="headerlink" title="Redundancy and Replication"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/redundancy-and-replication.html">Redundancy and Replication</a></h2><p>server redundancy</p>
+<p>data replication    master-slave relationship between the original and the copies</p>
+<h2 id="SQL-vs-NoSQL"><a href="#SQL-vs-NoSQL" class="headerlink" title="SQL vs. NoSQL"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/sql-vs-nosql.html">SQL vs. NoSQL</a></h2><p><strong>SQL</strong>:</p>
+<ul>
+<li>Relational databases store data in rows and columns. </li>
+<li>Each row contains all the information about one entity and each column contains all the separate data points. </li>
+<li>Some of the most popular relational databases are MySQL, Oracle, MS SQL Server, SQLite, Postgres, and MariaDB.</li>
+</ul>
+<p><strong>NoSQL</strong>:</p>
+<ol>
+<li><strong>Key-Value Stores:</strong> Data is stored in an array of key-value pairs. The ‘key’ is an attribute name which is linked to a ‘value’. Well-known key-value stores include Redis, Voldemort, and Dynamo.</li>
+<li><strong>Document Databases:</strong> In these databases, data is stored in documents (instead of rows and columns in a table) and these documents are grouped together in collections. Each document can have an entirely different structure. Document databases include the CouchDB and MongoDB.</li>
+<li><strong>Wide-Column Databases:</strong> Instead of ‘tables,’ in <em><strong>columnar</strong></em> databases we have column families, which are containers for rows. Unlike relational databases, we don’t need to know all the columns up front and each row doesn’t have to have the same number of columns. Columnar databases are best suited for analyzing large datasets - big names include Cassandra and HBase.</li>
+<li><strong>Graph Databases:</strong> These databases are used to store data whose relations are best represented in a graph. Data is saved in graph structures with nodes (entities), properties (information about the entities), and lines (connections between the entities). Examples of graph database include Neo4J and InfiniteGraph.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SQL</th>
+<th>NoSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Storage</strong></td>
+<td>tables</td>
+<td>key-value, document, graph, and columnar</td>
+</tr>
+<tr>
+<td><strong>Schema</strong></td>
+<td>fixed</td>
+<td>dynamic</td>
+</tr>
+<tr>
+<td><strong>Querying</strong></td>
+<td>SQL (structured query language)</td>
+<td>UnQL (Unstructured Query Language)</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>vertically scalable, expensive</td>
+<td>horizontally scalable, easy</td>
+</tr>
+<tr>
+<td><strong>ACID Compliancy</strong></td>
+<td>ACID compliant</td>
+<td>sacrifice ACID compliance for performance and scalability</td>
+</tr>
+</tbody></table>
+<p>**ACID :(Atomicity, Consistency, Isolation, Durability) **</p>
+<h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/cap-theorem.html">CAP Theorem</a></h2><p>CAP theorem states that it is impossible for a distributed software system to simultaneously provide more than two out of three of the following guarantees (CAP): Consistency, Availability, and Partition tolerance.</p>
+<p>CAP theorem says while designing a distributed system we can pick <strong>only two</strong> of the following three options:</p>
+<p><strong>Consistency:</strong> All nodes see the same data at the same time. Consistency is achieved by <em><strong>updating several nodes before allowing further reads</strong></em>.</p>
+<p><em>All users see the same data at the same time.</em></p>
+<p><strong>Availability:</strong> Every request gets a response on success&#x2F;failure. Availability is achieved by <em><strong>replicating the data across different servers</strong></em>.</p>
+<p><em>System continues to function even with node failures.</em></p>
+<p><strong>Partition tolerance:</strong> The system continues to work despite message loss or partial failure. A system that is partition-tolerant can sustain any amount of network failure that doesn’t result in a failure of the entire network. *<strong>Data is sufficiently replicated across combinations of nodes and networks</strong> to keep the system up through intermittent outages.</p>
+<p><em>System continues to function even if the communication fails between nodes.</em></p>
+<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/consistent-hashing.html">Consistent Hashing</a></h2><p>Distributed Hash Table (DHT) </p>
+<p><strong>index &#x3D; hash_function(key)</strong>    逻辑地址，不一定是物理地址</p>
+<p>drawbacks of <code>key % n</code> hash function:</p>
+<ol>
+<li>It is NOT horizontally scalable.</li>
+<li>It may NOT be load balanced, especially for non-uniformly distributed data.</li>
+</ol>
+<p>In Consistent Hashing, when the hash table is resized (e.g. a new cache host is added to the system), only <code>k/n</code> keys need to be remapped where<code>‘k</code> is the total number of keys and <code>n</code> is the total number of servers. Recall that in a caching system using the <code>mod</code> as the hash function, all keys need to be remapped.</p>
+<p>In Consistent Hashing, objects are mapped to the same host if possible. When a host is removed from the system, the objects on that host are shared by other hosts; when a new host is added, it takes its share from a few hosts without touching other’s shares.</p>
+<h2 id="Long-Polling-vs-WebSockets-vs-Server-Sent-Events"><a href="#Long-Polling-vs-WebSockets-vs-Server-Sent-Events" class="headerlink" title="Long-Polling vs WebSockets vs Server-Sent Events"></a><a target="_blank" rel="noopener" href="https://akshay-iyangar.github.io/system-design/grokking-system-design/system-design-basics/long-polling.html">Long-Polling vs WebSockets vs Server-Sent Events</a></h2><p><strong>standard HTTP web request</strong>:</p>
+<ol>
+<li>The client opens a connection and requests data from the server.</li>
+<li>The server calculates the response.</li>
+<li>The server sends the response back to the client on the opened request.</li>
+</ol>
+<p><strong>Ajax Polling</strong>:</p>
+<ul>
+<li><p>The basic idea is that the client repeatedly polls (or requests) a server for data. </p>
+</li>
+<li><p>The client makes a request and waits for the server to respond with data. If no data is available, an empty response is returned.</p>
+</li>
+</ul>
+<ol>
+<li>The client opens a connection and requests data from the server using regular HTTP.</li>
+<li>The requested webpage sends requests to the server at regular intervals (e.g., 0.5 seconds).</li>
+<li>The server calculates the response and sends it back, just like regular HTTP traffic.</li>
+<li>The client repeats the above three steps periodically to get updates from the server.</li>
+</ol>
+<p><strong>HTTP Long-Polling (Hanging GET)</strong>:</p>
+<ul>
+<li>If the server does not have any data available for the client, instead of sending an empty response, the server holds the request and waits until some data becomes available.</li>
+<li>Once the data becomes available, a full response is sent to the client. The client then immediately re-request information from the server so that the server will almost always have an available waiting request that it can use to deliver data in response to an event.</li>
+</ul>
+<ol>
+<li>The client makes an initial request using regular HTTP and then waits for a response.</li>
+<li>The server delays its response until an update is available or a timeout has occurred.</li>
+<li>When an update is available, the server sends a full response to the client.</li>
+<li>The client typically sends a new long-poll request, either immediately upon receiving a response or after a pause to allow an acceptable latency period.</li>
+<li>Each Long-Poll request has a timeout. The client has to reconnect periodically after the connection is closed due to timeouts.</li>
+</ol>
+<p><strong>WebSockets</strong>:</p>
+<ul>
+<li>full duplex （全双工）</li>
+<li>WebSocket provides <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Duplex_(telecommunications)#Full_duplex">Full duplex</a> communication channels over a single TCP connection.</li>
+<li>It provides a persistent connection between a client and a server that both parties can use to start sending data at any time.</li>
+<li>The client establishes a WebSocket connection through a process known as the WebSocket handshake.</li>
+</ul>
+<p><strong>Server-Sent Events (SSEs)</strong>:</p>
+<ul>
+<li>Under SSEs the client establishes a persistent and long-term connection with the server. </li>
+<li>The server uses this connection to send data to a client.</li>
+</ul>
+<ol>
+<li>Client requests data from a server using regular HTTP.</li>
+<li>The requested webpage opens a connection to the server.</li>
+<li>The server sends the data to the client whenever there’s new information available.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/06/23/Trie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1012,7 +1348,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-25 15:09:50" itemprop="dateModified" datetime="2023-03-25T15:09:50+08:00">2023-03-25</time>
+                <time title="修改时间：2023-05-02 09:32:31" itemprop="dateModified" datetime="2023-05-02T09:32:31+08:00">2023-05-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1030,14 +1366,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>23k</span>
+              <span>27k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>21 分钟</span>
+              <span>24 分钟</span>
             </span>
 
         </div>
@@ -1092,7 +1428,7 @@
 <p>三、创建一个map,key是代表邮箱，value是List类型，也就是代表邮箱底下挂着的同一个人的其他邮箱</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">做法：遍历（二）中的key，找它的代表邮箱作为key,并把它存在代表对象映射的list数组中。</span><br><span class="line">例如（二）中前三个邮箱的代表邮箱都为zw<span class="variable">@qq</span>.com，就把它作为key,并把三个邮箱存入它对应的list中</span><br><span class="line">key             zw2<span class="variable">@qq</span>.com                            lina<span class="variable">@qq</span>.com      zhangwei<span class="variable">@qq</span>.com</span><br><span class="line">value  [ zw2<span class="variable">@qq</span>.com   zw1<span class="variable">@163</span>.com  zw3<span class="variable">@sina</span>.com]      [ lina<span class="variable">@qq</span>.com ]   [zhangwei<span class="variable">@qq</span>.com]</span><br></pre></td></tr></table></figure>
 
-<p>四、给同一个人的不同邮箱排序，通过Collections.sort()实现，例如get到<a href="mailto:&#122;&#x77;&#x32;&#64;&#x71;&#x71;&#46;&#x63;&#111;&#109;">&#122;&#x77;&#x32;&#64;&#x71;&#x71;&#46;&#x63;&#111;&#109;</a>的邮箱列表排序后213就成了123</p>
+<p>四、给同一个人的不同邮箱排序，通过Collections.sort()实现，例如get到<a href="mailto:&#122;&#x77;&#50;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;">&#122;&#x77;&#50;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;</a>的邮箱列表排序后213就成了123</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key             zw2<span class="variable">@qq</span>.com                            lina<span class="variable">@qq</span>.com      zhangwei<span class="variable">@qq</span>.com</span><br><span class="line">value  [ zw1<span class="variable">@qq</span>.com   zw2<span class="variable">@163</span>.com  zw3<span class="variable">@sina</span>.com]      [ lina<span class="variable">@qq</span>.com ]   [zhangwei<span class="variable">@qq</span>.com]</span><br></pre></td></tr></table></figure>
 
 <p>五、把代表邮箱换成对应的账号名称就OK啦，还记得第一步中创建的名为name的map集合吗，遍历（四）中的key依次获得对应的账号名字，放到数组的第一位即可。</p>
@@ -1189,6 +1525,32 @@
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">countPairs</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    UnionFind u=<span class="keyword">new</span> <span class="title class_">UnionFind</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        u.union(edge[<span class="number">0</span>],edge[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> u.res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>&#123;</span><br><span class="line">    <span class="type">int</span>[] parent;</span><br><span class="line">    <span class="type">int</span>[] size;</span><br><span class="line">    <span class="type">int</span>[] helper;</span><br><span class="line">    <span class="type">long</span> res;</span><br><span class="line">    UnionFind(<span class="type">int</span> n)&#123;</span><br><span class="line">        parent=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        size=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        helper=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        res=(<span class="type">long</span>)n*(n-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i]=i;</span><br><span class="line">            size[i]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">        <span class="type">int</span> idx=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(a!=parent[a])&#123;</span><br><span class="line">            helper[idx++]=a;</span><br><span class="line">            a=parent[a];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; idx; i++) &#123;</span><br><span class="line">            parent[helper[i]]=a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="type">int</span> rootA=find(a);</span><br><span class="line">        <span class="type">int</span> rootB=find(b);</span><br><span class="line">        <span class="keyword">if</span>(rootA==rootB)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res-=(<span class="type">long</span>)size[rootA]*size[rootB];</span><br><span class="line">        <span class="keyword">if</span>(size[rootA]&gt;=size[rootB])&#123;</span><br><span class="line">            parent[rootB]=rootA;</span><br><span class="line">            size[rootA]+=size[rootB];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            parent[rootA]=rootB;</span><br><span class="line">            size[rootB]+=size[rootA];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1579-Remove-Max-Number-of-Edges-to-Keep-Graph-Fully-Traversable"><a href="#1579-Remove-Max-Number-of-Edges-to-Keep-Graph-Fully-Traversable" class="headerlink" title="1579. Remove Max Number of Edges to Keep Graph Fully Traversable"></a>1579. Remove Max Number of Edges to Keep Graph Fully Traversable</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxNumEdgesToRemove</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    UnionFind u=<span class="keyword">new</span> <span class="title class_">UnionFind</span>(n);</span><br><span class="line">    Arrays.sort(edges,(a,b)-&gt;(b[<span class="number">0</span>]-a[<span class="number">0</span>]));</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        <span class="type">int</span> type=edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> a=edge[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> b=edge[<span class="number">2</span>];</span><br><span class="line">        <span class="type">int</span> pa0=u.find(a,<span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> pb0=u.find(b,<span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> pa1=u.find(a,<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> pb1=u.find(b,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(type==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa0==pb0 &amp;&amp; pa1==pb1)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(pa0!=pb0)&#123;</span><br><span class="line">                u.union(pa0,pb0,<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(pa1!=pb1)&#123;</span><br><span class="line">                u.union(pa1,pb1,<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(type==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa1==pb1)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            u.union(pa1,pb1,<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa0==pb0)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            u.union(pa0,pb0,<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> u.totalA==<span class="number">1</span> &amp;&amp; u.totalB==<span class="number">1</span> ? res : -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>&#123;</span><br><span class="line">    <span class="type">int</span>[][] parent;</span><br><span class="line">    <span class="type">int</span>[][] size;</span><br><span class="line">    <span class="type">int</span>[] helper;</span><br><span class="line">    <span class="type">int</span> totalA;</span><br><span class="line">    <span class="type">int</span> totalB;</span><br><span class="line">    UnionFind(<span class="type">int</span> n)&#123;</span><br><span class="line">        parent=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">        size=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">        helper=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        totalA=n;</span><br><span class="line">        totalB=n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            parent[i][<span class="number">0</span>]=i;</span><br><span class="line">            parent[i][<span class="number">1</span>]=i;</span><br><span class="line">            size[i][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">            size[i][<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> p)</span>&#123;</span><br><span class="line">        <span class="comment">//alice: p=0;</span></span><br><span class="line">        <span class="comment">//bob: p=1;</span></span><br><span class="line">        <span class="type">int</span> idx=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i!=parent[i][p])&#123;</span><br><span class="line">            helper[idx++]=i;</span><br><span class="line">            i=parent[i][p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>; j&lt;idx; j++)&#123;</span><br><span class="line">            parent[helper[j]][p]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> p)</span>&#123;</span><br><span class="line">        <span class="comment">//alice: p=0;</span></span><br><span class="line">        <span class="comment">//bob: p=1;</span></span><br><span class="line">        <span class="keyword">if</span>(size[a][p]&gt;=size[b][p])&#123;</span><br><span class="line">            size[a][p]+=size[b][p];</span><br><span class="line">            parent[b][p]=a;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            size[b][p]+=size[a][p];</span><br><span class="line">            parent[a][p]=b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(p==<span class="number">0</span>)&#123;</span><br><span class="line">            totalA--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            totalB--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2421-Number-of-Good-Paths"><a href="#2421-Number-of-Good-Paths" class="headerlink" title="2421. Number of Good Paths"></a>2421. Number of Good Paths</h2><p>Google tag题</p>
+<p>思路：</p>
+<ol>
+<li><p>TreeMap从小到大遍历每个val对应的node</p>
+</li>
+<li><p>针对每个val，探究这个val中的node能构成的good path数</p>
+<ol>
+<li><p>该val的node的每一个帮派数为size</p>
+</li>
+<li><p>每一个帮派中都可以两两连接，或空连，即C size+1 2</p>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numberOfGoodPaths</span><span class="params">(<span class="type">int</span>[] vals, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=vals.length;</span><br><span class="line">    UnionFind u=<span class="keyword">new</span> <span class="title class_">UnionFind</span>(n);</span><br><span class="line">    Map&lt;Integer, List&lt;Integer&gt;&gt; graph=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    TreeMap&lt;Integer,List&lt;Integer&gt;&gt; valToNodes=<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; vals.length; i++) &#123;</span><br><span class="line">        <span class="type">int</span> val=vals[i];</span><br><span class="line">        valToNodes.putIfAbsent(val,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        valToNodes.get(val).add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        <span class="type">int</span> a=edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> b=edge[<span class="number">1</span>];</span><br><span class="line">        graph.putIfAbsent(a,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        graph.putIfAbsent(b,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        graph.get(a).add(b);</span><br><span class="line">        graph.get(b).add(a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Integer val : valToNodes.keySet()) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer cur : valToNodes.get(val)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!graph.containsKey(cur))&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (Integer next : graph.get(cur)) &#123;</span><br><span class="line">                <span class="keyword">if</span>(vals[next]&gt;vals[cur])&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                u.union(next,cur);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Integer cur : valToNodes.get(val)) &#123;</span><br><span class="line">            <span class="type">int</span> root=u.find(cur);</span><br><span class="line">            map.put(root,map.getOrDefault(root,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Integer key : map.keySet()) &#123;</span><br><span class="line">            <span class="type">int</span> size=map.get(key);</span><br><span class="line">            <span class="comment">//Cn+12</span></span><br><span class="line">            res+=size*(size+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>&#123;</span><br><span class="line">    <span class="type">int</span>[] parent;</span><br><span class="line">    <span class="type">int</span>[] size;</span><br><span class="line">    </span><br><span class="line">    UnionFind(<span class="type">int</span> n)&#123;</span><br><span class="line">        parent=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        size=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i]=i;</span><br><span class="line">            size[i]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> i)</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(i!=parent[i])&#123;</span><br><span class="line">            i=parent[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="type">int</span> rootA=find(a);</span><br><span class="line">        <span class="type">int</span> rootB=find(b);</span><br><span class="line">        <span class="keyword">if</span>(rootA==rootB)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(size[rootA]&gt;=size[rootB])&#123;</span><br><span class="line">            size[rootA]+=size[rootB];</span><br><span class="line">            parent[rootB]=rootA;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            size[rootB]+=size[rootA];</span><br><span class="line">            parent[rootA]=rootB;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1779,7 +2141,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-11 03:09:58" itemprop="dateModified" datetime="2023-04-11T03:09:58+08:00">2023-04-11</time>
+                <time title="修改时间：2023-05-05 14:08:32" itemprop="dateModified" datetime="2023-05-05T14:08:32+08:00">2023-05-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2076,6 +2438,12 @@
 <p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/discuss/3395952/in-case-you-are-wondering-why-greedy-works-for-this-problem">https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/discuss/3395952/in-case-you-are-wondering-why-greedy-works-for-this-problem</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minimizeMax</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> p)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=nums[n-<span class="number">1</span>]-nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="type">int</span> mid=(left+right)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;n &amp;&amp; count&lt;p; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]-nums[i-<span class="number">1</span>]&lt;=mid)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(count&lt;p)&#123;</span><br><span class="line">            left=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            right=mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h2 id="1891-Cutting-Ribbons"><a href="#1891-Cutting-Ribbons" class="headerlink" title="1891. Cutting Ribbons"></a>1891. Cutting Ribbons</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxLength</span><span class="params">(<span class="type">int</span>[] ribbons, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    Arrays.sort(ribbons);</span><br><span class="line">    <span class="type">int</span> n=ribbons.length;</span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> r=<span class="number">100000</span>;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">        <span class="comment">//(l,r]</span></span><br><span class="line">        <span class="type">int</span> mid=(l+r+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="type">int</span> num=ribbons[i];</span><br><span class="line">            count+=num/mid;</span><br><span class="line">            <span class="keyword">if</span>(count&gt;=k || num&lt;mid)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(count&lt;k)&#123;</span><br><span class="line">            r=mid-<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            l=mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -2247,151 +2615,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/31/nSum%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/31/nSum%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">nSum问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-31 19:52:42" itemprop="dateCreated datePublished" datetime="2022-05-31T19:52:42+08:00">2022-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-09 10:24:38" itemprop="dateModified" datetime="2023-03-09T10:24:38+08:00">2023-03-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="nSum问题选编"><a href="#nSum问题选编" class="headerlink" title="nSum问题选编"></a>nSum问题选编</h1><h2 id="15-3Sum"><a href="#15-3Sum" class="headerlink" title="15. 3Sum"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">15. 3Sum</a></h2><p>注意：</p>
-<ol>
-<li>只求值，不求坐标，可以排序！</li>
-<li>用左右双指针</li>
-<li>考虑去重<ul>
-<li>for 循环中</li>
-<li>while 循环中</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i-<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> left=i+<span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">                <span class="type">int</span> sum=nums[i]+nums[left]+nums[right];</span><br><span class="line">                <span class="keyword">if</span>(sum==<span class="number">0</span>)&#123;</span><br><span class="line">                    res.add(Arrays.asList(nums[i],nums[left],nums[right])); <span class="comment">//注意语法</span></span><br><span class="line">                    <span class="keyword">while</span>(left&lt;n-<span class="number">1</span> &amp;&amp; nums[left]==nums[left+<span class="number">1</span>])&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    left++;</span><br><span class="line">                    <span class="keyword">while</span>(right&gt;<span class="number">0</span> &amp;&amp; nums[right]==nums[right-<span class="number">1</span>])&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">while</span>(right&gt;<span class="number">0</span> &amp;&amp; nums[right]==nums[right-<span class="number">1</span>])&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">while</span>(left&lt;n-<span class="number">1</span> &amp;&amp; nums[left]==nums[left+<span class="number">1</span>])&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    left++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="16-3Sum-Closest"><a href="#16-3Sum-Closest" class="headerlink" title="16. 3Sum Closest"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum-closest/">16. 3Sum Closest</a></h2><p>注意：</p>
-<ol>
-<li>依然以 <code>sum</code> 为判断条件，分别考虑 <code>sum </code>等于、大于、小于<code>target</code>时的情况</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode16</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">threeSumClosest</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span> curSum=Integer.MAX_VALUE;</span><br><span class="line">        <span class="type">int</span> cur=Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i-<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> left=i+<span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">                <span class="type">int</span> sum=nums[i]+nums[left]+nums[right];</span><br><span class="line">                <span class="keyword">if</span>(sum==target)&#123;</span><br><span class="line">                    cur=<span class="number">0</span>;</span><br><span class="line">                    curSum=sum;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;target)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(sum-target&lt;cur)&#123;</span><br><span class="line">                        cur=sum-target;</span><br><span class="line">                        curSum=sum;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span>(right&gt;<span class="number">0</span> &amp;&amp; nums[right]==nums[right-<span class="number">1</span>])&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(target-sum&lt;cur)&#123;</span><br><span class="line">                        cur=target-sum;</span><br><span class="line">                        curSum=sum;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span>(left&lt;n-<span class="number">1</span> &amp;&amp; nums[left]==nums[left+<span class="number">1</span>])&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    left++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> curSum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="18-4Sum"><a href="#18-4Sum" class="headerlink" title="18. 4Sum"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">18. 4Sum</a></h2><p>注意去重：</p>
-<ol>
-<li>外层 for 去重逻辑不变，跳过重复的第一个元素</li>
-<li>内层 for 去重逻辑：跳过重复的第二个元素</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">fourSum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i-<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(j&gt;i+<span class="number">1</span> &amp;&amp; nums[j]==nums[j-<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">int</span> left=j+<span class="number">1</span>;</span><br><span class="line">                <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">                    <span class="type">int</span> sum=nums[i]+nums[j]+nums[left]+nums[right];</span><br><span class="line">                    <span class="keyword">if</span>(sum==target)&#123;</span><br><span class="line">                        res.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                        <span class="keyword">while</span>(left&lt;n-<span class="number">1</span> &amp;&amp; nums[left]==nums[left+<span class="number">1</span>])&#123;</span><br><span class="line">                            left++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        left++;</span><br><span class="line">                        <span class="keyword">while</span>(right&gt;<span class="number">0</span> &amp;&amp; nums[right]==nums[right-<span class="number">1</span>])&#123;</span><br><span class="line">                            right--;</span><br><span class="line">                        &#125;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;target)&#123;</span><br><span class="line">                        <span class="keyword">while</span>(right&gt;<span class="number">0</span> &amp;&amp; nums[right]==nums[right-<span class="number">1</span>])&#123;</span><br><span class="line">                            right--;</span><br><span class="line">                        &#125;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">while</span>(left&lt;n-<span class="number">1</span> &amp;&amp; nums[left]==nums[left+<span class="number">1</span>])&#123;</span><br><span class="line">                            left++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        left++;  </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="259-3Sum-Smaller"><a href="#259-3Sum-Smaller" class="headerlink" title="259. 3Sum Smaller"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum-smaller/">259. 3Sum Smaller</a></h2><p>注意：</p>
-<ol>
-<li>以 left 为计数基准， 找到符合条件的组合后就更新 left， 避免重复</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode259</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">threeSumSmaller</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">int</span> left=i+<span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> right=n-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">                <span class="type">int</span> sum=nums[i]+nums[left]+nums[right];</span><br><span class="line">                <span class="keyword">if</span>(sum&lt;target)&#123;</span><br><span class="line">                    count+=right-left;</span><br><span class="line">                    left++;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;=target)&#123;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="454-4Sum-II"><a href="#454-4Sum-II" class="headerlink" title="454. 4Sum II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum-ii/">454. 4Sum II</a></h2><p>注意：</p>
-<ol>
-<li>只要求 count, 无需求值，则考虑用 HashMap 记录前两个数组各 sum 出现的次数</li>
-<li>遍历后两个数组，考察 0-sum 的数量</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> &#123;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n=nums1.length;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="type">int</span> sum=nums1[i]+nums2[j];</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="type">int</span> sum=nums3[i]+nums4[j];</span><br><span class="line">                <span class="keyword">if</span>(map.containsKey(<span class="number">0</span>-sum))&#123;</span><br><span class="line">                    count+=map.get(<span class="number">0</span>-sum);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="653-Two-Sum-IV-Input-is-a-BST"><a href="#653-Two-Sum-IV-Input-is-a-BST" class="headerlink" title="653. Two Sum IV - Input is a BST"></a>653. Two Sum IV - Input is a BST</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">findTarget</span><span class="params">(TreeNode root, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    Set&lt;Integer&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;TreeNode&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        TreeNode cur=q.poll();</span><br><span class="line">        <span class="type">int</span> val=cur.val;</span><br><span class="line">        <span class="keyword">if</span>(set.contains(k-val))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        set.add(val);</span><br><span class="line">        <span class="keyword">if</span>(cur.left!=<span class="literal">null</span>)&#123;</span><br><span class="line">            q.offer(cur.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cur.right!=<span class="literal">null</span>)&#123;</span><br><span class="line">            q.offer(cur.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1214-Two-Sum-BSTs"><a href="#1214-Two-Sum-BSTs" class="headerlink" title="1214. Two Sum BSTs"></a>1214. Two Sum BSTs</h2><p>dfs很慢</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">twoSumBSTs</span><span class="params">(TreeNode root1, TreeNode root2, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(root1==<span class="literal">null</span> || root2==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> sum=root1.val+root2.val;</span><br><span class="line">    <span class="keyword">if</span>(sum==target)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum&lt;target)&#123;</span><br><span class="line">        <span class="keyword">return</span> twoSumBSTs(root1.right,root2,target) || twoSumBSTs(root1,root2.right,target);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> twoSumBSTs(root1.left,root2,target) || twoSumBSTs(root1,root2.left,target);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2461,7 +2684,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2510,12 +2733,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">971k</span>
+    <span title="站点总字数">1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14:43</span>
+    <span title="站点阅读时长">15:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

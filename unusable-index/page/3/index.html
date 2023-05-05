@@ -190,6 +190,1224 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/12/04/COEN317/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/04/COEN317/" class="post-title-link" itemprop="url">COEN317</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-04 22:20:42" itemprop="dateCreated datePublished" datetime="2022-12-04T22:20:42+08:00">2022-12-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-05 14:22:15" itemprop="dateModified" datetime="2022-12-05T14:22:15+08:00">2022-12-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>22k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>20 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="COEN-317-Distributed-system"><a href="#COEN-317-Distributed-system" class="headerlink" title="COEN 317     Distributed system"></a>COEN 317     Distributed system</h1><h2 id="09-x2F-21"><a href="#09-x2F-21" class="headerlink" title="09&#x2F;21"></a>09&#x2F;21</h2><h3 id="layer-tier"><a href="#layer-tier" class="headerlink" title="layer tier"></a>layer tier</h3><ul>
+<li>layer: software</li>
+<li>tier: hardware</li>
+</ul>
+<h3 id="layerd-architecture-style"><a href="#layerd-architecture-style" class="headerlink" title="layerd architecture style"></a>layerd architecture style</h3><ul>
+<li>separation of concerns</li>
+<li>unnecessary transaction</li>
+<li>grey line, hard to decide which layer to put</li>
+</ul>
+<h3 id="event-based-architecture-styles"><a href="#event-based-architecture-styles" class="headerlink" title="event based architecture styles"></a>event based architecture styles</h3><ul>
+<li>dynamic</li>
+<li>at the beginning, each component don’t know who to communicate to</li>
+<li>after that, can point-to-point</li>
+</ul>
+<h3 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h3><ul>
+<li>libararies, runtime environment</li>
+<li>JVM</li>
+</ul>
+<h3 id="blocking"><a href="#blocking" class="headerlink" title="blocking"></a>blocking</h3><ul>
+<li><p>sent&#x2F;transmission !&#x3D; reach the destination</p>
+</li>
+<li><p>blocking: suspended until transmission finishes</p>
+</li>
+<li><p>transmission:  IT DEPENDS!</p>
+<ol>
+<li><p>sending message buffer</p>
+</li>
+<li><p>channel</p>
+</li>
+<li><p>receiving messsage buffer</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="persistent-communication"><a href="#persistent-communication" class="headerlink" title="persistent communication"></a>persistent communication</h3><ul>
+<li>message queue</li>
+<li>need to store data</li>
+</ul>
+<h3 id="asynchronous"><a href="#asynchronous" class="headerlink" title="asynchronous"></a>asynchronous</h3><ul>
+<li>synchronous: wait unitl <strong>delivery</strong>, not process of the data</li>
+</ul>
+<h3 id="soft-state"><a href="#soft-state" class="headerlink" title="soft state"></a>soft state</h3><p>cache</p>
+<h2 id="09-x2F-26"><a href="#09-x2F-26" class="headerlink" title="09&#x2F;26"></a>09&#x2F;26</h2><ul>
+<li><p>application-specific protocol</p>
+</li>
+<li><p>application-independent protocol: </p>
+<p><strong>middleware</strong></p>
+</li>
+<li><p>TCP&#x2F;IP protocol:</p>
+<p>local OS</p>
+</li>
+</ul>
+<h3 id="why-layered"><a href="#why-layered" class="headerlink" title="why layered?"></a>why layered?</h3><p>separation of concerns</p>
+<h3 id="OSI-reference-model"><a href="#OSI-reference-model" class="headerlink" title="OSI reference model"></a>OSI reference model</h3><ol>
+<li><p>application</p>
+</li>
+<li><p>presentation</p>
+<ul>
+<li>process information for applications</li>
+<li>serialization&#x2F;deserialization</li>
+<li>encryption&#x2F;decryption</li>
+</ul>
+</li>
+<li><p>session</p>
+</li>
+<li><p>transport</p>
+<ul>
+<li>end-to-end communication between different applications</li>
+</ul>
+</li>
+<li><p>network</p>
+<ul>
+<li>routing packets</li>
+</ul>
+</li>
+<li><p>data link</p>
+<ul>
+<li>send, detect and corrent data frames</li>
+<li>data frames: units of bits</li>
+</ul>
+</li>
+<li><p>physical layer</p>
+<ul>
+<li>actual transfer of binary bits data</li>
+</ul>
+</li>
+</ol>
+<p>​          </p>
+<h3 id="TCP-x2F-IP-protocol-suite"><a href="#TCP-x2F-IP-protocol-suite" class="headerlink" title="TCP&#x2F;IP protocol suite"></a>TCP&#x2F;IP protocol suite</h3><ol>
+<li><p>application</p>
+<ul>
+<li>HTTP, FTP, SMTP</li>
+<li>process-to-process</li>
+</ul>
+</li>
+<li><p>transport</p>
+<ul>
+<li>TCP, UDP</li>
+<li>host-to-host</li>
+</ul>
+</li>
+<li><p>internet</p>
+<ul>
+<li><p>IP</p>
+</li>
+<li><p>routing table</p>
+<p>host a-&gt; router -&gt; router -&gt; host b</p>
+</li>
+</ul>
+</li>
+<li><p>link</p>
+</li>
+</ol>
+<p>​        </p>
+<h3 id="TCP-UDP"><a href="#TCP-UDP" class="headerlink" title="TCP UDP"></a>TCP UDP</h3><ul>
+<li><p>TCP</p>
+<p>data in streams</p>
+</li>
+<li><p>UDP</p>
+<p>data in messages</p>
+</li>
+</ul>
+<h3 id="remote-procedure-calls"><a href="#remote-procedure-calls" class="headerlink" title="remote procedure calls"></a>remote procedure calls</h3><p>remote invocation</p>
+<ul>
+<li>one-way RPC</li>
+<li>asynchronous RPC</li>
+</ul>
+<h3 id="remote-object-calls"><a href="#remote-object-calls" class="headerlink" title="remote object calls"></a>remote object calls</h3><h3 id="message-brokers"><a href="#message-brokers" class="headerlink" title="message brokers"></a>message brokers</h3><ul>
+<li><p>between clients and servers</p>
+</li>
+<li><p>beyond simple queues</p>
+</li>
+<li><p>message will be persistent</p>
+</li>
+</ul>
+<h3 id="socket-APIs"><a href="#socket-APIs" class="headerlink" title="socket APIs"></a>socket APIs</h3><ul>
+<li>transport-level socket programming via socket interface</li>
+<li>message-oriented transient communication at the <strong>transport layer</strong></li>
+</ul>
+<h3 id="Messaging-passing-interface"><a href="#Messaging-passing-interface" class="headerlink" title="Messaging-passing interface"></a>Messaging-passing interface</h3><ul>
+<li>message-oriented transient communication at the <strong>application layer</strong></li>
+</ul>
+<h3 id="queuing-model"><a href="#queuing-model" class="headerlink" title="queuing model"></a>queuing model</h3><ul>
+<li><p>message-oriented persistent communication</p>
+</li>
+<li><p>asynchronous&#x2F;time uncoupling</p>
+</li>
+<li><p>advanced message queuing protocol</p>
+<p>rabbitMQ</p>
+</li>
+</ul>
+<h2 id="0928"><a href="#0928" class="headerlink" title="0928"></a>0928</h2><h3 id="why-some-inaccuracy-is-tolerable"><a href="#why-some-inaccuracy-is-tolerable" class="headerlink" title="why some inaccuracy is tolerable?"></a>why some inaccuracy is tolerable?</h3><ol>
+<li>more than one failure detection mechanism</li>
+<li>in heart-beating, after some times it will correct itself</li>
+</ol>
+<h3 id="atomic-gt-reliable"><a href="#atomic-gt-reliable" class="headerlink" title="atomic &gt; reliable"></a>atomic &gt; reliable</h3><ul>
+<li>atomic: all or none receive the message   <strong>overkill</strong></li>
+<li>reliable: we can tolerate some inaccuracy</li>
+</ul>
+<h3 id="centralized-heart-beating-out-of-consideration"><a href="#centralized-heart-beating-out-of-consideration" class="headerlink" title="centralized heart-beating   out of consideration!"></a>centralized heart-beating   out of consideration!</h3><ul>
+<li>single point  &#x2F;   performance</li>
+<li>too much workload for the center node</li>
+<li>can not be dynamic:  the center needs to know the global state</li>
+<li>saturated</li>
+</ul>
+<h3 id="ring-heart-beating-valid"><a href="#ring-heart-beating-valid" class="headerlink" title="ring heart-beating  valid"></a>ring heart-beating  valid</h3><ul>
+<li>predecessor and successor</li>
+<li>what if 2 nodes fail?     stablization protocol</li>
+<li>detection is too slow</li>
+</ul>
+<h3 id="all-to-all-heart-beating-valid"><a href="#all-to-all-heart-beating-valid" class="headerlink" title="all-to-all heart-beating    valid"></a>all-to-all heart-beating    valid</h3><ul>
+<li>full of unnecessary message</li>
+<li>can not be dynamic</li>
+</ul>
+<h3 id="false-positive-x2F-false-negative"><a href="#false-positive-x2F-false-negative" class="headerlink" title="false positive  &#x2F;   false negative"></a>false positive  &#x2F;   false negative</h3><ul>
+<li>inaccurate</li>
+<li>incomplete!   intolerable</li>
+</ul>
+<h3 id="local-buffers-processes-and-channels"><a href="#local-buffers-processes-and-channels" class="headerlink" title="local buffers   processes and channels"></a>local buffers   processes and channels</h3><ul>
+<li>copy message to outgoing message buffer   send</li>
+<li>copy message from incoming message buffer   receive</li>
+<li>latency: in channel and in operation system</li>
+</ul>
+<h3 id="process-failure-x2F-channel-failure"><a href="#process-failure-x2F-channel-failure" class="headerlink" title="process failure &#x2F; channel failure"></a>process failure &#x2F; channel failure</h3><h2 id="1003"><a href="#1003" class="headerlink" title="1003"></a>1003</h2><h3 id="virtualization"><a href="#virtualization" class="headerlink" title="virtualization"></a>virtualization</h3><ul>
+<li>Virtual Machine Memory &#x3D; Hypervisor</li>
+</ul>
+<ol>
+<li><p>platform virtualization, hosted VM<br>shared OS</p>
+<ol>
+<li>hardware</li>
+<li>host OS<br>Patch, upgrade together</li>
+<li>hypervisor, virtualizing the OS</li>
+<li>applications, limited(no kernel module)<br>example: Linux container<br>host OS adminstrater sees everything! not fully isolated!<br>reboot OS? all down!</li>
+</ol>
+</li>
+<li><p>full virtualization, native VM<br>independent guest OS</p>
+<ol>
+<li>hardware</li>
+<li>hypervisor, virtualizing the hardware</li>
+<li>virtual hardwares, including VCPU, VNIC</li>
+<li>guest OSs(Windows, Linux, MacOS)</li>
+<li>applications<br>fully isolated!<br>less scalable<br>better performance</li>
+</ol>
+</li>
+<li><p>combined<br>within each guest OS, platform virtualization(virtualzing some guest OS)</p>
+</li>
+</ol>
+<h3 id="network-address-translation"><a href="#network-address-translation" class="headerlink" title="network address translation"></a>network address translation</h3><p>NIC: Network Interface Control<br>NAT: Network address translation<br>hardware: MAC, Media Access Control<br>VMs: MACs<br>query NAT table for every connection<br>improvement: SRIOV</p>
+<h4 id="SRIOV"><a href="#SRIOV" class="headerlink" title="SRIOV"></a>SRIOV</h4><p>integrate NAT into NIC<br>PCIe: Peripheral Component Interconnect express     chip-to-chip interconnect<br>Ethernet: via cables                                system-to-system</p>
+<h3 id="network-bridging"><a href="#network-bridging" class="headerlink" title="network bridging"></a>network bridging</h3><p>poor scalability<br>bridge over the hypervisor for better performance</p>
+<h3 id="host-only-networking"><a href="#host-only-networking" class="headerlink" title="host only networking"></a>host only networking</h3><p>inter instance communication, VM to VM</p>
+<h2 id="1005"><a href="#1005" class="headerlink" title="1005"></a>1005</h2><h3 id="P2P-exmaple-Napster"><a href="#P2P-exmaple-Napster" class="headerlink" title="P2P exmaple: Napster"></a>P2P exmaple: Napster</h3><ul>
+<li>server <ol>
+<li>stores no files</li>
+<li>maintains a table</li>
+<li>response with where to download the music(IP address, port)</li>
+</ol>
+</li>
+<li>client stores their own data</li>
+<li>server search: <strong>ternary tree</strong> algorithm</li>
+<li>problem:<ol>
+<li>infringement of copyright</li>
+<li>security : each peer exposes a port; clear-text communication</li>
+<li>fault-tolerance: centralized server, centralized algorithm<br><strong>single point of failure</strong></li>
+</ol>
+</li>
+</ul>
+<h3 id="Distributed-Hash-Table"><a href="#Distributed-Hash-Table" class="headerlink" title="Distributed Hash Table"></a>Distributed Hash Table</h3><ul>
+<li><p>objects: files</p>
+</li>
+<li><p>bucket: nodes</p>
+</li>
+<li><p>hash function: consistent hashing    <strong>hash ring</strong><br>SHA-1(<strong>filename</strong> IP address, port)  &#x3D;&gt; 160-bit string(key) <strong>m bits</strong><br>may use leader-election algorithm</p>
+</li>
+<li><p>routing mechanism: </p>
+<ul>
+<li>routing: all operations, including <strong>insert, lookup and delete</strong></li>
+<li>each node knows its successor and predecessor <strong>node id: 0~pow(2,m)-1</strong></li>
+<li>each node computes a finger table(routing table, nodes it knows)</li>
+<li>if doesn’t have the file(after local search), querying, <strong>each step halves the distance O(log(N))</strong><ol>
+<li>go(forward) to the farthest node in finger table, but no crossing the key</li>
+<li>if none exist, send query to successor</li>
+</ol>
+</li>
+<li>all query steps are RPCs</li>
+</ul>
+</li>
+<li><p>search under peer failures</p>
+<ul>
+<li>one solution: maintain <strong>(r)</strong> more than one successor entries instead of one <ul>
+<li>if one query fails, go to the next successor</li>
+<li>sender’s finger table not yet corrected</li>
+</ul>
+</li>
+<li>one solution: replicate file&#x2F;key at r successors and predecessors</li>
+</ul>
+</li>
+<li><p>new peers joining  (dynamic changes <strong>churn</strong>)</p>
+<ul>
+<li>stablization protocol followed by all nodes    <strong>stablization algorithm</strong><ul>
+<li>periodically check and update</li>
+<li>ensure non-loopiness</li>
+</ul>
+</li>
+<li>copy keys and update finger table</li>
+<li>bandwidth cost   busy network</li>
+<li>alternatives: store and replicate only pointers to files(meta info)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1010"><a href="#1010" class="headerlink" title="1010"></a>1010</h2><h3 id="naming-in-distributed-systems"><a href="#naming-in-distributed-systems" class="headerlink" title="naming in distributed systems"></a>naming in distributed systems</h3><ul>
+<li><p>same name; unique identifier</p>
+</li>
+<li><p>address &#x3D; identifer + access point</p>
+</li>
+<li><p>context is import! </p>
+<ul>
+<li>global</li>
+<li>local</li>
+</ul>
+</li>
+<li><p>dynamic or static binding?</p>
+</li>
+</ul>
+<h3 id="broadcast-link-network"><a href="#broadcast-link-network" class="headerlink" title="broadcast link network"></a>broadcast link network</h3><ul>
+<li>identifier: IP and MAC address    <strong>Media Access Control</strong></li>
+<li>arp -a    every node in the network will broadcast their id</li>
+</ul>
+<h3 id="independent-nodes-P2P-system"><a href="#independent-nodes-P2P-system" class="headerlink" title="independent nodes   P2P system"></a>independent nodes   P2P system</h3><ul>
+<li>identifier: hash to 160-bits-string, then truncate it to m bits(name space)</li>
+<li>name resolution: distributed hash tables</li>
+<li>shaw-one algorithm</li>
+</ul>
+<h3 id="flat-naming"><a href="#flat-naming" class="headerlink" title="flat naming"></a>flat naming</h3><ul>
+<li>no structure, just plain bits</li>
+<li>ip address</li>
+</ul>
+<h3 id="structured-naming"><a href="#structured-naming" class="headerlink" title="structured naming"></a>structured naming</h3><ul>
+<li>directory</li>
+<li>file system: <ul>
+<li>alias: short, multiple names</li>
+<li>multiple path to one file</li>
+</ul>
+</li>
+</ul>
+<h3 id="centralized-management-generic-problems"><a href="#centralized-management-generic-problems" class="headerlink" title="centralized management    generic problems"></a>centralized management    generic problems</h3><ul>
+<li>global state: no one can know all</li>
+<li>transaction for second</li>
+<li>single point of failure</li>
+</ul>
+<h3 id="hard-links-amp-amp-symbolic-links"><a href="#hard-links-amp-amp-symbolic-links" class="headerlink" title="hard links &amp;&amp; symbolic links"></a>hard links &amp;&amp; symbolic links</h3><ul>
+<li><p>hard links:</p>
+<ul>
+<li>When adding one hard link, this file’s reference count++</li>
+<li>must delete reference count before deleting</li>
+</ul>
+</li>
+<li><p>symbolic links:</p>
+<ul>
+<li>When adding one link, the file will store the meta data pointing to the original file</li>
+<li>linux: ln -s</li>
+</ul>
+</li>
+</ul>
+<h3 id="mounting"><a href="#mounting" class="headerlink" title="mounting"></a>mounting</h3><ul>
+<li>nfs protocol       </li>
+<li>remote server B: share file&#x2F;directory<ul>
+<li>linux: exportfs &#x2F;home&#x2F;steen</li>
+</ul>
+</li>
+<li>local server A: mount remote shared file&#x2F;directory locally<ul>
+<li>linux: mount B.ip:&#x2F;home&#x2F;steen &#x2F;remote&#x2F;vu </li>
+<li>linux: cd &#x2F;remote&#x2F;vu</li>
+</ul>
+</li>
+</ul>
+<h3 id="name-resolution"><a href="#name-resolution" class="headerlink" title="name resolution"></a>name resolution</h3><ul>
+<li><p>client send query to name servers<br>host query DNS server</p>
+</li>
+<li><p>linux: </p>
+<ul>
+<li>the host knows where to query in DNS<br>&#x2F;etc&#x2F;reslve.conf</li>
+</ul>
+<ol>
+<li>nslookup  <a target="_blank" rel="noopener" href="http://www.scu.edu/">www.scu.edu</a></li>
+<li>dig</li>
+</ol>
+</li>
+<li><p>iterative</p>
+</li>
+<li><p>recursive</p>
+</li>
+<li><p>redundancy and caching server</p>
+<ul>
+<li>speed</li>
+<li>fault tolerance</li>
+</ul>
+</li>
+<li><p>caching on the client side: local browser name resolver</p>
+</li>
+</ul>
+<h3 id="attribute-based-naming"><a href="#attribute-based-naming" class="headerlink" title="attribute-based naming"></a>attribute-based naming</h3><ul>
+<li>tuple&#x2F;triple: key, value&#x2F;set of values</li>
+<li>Lightweigh Directory Access Protocol</li>
+<li>when sending email, client query LDAP server<br>west coast, east coast, europe, …</li>
+<li>Directory Information Base  <strong>data sharding</strong></li>
+</ul>
+<h2 id="1017"><a href="#1017" class="headerlink" title="1017"></a>1017</h2><h3 id="gossip-multicast"><a href="#gossip-multicast" class="headerlink" title="gossip  multicast"></a>gossip  multicast</h3><ul>
+<li>fault tolerance</li>
+<li>scalability     sending messages fast</li>
+</ul>
+<h3 id="centralized-approach"><a href="#centralized-approach" class="headerlink" title="centralized approach"></a>centralized approach</h3><ul>
+<li>performance bottleneck   not scalable</li>
+<li>single point of failure  not reliable</li>
+<li>communication channel may be unreliable<ul>
+<li>acknowlegement      protocol</li>
+</ul>
+</li>
+</ul>
+<h3 id="tree-based-mechanism"><a href="#tree-based-mechanism" class="headerlink" title="tree-based mechanism"></a>tree-based mechanism</h3><ul>
+<li>overheads:<ol>
+<li>someone needs to be responsible to set up and maintain the tree</li>
+<li>acknowledgement    ACKs &#x2F; NAKs</li>
+<li>RMTP      SRM</li>
+</ol>
+</li>
+</ul>
+<h3 id="gossip-protocol-epidemic-multicast"><a href="#gossip-protocol-epidemic-multicast" class="headerlink" title="gossip protocol     epidemic multicast"></a>gossip protocol     epidemic multicast</h3><ul>
+<li><p>every round, pick random targets and send messages via UDP</p>
+</li>
+<li><p>may have duplicates(send messages back)</p>
+</li>
+<li><p>once become infected, do the same</p>
+</li>
+<li><p>push vs pull</p>
+<ul>
+<li>push: whenever have a new mutlicast message</li>
+<li>pull: periodically poll<br>if node crashes, after coming back, and poll messages   fault-tolerant</li>
+</ul>
+</li>
+<li><p>topology-aware gossip:</p>
+<ul>
+<li>to reduce router load</li>
+<li>fix: pick gossip target in its subnet</li>
+</ul>
+</li>
+</ul>
+<h2 id="1024"><a href="#1024" class="headerlink" title="1024"></a>1024</h2><h3 id="time-and-ordering"><a href="#time-and-ordering" class="headerlink" title="time and ordering"></a>time and ordering</h3><ul>
+<li>host1, host2, host3</li>
+<li>t1    t2      t3</li>
+<li>each have local clocks(local frequencies)</li>
+<li>within host1, different processes, all have same time t1</li>
+<li>each process will order tasks it has</li>
+<li>However, to order p1 from host1 and p2 from host2? <strong>Time Synchronization</strong></li>
+</ul>
+<h3 id="time-synchronization"><a href="#time-synchronization" class="headerlink" title="time synchronization"></a>time synchronization</h3><ol>
+<li>external time synchronization: <ul>
+<li>rely on external time source</li>
+<li>when off bounds, sychronize</li>
+<li>Cristian’s algorithm, NTP</li>
+<li>problem: unbounded latency in asynchronous system:<ol>
+<li>network latency</li>
+<li>processing latency</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>internal time synchronization: <ul>
+<li>between hosts’s processes, clock skew</li>
+<li>when off bounds, sychronize</li>
+<li>Berkeley algorithm</li>
+<li>problem: time drift from the UTC(correct time)</li>
+</ul>
+</li>
+<li>logical time synchronization</li>
+</ol>
+<h3 id="clock-skew-amp-amp-clock-drift"><a href="#clock-skew-amp-amp-clock-drift" class="headerlink" title="clock skew &amp;&amp; clock drift"></a>clock skew &amp;&amp; clock drift</h3><ul>
+<li>clock skew; distance</li>
+<li>clock drift: speeds difference</li>
+<li>non-zero clock skew: clocks are not synchronized</li>
+<li>non-zero clock drift: the skew will increase</li>
+</ul>
+<h3 id="cristian’s-algorithm"><a href="#cristian’s-algorithm" class="headerlink" title="cristian’s algorithm"></a>cristian’s algorithm</h3><ul>
+<li>RTT: round-trip time</li>
+<li>erro is at most (RTT-min2-min1)&#x2F;2</li>
+<li>still has problem:<br>bounded error &#x3D;&gt; error rate more than zero<br>what if processes asynchronize within the bound? &#x3D;&gt; won’t trigger the algorithm</li>
+</ul>
+<h3 id="Network-Time-Protocol"><a href="#Network-Time-Protocol" class="headerlink" title="Network Time Protocol"></a>Network Time Protocol</h3><ul>
+<li>to reduce min1, min2</li>
+<li>leaf nodes are clients</li>
+<li>child has ts1, tr1, ts2, tr2, then calculate the offset &#x3D; (tr1-tr2+ts2-ts1)&#x2F;2</li>
+<li>error: difference between the calcuated offset and the real offset</li>
+<li>still have a non-zero error!! &#x3D;&gt; still invalid in asynchronous distributed system</li>
+</ul>
+<h3 id="logical-time-instead-of-absolute-time"><a href="#logical-time-instead-of-absolute-time" class="headerlink" title="logical time, instead of absolute time"></a>logical time, instead of absolute time</h3><ul>
+<li>Leslie Lamport, Turing award</li>
+<li>causality: <ol>
+<li>ordering within one process</li>
+<li>send-recieve message between two processes</li>
+</ol>
+</li>
+<li>transitivity</li>
+<li>lamport timestaps   ts&#x3D;max(local,msg)+1</li>
+<li>timestamp doesn’t not determine order, only causal path does!</li>
+<li>timestamps only matter if there is a causal path!</li>
+<li>when there is no causal path? concurrent events</li>
+<li>shortcoming: can’t tell where two events are concurrent or not</li>
+</ul>
+<h3 id="vector-timestamps"><a href="#vector-timestamps" class="headerlink" title="vector timestamps"></a>vector timestamps</h3><ul>
+<li>n processes &#x3D;&gt; n elements within the vector</li>
+<li>each process maintains a vector</li>
+<li>causality: iff VT1 &lt;&#x3D; VT2</li>
+<li>concurrent (VT1 ||| VT2): !(VT1 &lt;&#x3D; VT2) &amp;&amp; !(VT2 &lt;&#x3D; VT1)</li>
+</ul>
+<h2 id="1026"><a href="#1026" class="headerlink" title="1026"></a>1026</h2><h3 id="coordination-coordinator-x2F-leader-x2F-introducer"><a href="#coordination-coordinator-x2F-leader-x2F-introducer" class="headerlink" title="coordination  coordinator&#x2F;leader&#x2F;introducer"></a>coordination  coordinator&#x2F;leader&#x2F;introducer</h3><ol>
+<li>receive client requrest &#x3D;&gt; forward to appropriate host</li>
+<li>handling of failure&#x2F;join&#x2F;leave</li>
+</ol>
+<ul>
+<li><p>property&#x2F;attribute: cpu, disk, ID, space</p>
+</li>
+<li><p>safety: get an election result</p>
+</li>
+<li><p>liveness: election terminates</p>
+</li>
+</ul>
+<h3 id="ring-election-protocol-consensus-problem"><a href="#ring-election-protocol-consensus-problem" class="headerlink" title="ring election protocol    consensus problem"></a>ring election protocol    consensus problem</h3><ul>
+<li>elect highest id process as leader</li>
+<li>received id &#x3D;&#x3D; this.id &#x3D;&gt; elected!!</li>
+<li>whenever a new node joins, run the protocol<br>either become the new leader, or get the leader</li>
+</ul>
+<h3 id="fixing-for-failure"><a href="#fixing-for-failure" class="headerlink" title="fixing for failure"></a>fixing for failure</h3><ul>
+<li>have predecessor&#x2F;successor detect failure</li>
+<li>use the failure detector</li>
+</ul>
+<h3 id="bully-algorithm"><a href="#bully-algorithm" class="headerlink" title="bully algorithm"></a>bully algorithm</h3><ul>
+<li>premise: all knows all</li>
+<li>handle failures better</li>
+</ul>
+<h3 id="google-chubby"><a href="#google-chubby" class="headerlink" title="google chubby"></a>google chubby</h3><ul>
+<li>quorum: voting set</li>
+<li>master lease: time duration</li>
+</ul>
+<h3 id="apache-zookeeper"><a href="#apache-zookeeper" class="headerlink" title="apache zookeeper"></a>apache zookeeper</h3><ul>
+<li>paxos: Zookeeper Atomic Broadcast</li>
+</ul>
+<h2 id="1031"><a href="#1031" class="headerlink" title="1031"></a>1031</h2><h3 id="transaction"><a href="#transaction" class="headerlink" title="transaction"></a>transaction</h3><ul>
+<li>series of operations executed by client</li>
+<li>each operation is a RPC to a server</li>
+<li>either <strong>commit</strong> or <strong>abort</strong></li>
+</ul>
+<h3 id="atomicity"><a href="#atomicity" class="headerlink" title="atomicity"></a>atomicity</h3><ul>
+<li>all or nothing; commit or abort</li>
+<li>failure&#x2F;exception: roll back(undone)</li>
+</ul>
+<h3 id="consistency"><a href="#consistency" class="headerlink" title="consistency"></a>consistency</h3><ul>
+<li>if the server starts in a consistent state, the transaction ends the server in a consistent state </li>
+<li>Data is in a consistent state when a transaction starts and when it ends. For example, in an application that transfers funds from one account to another, the consistency property ensures that the total value of funds in both the accounts is the same at the start and end of each transaction.</li>
+</ul>
+<h3 id="isolation"><a href="#isolation" class="headerlink" title="isolation"></a>isolation</h3><ul>
+<li>scenario: concurrency of transactions     </li>
+<li>two transactions can not update the same object<br>one has to wait for the prior to commit</li>
+</ul>
+<ol>
+<li>no access to intermediate result&#x2F;states of other transactions</li>
+<li>free from interference by operations of other transactions</li>
+</ol>
+<h3 id="durability"><a href="#durability" class="headerlink" title="durability"></a>durability</h3><ul>
+<li>transactions’effects are saved in permanent storage</li>
+</ul>
+<h3 id="multiple-servers-within-one-transaction-–-distributed-transaction"><a href="#multiple-servers-within-one-transaction-–-distributed-transaction" class="headerlink" title="multiple servers within one transaction – distributed transaction"></a>multiple servers within one transaction – distributed transaction</h3><ul>
+<li>solution: 2-phase commit</li>
+</ul>
+<h3 id="lost-update-problem"><a href="#lost-update-problem" class="headerlink" title="lost update problem"></a>lost update problem</h3><ul>
+<li>depending on how the server schedules, one of the update wil be lost</li>
+<li>cause of problem: inconsistency, simultaneous access of a shared&amp;unsynchronized object; write-write conflict</li>
+</ul>
+<h3 id="inconsistent-retrieval-problem"><a href="#inconsistent-retrieval-problem" class="headerlink" title="inconsistent retrieval problem"></a>inconsistent retrieval problem</h3><h3 id="concurrent-transactions"><a href="#concurrent-transactions" class="headerlink" title="concurrent transactions"></a>concurrent transactions</h3><ul>
+<li>transaction per second</li>
+<li>goal: increase concurrency while maintaining correctness(ACID)</li>
+</ul>
+<h3 id="serial-amp-interleaving-schedule"><a href="#serial-amp-interleaving-schedule" class="headerlink" title="serial &amp; interleaving schedule"></a>serial &amp; interleaving schedule</h3><ul>
+<li>serializability: T1,T2 &#x3D;&#x3D; T1.T2 or T2.T1</li>
+<li>why: serial executions are most consistent</li>
+</ul>
+<h3 id="conflicting-operations"><a href="#conflicting-operations" class="headerlink" title="conflicting operations"></a>conflicting operations</h3><ul>
+<li><p>same object: </p>
+<ol>
+<li>read write</li>
+<li>write read</li>
+<li>write write</li>
+</ol>
+</li>
+<li><p>serially equivalent</p>
+</li>
+</ul>
+<h3 id="prevent-violation-of-isolation"><a href="#prevent-violation-of-isolation" class="headerlink" title="prevent violation of isolation"></a>prevent violation of isolation</h3><ul>
+<li><p>pessimistic</p>
+<ol>
+<li><p>exclusive locking</p>
+<ol>
+<li>before read&#x2F;write, lock(O)</li>
+<li>either enter the lock or wait</li>
+<li>when done, unlock(O)</li>
+</ol>
+<ul>
+<li>improvement: exclusive locking is an overkill for read</li>
+</ul>
+</li>
+<li><p>another approach: read&#x2F;write modes</p>
+<ul>
+<li>read_lock(O), write_lock(O), unlock(O)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>optimistic</p>
+<ol>
+<li>check commit time&#x2F;serial equivalence</li>
+</ol>
+</li>
+</ul>
+<h3 id="two-phase-locking-protocol"><a href="#two-phase-locking-protocol" class="headerlink" title="two-phase locking protocol"></a>two-phase locking protocol</h3><ul>
+<li>guarantee serial equivalence</li>
+</ul>
+<ol>
+<li>growing phase: only acquires or promotes lock</li>
+<li>shrinking phase: only release lock</li>
+</ol>
+<ul>
+<li>drawback: deadlock</li>
+<li>detect deadlocks in a wait-for graph</li>
+</ul>
+<h3 id="3-necessary-conditions-for-deadlock"><a href="#3-necessary-conditions-for-deadlock" class="headerlink" title="3 necessary conditions for deadlock"></a>3 necessary conditions for deadlock</h3><ol>
+<li>Some objects are accessed in exclusive lock modes</li>
+<li>Transactions holding locks cannotbe preempted</li>
+<li>There is a circular wait (cycle) in the Wait-for graph</li>
+</ol>
+<h3 id="Coffman-conditions-if-all-four-simultaneously-x3D-gt-deadlock"><a href="#Coffman-conditions-if-all-four-simultaneously-x3D-gt-deadlock" class="headerlink" title="Coffman conditions    if all four simultaneously &#x3D;&gt; deadlock"></a>Coffman conditions    if all four simultaneously &#x3D;&gt; deadlock</h3><ol>
+<li>mutual exlusion    resources</li>
+<li>hold and wait      processes</li>
+<li>no preemption      process holding resources</li>
+<li>cirular wait</li>
+</ol>
+<h3 id="optimistic-lock"><a href="#optimistic-lock" class="headerlink" title="optimistic lock"></a>optimistic lock</h3><ul>
+<li>example: dropbox</li>
+<li>first-cut</li>
+<li>ordering</li>
+<li>multi-version concurrency control: svn</li>
+</ul>
+<h2 id="1102"><a href="#1102" class="headerlink" title="1102"></a>1102</h2><h3 id="distributed-system-mutual-exclusion"><a href="#distributed-system-mutual-exclusion" class="headerlink" title="distributed system mutual exclusion"></a>distributed system mutual exclusion</h3><ul>
+<li><p>ATM<br>avoid WW conflicts, serial equivalence: false</p>
+</li>
+<li><p>distributed file systems<br>accessing objects in a safe and consistent way<br>server cooridination<br>in industry, Chubby, Apache Zookeeper</p>
+</li>
+<li><p>piece of code we ensure that there is at most one process executing it at any point of time</p>
+</li>
+<li><p><strong>critical section</strong> of the process</p>
+<ol>
+<li>enter()</li>
+<li>accessResource()</li>
+<li>exit()</li>
+</ol>
+</li>
+</ul>
+<h3 id="single-OS-process-synchronization"><a href="#single-OS-process-synchronization" class="headerlink" title="single OS: process synchronization"></a>single OS: process synchronization</h3><ul>
+<li><p>semaphore</p>
+<ul>
+<li><p>signalling mechanism</p>
+</li>
+<li><p>an integer variable S, initialized with the number of resources available</p>
+</li>
+<li><p>only two functions can change its value: </p>
+<ol>
+<li>wait():</li>
+</ol>
+<ul>
+<li>if S&gt;0: S–, accessResource()</li>
+<li>if S&#x3D;&#x3D;0: wait</li>
+</ul>
+<ol>
+<li>signal(): S++</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>mutex</p>
+<ul>
+<li>mutual exclusion object</li>
+<li>locked-based technique</li>
+<li>lock, use, release</li>
+</ul>
+</li>
+</ul>
+<h3 id="need-to-guarantee-3-properties"><a href="#need-to-guarantee-3-properties" class="headerlink" title="need to guarantee 3 properties"></a>need to guarantee 3 properties</h3><ol>
+<li>safety(essential)<br>at most one at a time</li>
+<li>liveness(essential)<br>all request for a CS is granted eventually</li>
+<li>ordering(desirable)</li>
+</ol>
+<h3 id="distributed-system-central-solution"><a href="#distributed-system-central-solution" class="headerlink" title="distributed system: central solution"></a>distributed system: central solution</h3><ul>
+<li>elect a central master(leader)</li>
+<li>master keeps:<ol>
+<li>a <strong>queue</strong> of waiting requests from processes</li>
+<li>a special <strong>token</strong> which allows its holder to access CS</li>
+</ol>
+</li>
+<li>any process in group:<ol>
+<li>enter()<ul>
+<li>send a request to master</li>
+<li>wait for token from master</li>
+</ul>
+</li>
+<li>exit()<ul>
+<li>send back token</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="analyzing-performance-metrics"><a href="#analyzing-performance-metrics" class="headerlink" title="analyzing performance   metrics"></a>analyzing performance   metrics</h3><ul>
+<li>bandwidth</li>
+<li>client delay</li>
+<li>synchronization delay</li>
+</ul>
+<h3 id="ring-based-mutual-exlusion"><a href="#ring-based-mutual-exlusion" class="headerlink" title="ring based mutual exlusion"></a>ring based mutual exlusion</h3><ul>
+<li>safety: yes</li>
+<li>liveness: yes</li>
+<li>ordering: no<br>the nature of ring topology</li>
+</ul>
+<h3 id="Ricart-Agrawala’s-Algorithm"><a href="#Ricart-Agrawala’s-Algorithm" class="headerlink" title="Ricart-Agrawala’s Algorithm"></a>Ricart-Agrawala’s Algorithm</h3><ul>
+<li>premise: reliable all-to-all communication</li>
+<li>no token</li>
+<li>uses the notion of causality and multicast<br>send messages of <strong>&lt;timestamp, process id&gt;</strong></li>
+<li>lowing waiting time to enter CS</li>
+<li>state<ul>
+<li>wanted</li>
+<li>held</li>
+<li>released</li>
+</ul>
+</li>
+</ul>
+<h3 id="Maekawa’s-Algorithm"><a href="#Maekawa’s-Algorithm" class="headerlink" title="Maekawa’s Algorithm"></a>Maekawa’s Algorithm</h3><ul>
+<li>voting set(<strong>quorum</strong>)</li>
+<li>safety but not liveness</li>
+</ul>
+<h2 id="1107"><a href="#1107" class="headerlink" title="1107"></a>1107</h2><h3 id="replication-control"><a href="#replication-control" class="headerlink" title="replication control"></a>replication control</h3><ul>
+<li>example: airline booking system</li>
+<li>one client, query which one of multiple servers</li>
+<li>multiple clients, coordinations; concurrency</li>
+</ul>
+<h3 id="why-replication-x3D-gt-higher-availability"><a href="#why-replication-x3D-gt-higher-availability" class="headerlink" title="why replication &#x3D;&gt; higher availability"></a>why replication &#x3D;&gt; higher availability</h3><ol>
+<li>fault-tolerance</li>
+<li>load balancing</li>
+</ol>
+<h3 id="availability-vs-reliability"><a href="#availability-vs-reliability" class="headerlink" title="availability vs reliability"></a>availability vs reliability</h3><ul>
+<li><p>availability: </p>
+<ol>
+<li>The <strong>percentage of time</strong> that the infrastructure, system, or solution is <strong>operational</strong> under normal circumstances.</li>
+<li>Percentage of availability &#x3D; (total elapsed time – sum of downtime)&#x2F;total elapsed time</li>
+</ol>
+</li>
+<li><p>reliability: </p>
+<ol>
+<li>The <strong>probability</strong> that the system will meet certain performance standards and <strong>yield correct output</strong> for a specific time.</li>
+<li><strong>Mean Time Betwen Failures</strong></li>
+<li>MTBF &#x3D; (total elapsed time – sum of downtime)&#x2F;number of failures</li>
+</ol>
+</li>
+<li><p>The measurement of Availability is driven by <strong>time loss</strong> whereas the measurement of Reliability is driven by the <strong>frequency and impact of failures</strong>. </p>
+</li>
+<li><p>Mathematically, the Availability of a system can be treated as a function of its Reliability. In other words, Reliability can be considered <strong>a subset of Availability</strong>.</p>
+</li>
+</ul>
+<h3 id="maintain-two-properties"><a href="#maintain-two-properties" class="headerlink" title="maintain two properties"></a>maintain two properties</h3><ol>
+<li><p>replication <strong>consistency</strong></p>
+<ul>
+<li>All clients see single consistent copy of data, in spite of replication</li>
+<li>For transactions, ACID</li>
+<li>achieved by passive&#x2F;active replication</li>
+</ul>
+</li>
+<li><p>replication <strong>transparency</strong></p>
+<ul>
+<li>transparent to a single client</li>
+<li>achieved by FEs</li>
+</ul>
+</li>
+</ol>
+<h3 id="replication-consistency"><a href="#replication-consistency" class="headerlink" title="replication consistency"></a>replication consistency</h3><ul>
+<li>two ways to forward updates from front-ends to replica group<ol>
+<li>passive replication<ol>
+<li>leader election, select a primary replica (master)</li>
+<li>FEs send request to the master</li>
+</ol>
+</li>
+<li>active replication <ul>
+<li>treats all replicas indentically</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>both approaches: <strong>replicated state machine</strong></li>
+</ul>
+<h3 id="passive-replication"><a href="#passive-replication" class="headerlink" title="passive replication"></a>passive replication</h3><ul>
+<li>election: ring, bully, Google Chubby</li>
+</ul>
+<h3 id="active-replication"><a href="#active-replication" class="headerlink" title="active replication"></a>active replication</h3><ul>
+<li>FEs send multicast requests: gossip</li>
+<li>multicast ordering:<ol>
+<li>FIFO</li>
+<li>causal ordering, Lamport timestamp</li>
+<li>total ordering<ul>
+<li>object-based: timestamp, size, etc</li>
+</ul>
+</li>
+<li>hybrid ordering</li>
+</ol>
+</li>
+</ul>
+<h3 id="one-copy-serializability"><a href="#one-copy-serializability" class="headerlink" title="one-copy serializability"></a>one-copy serializability</h3><ul>
+<li>a concurrent execution of transactions equivalent to a serial execution of these transactions</li>
+<li>one-copy: results should be consistent&#x2F;the same: doesn’t matter if I execute a, or b, or both</li>
+<li>if non-replication: just order the concurrent transactions; ensure <strong>correctness</strong></li>
+<li>when replicated:</li>
+</ul>
+<h3 id="distributed-transactions"><a href="#distributed-transactions" class="headerlink" title="distributed transactions"></a>distributed transactions</h3><ul>
+<li>transaction: sequence of R&#x2F;W operations</li>
+<li>main challenge: maintain ACID, especially Atomiciy</li>
+<li>atomic commit problem:<ol>
+<li>commit itself is distributed</li>
+<li>make sure commit itself is atomic</li>
+</ol>
+</li>
+</ul>
+<h3 id="one-phase-commit-not-usable"><a href="#one-phase-commit-not-usable" class="headerlink" title="one-phase commit    not usable"></a>one-phase commit    not usable</h3><ul>
+<li>special server called coordinator, which initiates atomic commit</li>
+<li>tell other servers to either commit or abort</li>
+<li>why not usable<ol>
+<li>one-way communication<br>server has no say(can not time out), just coordinator telling servers what to do</li>
+<li>server may crash before receiving commit message</li>
+</ol>
+</li>
+</ul>
+<h3 id="two-phase-commit"><a href="#two-phase-commit" class="headerlink" title="two-phase commit"></a>two-phase commit</h3><ol>
+<li>coordinator prepared to save</li>
+<li>servers respond with yes&#x2F;no</li>
+<li>coordinator decides whether commit or abort</li>
+</ol>
+<h3 id="two-phase-commit-failures"><a href="#two-phase-commit-failures" class="headerlink" title="two-phase commit failures:"></a>two-phase commit failures:</h3><ol>
+<li>server crashes<br>save tentative updates into permanent storage right before replying yes&#x2F;no</li>
+<li>coordinator crashes:<br>log all decisions and received messages on disk</li>
+<li>message loss: <strong>pessimistic</strong><ol>
+<li>prepare message loss</li>
+<li>yes&#x2F;no message loss</li>
+<li>commit&#x2F;abort</li>
+</ol>
+</li>
+</ol>
+<h2 id="1109"><a href="#1109" class="headerlink" title="1109"></a>1109</h2><h3 id="distributed-systems-snapshots"><a href="#distributed-systems-snapshots" class="headerlink" title="distributed systems snapshots"></a>distributed systems snapshots</h3><ul>
+<li>example:<br>transactions, take a global snapshot to construct the weight-for graph</li>
+<li>distributed system global snapshot:<ol>
+<li>process state</li>
+<li>communiation channel<br><em>two main parts of distributed system: hosts and communications</em></li>
+</ol>
+</li>
+</ul>
+<h3 id="uses-of-having-a-global-picture"><a href="#uses-of-having-a-global-picture" class="headerlink" title="uses of having a global picture"></a>uses of having a global picture</h3><ol>
+<li>checkpointing: can restart distributed application on failure</li>
+<li>garbage collection: objects at servers that don’t have any other objects at any servers with pointers to them</li>
+<li>deadlock detection: useful in database transaction systems</li>
+<li>termination of computation: useful in batch computing systems</li>
+</ol>
+<h3 id="how-to-take-a-global-snapshot"><a href="#how-to-take-a-global-snapshot" class="headerlink" title="how to take a global snapshot"></a>how to take a global snapshot</h3><ul>
+<li><p>obvious first solution</p>
+<ol>
+<li>synchronize clocks of all processes</li>
+<li>then ask all processes to record their states at known time t</li>
+</ol>
+</li>
+<li><p>problems:</p>
+<ol>
+<li>time synchronization always has error  <strong>clock skew</strong></li>
+<li>also, doesn’t record the state of messages in the channels</li>
+</ol>
+</li>
+<li><p>again: synchronization is not required! causality is enough!<br>(global) state to state movement obeys causality</p>
+<ol>
+<li>process receives message</li>
+<li>process sends message</li>
+<li>proces takes a step</li>
+</ol>
+</li>
+</ul>
+<h3 id="system-model"><a href="#system-model" class="headerlink" title="system model"></a>system model</h3><h3 id="requirements"><a href="#requirements" class="headerlink" title="requirements"></a>requirements</h3><ol>
+<li>snapshot should not interfere with normal applcation actions&#x2F;sending messages</li>
+<li>each process is able to record its own state<br>its heap, registers, program counter, code, etc (<strong>coredump</strong>)</li>
+<li>global state is collected in a distributed manner</li>
+<li>any process may initiate the snapshot</li>
+</ol>
+<h3 id="Chandy-Lamport-global-snapshot-algorithm"><a href="#Chandy-Lamport-global-snapshot-algorithm" class="headerlink" title="Chandy-Lamport global snapshot algorithm"></a>Chandy-Lamport global snapshot algorithm</h3><ul>
+<li>initiator process records its own state</li>
+<li>create and send <strong>Marker</strong> messages to all other processes via outgoing channels<br>turn on recording on all incoming channels</li>
+<li>other processes start recording on each of the incoming channels<ul>
+<li>if first marker message:<ol>
+<li>record its own state</li>
+<li>mark incoming channel as emtpy (<strong>&lt;&gt;</strong>)</li>
+<li>turn on recording on other incoming channels</li>
+<li>send out markers</li>
+</ol>
+</li>
+<li>already seen a marker message:<ol>
+<li>k: sender; i: receiver</li>
+<li>mark the state of channel Cki as all the messages that have arrived on it since recording was turned on for Cki</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="consistent-cut"><a href="#consistent-cut" class="headerlink" title="consistent cut"></a>consistent cut</h3><ul>
+<li><p>cut: time frontier at each process and at each channel</p>
+<ul>
+<li>in the cut</li>
+<li>out of the cut</li>
+</ul>
+</li>
+<li><p>consistent cut: a cut that obeys causality<br>event e in cut C; f happens before e (f-&gt;e)<br>then event f is also in the cut C</p>
+</li>
+<li><p>any run of the Chandy-Lamport gloabal snapshot algorithm creates a consistent cut</p>
+</li>
+</ul>
+<h3 id="correctness-in-distributed-systems"><a href="#correctness-in-distributed-systems" class="headerlink" title="correctness in distributed systems"></a>correctness in distributed systems</h3><ul>
+<li>liveness:<br>guarantee that something good will happen, eventually<br>eventually: does not imply a time bound, but if you let the system run long enough, then…<ul>
+<li>examples:<ol>
+<li>distributed computation: guarantee that it will terminate</li>
+<li>completeness in failure detectors: every failure is eventually detected by some non-faulty process</li>
+<li>consensus (election, Google Chubby): all processes eventually decide on a value</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>safety:<br>guarantee that something bad will never happen<ul>
+<li>examples:<ol>
+<li>there is no deadlock in a distributed system</li>
+<li>no object is orphaned in a distributed system</li>
+<li>accuracy in failure detectors</li>
+<li>in consensus: no two processes decide on different values</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="stable-properties"><a href="#stable-properties" class="headerlink" title="stable properties"></a>stable properties</h3><ul>
+<li>stable: once true, stays true forever afterwards</li>
+<li>all stable properties can be detected using the Chandy-Lamport algorithm</li>
+</ul>
+<h2 id="1114"><a href="#1114" class="headerlink" title="1114"></a>1114</h2><h3 id="file-system"><a href="#file-system" class="headerlink" title="file system"></a>file system</h3><ul>
+<li>higher level of abstraction</li>
+<li>file contents:<ol>
+<li>header:<ol>
+<li>timestamps</li>
+<li>file type</li>
+<li>ownership</li>
+<li>access control list</li>
+<li>reference count: number of directories containing this file</li>
+</ol>
+</li>
+<li>blocks</li>
+</ol>
+</li>
+<li>directory</li>
+</ul>
+<h3 id="unix-file-system-local-methods"><a href="#unix-file-system-local-methods" class="headerlink" title="unix file system  local methods"></a>unix file system  local methods</h3><ul>
+<li>file descriptors<ol>
+<li>open</li>
+<li>creat</li>
+<li>close</li>
+</ol>
+</li>
+<li>read-write pointer<ol>
+<li>read</li>
+<li>write</li>
+<li>lseek</li>
+</ol>
+</li>
+<li>status<ol>
+<li>link</li>
+<li>unlink</li>
+<li>stat&#x2F;fstat</li>
+</ol>
+</li>
+</ul>
+<h3 id="distributed-file-systems"><a href="#distributed-file-systems" class="headerlink" title="distributed file systems"></a>distributed file systems</h3><ol>
+<li>transparency</li>
+<li>support concurrent clients</li>
+<li>replcation: fault-tolerance</li>
+</ol>
+<ul>
+<li>idempotent</li>
+<li>stateless</li>
+</ul>
+<h3 id="security"><a href="#security" class="headerlink" title="security"></a>security</h3><ol>
+<li>autentication</li>
+<li>authorization:<ol>
+<li>Access Control Lists, per file</li>
+<li>Capability Lists, per user</li>
+</ol>
+</li>
+</ol>
+<h3 id="why-DFS-not-using-file-descriptors"><a href="#why-DFS-not-using-file-descriptors" class="headerlink" title="why DFS not using file descriptors?"></a>why DFS not using file descriptors?</h3><ol>
+<li>transparency: client should not know the absolute position of the file</li>
+<li>confusion: a file may be replicated across multiple servers, each having a file descriptor</li>
+</ol>
+<h3 id="Network-File-System"><a href="#Network-File-System" class="headerlink" title="Network File System"></a>Network File System</h3><ul>
+<li><p>virtual file system: provide transparency</p>
+<ul>
+<li>local unix file system, if file is local</li>
+<li>NFS client system, if file is not local<ul>
+<li>do RPCs</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>server: exportfs</p>
+</li>
+<li><p>client: mount</p>
+<ul>
+<li>not clone, but hook(point to)</li>
+<li>unlink dropbox, where file is local</li>
+</ul>
+</li>
+</ul>
+<h3 id="why-not-clone"><a href="#why-not-clone" class="headerlink" title="why not clone?"></a>why not clone?</h3><ul>
+<li>replcation: consistency</li>
+</ul>
+<h3 id="virtual-file-system-module"><a href="#virtual-file-system-module" class="headerlink" title="virtual file system module"></a>virtual file system module</h3><ul>
+<li>allow processes to access files via file descriptors</li>
+<li>transparency: local and romote files look the same</li>
+<li>“NFS file handles”</li>
+<li>v-node</li>
+</ul>
+<h3 id="server-optimizations"><a href="#server-optimizations" class="headerlink" title="server optimizations"></a>server optimizations</h3><ul>
+<li><p>server caching: locality of access</p>
+</li>
+<li><p>writes: two flavors</p>
+<ol>
+<li>delayed write:</li>
+</ol>
+<ul>
+<li>write in memory, flush to disk every 30s</li>
+<li>non-blocking</li>
+<li>fast but not consistent</li>
+</ul>
+<ol start="2">
+<li>write-through</li>
+</ol>
+<ul>
+<li>blocking</li>
+<li>consistent but may be slow(latency)</li>
+</ul>
+</li>
+</ul>
+<h3 id="client-optimization"><a href="#client-optimization" class="headerlink" title="client optimization"></a>client optimization</h3><ul>
+<li>client caching</li>
+<li>cache recently-accessed blocks</li>
+<li>when block is written, do a delayed-write to server</li>
+<li>compromise between consistency and efficiency</li>
+</ul>
+<h3 id="AFS"><a href="#AFS" class="headerlink" title="AFS"></a>AFS</h3><ul>
+<li>whole file serving</li>
+<li>whole file caching</li>
+</ul>
+<h2 id="1116"><a href="#1116" class="headerlink" title="1116"></a>1116</h2><h3 id="security-threats"><a href="#security-threats" class="headerlink" title="security threats"></a>security threats</h3><ol>
+<li>leakage</li>
+<li>tampering</li>
+<li>vandalism</li>
+</ol>
+<h3 id="common-attacks"><a href="#common-attacks" class="headerlink" title="common attacks"></a>common attacks</h3><ol>
+<li>eavesdropping: taps into network</li>
+<li>masquerading: pretend</li>
+<li>message tampering: modify</li>
+<li>replay attack</li>
+<li>denial of service: bombard a port</li>
+</ol>
+<h3 id="CIA-properties"><a href="#CIA-properties" class="headerlink" title="CIA properties"></a>CIA properties</h3><ul>
+<li>confidentiality</li>
+<li>integrity</li>
+<li>availability</li>
+</ul>
+<h3 id="separate-policy-from-mechanism"><a href="#separate-policy-from-mechanism" class="headerlink" title="separate policy from mechanism"></a>separate policy from mechanism</h3><ul>
+<li>policy: what’s the goal</li>
+<li>mechanism: how the goal is accomplished</li>
+</ul>
+<h3 id="Mechanisms-Golden-A’s"><a href="#Mechanisms-Golden-A’s" class="headerlink" title="Mechanisms: Golden A’s"></a>Mechanisms: Golden A’s</h3><ul>
+<li>authentication:<br>is a user claiming to be Alice, really Alice?</li>
+<li>authorization:<br>Yes, it is Alice, but is Alice allowed to perfrom the requested operation?</li>
+<li>auditing:<br>How did Eve manage to attack the system and breach defenses?<br>Usually done by continuously logging all operations.<br>No attack should go unnoticed!</li>
+</ul>
+<h3 id="designing-secure-systems"><a href="#designing-secure-systems" class="headerlink" title="designing secure systems"></a>designing secure systems</h3><ul>
+<li>don’t know how powerful attacker is</li>
+<li>when designing a secruity protocol, need to:<ol>
+<li>specify <strong>Attacker Model</strong><br>capabilities of attacker; tied to reality, no imagination<ul>
+<li>study</li>
+</ul>
+</li>
+<li>design security mechanisms to satisfy policy under the attacker model<ul>
+<li>engineers implement the mechanisms</li>
+</ul>
+</li>
+<li>prove that mechanisms satisfy policy under attacker model<ul>
+<li>a second organization may come into play, try to attack</li>
+</ul>
+</li>
+<li>measure effect on overall performance in the common ase, i.e., no attacks<br>compare: <ul>
+<li>no-security-control throughput</li>
+<li>throughput with security control</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>security is not a one-time deal!</li>
+</ul>
+<h3 id="basic-cryptography"><a href="#basic-cryptography" class="headerlink" title="basic cryptography"></a>basic cryptography</h3><ul>
+<li>key: <ul>
+<li>sequence of bytes assigned to a user</li>
+<li>can be used to lock a message, and only this key can be used to unlock that locked message</li>
+</ul>
+</li>
+</ul>
+<h3 id="encryption"><a href="#encryption" class="headerlink" title="encryption"></a>encryption</h3><ul>
+<li>encrypted message &#x3D; encrypt(original message, key) </li>
+<li>decrypted message &#x3D; decrypt(encrypted message, key)</li>
+</ul>
+<h3 id="two-cryptography-systems"><a href="#two-cryptography-systems" class="headerlink" title="two cryptography systems"></a>two cryptography systems</h3><ol>
+<li><p>symmetric key systems: DES</p>
+<ul>
+<li>shared keys</li>
+<li>hard to revoke permissions from principals</li>
+</ul>
+</li>
+<li><p>public-private key systems: RSA, PGP</p>
+<ul>
+<li>private key</li>
+<li>public key: known to all</li>
+<li>anything encrypted with Kapriv can be decrypted only with Kapub</li>
+<li>anything encrypted with Kapub can be decrypted only with Kapriv</li>
+<li>relatively costly: 2 operations, at least one is costly</li>
+</ul>
+</li>
+<li><p>combination: use public-private key system to generate shared key</p>
+</li>
+</ol>
+<h3 id="authentication"><a href="#authentication" class="headerlink" title="authentication"></a>authentication</h3><ul>
+<li>direct authentication</li>
+<li>indirect authentication: uses a trusted third-party server, authentication server</li>
+</ul>
+<h3 id="digital-signatures"><a href="#digital-signatures" class="headerlink" title="digital signatures"></a>digital signatures</h3><ul>
+<li>between two parties</li>
+<li>SHA-1, MD-5</li>
+</ul>
+<h3 id="digital-certificates"><a href="#digital-certificates" class="headerlink" title="digital certificates"></a>digital certificates</h3><ul>
+<li>transitivity: chains of certificates</li>
+<li>trace back</li>
+</ul>
+<h3 id="authorization"><a href="#authorization" class="headerlink" title="authorization"></a>authorization</h3><ul>
+<li><p>Access Control Matrix</p>
+</li>
+<li><p>Access Control Lists, per file&#x2F;object</p>
+</li>
+<li><p>Capability Lists, per user&#x2F;principal</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/12/04/COEN317-midterm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4706,7 +5924,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-23 09:14:29" itemprop="dateModified" datetime="2023-03-23T09:14:29+08:00">2023-03-23</time>
+                <time title="修改时间：2023-04-19 12:24:43" itemprop="dateModified" datetime="2023-04-19T12:24:43+08:00">2023-04-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -4917,114 +6135,11 @@
 
 <h2 id="1485-Clone-Binary-Tree-With-Random-Pointer"><a href="#1485-Clone-Binary-Tree-With-Random-Pointer" class="headerlink" title="1485. Clone Binary Tree With Random Pointer"></a>1485. Clone Binary Tree With Random Pointer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1485</span> &#123;</span><br><span class="line">      <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">      <span class="type">int</span> val;</span><br><span class="line">      Node left;</span><br><span class="line">      Node right;</span><br><span class="line">      Node random;</span><br><span class="line">      Node() &#123;&#125;</span><br><span class="line">      Node(<span class="type">int</span> val) &#123; <span class="built_in">this</span>.val = val; &#125;</span><br><span class="line">      Node(<span class="type">int</span> val, Node left, Node right, Node random) &#123;</span><br><span class="line">          <span class="built_in">this</span>.val = val;</span><br><span class="line">          <span class="built_in">this</span>.left = left;</span><br><span class="line">          <span class="built_in">this</span>.right = right;</span><br><span class="line">          <span class="built_in">this</span>.random = random;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">NodeCopy</span> &#123;</span><br><span class="line">        <span class="type">int</span> val;</span><br><span class="line">        NodeCopy left;</span><br><span class="line">        NodeCopy right;</span><br><span class="line">        NodeCopy random;</span><br><span class="line">        NodeCopy() &#123;&#125;</span><br><span class="line">        NodeCopy(<span class="type">int</span> val) &#123; <span class="built_in">this</span>.val = val; &#125;</span><br><span class="line">        NodeCopy(<span class="type">int</span> val, NodeCopy left, NodeCopy right, NodeCopy random) &#123;</span><br><span class="line">            <span class="built_in">this</span>.val = val;</span><br><span class="line">            <span class="built_in">this</span>.left = left;</span><br><span class="line">            <span class="built_in">this</span>.right = right;</span><br><span class="line">            <span class="built_in">this</span>.random = random;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;Node,NodeCopy&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> NodeCopy <span class="title function_">copyRandomBinaryTree</span><span class="params">(Node root)</span> &#123;</span><br><span class="line">        copy(root);</span><br><span class="line">        <span class="keyword">return</span> map.get(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NodeCopy <span class="title function_">copy</span><span class="params">(Node node)</span>&#123;</span><br><span class="line">          <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span>(map.containsKey(node))&#123;</span><br><span class="line">              <span class="keyword">return</span> map.get(node);</span><br><span class="line">          &#125;</span><br><span class="line">          NodeCopy copy=<span class="keyword">new</span> <span class="title class_">NodeCopy</span>(node.val);</span><br><span class="line">          map.put(node,copy);</span><br><span class="line">          copy.left=copy(node.left);</span><br><span class="line">          copy.right=copy(node.right);</span><br><span class="line">          copy.random=copy(node.random);</span><br><span class="line">          <span class="keyword">return</span> copy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/11/11/NestedList/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/11/NestedList/" class="post-title-link" itemprop="url">NestedList</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-11 19:05:07" itemprop="dateCreated datePublished" datetime="2022-11-11T19:05:07+08:00">2022-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-01 11:17:43" itemprop="dateModified" datetime="2023-03-01T11:17:43+08:00">2023-03-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="NestedList问题"><a href="#NestedList问题" class="headerlink" title="NestedList问题"></a>NestedList问题</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * // This is the interface that allows for creating nested lists.</span></span><br><span class="line"><span class="comment"> * // You should not implement it, or speculate about its implementation</span></span><br><span class="line"><span class="comment"> * public interface NestedInteger &#123;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *     // <span class="doctag">@return</span> true if this NestedInteger holds a single integer, rather than a nested list.</span></span><br><span class="line"><span class="comment"> *     public boolean isInteger();</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *     // <span class="doctag">@return</span> the single integer that this NestedInteger holds, if it holds a single integer</span></span><br><span class="line"><span class="comment"> *     // Return null if this NestedInteger holds a nested list</span></span><br><span class="line"><span class="comment"> *     public Integer getInteger();</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *     // <span class="doctag">@return</span> the nested list that this NestedInteger holds, if it holds a nested list</span></span><br><span class="line"><span class="comment"> *     // Return empty list if this NestedInteger holds a single integer</span></span><br><span class="line"><span class="comment"> *     public List&lt;NestedInteger&gt; getList();</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="339-Nested-List-Weight-Sum"><a href="#339-Nested-List-Weight-Sum" class="headerlink" title="339. Nested List Weight Sum"></a>339. Nested List Weight Sum</h2><h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS:"></a>DFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">depthSum</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span> &#123;</span><br><span class="line">     <span class="keyword">return</span> dfs(nestedList,<span class="number">1</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(List&lt;NestedInteger&gt; nestedList, <span class="type">int</span> depth)</span>&#123;</span><br><span class="line">     <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span>(NestedInteger i: nestedList)&#123;</span><br><span class="line">         <span class="keyword">if</span>(i.isInteger())&#123;</span><br><span class="line">             res+=i.getInteger()*depth;</span><br><span class="line">         &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">             res+=dfs(i.getList(),depth+<span class="number">1</span>);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> res;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS:"></a>BFS:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">depthSum</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span> &#123;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    Deque&lt;NestedInteger&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(NestedInteger i : nestedList)&#123;</span><br><span class="line">        q.offer(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> depth=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> size=q.size();</span><br><span class="line">        <span class="keyword">while</span>(size--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            NestedInteger i=q.poll();</span><br><span class="line">            <span class="keyword">if</span>(i.isInteger())&#123;</span><br><span class="line">                res+=i.getInteger()*depth;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(NestedInteger j: i.getList())&#123;</span><br><span class="line">                    q.offer(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        depth++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
-
-<h2 id="364-Nested-List-Weight-Sum-II"><a href="#364-Nested-List-Weight-Sum-II" class="headerlink" title="364. Nested List Weight Sum II"></a>364. Nested List Weight Sum II</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> maxDepth=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">depthSumInverse</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(NestedInteger i : nestedList)&#123;</span><br><span class="line">        maxDepth=Math.max(maxDepth,getMax(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dfs(nestedList,maxDepth);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">dfs</span><span class="params">(List&lt;NestedInteger&gt; nestedList, <span class="type">int</span> depth)</span>&#123;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(NestedInteger i : nestedList)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i.isInteger())&#123;</span><br><span class="line">            res+=i.getInteger()*depth;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res+=dfs(i.getList(),depth-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getMax</span><span class="params">(NestedInteger i)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i.isInteger())&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> depth=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(NestedInteger next : i.getList())&#123;</span><br><span class="line">        depth=Math.max(depth,getMax(next)+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> depth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="341-Flatten-Nested-List-Iterator"><a href="#341-Flatten-Nested-List-Iterator" class="headerlink" title="341. Flatten Nested List Iterator"></a>341. Flatten Nested List Iterator</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NestedIterator</span> <span class="keyword">implements</span> <span class="title class_">Iterator</span>&lt;Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; list;</span><br><span class="line">    Iterator&lt;Integer&gt; iterator;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NestedIterator</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span> &#123;</span><br><span class="line">        list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        parse(nestedList);</span><br><span class="line">        iterator=list.iterator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">parse</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (NestedInteger n : nestedList) &#123;</span><br><span class="line">            <span class="keyword">if</span>(n.isInteger())&#123;</span><br><span class="line">                list.add(n.getInteger());</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                parse(n.getList());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">next</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> iterator.next();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> iterator.hasNext();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="1372-Longest-ZigZag-Path-in-a-Binary-Tree"><a href="#1372-Longest-ZigZag-Path-in-a-Binary-Tree" class="headerlink" title="1372. Longest ZigZag Path in a Binary Tree"></a>1372. Longest ZigZag Path in a Binary Tree</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> max=-<span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestZigZag</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    dfs(root);</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span>[] dfs(TreeNode node)&#123;</span><br><span class="line">    <span class="keyword">if</span>(node==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//[l,r]</span></span><br><span class="line">    <span class="type">int</span>[] l=dfs(node.left);</span><br><span class="line">    <span class="type">int</span>[] r=dfs(node.right);</span><br><span class="line">    <span class="type">int</span> curL=<span class="number">1</span>+l[<span class="number">1</span>];</span><br><span class="line">    <span class="type">int</span> curR=<span class="number">1</span>+r[<span class="number">0</span>];</span><br><span class="line">    max=Math.max(max,Math.max(curL,curR));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;curL,curR&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -5109,7 +6224,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -5158,12 +6273,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">971k</span>
+    <span title="站点总字数">1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14:43</span>
+    <span title="站点阅读时长">15:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
