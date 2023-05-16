@@ -190,6 +190,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/07/29/tiny-URL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/29/tiny-URL/" class="post-title-link" itemprop="url">tiny_URL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-29 16:15:42 / 修改时间：16:17:03" itemprop="dateCreated datePublished" datetime="2022-07-29T16:15:42+08:00">2022-07-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shorten-URL"><a href="#Shorten-URL" class="headerlink" title="Shorten URL"></a>Shorten URL</h1><p>system design，很实用！</p>
+<h2 id="535-Encode-and-Decode-TinyURL"><a href="#535-Encode-and-Decode-TinyURL" class="headerlink" title="535. Encode and Decode TinyURL"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/encode-and-decode-tinyurl/">535. Encode and Decode TinyURL</a></h2><p>如果想要实现相同的<code>URL</code> 加密成同一个 <code>TinyURL</code>，则额外保存一个从<code>URL</code> 到 <code>TinyURL</code> 的映射。</p>
+<h3 id="法一：自增"><a href="#法一：自增" class="headerlink" title="法一：自增"></a>法一：自增</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line">    Map&lt;Integer,String&gt; database=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    String prefix=<span class="string">&quot;https://ivn.com/&quot;</span>;</span><br><span class="line">    <span class="comment">// Encodes a URL to a shortened URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String longUrl)</span> &#123;</span><br><span class="line">        database.put(++count,longUrl);</span><br><span class="line">        <span class="keyword">return</span> prefix+count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes a shortened URL to its original URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">decode</span><span class="params">(String shortUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> p=shortUrl.lastIndexOf(<span class="string">&#x27;/&#x27;</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> val=Integer.parseInt(shortUrl.substring(p));</span><br><span class="line">        <span class="keyword">return</span> database.get(val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法二：哈希生成"><a href="#法二：哈希生成" class="headerlink" title="法二：哈希生成"></a>法二：哈希生成</h3><p>为了防止相同的 longUrl 多次调用，确保 encode 服务的「幂等性」，我们再额外建立哈希表 origin2Tiny 来记录原串和映射标识的对应关系。</p>
+<h3 id="法三：随机"><a href="#法三：随机" class="headerlink" title="法三：随机"></a>法三：随机</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line"></span><br><span class="line">    Random random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    Map&lt;Integer,String&gt; database=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    String prefix=<span class="string">&quot;https://ivn.com/&quot;</span>;</span><br><span class="line">    <span class="comment">// Encodes a URL to a shortened URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String longUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> num= random.nextInt();</span><br><span class="line">        <span class="keyword">while</span>(database.containsKey(num))&#123;</span><br><span class="line">            num= random.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">        database.put(num,longUrl);</span><br><span class="line">        <span class="keyword">return</span> prefix+num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes a shortened URL to its original URL.</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">decode</span><span class="params">(String shortUrl)</span> &#123;</span><br><span class="line">        <span class="type">int</span> p=shortUrl.lastIndexOf(<span class="string">&#x27;/&#x27;</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> num=Integer.parseInt(shortUrl.substring(p));</span><br><span class="line">        <span class="keyword">return</span> database.get(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/07/29/System%20Design/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2458,163 +2547,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/31/Random%E9%80%89%E7%BC%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/31/Random%E9%80%89%E7%BC%96/" class="post-title-link" itemprop="url">Random选编</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-31 19:52:59" itemprop="dateCreated datePublished" datetime="2022-05-31T19:52:59+08:00">2022-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-01 11:19:41" itemprop="dateModified" datetime="2023-03-01T11:19:41+08:00">2023-03-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Random选编"><a href="#Random选编" class="headerlink" title="Random选编"></a>Random选编</h1><h2 id="528-Random-Pick-with-Weight"><a href="#528-Random-Pick-with-Weight" class="headerlink" title="528. Random Pick with Weight"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/random-pick-with-weight/">528. Random Pick with Weight</a></h2><p>前缀和数组 + 二分查找</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[] preSum;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">int</span> total;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">int</span>[] w)</span> &#123;</span><br><span class="line">        n=w.length;</span><br><span class="line">        preSum=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        preSum[<span class="number">0</span>]=w[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            preSum[i]=preSum[i-<span class="number">1</span>]+w[i];</span><br><span class="line">        &#125;</span><br><span class="line">        total= Arrays.stream(w).sum();	<span class="comment">//整个数组求和</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pickIndex</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> x=(<span class="type">int</span>)(Math.random()*total)+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> binarySearch(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">binarySearch</span><span class="params">(<span class="type">int</span> target)</span>&#123;</span><br><span class="line">        <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right=n;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">            <span class="type">int</span> mid=left+(right-left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(preSum[mid]&lt;target)&#123;</span><br><span class="line">                left=mid+<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                right=mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="382-Linked-List-Random-Node"><a href="#382-Linked-List-Random-Node" class="headerlink" title="382. Linked List Random Node"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-random-node/">382. Linked List Random Node</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode382</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">        <span class="type">int</span> count;</span><br><span class="line">        ListNode head;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">            count=<span class="number">0</span>;</span><br><span class="line">            <span class="built_in">this</span>.head=head;</span><br><span class="line">            ListNode p=head;</span><br><span class="line">            <span class="keyword">while</span>(p!=<span class="literal">null</span>)&#123;</span><br><span class="line">                p=p.next;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getRandom</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">int</span> index=(<span class="type">int</span>)(Math.random()*count);	<span class="comment">//注意，(int)优先级小于*，必须加括号</span></span><br><span class="line">            ListNode p=head;</span><br><span class="line">            <span class="keyword">while</span>(index--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                p=p.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> p.val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="法二：reservoir-sampling"><a href="#法二：reservoir-sampling" class="headerlink" title="法二：reservoir sampling"></a>法二：reservoir sampling</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&amp;mid=2247490892&amp;idx=1&amp;sn=c1fe373edc88142cbabd383ef3c0669b">https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&amp;mid=2247490892&amp;idx=1&amp;sn=c1fe373edc88142cbabd383ef3c0669b</a></p>
-<p><strong>总的样本数量未知</strong>，从所有样本中抽取若干个，要求每个样本被抽到的<strong>概率相等</strong>。</p>
-<p><strong>从前往后处理每个样本</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    Random random;</span><br><span class="line">    ListNode head;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.head=head;</span><br><span class="line">        <span class="built_in">this</span>.random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getRandom</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;	<span class="comment">//也可以初始化为 res=head.val;		孰优孰劣?</span></span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        ListNode p=head;</span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="literal">null</span>)&#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="type">int</span> ran=random.nextInt(count);  <span class="comment">//	当前1/count的概率被选中</span></span><br><span class="line">            <span class="keyword">if</span>(ran==<span class="number">0</span>)&#123;</span><br><span class="line">                res=p.val;</span><br><span class="line">            &#125;</span><br><span class="line">            p=p.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;	<span class="comment">//最后一个被选中的数的被选中概率就是1/n</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="398-Random-Pick-Index"><a href="#398-Random-Pick-Index" class="headerlink" title="398. Random Pick Index"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/random-pick-index/">398. Random Pick Index</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">        Random random;</span><br><span class="line">        Map&lt;Integer, List&lt;Integer&gt;&gt; map;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">            random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">            map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!map.containsKey(nums[i]))&#123;</span><br><span class="line">                    map.put(nums[i],<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">                &#125;</span><br><span class="line">                map.get(nums[i]).add(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pick</span><span class="params">(<span class="type">int</span> target)</span> &#123;</span><br><span class="line">            List&lt;Integer&gt; list = map.get(target);</span><br><span class="line">            <span class="type">int</span> size=list.size();</span><br><span class="line">            <span class="keyword">return</span> list.get(random.nextInt(size));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="法二：reservoir-sampling-1"><a href="#法二：reservoir-sampling-1" class="headerlink" title="法二：reservoir sampling"></a>法二：reservoir sampling</h3><p>时间换空间，会超时</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[] nums;</span><br><span class="line">    Random random;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.nums=nums;</span><br><span class="line">        <span class="built_in">this</span>.random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pick</span><span class="params">(<span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]==target)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">if</span>(random.nextInt(count)==<span class="number">0</span>)&#123;</span><br><span class="line">                    res=i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="497-Random-Point-in-Non-overlapping-Rectangles"><a href="#497-Random-Point-in-Non-overlapping-Rectangles" class="headerlink" title="497. Random Point in Non-overlapping Rectangles"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/">497. Random Point in Non-overlapping Rectangles</a></h2><p>32&#x2F;35 直接法错误！居然还能过32个测试用例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[][] rects;</span><br><span class="line">    Random random;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">int</span>[][] rects)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.rects=rects;</span><br><span class="line">        <span class="built_in">this</span>.random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] pick() &#123;</span><br><span class="line">        <span class="type">int</span> n=rects.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> random.nextInt(n);	<span class="comment">//未考虑到各矩形的面积，并不是等概率选</span></span><br><span class="line">        <span class="type">int</span> x1=rects[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> x2=rects[i][<span class="number">2</span>];</span><br><span class="line">        <span class="type">int</span> y1=rects[i][<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> y2=rects[i][<span class="number">3</span>];</span><br><span class="line">        <span class="type">int</span> x=(<span class="type">int</span>)(Math.random()*(x2-x1+<span class="number">1</span>))+x1;</span><br><span class="line">        <span class="type">int</span> y=(<span class="type">int</span>)(Math.random()*(y2-y1+<span class="number">1</span>))+y1;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x,y&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>蓄水池采样</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[][] rects;</span><br><span class="line">    Random random;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">int</span>[][] rects)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.rects=rects;</span><br><span class="line">        <span class="built_in">this</span>.random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] pick() &#123;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> index=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt; rects.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span>[] rect=rects[i];</span><br><span class="line">            <span class="type">int</span> area=(rect[<span class="number">2</span>]-rect[<span class="number">0</span>]+<span class="number">1</span>)*(rect[<span class="number">3</span>]-rect[<span class="number">1</span>]+<span class="number">1</span>);</span><br><span class="line">            sum+=area;</span><br><span class="line">            <span class="keyword">if</span>(random.nextInt(sum)&lt;area)&#123;   <span class="comment">//[0,sum)   [0,area)</span></span><br><span class="line">                index=i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] arr=rects[index];</span><br><span class="line">        <span class="type">int</span> x1=arr[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> y1=arr[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> x2=arr[<span class="number">2</span>];</span><br><span class="line">        <span class="type">int</span> y2=arr[<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;random.nextInt(x2-x1+<span class="number">1</span>)+x1,random.nextInt(y2-y1+<span class="number">1</span>)+y1&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="478-Generate-Random-Point-in-a-Circle"><a href="#478-Generate-Random-Point-in-a-Circle" class="headerlink" title="478. Generate Random Point in a Circle"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/generate-random-point-in-a-circle/">478. Generate Random Point in a Circle</a></h2><p>注意：</p>
-<ol>
-<li>Math.random():    [0,1)</li>
-<li>random().nextInt(x):     [0,x)</li>
-<li>random().nextDouble():  [0.0d,1.0d)</li>
-<li>random().nextFloat(): [0.0f,1.0f]</li>
-</ol>
-<h3 id="法一：rejection-sampling-拒绝采样"><a href="#法一：rejection-sampling-拒绝采样" class="headerlink" title="法一：rejection sampling: 拒绝采样"></a>法一：rejection sampling: 拒绝采样</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> r;</span><br><span class="line">    <span class="type">double</span> x_center;</span><br><span class="line">    <span class="type">double</span> y_center;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">double</span> radius, <span class="type">double</span> x_center, <span class="type">double</span> y_center)</span> &#123;</span><br><span class="line">        r=radius;</span><br><span class="line">        <span class="built_in">this</span>.x_center=x_center;</span><br><span class="line">        <span class="built_in">this</span>.y_center=y_center;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span>[] randPoint() &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="type">double</span> dx=Math.random()*<span class="number">2</span>*r-r;</span><br><span class="line">            <span class="type">double</span> dy=Math.random()*<span class="number">2</span>*r-r;</span><br><span class="line">            <span class="keyword">if</span>(dx*dx+dy*dy&lt;=r*r)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">double</span>[]&#123;x_center+dx,y_center+dy&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="法二：几何法"><a href="#法二：几何法" class="headerlink" title="法二：几何法"></a>法二：几何法</h3><p>随机生成<code>len</code>和<code>angle</code>，利用三角函数计算出<code>dx</code>,<code>dy</code></p>
-<p>注意，随机生成<code>len</code>时不能直接 在[0,r)间random，因为这样不是对每个点等概率的！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    Random random;</span><br><span class="line">    <span class="type">double</span> r;</span><br><span class="line">    <span class="type">double</span> x;</span><br><span class="line">    <span class="type">double</span> y;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Solution</span><span class="params">(<span class="type">double</span> radius, <span class="type">double</span> x_center, <span class="type">double</span> y_center)</span> &#123;</span><br><span class="line">        r=radius;</span><br><span class="line">        x=x_center;</span><br><span class="line">        y=y_center;</span><br><span class="line">        random=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span>[] randPoint() &#123;</span><br><span class="line">        <span class="type">double</span> len=Math.sqrt(random.nextDouble()*r*r);</span><br><span class="line">        <span class="type">double</span> angle=random.nextDouble()*Math.PI*<span class="number">2</span>;</span><br><span class="line">        <span class="type">double</span> dx=len*Math.cos(angle);</span><br><span class="line">        <span class="type">double</span> dy=len*Math.sin(angle);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">double</span>[]&#123;x+dx,y+dy&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="380-Insert-Delete-GetRandom-O-1"><a href="#380-Insert-Delete-GetRandom-O-1" class="headerlink" title="380. Insert Delete GetRandom O(1)"></a>380. Insert Delete GetRandom O(1)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RandomizedSet</span> &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; list;</span><br><span class="line">    Map&lt;Integer,Integer&gt; keyToIndex;</span><br><span class="line">    Random rand;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RandomizedSet</span><span class="params">()</span> &#123;</span><br><span class="line">        list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        keyToIndex=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        rand=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(keyToIndex.containsKey(val))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        keyToIndex.put(val,list.size());</span><br><span class="line">        list.add(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(!keyToIndex.containsKey(val))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> idx=keyToIndex.get(val);</span><br><span class="line">        <span class="comment">//delete list[idx]:</span></span><br><span class="line">        <span class="comment">//swap list[idx] and list[list.size()-1]</span></span><br><span class="line">        <span class="comment">//delete list[list.size()-1]</span></span><br><span class="line">        <span class="type">int</span> last=list.get(list.size()-<span class="number">1</span>);</span><br><span class="line">        list.set(idx,last);</span><br><span class="line">        list.remove(list.size()-<span class="number">1</span>);</span><br><span class="line">        keyToIndex.put(last,idx);</span><br><span class="line">        keyToIndex.remove(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getRandom</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> idx=<span class="number">0</span>+rand.nextInt(list.size());</span><br><span class="line">        <span class="keyword">return</span> list.get(idx);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>why wrong?!</p>
-<p>为何每次iterator.next()都返回相同值？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RandomizedSet</span> &#123;</span><br><span class="line"></span><br><span class="line">    Set&lt;Integer&gt; set;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RandomizedSet</span><span class="params">()</span> &#123;</span><br><span class="line">        set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(set.contains(val))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        set.add(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(!set.contains(val))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        set.remove(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getRandom</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> set.iterator().next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2684,7 +2616,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2738,7 +2670,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:22</span>
+    <span title="站点阅读时长">15:27</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
