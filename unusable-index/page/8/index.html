@@ -190,6 +190,217 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/28/monotonic_stack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/28/monotonic_stack/" class="post-title-link" itemprop="url">monotonic_stack</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-28 17:09:24" itemprop="dateCreated datePublished" datetime="2022-04-28T17:09:24+08:00">2022-04-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-07 06:19:36" itemprop="dateModified" datetime="2023-04-07T06:19:36+08:00">2023-04-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Monotonic-Stack选编"><a href="#Monotonic-Stack选编" class="headerlink" title="Monotonic Stack选编"></a>Monotonic Stack选编</h1><p><strong>通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时就要想到可以用单调栈了</strong>。</p>
+<p>时间复杂度为O(n)。</p>
+<p>单调栈的本质是空间换时间，因为在遍历的过程中需要用一个栈来记录右边第一个比当前元素大&#x2F;小的元素，优点是只需要遍历一次。</p>
+<p>在使用单调栈的时候首先要明确如下几点：</p>
+<ol>
+<li>单调栈里存放的元素是什么？</li>
+</ol>
+<p>单调栈里只需要存放元素的下标i就可以了，如果需要使用对应的元素，直接T[i]就可以获取。</p>
+<ol>
+<li>单调栈里元素是递增呢？ 还是递减呢？</li>
+</ol>
+<p><strong>注意一下顺序为 从栈顶到栈底的顺序</strong></p>
+<p>使用单调栈主要有三个判断条件。</p>
+<ul>
+<li>当前遍历的元素T[i]小于栈顶元素T[st.top()]的情况</li>
+<li>当前遍历的元素T[i]等于栈顶元素T[st.top()]的情况</li>
+<li>当前遍历的元素T[i]大于栈顶元素T[st.top()]的情况</li>
+</ul>
+<p>经典模板：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">nextGreaterElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">res</span><span class="params">(nums.size())</span></span>; <span class="comment">// 存放答案的数组</span></span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">    <span class="comment">// 倒着往栈里放</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = nums.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="comment">// 判定个子高矮</span></span><br><span class="line">        <span class="keyword">while</span> (!s.<span class="built_in">empty</span>() &amp;&amp; s.<span class="built_in">top</span>() &lt;= nums[i]) &#123;</span><br><span class="line">            <span class="comment">// 矮个起开，反正也被挡着了。。。can never be the &quot;next great number&quot;!</span></span><br><span class="line">            s.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// nums[i] 身后的 next great number</span></span><br><span class="line">        res[i] = s.<span class="built_in">empty</span>() ? <span class="number">-1</span> : s.<span class="built_in">top</span>();</span><br><span class="line">        s.<span class="built_in">push</span>(nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>for 循环要从后往前扫描元素，因为我们借助的是栈的结构，倒着入栈，其实是正着出栈。while 循环是把两个「个子高」元素之间的元素排除，因为他们的存在没有意义，前面挡着个「更高」的元素，所以他们不可能被作为后续进来的元素的 Next Great Number 了。</li>
+<li>分析它的时间复杂度，要从整体来看：总共有 <code>n</code> 个元素，每个元素都被 <code>push</code> 入栈了一次，而最多会被 <code>pop</code> 一次，没有任何冗余操作。所以总的计算规模是和元素规模 <code>n</code> 成正比的，也就是 <code>O(n)</code> 的复杂度。</li>
+</ol>
+<h2 id="739-Daily-Temperatures"><a href="#739-Daily-Temperatures" class="headerlink" title="739. Daily Temperatures"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/daily-temperatures/">739. Daily Temperatures</a></h2><p>单调栈图解详见：</p>
+<p><a target="_blank" rel="noopener" href="https://programmercarl.com/0739.%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6.html#%E6%80%9D%E8%B7%AF">https://programmercarl.com/0739.%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6.html#%E6%80%9D%E8%B7%AF</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] dailyTemperatures(<span class="type">int</span>[] temperatures) &#123;</span><br><span class="line">    <span class="comment">//monotonic stack</span></span><br><span class="line">    <span class="comment">//find the next greater element</span></span><br><span class="line">    <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[temperatures.length];</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> temperatures.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; temperatures[stack.peek()]&lt;=temperatures[i])&#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        res[i]=stack.peek()==<span class="literal">null</span> ? <span class="number">0</span> : stack.peek()-i;</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="496-Next-Greater-Element-I"><a href="#496-Next-Greater-Element-I" class="headerlink" title="496. Next Greater Element I"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-i/">496. Next Greater Element I</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] nextGreaterElement(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2) &#123;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums2.length; i++) &#123;</span><br><span class="line">            map.put(nums2[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span>[] list=<span class="keyword">new</span> <span class="title class_">int</span>[nums2.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> nums2.length-<span class="number">1</span>; i &gt;=<span class="number">0</span> ; i--) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; nums2[stack.peek()]&lt;=nums2[i])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            list[i]=stack.isEmpty()? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[nums1.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; res.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> index=map.get(nums1[i]);</span><br><span class="line">            res[i]=list[index]==-<span class="number">1</span> ? -<span class="number">1</span> : nums2[list[index]];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="503-Next-Greater-Element-II"><a href="#503-Next-Greater-Element-II" class="headerlink" title="503. Next Greater Element II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503. Next Greater Element II</a></h2><p>circular integer array <code>nums</code></p>
+<p>对于循环数组：考虑用mod运算模拟在nums后再加一个nums</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode503</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] nextGreaterElements(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>*(nums.length - <span class="number">1</span>)+<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; stack.peek()&lt;=nums[i%nums.length])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            res[i%nums.length]=stack.isEmpty() ? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            stack.push(nums[i%nums.length]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="84-Largest-Rectangle-in-Histogram"><a href="#84-Largest-Rectangle-in-Histogram" class="headerlink" title="84. Largest Rectangle in Histogram"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/">84. Largest Rectangle in Histogram</a></h2><p>我们归纳一下枚举「高」的方法：</p>
+<p>首先我们枚举某一根柱子 i 作为高  <em>h</em>&#x3D;<em>heights</em>[<em>i</em>]；</p>
+<p>随后我们需要进行向左右两边扩展，使得扩展到的柱子的高度均不小于 h。换句话说，我们需要找到左右两侧最近的高度小于 h 的柱子，这样这两根柱子之间（不包括其本身）的所有柱子高度均不小于 h，并且就是 i 能够扩展到的最远范围。</p>
+<p>笨方法：用两个单调栈</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode84</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">largestRectangleArea</span><span class="params">(<span class="type">int</span>[] heights)</span> &#123;</span><br><span class="line">        Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span>[] right=<span class="keyword">new</span> <span class="title class_">int</span>[heights.length]; <span class="comment">//记录右边第一个比它小的 不存在则存入length</span></span><br><span class="line">        <span class="type">int</span>[] left=<span class="keyword">new</span> <span class="title class_">int</span>[heights.length]; <span class="comment">//记录左边第一个比它小的  不存在则存入-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> heights.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; heights[stack.peek()]&gt;=heights[i])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            right[i]=stack.isEmpty() ? heights.length : stack.peek();</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; heights.length; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; heights[stack.peek()]&gt;=heights[i])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            left[i]=stack.isEmpty() ? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> res=Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; heights.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> r=right[i];</span><br><span class="line">            <span class="type">int</span> l=left[i];</span><br><span class="line">            <span class="type">int</span> area=(r-l-<span class="number">1</span>)*heights[i];</span><br><span class="line">            res=Math.max(res,area);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="42-Trapping-Rain-Water"><a href="#42-Trapping-Rain-Water" class="headerlink" title="42. Trapping Rain Water"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/trapping-rain-water/">42. Trapping Rain Water</a></h2><h3 id="法一：单调栈"><a href="#法一：单调栈" class="headerlink" title="法一：单调栈"></a>法一：单调栈</h3><h3 id="法二：双指针-dp优化"><a href="#法二：双指针-dp优化" class="headerlink" title="法二：双指针+dp优化"></a>法二：双指针+dp优化</h3><p>largest rectangle area是要找一根柱子的左右两边的next greater element</p>
+<p>trapping rain water是要找一根柱子的左右两边的greastet element，并加以判断：若两边的greatest element都比这根柱子高，则可以在这根柱子上蓄水</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">trap</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span>[] maxLeft=<span class="keyword">new</span> <span class="title class_">int</span>[height.length];</span><br><span class="line">    <span class="type">int</span>[] maxRight=<span class="keyword">new</span> <span class="title class_">int</span>[height.length];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; maxLeft.length-<span class="number">1</span>; i++) &#123;</span><br><span class="line">        maxLeft[i]=Math.max(maxLeft[i-<span class="number">1</span>],height[i-<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> maxRight.length - <span class="number">2</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        maxRight[i]=Math.max(maxRight[i+<span class="number">1</span>],height[i+<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> start=<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> end= height.length-<span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=start; i&lt;=end; i++)&#123;</span><br><span class="line">        <span class="type">int</span> left=maxLeft[i];</span><br><span class="line">        <span class="type">int</span> right=maxRight[i];</span><br><span class="line">        <span class="keyword">if</span>(left&lt;=height[i] || right&lt;=height[i])&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> h=Math.min(left,right)-height[i];</span><br><span class="line">        res+=h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="85-Maximal-Rectangle"><a href="#85-Maximal-Rectangle" class="headerlink" title="85. Maximal Rectangle"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximal-rectangle/">85. Maximal Rectangle</a></h2><p>就是largest rectangle area的应用</p>
+<p>把矩阵的每一行看成一个底面，迭代计算每一行的largest recatangle area</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode85</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maximalRectangle</span><span class="params">(<span class="type">char</span>[][] matrix)</span> &#123;</span><br><span class="line">        <span class="type">int</span> row=matrix.length;</span><br><span class="line">        <span class="type">int</span> col=matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[col];</span><br><span class="line">        <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">                dp[j]=matrix[i][j]==<span class="string">&#x27;0&#x27;</span> ? <span class="number">0</span> : dp[j]+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            max=Math.max(max,largestArea(dp));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">largestArea</span><span class="params">(<span class="type">int</span>[] dp)</span>&#123;</span><br><span class="line">        <span class="comment">//largest rectangle</span></span><br><span class="line">        <span class="comment">//monotonic stack</span></span><br><span class="line">        <span class="comment">//next &quot;greater&quot; element, in this case, next smaller element</span></span><br><span class="line">        <span class="type">int</span> n=dp.length;</span><br><span class="line">        Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span>[] rightSmall=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; dp[stack.peek()]&gt;=dp[i])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            rightSmall[i]=stack.isEmpty() ? n : stack.peek();</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span>[] leftSmall=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; dp[stack.peek()]&gt;=dp[i])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            leftSmall[i]=stack.isEmpty() ? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">int</span> height=dp[i];</span><br><span class="line">            <span class="type">int</span> area=height*(rightSmall[i]-leftSmall[i]-<span class="number">1</span>);</span><br><span class="line">            max=Integer.max(max,area);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="456-132-Pattern"><a href="#456-132-Pattern" class="headerlink" title="456. 132 Pattern"></a>456. 132 Pattern</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//9 11 8 9 10 7 9</span></span><br><span class="line"><span class="comment">//   4  12  11  10  2 1</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">find132pattern</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> numLeft=Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i]&lt;numLeft)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; stack.peek()&lt;nums[i])&#123;</span><br><span class="line">            numLeft=stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="907-Sum-of-Subarray-Minimums"><a href="#907-Sum-of-Subarray-Minimums" class="headerlink" title="907. Sum of Subarray Minimums"></a>907. Sum of Subarray Minimums</h2><p>注意：</p>
+<ul>
+<li>需考虑每个元素，因此 right 范围为 [0,n]</li>
+<li>每当栈顶元素不能维持处于谷底，则出栈并计算</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumSubarrayMins</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=arr.length;</span><br><span class="line">    <span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> curVal=i==n ? <span class="number">0</span> : arr[i];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; arr[stack.peek()]&gt;curVal)&#123;</span><br><span class="line">            <span class="type">int</span> mid=stack.pop();</span><br><span class="line">            <span class="type">int</span> l=stack.isEmpty() ? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            <span class="type">long</span> count=(mid-l)*(i-mid)%mod;</span><br><span class="line">            <span class="type">long</span> p=arr[mid]*count%mod;</span><br><span class="line">            res+=p;</span><br><span class="line">            res%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2104-Sum-of-Subarray-Ranges"><a href="#2104-Sum-of-Subarray-Ranges" class="headerlink" title="2104. Sum of Subarray Ranges"></a>2104. Sum of Subarray Ranges</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">subArrayRanges</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> curVal= i==n ? Integer.MIN_VALUE : nums[i];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; nums[stack.peek()]&gt;curVal)&#123;</span><br><span class="line">            <span class="type">int</span> mid=stack.pop();</span><br><span class="line">            <span class="type">int</span> l=stack.isEmpty() ? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            res-=(<span class="type">long</span>)(mid-l)*(i-mid)*nums[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    stack.clear();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> curVal= i==n ? Integer.MAX_VALUE : nums[i];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; nums[stack.peek()]&lt;curVal)&#123;</span><br><span class="line">            <span class="type">int</span> mid=stack.pop();</span><br><span class="line">            <span class="type">int</span> l=stack.isEmpty() ? -<span class="number">1</span> : stack.peek();</span><br><span class="line">            res+=(<span class="type">long</span>)(mid-l)*(i-mid)*nums[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1130-Minimum-Cost-Tree-From-Leaf-Values"><a href="#1130-Minimum-Cost-Tree-From-Leaf-Values" class="headerlink" title="1130. Minimum Cost Tree From Leaf Values"></a>1130. Minimum Cost Tree From Leaf Values</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">mctFromLeafValues</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    stack.push(Integer.MAX_VALUE);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : arr) &#123;</span><br><span class="line">        <span class="keyword">while</span>(stack.peek()&lt;=num)&#123;</span><br><span class="line">            <span class="comment">//left          mid        right</span></span><br><span class="line">            <span class="comment">//stack.peek() stack.pop() num</span></span><br><span class="line">            <span class="type">int</span> mid=stack.pop();</span><br><span class="line">            res+=mid*Math.min(stack.peek(),num);</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(stack.size()&gt;<span class="number">2</span>)&#123;</span><br><span class="line">        res+=stack.pop()*stack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1475-Final-Prices-With-a-Special-Discount-in-a-Shop"><a href="#1475-Final-Prices-With-a-Special-Discount-in-a-Shop" class="headerlink" title="1475. Final Prices With a Special Discount in a Shop"></a>1475. Final Prices With a Special Discount in a Shop</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] finalPrices(<span class="type">int</span>[] prices) &#123;</span><br><span class="line">    <span class="comment">//next smaller or equal element</span></span><br><span class="line">    <span class="type">int</span> n=prices.length;</span><br><span class="line">    <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="type">int</span> cur=prices[i];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; stack.peek()&gt;cur)&#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> dis=stack.isEmpty() ? <span class="number">0</span> : stack.peek();</span><br><span class="line">        res[i]=cur-dis;</span><br><span class="line">        stack.push(cur);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1673-Find-the-Most-Competitive-Subsequence"><a href="#1673-Find-the-Most-Competitive-Subsequence" class="headerlink" title="1673. Find the Most Competitive Subsequence"></a>1673. Find the Most Competitive Subsequence</h2><p>If the element is greater than the dequeue’s kth element, we don’t need to store it. This also slightly improves performance while removing from the dequeue, as we didn’t add unnecessary elements.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] mostCompetitive(<span class="type">int</span>[] nums, <span class="type">int</span> k) &#123;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[] res=<span class="keyword">new</span> <span class="title class_">int</span>[k];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//make sure after deleting, there is &gt;= k elements</span></span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp;stack.size()+n-i&gt;k &amp;&amp; stack.peek()&gt;nums[i])&#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(stack.size()&lt;k)&#123;</span><br><span class="line">            stack.push(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> idx=k-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(idx&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">        res[idx--]=stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1776-Car-Fleet-II"><a href="#1776-Car-Fleet-II" class="headerlink" title="1776. Car Fleet II"></a>1776. Car Fleet II</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/car-fleet-ii/discuss/1105620/Java-oror-clean-O(n)-Monotonic-Stack-Solution-oror-Detailed-Explanations">https://leetcode.com/problems/car-fleet-ii/discuss/1105620/Java-oror-clean-O(n)-Monotonic-Stack-Solution-oror-Detailed-Explanations</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">double</span>[] getCollisionTimes(<span class="type">int</span>[][] cars) &#123;</span><br><span class="line">    <span class="type">int</span> n=cars.length;</span><br><span class="line">    <span class="type">double</span>[] res=<span class="keyword">new</span> <span class="title class_">double</span>[n];</span><br><span class="line">    Arrays.fill(res,-<span class="number">1.0</span>);</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="type">int</span>[] car=cars[i];</span><br><span class="line">        <span class="type">int</span> pos=car[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> speed=car[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            <span class="type">int</span> j=stack.peek();</span><br><span class="line">            <span class="type">int</span>[] car2=cars[j];</span><br><span class="line">            <span class="type">int</span> pos2=car2[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> speed2=car2[<span class="number">1</span>];</span><br><span class="line">            <span class="type">double</span> time=(<span class="type">double</span>)(pos2-pos)/(speed-speed2);</span><br><span class="line">            <span class="keyword">if</span>(speed&gt;speed2 &amp;&amp; (time&lt;res[j]</span><br><span class="line">                    || res[j]&lt;<span class="number">0</span>))&#123;</span><br><span class="line">                <span class="comment">//1.faster</span></span><br><span class="line">                <span class="comment">//2.collide before car 2 vanishes, or never vanishes</span></span><br><span class="line">                res[i]=time;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//car2 would never be collided by [0,car1]</span></span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2355-Maximum-Number-of-Books-You-Can-Take"><a href="#2355-Maximum-Number-of-Books-You-Can-Take" class="headerlink" title="2355. Maximum Number of Books You Can Take"></a>2355. Maximum Number of Books You Can Take</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-number-of-books-you-can-take/discuss/2508360/Java-O(n)-DP-%2B-Monotonic-Stack-oror-Beats-73-time-and-space-oror-Explanation-with-comments">https://leetcode.com/problems/maximum-number-of-books-you-can-take/discuss/2508360/Java-O(n)-DP-%2B-Monotonic-Stack-oror-Beats-73-time-and-space-oror-Explanation-with-comments</a></p>
+<p>Basically for any index <em>i</em>, <em>j</em> is the first index to the left of <em>i</em> where books[j] &lt; books[i] - i + j. This index <em>j</em> is obtained using a <strong>monotonic stack</strong>.</p>
+<p><strong>first smaller element to the left</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">maximumBooks</span><span class="params">(<span class="type">int</span>[] books)</span> &#123;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n=books.length;</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span>[] dp=<span class="keyword">new</span> <span class="title class_">long</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//books[i], books[i]-1, books[i]-i+j</span></span><br><span class="line">        <span class="comment">//i,        i-1,       j</span></span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp;</span><br><span class="line">                books[i]-i+stack.peek()&lt;=books[stack.peek()])&#123;</span><br><span class="line">            <span class="comment">//once valid, will be valid for all following elements</span></span><br><span class="line">            stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//books[i]-i+j+1,..books[i]</span></span><br><span class="line">        dp[i]=(stack.isEmpty() ? <span class="number">0</span> : dp[stack.peek()]) +</span><br><span class="line">                sum(books[i]) -</span><br><span class="line">                sum(books[i]-i+(stack.isEmpty() ? -<span class="number">1</span> : stack.peek()));</span><br><span class="line">        res=Math.max(res,dp[i]);</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">long</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//0,1,2,...,n</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="type">long</span>)n*(<span class="type">long</span>)(n+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/28/%E5%9B%9E%E6%BA%AF%E6%B3%95(2)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2708,91 +2919,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/04/07/new-article/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/07/new-article/" class="post-title-link" itemprop="url">my very fisrt hexo article</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-04-07 17:13:33 / 修改时间：17:15:44" itemprop="dateCreated datePublished" datetime="2022-04-07T17:13:33+08:00">2022-04-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/unusable-index/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/unusable-index/">1</a><span class="space">&hellip;</span><a class="page-number" href="/unusable-index/page/7/">7</a><span class="page-number current">8</span>
+    <a class="extend prev" rel="prev" href="/unusable-index/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/unusable-index/">1</a><span class="space">&hellip;</span><a class="page-number" href="/unusable-index/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/unusable-index/page/9/">9</a><a class="extend next" rel="next" href="/unusable-index/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2858,7 +2988,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2912,7 +3042,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:32</span>
+    <span title="站点阅读时长">15:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

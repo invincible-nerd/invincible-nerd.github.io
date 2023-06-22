@@ -28,7 +28,7 @@
 <meta property="og:description" content="lines选编149. Max Points on a Line return the maximum number of points that lie on the same straight line. Approach 1: EnumerationTherefore, it is not wise to use the float&#x2F;double value to represen">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-06T10:50:54.000Z">
-<meta property="article:modified_time" content="2023-03-01T03:23:26.274Z">
+<meta property="article:modified_time" content="2023-06-05T19:53:25.955Z">
 <meta property="article:author" content="invincible-nerd">
 <meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-01 11:23:26" itemprop="dateModified" datetime="2023-03-01T11:23:26+08:00">2023-03-01</time>
+                <time title="修改时间：2023-06-06 03:53:25" itemprop="dateModified" datetime="2023-06-06T03:53:25+08:00">2023-06-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.6k</span>
+              <span>8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -301,7 +301,8 @@
 
 
 
-<h2 id="2152-Minimum-Number-of-Lines-to-Cover-Points"><a href="#2152-Minimum-Number-of-Lines-to-Cover-Points" class="headerlink" title="2152. Minimum Number of Lines to Cover Points"></a>2152. Minimum Number of Lines to Cover Points</h2><h2 id="2280-Minimum-Lines-to-Represent-a-Line-Chart"><a href="#2280-Minimum-Lines-to-Represent-a-Line-Chart" class="headerlink" title="2280. Minimum Lines to Represent a Line Chart"></a>2280. Minimum Lines to Represent a Line Chart</h2>
+<h2 id="2152-Minimum-Number-of-Lines-to-Cover-Points"><a href="#2152-Minimum-Number-of-Lines-to-Cover-Points" class="headerlink" title="2152. Minimum Number of Lines to Cover Points"></a>2152. Minimum Number of Lines to Cover Points</h2><h2 id="2280-Minimum-Lines-to-Represent-a-Line-Chart"><a href="#2280-Minimum-Lines-to-Represent-a-Line-Chart" class="headerlink" title="2280. Minimum Lines to Represent a Line Chart"></a>2280. Minimum Lines to Represent a Line Chart</h2><h2 id="1232-Check-If-It-Is-a-Straight-Line"><a href="#1232-Check-If-It-Is-a-Straight-Line" class="headerlink" title="1232. Check If It Is a Straight Line"></a>1232. Check If It Is a Straight Line</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">checkStraightLine</span><span class="params">(<span class="type">int</span>[][] coordinates)</span> &#123;</span><br><span class="line">    <span class="comment">//(y2-y1)/(x2-x1)=(y3-y2)/(x3-x2)</span></span><br><span class="line">    <span class="comment">//(y2-y1)(x3-x2)=(y3-y2)(x2-x1)</span></span><br><span class="line">    <span class="type">int</span> n=coordinates.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span>[] a=coordinates[i-<span class="number">2</span>];</span><br><span class="line">        <span class="type">int</span>[] b=coordinates[i-<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span>[] c=coordinates[i];</span><br><span class="line">        <span class="keyword">if</span>((b[<span class="number">1</span>]-a[<span class="number">1</span>])*(c[<span class="number">0</span>]-b[<span class="number">0</span>])!=(c[<span class="number">1</span>]-b[<span class="number">1</span>])*(b[<span class="number">0</span>]-a[<span class="number">0</span>]))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -401,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lines%E9%80%89%E7%BC%96"><span class="nav-number">1.</span> <span class="nav-text">lines选编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#149-Max-Points-on-a-Line"><span class="nav-number">1.1.</span> <span class="nav-text">149. Max Points on a Line</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-1-Enumeration"><span class="nav-number">1.1.1.</span> <span class="nav-text">Approach 1: Enumeration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#356-Line-Reflection"><span class="nav-number">1.2.</span> <span class="nav-text">356. Line Reflection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2152-Minimum-Number-of-Lines-to-Cover-Points"><span class="nav-number">1.3.</span> <span class="nav-text">2152. Minimum Number of Lines to Cover Points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2280-Minimum-Lines-to-Represent-a-Line-Chart"><span class="nav-number">1.4.</span> <span class="nav-text">2280. Minimum Lines to Represent a Line Chart</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lines%E9%80%89%E7%BC%96"><span class="nav-number">1.</span> <span class="nav-text">lines选编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#149-Max-Points-on-a-Line"><span class="nav-number">1.1.</span> <span class="nav-text">149. Max Points on a Line</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-1-Enumeration"><span class="nav-number">1.1.1.</span> <span class="nav-text">Approach 1: Enumeration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#356-Line-Reflection"><span class="nav-number">1.2.</span> <span class="nav-text">356. Line Reflection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2152-Minimum-Number-of-Lines-to-Cover-Points"><span class="nav-number">1.3.</span> <span class="nav-text">2152. Minimum Number of Lines to Cover Points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2280-Minimum-Lines-to-Represent-a-Line-Chart"><span class="nav-number">1.4.</span> <span class="nav-text">2280. Minimum Lines to Represent a Line Chart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1232-Check-If-It-Is-a-Straight-Line"><span class="nav-number">1.5.</span> <span class="nav-text">1232. Check If It Is a Straight Line</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,7 +416,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -469,7 +470,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:32</span>
+    <span title="站点阅读时长">15:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
