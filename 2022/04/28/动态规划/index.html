@@ -28,7 +28,7 @@
 <meta property="og:description" content="Dynamic Programming 选编算法的优化就是这么一个过程:  先写出可读性很好的暴力递归算法    然后尝试运用动态规划技巧优化重叠子问题  最后尝试用空间压缩技巧优化空间复杂度   代码随想录746. Min Cost Climbing Stairs1234567891011121314public class LeetCode746 &amp;#123;    public int mi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-28T09:11:20.000Z">
-<meta property="article:modified_time" content="2023-05-28T02:02:43.049Z">
+<meta property="article:modified_time" content="2023-08-01T00:22:36.233Z">
 <meta property="article:author" content="invincible-nerd">
 <meta property="article:tag" content="DP">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-28 10:02:43" itemprop="dateModified" datetime="2023-05-28T10:02:43+08:00">2023-05-28</time>
+                <time title="修改时间：2023-08-01 08:22:36" itemprop="dateModified" datetime="2023-08-01T08:22:36+08:00">2023-08-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>25k</span>
+              <span>26k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -580,6 +580,8 @@
 
 
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minimumDeleteSum</span><span class="params">(String s1, String s2)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n1=s1.length();</span><br><span class="line">    <span class="type">int</span> n2=s2.length();</span><br><span class="line">    <span class="comment">//longest common subsequence</span></span><br><span class="line">    <span class="comment">//largest common ascii sum</span></span><br><span class="line">    <span class="comment">//smallest uncommon ascii sum</span></span><br><span class="line">    <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n1+<span class="number">1</span>][n2+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n1-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i][n2]=dp[i+<span class="number">1</span>][n2]+s1.charAt(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> n2-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">        dp[n1][j]=dp[n1][j+<span class="number">1</span>]+s2.charAt(j);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n1-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=n2-<span class="number">1</span>; j&gt;=<span class="number">0</span>; j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.charAt(i)==s2.charAt(j))&#123;</span><br><span class="line">                dp[i][j]=dp[i+<span class="number">1</span>][j+<span class="number">1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][j]=Math.min(dp[i+<span class="number">1</span>][j]+s1.charAt(i),dp[i][j+<span class="number">1</span>]+s2.charAt(j));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 
 <h2 id="Palindrome问题"><a href="#Palindrome问题" class="headerlink" title="Palindrome问题"></a>Palindrome问题</h2><h3 id="516-Longest-Palindromic-Subsequence"><a href="#516-Longest-Palindromic-Subsequence" class="headerlink" title="516. Longest Palindromic Subsequence"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-palindromic-subsequence/">516. Longest Palindromic Subsequence</a></h3><p>想求 <code>dp[i][j]</code> 需要知道 <code>dp[i+1][j-1]</code>，<code>dp[i+1][j]</code>，<code>dp[i][j-1]</code> 这三个位置</p>
@@ -707,7 +709,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -761,7 +763,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:56</span>
+    <span title="站点阅读时长">16:17</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
