@@ -190,6 +190,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/10/07/meeting-room/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/07/meeting-room/" class="post-title-link" itemprop="url">meeting room</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-07 21:15:59" itemprop="dateCreated datePublished" datetime="2022-10-07T21:15:59+08:00">2022-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-01 11:23:47" itemprop="dateModified" datetime="2023-03-01T11:23:47+08:00">2023-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Meeting-Rooms问题"><a href="#Meeting-Rooms问题" class="headerlink" title="Meeting Rooms问题"></a>Meeting Rooms问题</h1><h2 id="252-Meeting-Rooms"><a href="#252-Meeting-Rooms" class="headerlink" title="252. Meeting Rooms"></a>252. Meeting Rooms</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/meeting-rooms/">https://leetcode.com/problems/meeting-rooms/</a></p>
+<h3 id="解法一：merge-interval通解"><a href="#解法一：merge-interval通解" class="headerlink" title="解法一：merge interval通解"></a>解法一：merge interval通解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canAttendMeetings</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=intervals.length;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Arrays.sort(intervals, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;<span class="type">int</span>[]&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(<span class="type">int</span>[] o1, <span class="type">int</span>[] o2)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> o1[<span class="number">0</span>]!=o2[<span class="number">0</span>] ? o1[<span class="number">0</span>]-o2[<span class="number">0</span>] : o2[<span class="number">0</span>]-o1[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> start=intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="type">int</span> end=intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> left=intervals[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> right=intervals[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(left&lt;end)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            end=right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canAttendMeetings</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    Arrays.sort(intervals, (a, b) -&gt; Integer.compare(a[<span class="number">0</span>], b[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; intervals.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals[i][<span class="number">1</span>] &gt; intervals[i + <span class="number">1</span>][<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="253-Meeting-Rooms-II"><a href="#253-Meeting-Rooms-II" class="headerlink" title="253. Meeting Rooms II"></a>253. Meeting Rooms II</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/meeting-rooms-ii/">https://leetcode.com/problems/meeting-rooms-ii/</a></p>
+<h3 id="法一：greedy-algorithm"><a href="#法一：greedy-algorithm" class="headerlink" title="法一：greedy algorithm"></a>法一：greedy algorithm</h3><p>先interval排序，尽可能让该interval去到end更小的组，并更新该组的end</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minMeetingRooms</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    <span class="comment">//minimum number of conference rooms</span></span><br><span class="line">    <span class="comment">//minimum groups of un-overlapping intervals</span></span><br><span class="line">    Arrays.sort(intervals,(a,b)-&gt;(a[<span class="number">0</span>]!=b[<span class="number">0</span>] ? a[<span class="number">0</span>]-b[<span class="number">0</span>] : b[<span class="number">1</span>]-a[<span class="number">1</span>]));</span><br><span class="line">    <span class="type">int</span> n=intervals.length;</span><br><span class="line">    PriorityQueue&lt;Integer&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>();</span><br><span class="line">    pq.add(intervals[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> left=intervals[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> right=intervals[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(left&lt;pq.peek())&#123;</span><br><span class="line">            pq.offer(right);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">int</span> min=pq.poll();</span><br><span class="line">            pq.offer(right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pq.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2402-Meeting-Rooms-III"><a href="#2402-Meeting-Rooms-III" class="headerlink" title="2402. Meeting Rooms III"></a>2402. Meeting Rooms III</h2><p>注意：</p>
+<ul>
+<li>end可能越界，要用long</li>
+<li>compare的返回值必须是int,也要强转</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">mostBooked</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] meetings)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] counts=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Arrays.sort(meetings,(a,b)-&gt;(a[<span class="number">0</span>]-b[<span class="number">0</span>]));</span><br><span class="line">    <span class="comment">//room number, meeting end time</span></span><br><span class="line">    PriorityQueue&lt;<span class="type">long</span>[]&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;(a[<span class="number">1</span>]!=b[<span class="number">1</span>] ? (<span class="type">int</span>)(a[<span class="number">1</span>]-b[<span class="number">1</span>]) : (<span class="type">int</span>)(a[<span class="number">0</span>]-b[<span class="number">0</span>])));</span><br><span class="line">    pq.offer(<span class="keyword">new</span> <span class="title class_">long</span>[]&#123;<span class="number">0</span>,meetings[<span class="number">0</span>][<span class="number">1</span>]&#125;);</span><br><span class="line">    counts[<span class="number">0</span>]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; meetings.length; i++) &#123;</span><br><span class="line">        <span class="type">int</span> start=meetings[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> end=meetings[i][<span class="number">1</span>];</span><br><span class="line">        List&lt;<span class="type">long</span>[]&gt; rooms=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> count=pq.size();</span><br><span class="line">        <span class="type">long</span>[] room=<span class="literal">null</span>;    <span class="comment">//best room to offer</span></span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty() &amp;&amp; pq.peek()[<span class="number">1</span>]&lt;=start)&#123;<span class="comment">//possible rooms to choose from</span></span><br><span class="line">            <span class="type">long</span>[] first=pq.poll();</span><br><span class="line">            <span class="keyword">if</span>(room==<span class="literal">null</span> || first[<span class="number">0</span>]&lt;room[<span class="number">0</span>])&#123;</span><br><span class="line">                room=first;</span><br><span class="line">            &#125;</span><br><span class="line">            rooms.add(first);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(room!=<span class="literal">null</span>)&#123; <span class="comment">//no need to open a new room or wait</span></span><br><span class="line">            room[<span class="number">1</span>]=end;</span><br><span class="line">            counts[(<span class="type">int</span>)room[<span class="number">0</span>]]++;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">long</span>[] r : rooms) &#123;</span><br><span class="line">                pq.offer(r);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(count&lt;n)&#123;<span class="comment">// still have empty rooms, no need to wait</span></span><br><span class="line">            counts[count]++;</span><br><span class="line">            pq.offer(<span class="keyword">new</span> <span class="title class_">long</span>[]&#123;count,end&#125;);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//have to wait</span></span><br><span class="line">            room=pq.poll();</span><br><span class="line">            counts[(<span class="type">int</span>)room[<span class="number">0</span>]]++;</span><br><span class="line">            room[<span class="number">1</span>]+=end-start;</span><br><span class="line">            pq.offer(room);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> max=counts[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; counts.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(counts[i]&gt;max)&#123;</span><br><span class="line">            res=i;</span><br><span class="line">            max=counts[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/10/03/JAVA%E6%9D%82%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2124,120 +2235,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/06/14/LRU&&LFU/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/14/LRU&&LFU/" class="post-title-link" itemprop="url">LRU&LFU</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-14 21:07:43" itemprop="dateCreated datePublished" datetime="2022-06-14T21:07:43+08:00">2022-06-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-01 11:24:20" itemprop="dateModified" datetime="2023-03-01T11:24:20+08:00">2023-03-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="LRU-amp-LFU算法"><a href="#LRU-amp-LFU算法" class="headerlink" title="LRU&amp;LFU算法"></a>LRU&amp;LFU算法</h1><h2 id="146-LRU-Cache"><a href="#146-LRU-Cache" class="headerlink" title="146. LRU Cache"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">146. LRU Cache</a></h2><p><strong>每次淘汰那些最久没被使用的数据</strong></p>
-<p>LRU 缓存淘汰算法就是一种常用策略。LRU 的全称是 Least Recently Used，也就是说我们认为最近使用过的数据应该是是「有用的」，很久都没用过的数据应该是无用的，内存满了就优先删那些很久没用过的数据。</p>
-<p>要让 <code>put</code> 和 <code>get</code> 方法的时间复杂度为 O(1)，我们可以总结出 <code>cache</code> 这个数据结构必要的条件：</p>
-<p>1、显然 <code>cache</code> 中的元素必须有时序，以区分最近使用的和久未使用的数据，当容量满了之后要删除最久未使用的那个元素腾位置。</p>
-<p>2、我们要在 <code>cache</code> 中快速找某个 <code>key</code> 是否已存在并得到对应的 <code>val</code>；</p>
-<p>3、每次访问 <code>cache</code> 中的某个 <code>key</code>，需要将这个元素变为最近使用的，也就是说 <code>cache</code> 要支持在任意位置快速插入和删除元素。</p>
-<p>那么，什么数据结构同时符合上述条件呢？哈希表查找快，但是数据无固定顺序；链表有顺序之分，插入删除快，但是查找慢。所以结合一下，形成一种新的数据结构：哈希链表 <code>LinkedHashMap</code>。</p>
-<p>LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体。</p>
-<p>若要自己实现，则需要<code>hashmap</code> 和 双链表</p>
-<p>尾插 + hashmap，保证迭代顺序就是插入顺序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    LinkedHashMap&lt;Integer,Integer&gt; cache;</span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        cache=<span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;();</span><br><span class="line">        cap=capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="type">int</span> val=cache.getOrDefault(key,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val!=-<span class="number">1</span>)&#123;</span><br><span class="line">            makeRecently(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cache.containsKey(key))&#123;</span><br><span class="line">            cache.put(key,value);</span><br><span class="line">            makeRecently(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cache.put(key,value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cache.size()&gt;cap)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> cache.keySet().iterator().next();</span><br><span class="line">            cache.remove(first);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">makeRecently</span><span class="params">(<span class="type">int</span> key)</span>&#123;</span><br><span class="line">        <span class="type">int</span> val=cache.get(key);</span><br><span class="line">        cache.remove(key);</span><br><span class="line">        cache.put(key,val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="460-LFU-Cache"><a href="#460-LFU-Cache" class="headerlink" title="460. LFU Cache"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lfu-cache/">460. LFU Cache</a></h2><p>LRU 算法的核心数据结构是使用哈希链表 <code>LinkedHashMap</code>，首先借助链表的有序性使得链表元素维持插入顺序，同时借助哈希映射的快速访问能力使得我们可以在 O(1) 时间访问链表的任意元素。</p>
-<p>LFU 算法的淘汰策略是 Least Frequently Used，也就是<strong>每次淘汰那些使用次数最少的数据</strong>。</p>
-<p>淘汰访问频次最低的数据，<strong>如果访问频次最低的数据有多条，需要淘汰最旧的数据</strong></p>
-<p><code>LinkedHashSet</code> 顾名思义，是链表和哈希集合的结合体。链表不能快速访问链表节点，但是插入元素具有时序；哈希集合中的元素无序，但是可以对元素进行快速的访问和删除。</p>
-<p>那么，它俩结合起来就兼具了哈希集合和链表的特性，既可以在 O(1) 时间内访问或删除其中的元素，又可以保持插入的时序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// key 到 val 的映射，我们后文称为 KV 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToVal;</span><br><span class="line">    <span class="comment">// key 到 freq 的映射，我们后文称为 KF 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br><span class="line">    <span class="comment">// freq 到 key 列表的映射，我们后文称为 FK 表</span></span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line">    <span class="comment">// 记录最小的频次</span></span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="comment">// 记录 LFU 缓存的最大容量</span></span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyToVal = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyToFreq = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqToKeys = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.cap = capacity;</span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意：测试用例有capacity为0的情况，需要考虑</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    HashMap&lt;Integer,Integer&gt; keyValue;</span><br><span class="line">    HashMap&lt;Integer,Integer&gt; keyFreq;</span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqKey;</span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyValue=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyFreq=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqKey=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        minFreq=<span class="number">0</span>;</span><br><span class="line">        cap=capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cap==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> keyValue.getOrDefault(key,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val!=-<span class="number">1</span>)&#123;</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cap==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(keyValue.containsKey(key))&#123;</span><br><span class="line">            keyValue.put(key,value);</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//new key</span></span><br><span class="line">            <span class="keyword">if</span>(keyValue.size()&gt;=cap)&#123;</span><br><span class="line">                removeLeastFreq();</span><br><span class="line">            &#125;</span><br><span class="line">            keyValue.put(key,value);</span><br><span class="line">            keyFreq.put(key,<span class="number">1</span>);</span><br><span class="line">            freqKey.putIfAbsent(<span class="number">1</span>,<span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">            LinkedHashSet&lt;Integer&gt; set = freqKey.get(<span class="number">1</span>);</span><br><span class="line">            set.add(key);</span><br><span class="line">            minFreq=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">removeLeastFreq</span><span class="params">()</span>&#123;</span><br><span class="line">        LinkedHashSet&lt;Integer&gt; set = freqKey.get(minFreq);</span><br><span class="line">        <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> set.iterator().next();</span><br><span class="line">        set.remove(first);</span><br><span class="line">        keyValue.remove(first);</span><br><span class="line">        keyFreq.remove(first);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">increaseFreq</span><span class="params">(<span class="type">int</span> key)</span>&#123;</span><br><span class="line">        <span class="type">int</span> freq=keyFreq.get(key);</span><br><span class="line">        keyFreq.put(key,freq+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        freqKey.putIfAbsent(freq+<span class="number">1</span>,<span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        LinkedHashSet&lt;Integer&gt; cur = freqKey.get(freq + <span class="number">1</span>);</span><br><span class="line">        cur.add(key);</span><br><span class="line"></span><br><span class="line">        LinkedHashSet&lt;Integer&gt; pre = freqKey.get(freq);</span><br><span class="line">        pre.remove(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//此时可以确定freq+1非空，因为刚刚更新(key,freq+1)</span></span><br><span class="line">        <span class="keyword">if</span>(pre.isEmpty())&#123;</span><br><span class="line">            freqKey.remove(freq);</span><br><span class="line">            <span class="keyword">if</span>(freq==minFreq)&#123;</span><br><span class="line">                minFreq++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2307,7 +2304,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2361,7 +2358,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:17</span>
+    <span title="站点阅读时长">16:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

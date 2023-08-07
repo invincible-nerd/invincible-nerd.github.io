@@ -190,6 +190,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/06/14/LRU&&LFU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/14/LRU&&LFU/" class="post-title-link" itemprop="url">LRU&LFU</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-14 21:07:43" itemprop="dateCreated datePublished" datetime="2022-06-14T21:07:43+08:00">2022-06-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-01 11:24:20" itemprop="dateModified" datetime="2023-03-01T11:24:20+08:00">2023-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LRU-amp-LFU算法"><a href="#LRU-amp-LFU算法" class="headerlink" title="LRU&amp;LFU算法"></a>LRU&amp;LFU算法</h1><h2 id="146-LRU-Cache"><a href="#146-LRU-Cache" class="headerlink" title="146. LRU Cache"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">146. LRU Cache</a></h2><p><strong>每次淘汰那些最久没被使用的数据</strong></p>
+<p>LRU 缓存淘汰算法就是一种常用策略。LRU 的全称是 Least Recently Used，也就是说我们认为最近使用过的数据应该是是「有用的」，很久都没用过的数据应该是无用的，内存满了就优先删那些很久没用过的数据。</p>
+<p>要让 <code>put</code> 和 <code>get</code> 方法的时间复杂度为 O(1)，我们可以总结出 <code>cache</code> 这个数据结构必要的条件：</p>
+<p>1、显然 <code>cache</code> 中的元素必须有时序，以区分最近使用的和久未使用的数据，当容量满了之后要删除最久未使用的那个元素腾位置。</p>
+<p>2、我们要在 <code>cache</code> 中快速找某个 <code>key</code> 是否已存在并得到对应的 <code>val</code>；</p>
+<p>3、每次访问 <code>cache</code> 中的某个 <code>key</code>，需要将这个元素变为最近使用的，也就是说 <code>cache</code> 要支持在任意位置快速插入和删除元素。</p>
+<p>那么，什么数据结构同时符合上述条件呢？哈希表查找快，但是数据无固定顺序；链表有顺序之分，插入删除快，但是查找慢。所以结合一下，形成一种新的数据结构：哈希链表 <code>LinkedHashMap</code>。</p>
+<p>LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体。</p>
+<p>若要自己实现，则需要<code>hashmap</code> 和 双链表</p>
+<p>尾插 + hashmap，保证迭代顺序就是插入顺序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    LinkedHashMap&lt;Integer,Integer&gt; cache;</span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        cache=<span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;();</span><br><span class="line">        cap=capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="type">int</span> val=cache.getOrDefault(key,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val!=-<span class="number">1</span>)&#123;</span><br><span class="line">            makeRecently(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cache.containsKey(key))&#123;</span><br><span class="line">            cache.put(key,value);</span><br><span class="line">            makeRecently(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cache.put(key,value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cache.size()&gt;cap)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> cache.keySet().iterator().next();</span><br><span class="line">            cache.remove(first);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">makeRecently</span><span class="params">(<span class="type">int</span> key)</span>&#123;</span><br><span class="line">        <span class="type">int</span> val=cache.get(key);</span><br><span class="line">        cache.remove(key);</span><br><span class="line">        cache.put(key,val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="460-LFU-Cache"><a href="#460-LFU-Cache" class="headerlink" title="460. LFU Cache"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lfu-cache/">460. LFU Cache</a></h2><p>LRU 算法的核心数据结构是使用哈希链表 <code>LinkedHashMap</code>，首先借助链表的有序性使得链表元素维持插入顺序，同时借助哈希映射的快速访问能力使得我们可以在 O(1) 时间访问链表的任意元素。</p>
+<p>LFU 算法的淘汰策略是 Least Frequently Used，也就是<strong>每次淘汰那些使用次数最少的数据</strong>。</p>
+<p>淘汰访问频次最低的数据，<strong>如果访问频次最低的数据有多条，需要淘汰最旧的数据</strong></p>
+<p><code>LinkedHashSet</code> 顾名思义，是链表和哈希集合的结合体。链表不能快速访问链表节点，但是插入元素具有时序；哈希集合中的元素无序，但是可以对元素进行快速的访问和删除。</p>
+<p>那么，它俩结合起来就兼具了哈希集合和链表的特性，既可以在 O(1) 时间内访问或删除其中的元素，又可以保持插入的时序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// key 到 val 的映射，我们后文称为 KV 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToVal;</span><br><span class="line">    <span class="comment">// key 到 freq 的映射，我们后文称为 KF 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br><span class="line">    <span class="comment">// freq 到 key 列表的映射，我们后文称为 FK 表</span></span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line">    <span class="comment">// 记录最小的频次</span></span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="comment">// 记录 LFU 缓存的最大容量</span></span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyToVal = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyToFreq = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqToKeys = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.cap = capacity;</span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：测试用例有capacity为0的情况，需要考虑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    HashMap&lt;Integer,Integer&gt; keyValue;</span><br><span class="line">    HashMap&lt;Integer,Integer&gt; keyFreq;</span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqKey;</span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyValue=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyFreq=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqKey=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        minFreq=<span class="number">0</span>;</span><br><span class="line">        cap=capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cap==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> keyValue.getOrDefault(key,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val!=-<span class="number">1</span>)&#123;</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(cap==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(keyValue.containsKey(key))&#123;</span><br><span class="line">            keyValue.put(key,value);</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//new key</span></span><br><span class="line">            <span class="keyword">if</span>(keyValue.size()&gt;=cap)&#123;</span><br><span class="line">                removeLeastFreq();</span><br><span class="line">            &#125;</span><br><span class="line">            keyValue.put(key,value);</span><br><span class="line">            keyFreq.put(key,<span class="number">1</span>);</span><br><span class="line">            freqKey.putIfAbsent(<span class="number">1</span>,<span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">            LinkedHashSet&lt;Integer&gt; set = freqKey.get(<span class="number">1</span>);</span><br><span class="line">            set.add(key);</span><br><span class="line">            minFreq=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">removeLeastFreq</span><span class="params">()</span>&#123;</span><br><span class="line">        LinkedHashSet&lt;Integer&gt; set = freqKey.get(minFreq);</span><br><span class="line">        <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> set.iterator().next();</span><br><span class="line">        set.remove(first);</span><br><span class="line">        keyValue.remove(first);</span><br><span class="line">        keyFreq.remove(first);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">increaseFreq</span><span class="params">(<span class="type">int</span> key)</span>&#123;</span><br><span class="line">        <span class="type">int</span> freq=keyFreq.get(key);</span><br><span class="line">        keyFreq.put(key,freq+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        freqKey.putIfAbsent(freq+<span class="number">1</span>,<span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        LinkedHashSet&lt;Integer&gt; cur = freqKey.get(freq + <span class="number">1</span>);</span><br><span class="line">        cur.add(key);</span><br><span class="line"></span><br><span class="line">        LinkedHashSet&lt;Integer&gt; pre = freqKey.get(freq);</span><br><span class="line">        pre.remove(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//此时可以确定freq+1非空，因为刚刚更新(key,freq+1)</span></span><br><span class="line">        <span class="keyword">if</span>(pre.isEmpty())&#123;</span><br><span class="line">            freqKey.remove(freq);</span><br><span class="line">            <span class="keyword">if</span>(freq==minFreq)&#123;</span><br><span class="line">                minFreq++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/06/14/String%E5%A5%BD%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -505,7 +619,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-21 14:25:14" itemprop="dateModified" datetime="2023-06-21T14:25:14+08:00">2023-06-21</time>
+                <time title="修改时间：2023-08-04 07:16:45" itemprop="dateModified" datetime="2023-08-04T07:16:45+08:00">2023-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -819,6 +933,12 @@
 
 
 <h2 id="2448-Minimum-Cost-to-Make-Array-Equal"><a href="#2448-Minimum-Cost-to-Make-Array-Equal" class="headerlink" title="2448. Minimum Cost to Make Array Equal"></a>2448. Minimum Cost to Make Array Equal</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">minCost</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span>[] cost)</span> &#123;</span><br><span class="line">    <span class="type">int</span> left= Arrays.stream(nums).min().getAsInt();</span><br><span class="line">    <span class="type">int</span> right=Arrays.stream(nums).max().getAsInt();</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">       <span class="type">int</span> mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">       <span class="type">long</span> cost1=helper(nums,cost,mid);</span><br><span class="line">       <span class="type">long</span> cost2=helper(nums,cost,mid+<span class="number">1</span>);</span><br><span class="line">       <span class="keyword">if</span>(cost1&gt;cost2)&#123;</span><br><span class="line">           res=cost2;</span><br><span class="line">           left=mid+<span class="number">1</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           res=cost1;</span><br><span class="line">           right=mid;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">long</span> <span class="title function_">helper</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span>[] cost, <span class="type">int</span> target)</span>&#123;</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        res+=<span class="number">1L</span>*Math.abs(target-nums[i])*cost[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1870-Minimum-Speed-to-Arrive-on-Time"><a href="#1870-Minimum-Speed-to-Arrive-on-Time" class="headerlink" title="1870. Minimum Speed to Arrive on Time"></a>1870. Minimum Speed to Arrive on Time</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minSpeedOnTime</span><span class="params">(<span class="type">int</span>[] dist, <span class="type">double</span> hour)</span> &#123;</span><br><span class="line">    <span class="comment">//binary search min</span></span><br><span class="line">    <span class="type">int</span> n=dist.length;</span><br><span class="line">    <span class="type">int</span> left=<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> right=(<span class="type">int</span>)<span class="number">1e7</span>+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="type">int</span> mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">        <span class="comment">//[left,right)</span></span><br><span class="line">        <span class="type">double</span> t=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (; i &lt; n-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            t+=dist[i]%mid==<span class="number">0</span> ? dist[i]/mid : dist[i]/mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(t&gt;hour)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        t+=(<span class="type">double</span>)dist[i]/mid;</span><br><span class="line">        <span class="keyword">if</span>(t&gt;hour)&#123;</span><br><span class="line">            left=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            right=mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left==(<span class="type">int</span>)<span class="number">1e7</span>+<span class="number">1</span> ? -<span class="number">1</span> : left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1171,7 +1291,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-06 15:13:33" itemprop="dateModified" datetime="2023-01-06T15:13:33+08:00">2023-01-06</time>
+                <time title="修改时间：2023-08-04 08:24:05" itemprop="dateModified" datetime="2023-08-04T08:24:05+08:00">2023-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1189,14 +1309,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
+              <span>12k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -1218,28 +1338,6 @@
 
 
 
-
-<h2 id="Prefix-Sum-amp-HashMap"><a href="#Prefix-Sum-amp-HashMap" class="headerlink" title="Prefix Sum&amp;HashMap"></a>Prefix Sum&amp;HashMap</h2><h3 id="560-Subarray-Sum-Equals-K"><a href="#560-Subarray-Sum-Equals-K" class="headerlink" title="560. Subarray Sum Equals K"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sum-equals-k/">560. Subarray Sum Equals K</a></h3><p>不关心具体是哪两项的前缀和之差等于k，只关心等于 k 的前缀和之差出现的次数c，就知道了有c个子数组求和等于k</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subarraySum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">            sum+=nums[i];</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(sum-k))&#123;</span><br><span class="line">                count+=map.get(sum-k);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(sum,map.getOrDefault(sum,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="1248-Count-Number-of-Nice-Subarrays"><a href="#1248-Count-Number-of-Nice-Subarrays" class="headerlink" title="1248. Count Number of Nice Subarrays"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-number-of-nice-subarrays/">1248. Count Number of Nice Subarrays</a></h3><p>奇数个数为 k 的区间数量, 等价于在对区间各项 &amp;1 后，和为 k 的区间数量</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1248</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numberOfSubarrays</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            sum+=nums[i]&amp;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(sum-k))&#123;</span><br><span class="line">                count+=map.get(sum-k);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(sum,map.getOrDefault(sum,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="974-Subarray-Sums-Divisible-by-K"><a href="#974-Subarray-Sums-Divisible-by-K" class="headerlink" title="974. Subarray Sums Divisible by K"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sums-divisible-by-k/">974. Subarray Sums Divisible by K</a></h3><p>注意：mod后可能是 (-k,k) 间的任意值，需要处理，且不可以通过定长数组来优化</p>
-<p>Java负数参与的取模运算规则：</p>
-<p><strong>先忽略负号，按照正数运算之后</strong>，<strong>被取模的数是正数结果就取正，反之取负。</strong></p>
-<p><strong>即只看被除的数7的符号，不考虑除数3的符号！！！</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode974</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subarraysDivByK</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            sum+=nums[i];</span><br><span class="line">            <span class="type">int</span> mod=(sum%k+k)%k;</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(mod))&#123;</span><br><span class="line">                count+=map.get(mod);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(mod,map.getOrDefault(mod,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="523-Continuous-Subarray-Sum"><a href="#523-Continuous-Subarray-Sum" class="headerlink" title="523. Continuous Subarray Sum"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/continuous-subarray-sum/">523. Continuous Subarray Sum</a></h3><p>map中记录之前最早的 sum%k 后结果为 mod 的区间的终点</p>
-<p>若再找到一个相同的 mod 且间隔大于 2，则满足</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode523</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">checkSubarraySum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">0</span>,-<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> n=nums.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            sum+=nums[i];</span><br><span class="line">            <span class="type">int</span> mod=sum%k;</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(mod))&#123;</span><br><span class="line">                <span class="keyword">if</span>(i-map.get(mod)&gt;=<span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(mod,i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -1798,7 +1896,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-26 13:50:58" itemprop="dateModified" datetime="2023-01-26T13:50:58+08:00">2023-01-26</time>
+                <time title="修改时间：2023-08-02 10:26:12" itemprop="dateModified" datetime="2023-08-02T10:26:12+08:00">2023-08-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1823,7 +1921,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -2036,7 +2134,11 @@
 
 
 
-<h4 id="Approach-2-Similar-Approach-Accepted"><a href="#Approach-2-Similar-Approach-Accepted" class="headerlink" title="Approach #2 Similar Approach [Accepted]"></a>Approach #2 Similar Approach [Accepted]</h4><h4 id="Approach-3-Dynamic-Programming-Accepted"><a href="#Approach-3-Dynamic-Programming-Accepted" class="headerlink" title="Approach #3 Dynamic Programming [Accepted]:"></a>Approach #3 Dynamic Programming [Accepted]:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">PredictTheWinner</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">    <span class="comment">//a=nums[s]-dp[s+1][e]</span></span><br><span class="line">    <span class="comment">//b=nums[e]-dp[s][e-1]</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                dp[i][j]=nums[i];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="type">int</span> a=nums[i]-dp[i+<span class="number">1</span>][j];</span><br><span class="line">                <span class="type">int</span> b=nums[j]-dp[i][j-<span class="number">1</span>];</span><br><span class="line">                dp[i][j]=Math.max(a,b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][n-<span class="number">1</span>]&gt;=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Approach-2-Similar-Approach-Accepted"><a href="#Approach-2-Similar-Approach-Accepted" class="headerlink" title="Approach #2 Similar Approach [Accepted]"></a>Approach #2 Similar Approach [Accepted]</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//c++ 2-d array difficult to handle, use 2-d vector instead</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; dp;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">predictTheWinner</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//vector(size,default value)</span></span><br><span class="line">        dp=vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n,<span class="number">-1</span>));</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(nums,<span class="number">0</span>,n<span class="number">-1</span>)&gt;=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> i, <span class="type">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">            <span class="keyword">return</span> nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[i][j]!=<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> dp[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> a=nums[i]-<span class="built_in">dfs</span>(nums,i+<span class="number">1</span>,j);</span><br><span class="line">        <span class="type">int</span> b=nums[j]-<span class="built_in">dfs</span>(nums,i,j<span class="number">-1</span>);</span><br><span class="line">        dp[i][j]=<span class="built_in">max</span>(a,b);</span><br><span class="line">        <span class="keyword">return</span> dp[i][j];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Approach-3-Dynamic-Programming-Accepted"><a href="#Approach-3-Dynamic-Programming-Accepted" class="headerlink" title="Approach #3 Dynamic Programming [Accepted]:"></a>Approach #3 Dynamic Programming [Accepted]:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">PredictTheWinner</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[][] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">    <span class="comment">//a=nums[s]-dp[s+1][e]</span></span><br><span class="line">    <span class="comment">//b=nums[e]-dp[s][e-1]</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                dp[i][j]=nums[i];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="type">int</span> a=nums[i]-dp[i+<span class="number">1</span>][j];</span><br><span class="line">                <span class="type">int</span> b=nums[j]-dp[i][j-<span class="number">1</span>];</span><br><span class="line">                dp[i][j]=Math.max(a,b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][n-<span class="number">1</span>]&gt;=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -2590,7 +2692,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-13 09:21:19" itemprop="dateModified" datetime="2023-07-13T09:21:19+08:00">2023-07-13</time>
+                <time title="修改时间：2023-08-04 07:45:28" itemprop="dateModified" datetime="2023-08-04T07:45:28+08:00">2023-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2608,14 +2710,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.5k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -2741,77 +2843,12 @@
 
 <h2 id="2046-Sort-Linked-List-Already-Sorted-Using-Absolute-Values"><a href="#2046-Sort-Linked-List-Already-Sorted-Using-Absolute-Values" class="headerlink" title="2046. Sort Linked List Already Sorted Using Absolute Values"></a>2046. Sort Linked List Already Sorted Using Absolute Values</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ListNode() &#123;&#125;</span><br><span class="line">    ListNode(<span class="type">int</span> val) &#123; <span class="built_in">this</span>.val = val; &#125;</span><br><span class="line">    ListNode(<span class="type">int</span> val, ListNode next) &#123; <span class="built_in">this</span>.val = val; <span class="built_in">this</span>.next = next; &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> ListNode <span class="title function_">sortLinkedList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">      ListNode negHead=<span class="literal">null</span>;</span><br><span class="line">      ListNode negTail=<span class="literal">null</span>;</span><br><span class="line">      ListNode dummy=<span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">      dummy.next=head;</span><br><span class="line">      ListNode p=head;</span><br><span class="line">      ListNode pre=dummy;</span><br><span class="line">      <span class="keyword">while</span>(p!=<span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="keyword">if</span>(p.val&lt;<span class="number">0</span>)&#123;</span><br><span class="line">              ListNode next=p.next;</span><br><span class="line">              pre.next=next;</span><br><span class="line">              p.next=<span class="literal">null</span>;</span><br><span class="line">              <span class="keyword">if</span>(negHead==<span class="literal">null</span>)&#123;</span><br><span class="line">                  negTail=p;</span><br><span class="line">              &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                  p.next=negHead;</span><br><span class="line">              &#125;</span><br><span class="line">              negHead=p;</span><br><span class="line">              p=next;</span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              pre=p;</span><br><span class="line">              p=p.next;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(negTail!=<span class="literal">null</span>)&#123;</span><br><span class="line">          negTail.next=dummy.next;</span><br><span class="line">          <span class="keyword">return</span> negHead;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> head;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2022/05/16/%E6%90%AC%E5%AE%B6%E5%95%A6/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/16/%E6%90%AC%E5%AE%B6%E5%95%A6/" class="post-title-link" itemprop="url">搬家啦</a>
-        </h2>
+<h2 id="445-Add-Two-Numbers-II"><a href="#445-Add-Two-Numbers-II" class="headerlink" title="445. Add Two Numbers II"></a>445. Add Two Numbers II</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> &#123;</span><br><span class="line">    Deque&lt;ListNode&gt; stack1=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;ListNode&gt; stack2=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    ListNode last=<span class="literal">null</span>;</span><br><span class="line">    <span class="type">int</span> carry=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(l1!=<span class="literal">null</span>)&#123;</span><br><span class="line">        stack1.push(l1);</span><br><span class="line">        l1=l1.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(l2!=<span class="literal">null</span>)&#123;</span><br><span class="line">        stack2.push(l2);</span><br><span class="line">        l2=l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!stack1.isEmpty() &amp;&amp; !stack2.isEmpty())&#123;</span><br><span class="line">        ListNode a=stack1.pop();</span><br><span class="line">        ListNode b=stack2.pop();</span><br><span class="line">        <span class="type">int</span> val=(a.val+b.val+carry)%<span class="number">10</span>;</span><br><span class="line">        carry=(a.val+b.val+carry)/<span class="number">10</span>;</span><br><span class="line">        ListNode node=<span class="keyword">new</span> <span class="title class_">ListNode</span>(val);</span><br><span class="line">        node.next=last;</span><br><span class="line">        last=node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!stack1.isEmpty())&#123;</span><br><span class="line">        ListNode a=stack1.pop();</span><br><span class="line">        <span class="type">int</span> val=(a.val+carry)%<span class="number">10</span>;</span><br><span class="line">        carry=(a.val+carry)/<span class="number">10</span>;</span><br><span class="line">        ListNode node=<span class="keyword">new</span> <span class="title class_">ListNode</span>(val);</span><br><span class="line">        node.next=last;</span><br><span class="line">        last=node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!stack2.isEmpty())&#123;</span><br><span class="line">        ListNode b=stack2.pop();</span><br><span class="line">        <span class="type">int</span> val=(b.val+carry)%<span class="number">10</span>;</span><br><span class="line">        carry=(b.val+carry)/<span class="number">10</span>;</span><br><span class="line">        ListNode node=<span class="keyword">new</span> <span class="title class_">ListNode</span>(val);</span><br><span class="line">        node.next=last;</span><br><span class="line">        last=node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(carry!=<span class="number">0</span>)&#123;</span><br><span class="line">        ListNode node=<span class="keyword">new</span> <span class="title class_">ListNode</span>(<span class="number">1</span>);</span><br><span class="line">        node.next=last;</span><br><span class="line">        last=node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-16 23:48:17" itemprop="dateCreated datePublished" datetime="2022-05-16T23:48:17+08:00">2022-05-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
       
     </div>
 
@@ -2895,7 +2932,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2949,7 +2986,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:17</span>
+    <span title="站点阅读时长">16:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
