@@ -190,6 +190,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/08/20/PriorityQueue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/20/PriorityQueue/" class="post-title-link" itemprop="url">PriorityQueue</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-20 23:49:39" itemprop="dateCreated datePublished" datetime="2023-08-20T23:49:39+08:00">2023-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-21 14:56:22" itemprop="dateModified" datetime="2023-08-21T14:56:22+08:00">2023-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PriorityQueue好题选编"><a href="#PriorityQueue好题选编" class="headerlink" title="PriorityQueue好题选编"></a>PriorityQueue好题选编</h1><p>Greedy必备，甚至能代替DP！</p>
+<h2 id="2830-Maximize-the-Profit-as-the-Salesman"><a href="#2830-Maximize-the-Profit-as-the-Salesman" class="headerlink" title="2830. Maximize the Profit as the Salesman"></a>2830. Maximize the Profit as the Salesman</h2><p>反思：</p>
+<ul>
+<li>并非所有求最大值的pq都是根据值倒序，不要死脑筋</li>
+<li>可以利用pq的顺序上的有序性，另外用max来记录最值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maximizeTheProfit</span><span class="params">(<span class="type">int</span> n, List&lt;List&lt;Integer&gt;&gt; offers)</span> &#123;</span><br><span class="line">    Collections.sort(offers,(a,b)-&gt;(a.get(<span class="number">0</span>)-b.get(<span class="number">0</span>)));</span><br><span class="line">    PriorityQueue&lt;<span class="type">int</span>[]&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;(a[<span class="number">0</span>]-b[<span class="number">0</span>]));</span><br><span class="line">    <span class="comment">//end,sum</span></span><br><span class="line">    <span class="comment">//once can append, all following ones can also append</span></span><br><span class="line">    <span class="type">int</span> max=<span class="number">0</span>; <span class="comment">//max value that can be appended</span></span><br><span class="line">    <span class="keyword">for</span> (List&lt;Integer&gt; offer : offers) &#123;</span><br><span class="line">        <span class="type">int</span> start=offer.get(<span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> end=offer.get(<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> val=offer.get(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">//each interval in pq only need to be considered once</span></span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty() &amp;&amp; pq.peek()[<span class="number">0</span>]&lt;start)&#123;</span><br><span class="line">            max=Math.max(max,pq.poll()[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        pq.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;end,max+val&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">        max=Math.max(max,pq.poll()[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1235-Maximum-Profit-in-Job-Scheduling"><a href="#1235-Maximum-Profit-in-Job-Scheduling" class="headerlink" title="1235. Maximum Profit in Job Scheduling"></a>1235. Maximum Profit in Job Scheduling</h2><p>注意：</p>
+<ul>
+<li>max有两用：代表当前job之前可以append的最大profit ,也最终代表最大profit</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">jobScheduling</span><span class="params">(<span class="type">int</span>[] startTime, <span class="type">int</span>[] endTime, <span class="type">int</span>[] profit)</span> &#123;</span><br><span class="line">    convert(startTime,endTime,profit);</span><br><span class="line">    PriorityQueue&lt;<span class="type">int</span>[]&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;(a[<span class="number">0</span>]-b[<span class="number">0</span>]));</span><br><span class="line">    <span class="comment">//end,sum</span></span><br><span class="line">    <span class="type">int</span> n=startTime.length;</span><br><span class="line">    <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> start=startTime[i];</span><br><span class="line">        <span class="type">int</span> end=endTime[i];</span><br><span class="line">        <span class="type">int</span> p=profit[i];</span><br><span class="line">        <span class="comment">//only pop when can be appended</span></span><br><span class="line">        <span class="comment">//once can be appended, all following job also can append it </span></span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty() &amp;&amp; pq.peek()[<span class="number">0</span>]&lt;=start)&#123;</span><br><span class="line">            max=Math.max(max,pq.poll()[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        pq.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;end,p+max&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">        max=Math.max(max,pq.poll()[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">convert</span><span class="params">(<span class="type">int</span>[] startTime, <span class="type">int</span>[] endTime, <span class="type">int</span>[] profit)</span>&#123;</span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n=startTime.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        list.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;startTime[i],endTime[i],profit[i]&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.sort(list,(a,b)-&gt;(a[<span class="number">0</span>]-b[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span>[] arr=list.get(i);</span><br><span class="line">        startTime[i]=arr[<span class="number">0</span>];</span><br><span class="line">        endTime[i]=arr[<span class="number">1</span>];</span><br><span class="line">        profit[i]=arr[<span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/08/03/PrefixSum&&HashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -221,7 +326,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-04 08:24:02" itemprop="dateModified" datetime="2023-08-04T08:24:02+08:00">2023-08-04</time>
+                <time title="修改时间：2023-08-16 01:20:40" itemprop="dateModified" datetime="2023-08-16T01:20:40+08:00">2023-08-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,14 +344,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -286,6 +391,17 @@
 
 <h2 id="525-Contiguous-Array"><a href="#525-Contiguous-Array" class="headerlink" title="525. Contiguous Array"></a>525. Contiguous Array</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMaxLength</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    map.put(<span class="number">0</span>,-<span class="number">1</span>);</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        sum+=nums[i]==<span class="number">0</span> ? -<span class="number">1</span> :<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(sum))&#123;</span><br><span class="line">            <span class="comment">//[0,i]</span></span><br><span class="line">            <span class="comment">//[0,val]</span></span><br><span class="line">            <span class="comment">//[val+1,i] = 0</span></span><br><span class="line">            res=Math.max(res,i-map.get(sum));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map.put(sum,i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h2 id="2731-Movement-of-Robots"><a href="#2731-Movement-of-Robots" class="headerlink" title="2731. Movement of Robots"></a>2731. Movement of Robots</h2><p>经典新题：新瓶装老酒</p>
+<ul>
+<li>新瓶：理解情境，转化题意，化繁为简！</li>
+<li>老酒：prefix sum求difference</li>
+<li>edge case: 注意overflow</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumDistance</span><span class="params">(<span class="type">int</span>[] nums, String s, <span class="type">int</span> d)</span> &#123;</span><br><span class="line">    <span class="comment">//collision won&#x27;t change positions</span></span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">long</span>[] arr=<span class="keyword">new</span> <span class="title class_">long</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(i)==<span class="string">&#x27;R&#x27;</span>)&#123;</span><br><span class="line">            arr[i]=nums[i]+d;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            arr[i]=nums[i]-d;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Arrays.sort(arr);</span><br><span class="line">    <span class="type">long</span>[] sum=<span class="keyword">new</span> <span class="title class_">long</span>[n+<span class="number">1</span>]; <span class="comment">//[0,i-1]</span></span><br><span class="line">    <span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        sum[i+<span class="number">1</span>]=sum[i]+arr[i];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//only consider one side to avoid duplication</span></span><br><span class="line">        <span class="comment">//left side: [0,i-1] = sum[i]</span></span><br><span class="line">        <span class="comment">//right side: [i+1,n-1] = sum[n] - sum[i+1]</span></span><br><span class="line">        res+=(arr[i]*i - sum[i])%mod;</span><br><span class="line">        res%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>)res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -336,7 +452,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-02 12:26:22" itemprop="dateModified" datetime="2023-08-02T12:26:22+08:00">2023-08-02</time>
+                <time title="修改时间：2023-08-15 13:32:03" itemprop="dateModified" datetime="2023-08-15T13:32:03+08:00">2023-08-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -354,14 +470,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>4.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -410,6 +526,25 @@
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">maxRunTime</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[] batteries)</span> &#123;</span><br><span class="line">    <span class="type">long</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> battery : batteries) &#123;</span><br><span class="line">        sum+=battery;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> left=<span class="number">1</span>;</span><br><span class="line">    <span class="type">long</span> right=sum/n;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="comment">//(left,right]</span></span><br><span class="line">        <span class="type">long</span> mid=(left+right+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="type">long</span> total=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> battery : batteries) &#123;</span><br><span class="line">            total+=Math.min(battery,mid);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(total&lt;mid*n)&#123;</span><br><span class="line">            right=mid-<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            left=mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2808-Minimum-Seconds-to-Equalize-a-Circular-Array"><a href="#2808-Minimum-Seconds-to-Equalize-a-Circular-Array" class="headerlink" title="2808. Minimum Seconds to Equalize a Circular Array"></a>2808. Minimum Seconds to Equalize a Circular Array</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minimumSeconds</span><span class="params">(List&lt;Integer&gt; nums)</span> &#123;</span><br><span class="line">    Map&lt;Integer,List&lt;Integer&gt;&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="type">int</span> val=nums.get(i);</span><br><span class="line">        map.putIfAbsent(val,<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        map.get(val).add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">    <span class="type">int</span> n=nums.size();</span><br><span class="line">    <span class="keyword">for</span> (Integer val : map.keySet()) &#123;</span><br><span class="line">        <span class="comment">//consider all candidates</span></span><br><span class="line">        List&lt;Integer&gt; list=map.get(val);</span><br><span class="line">        list.add(list.get(<span class="number">0</span>)+n);</span><br><span class="line">        <span class="comment">//nums[i]==nums[j]==val</span></span><br><span class="line">        <span class="comment">//[i,j] takes (j-i)/2 steps to equalize to val</span></span><br><span class="line">        <span class="type">int</span> cur=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;list.size()-<span class="number">1</span>; i++)&#123;</span><br><span class="line">            cur=Math.max(cur,(list.get(i+<span class="number">1</span>)-list.get(i))/<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        res=Math.min(res,cur);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2551-Put-Marbles-in-Bags"><a href="#2551-Put-Marbles-in-Bags" class="headerlink" title="2551. Put Marbles in Bags"></a>2551. Put Marbles in Bags</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//k=1: 0,n-1</span></span><br><span class="line"><span class="comment">//k=2: 0,a,b,n-1, a,b must be adjacent</span></span><br><span class="line"><span class="comment">//k=3: 0,a,b,c,d,n-1, a,b,c,d must be adjacent</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">putMarbles</span><span class="params">(<span class="type">int</span>[] weights, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n= weights.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n-<span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="comment">//[0,1] to [n-2,n-1]</span></span><br><span class="line">        list.add(weights[i]+weights[i+<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.sort(list);</span><br><span class="line">    <span class="type">long</span> min=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; k-<span class="number">1</span>; i++) &#123;</span><br><span class="line">        min+=list.get(i);</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.reverse(list);</span><br><span class="line">    <span class="type">long</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; k - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        max+=list.get(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max-min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2745-Construct-the-Longest-New-String"><a href="#2745-Construct-the-Longest-New-String" class="headerlink" title="2745. Construct the Longest New String"></a>2745. Construct the Longest New String</h2><p>brainteaser</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestString</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> &#123;</span><br><span class="line">    <span class="comment">//ab won&#x27;t benefit others</span></span><br><span class="line">    <span class="comment">//bb + ab, still cannot be appended by bb</span></span><br><span class="line">    <span class="keyword">if</span>(Math.abs(x-y)&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*x+<span class="number">2</span>*y+<span class="number">2</span>*z;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="type">int</span> a=Math.min(x,y);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*a+<span class="number">2</span>*(a+<span class="number">1</span>)+<span class="number">2</span>*z;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1732,7 +1867,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-02 09:46:05" itemprop="dateModified" datetime="2023-08-02T09:46:05+08:00">2023-08-02</time>
+                <time title="修改时间：2023-08-17 01:54:42" itemprop="dateModified" datetime="2023-08-17T01:54:42+08:00">2023-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1750,14 +1885,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>13k</span>
+              <span>16k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
+              <span>15 分钟</span>
             </span>
 
         </div>
@@ -1907,191 +2042,32 @@
 
 <h2 id="808-Soup-Servings"><a href="#808-Soup-Servings" class="headerlink" title="808. Soup Servings"></a>808. Soup Servings</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Map&lt;Integer,Double&gt;&gt; map;</span><br><span class="line"><span class="keyword">public</span> <span class="type">double</span> <span class="title function_">soupServings</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="comment">//edge case, when n is large enough, p is almost 1</span></span><br><span class="line">    <span class="keyword">if</span>(n&gt;=<span class="number">5000</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">return</span> dfs(n,n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">double</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&lt;=<span class="number">0</span> &amp;&amp; b&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(a&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(b&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(map.containsKey(a) &amp;&amp; map.get(a).containsKey(b))&#123;</span><br><span class="line">        <span class="keyword">return</span> map.get(a).get(b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">double</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//100 0</span></span><br><span class="line">    res+=<span class="number">0.25</span>*dfs(a-<span class="number">100</span>,b);</span><br><span class="line">    <span class="comment">//75 25</span></span><br><span class="line">    res+=<span class="number">0.25</span>*dfs(a-<span class="number">75</span>,b-<span class="number">25</span>);</span><br><span class="line">    <span class="comment">//50 50</span></span><br><span class="line">    res+=<span class="number">0.25</span>*dfs(a-<span class="number">50</span>,b-<span class="number">50</span>);</span><br><span class="line">    <span class="comment">//25 75</span></span><br><span class="line">    res+=<span class="number">0.25</span>*dfs(a-<span class="number">25</span>,b-<span class="number">75</span>);</span><br><span class="line">    map.putIfAbsent(a,<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;());</span><br><span class="line">    map.get(a).put(b,res);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/02/23/Git/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/23/Git/" class="post-title-link" itemprop="url">Git</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-24 12:16:10" itemprop="dateCreated datePublished" datetime="2023-02-24T12:16:10+08:00">2023-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-22 01:03:40" itemprop="dateModified" datetime="2023-07-22T01:03:40+08:00">2023-07-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Git笔记"><a href="#Git笔记" class="headerlink" title="Git笔记"></a>Git笔记</h1><h2 id="Git结构"><a href="#Git结构" class="headerlink" title="Git结构"></a>Git结构</h2><ol>
-<li>工作目录 work directory</li>
-<li>暂存区 stage</li>
-<li>本地仓库 repository<ul>
-<li>每台电脑都有一个</li>
+<h2 id="920-Number-of-Music-Playlists"><a href="#920-Number-of-Music-Playlists" class="headerlink" title="920. Number of Music Playlists"></a>920. Number of Music Playlists</h2><p>思路：</p>
+<ul>
+<li>fill i spots with j unique songs<ul>
+<li>option 1: already know i-1, j-1, can simply choose another song from other n-j+1 songs, and append it</li>
+<li>option 2: try to append an old song, and this song cannot appear in interval [i-k,i-1] &#x3D;&gt; k old songs in this interval should not be considered</li>
 </ul>
 </li>
-<li>远程仓库 remote<ul>
-<li>多台电脑共用一个，位于服务器</li>
 </ul>
-</li>
-</ol>
-<p>注意：</p>
-<ul>
-<li>文件提交时，必须1-&gt;2-&gt;3-&gt;4逐步提交</li>
-<li>文件可以依次检出，也可以直接从remote检出到work directory</li>
-<li>内置小的linux系统，支持linux命令</li>
-</ul>
-<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global -l</span><br><span class="line">git config --global user.name <span class="string">&quot;My name&quot;</span></span><br><span class="line">git config --global <span class="built_in">unset</span> user.name</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="init-add"><a href="#init-add" class="headerlink" title="init, add"></a>init, add</h3><p>位于任意文件夹，创建本地仓库.git</p>
-<p>外面即为work directory, 所创建文件默认处于未追踪 untracked 状态，需要add，进入暂存区stage</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line">git add hello.txt</span><br><span class="line"></span><br><span class="line">git add .	<span class="comment">#一次性添加目录下所有文件</span></span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">&quot;message&quot;</span> <span class="comment">#提交至本地仓库repository</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">log</span>		<span class="comment">#查看提交记录</span></span><br><span class="line">git <span class="built_in">log</span> --oneline</span><br><span class="line">git <span class="built_in">log</span> --oneline --graph --all</span><br></pre></td></tr></table></figure>
-
-
-
-<p>每次文件修改后，都需要再次add和comit</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git add hello.txt</span><br><span class="line">git commit </span><br><span class="line"></span><br><span class="line">git commit -a -m <span class="string">&quot;Modify&quot;</span>	<span class="comment">#只适用于修改</span></span><br><span class="line"></span><br><span class="line">git show </span><br><span class="line">git show 5121</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><p>直接写入文件名</p>
-<p>支持正则匹配</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匹配所有txt文件</span></span><br><span class="line">*.txt</span><br><span class="line"><span class="comment"># 除了这个txt</span></span><br><span class="line">!666.txt</span><br><span class="line"><span class="comment"># 排除某个文件夹</span></span><br><span class="line"><span class="built_in">test</span>/</span><br><span class="line"><span class="comment"># 目录中所有以txt结尾的文件，但不包括子目录</span></span><br><span class="line">xxx/*.txt</span><br><span class="line"><span class="comment"># 目录中所有以txt结尾的文件，包括子目录</span></span><br><span class="line">xxx/**/*.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> k;</span><br><span class="line"><span class="type">int</span>[][] dp;</span><br><span class="line"><span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numMusicPlaylists</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> goal, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.n=n;</span><br><span class="line">    <span class="built_in">this</span>.k=k;</span><br><span class="line">    dp=<span class="keyword">new</span> <span class="title class_">int</span>[goal+<span class="number">1</span>][n+<span class="number">1</span>];<span class="comment">//fill goal spots with exactly n songs</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= goal; i++) &#123;</span><br><span class="line">        Arrays.fill(dp[i],-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>)dfs(goal,n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">long</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> spots, <span class="type">int</span> songs)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(spots==<span class="number">0</span> &amp;&amp; songs==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//one way to fill 0 spot using exactly 0 song</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(spots==<span class="number">0</span> || songs==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//no way to fill some with exactly 0,</span></span><br><span class="line">        <span class="comment">// nor fill 0 with exactly some</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dp[spots][songs]!=-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[spots][songs];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//already fill spots-1 with exactly songs-1, only need to append</span></span><br><span class="line">    <span class="comment">//one other song</span></span><br><span class="line">    <span class="type">long</span> res=dfs(spots-<span class="number">1</span>,songs-<span class="number">1</span>)*(n-songs+<span class="number">1</span>)%mod;</span><br><span class="line">    <span class="keyword">if</span>(songs-k&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//append an old song, choosing from songs except k</span></span><br><span class="line">        <span class="comment">//because songs in [i-k,i-1] must be unique and must not be chosen</span></span><br><span class="line">        res+=dfs(spots-<span class="number">1</span>,songs)*(songs-k)%mod;</span><br><span class="line">        res%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[spots][songs]=(<span class="type">int</span>)res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h3 id="rollback"><a href="#rollback" class="headerlink" title="rollback"></a>rollback</h3><p>将work directory恢复到指定的提交状态</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard commitID</span><br><span class="line"></span><br><span class="line">git reflog	<span class="comment">#显示所有commitID</span></span><br></pre></td></tr></table></figure>
+<h2 id="2369-Check-if-There-is-a-Valid-Partition-For-The-Array"><a href="#2369-Check-if-There-is-a-Valid-Partition-For-The-Array" class="headerlink" title="2369. Check if There is a Valid Partition For The Array"></a>2369. Check if There is a Valid Partition For The Array</h2><p>每个子问题只考察开头即可，开头不符合直接剪枝</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span>[] dp; <span class="comment">//[i,n-1] is valid or not</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validPartition</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    n=nums.length;</span><br><span class="line">    dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="keyword">return</span> dfs(nums,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> start)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dp[start]!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> start==<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">boolean</span> res=<span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(start+<span class="number">2</span>&lt;n &amp;&amp; nums[start]==nums[start+<span class="number">1</span>] &amp;&amp; nums[start]==nums[start+<span class="number">2</span>])&#123;</span><br><span class="line">        res|=dfs(nums,start+<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(start+<span class="number">1</span>&lt;n &amp;&amp; nums[start]==nums[start+<span class="number">1</span>])&#123;</span><br><span class="line">        res|=dfs(nums,start+<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(start+<span class="number">2</span>&lt;n &amp;&amp; nums[start]+<span class="number">1</span>==nums[start+<span class="number">1</span>] &amp;&amp; nums[start]+<span class="number">2</span>==nums[start+<span class="number">2</span>])&#123;</span><br><span class="line">        res|=dfs(nums,start+<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    dp[start]=res ? <span class="number">1</span> : -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h2 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h2><p>不同分支下文件内容相互隔离</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line"></span><br><span class="line">git branch <span class="built_in">test</span></span><br><span class="line">git branch yyds</span><br><span class="line"></span><br><span class="line">git <span class="built_in">log</span> --all --graph --online</span><br><span class="line"></span><br><span class="line">git branch -d yyds	<span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line">git chechout <span class="built_in">test</span>	<span class="comment">#切换/签出</span></span><br><span class="line">git commit -a -m <span class="string">&quot;Modify on test&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#合并分支</span></span><br><span class="line">git chechout master</span><br><span class="line">git merge <span class="built_in">test</span></span><br><span class="line">git diff</span><br><span class="line"><span class="comment">#解决冲突后再次提交</span></span><br><span class="line">git commit -a -m <span class="string">&quot;Merge on conflict&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先切换到staging</span></span><br><span class="line">git checkout staging</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据staging分支创建新分支</span></span><br><span class="line">git branch ivn/newModification</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意：</p>
-<ul>
-<li>merge并不改变另一个分支，只是把另一分支的修改合到当前分支上（提交的合并，非分支的合并）</li>
-</ul>
-<h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><p>变基</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git chechout <span class="built_in">test</span></span><br><span class="line">git rebase master</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h3><p>优选，灵活选取其他branch的某些更新</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick commitID	<span class="comment">#单独合并一个提交</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="远程仓库GitHub"><a href="#远程仓库GitHub" class="headerlink" title="远程仓库GitHub"></a>远程仓库GitHub</h2><p>本地推远程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/.../...</span><br><span class="line">git push origin master</span><br><span class="line">git push 远程仓库名称 本地分支名称[:远程分支名称]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>远程克隆本地</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/.../...</span><br></pre></td></tr></table></figure>
-
-
-
-<p>解决不同步</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git <span class="built_in">log</span> --all --graph --oneline</span><br><span class="line">git merge origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment">#pull = fetch + merge</span></span><br><span class="line">git pull origin</span><br><span class="line"></span><br><span class="line"><span class="comment">#解决冲突后，再次提交</span></span><br><span class="line">git commit -a -m <span class="string">&quot;Modify by B finally&quot;</span></span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>远程本地均多分支</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据远程拉本地: 先建新分支，</span></span><br><span class="line">git branch ivn/newBranch</span><br><span class="line">git pull origin staging</span><br><span class="line"></span><br><span class="line"><span class="comment">#检查本地分支和远程分支是否同步</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment">#强制本地和远程一样</span></span><br><span class="line">git reset --hard origin/staging</span><br></pre></td></tr></table></figure>
-
-
-
-<p>原理：</p>
-<ul>
-<li>github看似是同步file，其实是基于node，同步node</li>
-<li>因此需要确保要同步的branch不能有divergence，即dev branch必须修改于staging branch的最新状态，而不是之前的旧状态</li>
-<li>为此，需要在每次commit前先pull，保证同步</li>
-</ul>
+<h2 id="2707-Extra-Characters-in-a-String"><a href="#2707-Extra-Characters-in-a-String" class="headerlink" title="2707. Extra Characters in a String"></a>2707. Extra Characters in a String</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span>[] dp; <span class="comment">//min extra char number in [i,n-1]</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minExtraChar</span><span class="params">(String s, String[] dictionary)</span> &#123;</span><br><span class="line">    Set&lt;String&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String s1 : dictionary) &#123;</span><br><span class="line">        set.add(s1);</span><br><span class="line">    &#125;</span><br><span class="line">    n=s.length();</span><br><span class="line">    dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Arrays.fill(dp,-<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> dfs(s,set,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(String s, Set&lt;String&gt; set, <span class="type">int</span> start)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dp[start]!=-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[start];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//[start,i] [i+1,n-1]</span></span><br><span class="line">        <span class="type">int</span> sub=dfs(s,set,i+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(set.contains(s.substring(start,i+<span class="number">1</span>)))&#123;</span><br><span class="line">            res=Math.min(res,sub);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res=Math.min(res,sub+i-start+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[start]=res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -2176,7 +2152,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2189,7 +2165,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2230,7 +2206,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:23</span>
+    <span title="站点阅读时长">16:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

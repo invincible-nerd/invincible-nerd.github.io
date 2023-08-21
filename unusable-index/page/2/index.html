@@ -190,6 +190,192 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/02/23/Git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/23/Git/" class="post-title-link" itemprop="url">Git</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-24 12:16:10" itemprop="dateCreated datePublished" datetime="2023-02-24T12:16:10+08:00">2023-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-22 01:03:40" itemprop="dateModified" datetime="2023-07-22T01:03:40+08:00">2023-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Git笔记"><a href="#Git笔记" class="headerlink" title="Git笔记"></a>Git笔记</h1><h2 id="Git结构"><a href="#Git结构" class="headerlink" title="Git结构"></a>Git结构</h2><ol>
+<li>工作目录 work directory</li>
+<li>暂存区 stage</li>
+<li>本地仓库 repository<ul>
+<li>每台电脑都有一个</li>
+</ul>
+</li>
+<li>远程仓库 remote<ul>
+<li>多台电脑共用一个，位于服务器</li>
+</ul>
+</li>
+</ol>
+<p>注意：</p>
+<ul>
+<li>文件提交时，必须1-&gt;2-&gt;3-&gt;4逐步提交</li>
+<li>文件可以依次检出，也可以直接从remote检出到work directory</li>
+<li>内置小的linux系统，支持linux命令</li>
+</ul>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global -l</span><br><span class="line">git config --global user.name <span class="string">&quot;My name&quot;</span></span><br><span class="line">git config --global <span class="built_in">unset</span> user.name</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="init-add"><a href="#init-add" class="headerlink" title="init, add"></a>init, add</h3><p>位于任意文件夹，创建本地仓库.git</p>
+<p>外面即为work directory, 所创建文件默认处于未追踪 untracked 状态，需要add，进入暂存区stage</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line">git add hello.txt</span><br><span class="line"></span><br><span class="line">git add .	<span class="comment">#一次性添加目录下所有文件</span></span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">&quot;message&quot;</span> <span class="comment">#提交至本地仓库repository</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">log</span>		<span class="comment">#查看提交记录</span></span><br><span class="line">git <span class="built_in">log</span> --oneline</span><br><span class="line">git <span class="built_in">log</span> --oneline --graph --all</span><br></pre></td></tr></table></figure>
+
+
+
+<p>每次文件修改后，都需要再次add和comit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git add hello.txt</span><br><span class="line">git commit </span><br><span class="line"></span><br><span class="line">git commit -a -m <span class="string">&quot;Modify&quot;</span>	<span class="comment">#只适用于修改</span></span><br><span class="line"></span><br><span class="line">git show </span><br><span class="line">git show 5121</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><p>直接写入文件名</p>
+<p>支持正则匹配</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匹配所有txt文件</span></span><br><span class="line">*.txt</span><br><span class="line"><span class="comment"># 除了这个txt</span></span><br><span class="line">!666.txt</span><br><span class="line"><span class="comment"># 排除某个文件夹</span></span><br><span class="line"><span class="built_in">test</span>/</span><br><span class="line"><span class="comment"># 目录中所有以txt结尾的文件，但不包括子目录</span></span><br><span class="line">xxx/*.txt</span><br><span class="line"><span class="comment"># 目录中所有以txt结尾的文件，包括子目录</span></span><br><span class="line">xxx/**/*.txt</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="rollback"><a href="#rollback" class="headerlink" title="rollback"></a>rollback</h3><p>将work directory恢复到指定的提交状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard commitID</span><br><span class="line"></span><br><span class="line">git reflog	<span class="comment">#显示所有commitID</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h2><p>不同分支下文件内容相互隔离</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line"></span><br><span class="line">git branch <span class="built_in">test</span></span><br><span class="line">git branch yyds</span><br><span class="line"></span><br><span class="line">git <span class="built_in">log</span> --all --graph --online</span><br><span class="line"></span><br><span class="line">git branch -d yyds	<span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line">git chechout <span class="built_in">test</span>	<span class="comment">#切换/签出</span></span><br><span class="line">git commit -a -m <span class="string">&quot;Modify on test&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#合并分支</span></span><br><span class="line">git chechout master</span><br><span class="line">git merge <span class="built_in">test</span></span><br><span class="line">git diff</span><br><span class="line"><span class="comment">#解决冲突后再次提交</span></span><br><span class="line">git commit -a -m <span class="string">&quot;Merge on conflict&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先切换到staging</span></span><br><span class="line">git checkout staging</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据staging分支创建新分支</span></span><br><span class="line">git branch ivn/newModification</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：</p>
+<ul>
+<li>merge并不改变另一个分支，只是把另一分支的修改合到当前分支上（提交的合并，非分支的合并）</li>
+</ul>
+<h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><p>变基</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git chechout <span class="built_in">test</span></span><br><span class="line">git rebase master</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h3><p>优选，灵活选取其他branch的某些更新</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick commitID	<span class="comment">#单独合并一个提交</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="远程仓库GitHub"><a href="#远程仓库GitHub" class="headerlink" title="远程仓库GitHub"></a>远程仓库GitHub</h2><p>本地推远程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/.../...</span><br><span class="line">git push origin master</span><br><span class="line">git push 远程仓库名称 本地分支名称[:远程分支名称]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>远程克隆本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/.../...</span><br></pre></td></tr></table></figure>
+
+
+
+<p>解决不同步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git <span class="built_in">log</span> --all --graph --oneline</span><br><span class="line">git merge origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment">#pull = fetch + merge</span></span><br><span class="line">git pull origin</span><br><span class="line"></span><br><span class="line"><span class="comment">#解决冲突后，再次提交</span></span><br><span class="line">git commit -a -m <span class="string">&quot;Modify by B finally&quot;</span></span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>远程本地均多分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据远程拉本地: 先建新分支，</span></span><br><span class="line">git branch ivn/newBranch</span><br><span class="line">git pull origin staging</span><br><span class="line"></span><br><span class="line"><span class="comment">#检查本地分支和远程分支是否同步</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment">#强制本地和远程一样</span></span><br><span class="line">git reset --hard origin/staging</span><br></pre></td></tr></table></figure>
+
+
+
+<p>原理：</p>
+<ul>
+<li>github看似是同步file，其实是基于node，同步node</li>
+<li>因此需要确保要同步的branch不能有divergence，即dev branch必须修改于staging branch的最新状态，而不是之前的旧状态</li>
+<li>为此，需要在每次commit前先pull，保证同步</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/02/22/String%E5%A5%BD%E9%A2%98-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1368,7 +1554,7 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-07 11:43:18" itemprop="dateModified" datetime="2023-08-07T11:43:18+08:00">2023-08-07</time>
+                <time title="修改时间：2023-08-14 00:04:18" itemprop="dateModified" datetime="2023-08-14T00:04:18+08:00">2023-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1386,14 +1572,14 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>19k</span>
+              <span>20k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>17 分钟</span>
+              <span>18 分钟</span>
             </span>
 
         </div>
@@ -1642,6 +1828,23 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
 <h2 id="2813-Maximum-Elegance-of-a-K-Length-Subsequence"><a href="#2813-Maximum-Elegance-of-a-K-Length-Subsequence" class="headerlink" title="2813. Maximum Elegance of a K-Length Subsequence"></a>2813. Maximum Elegance of a K-Length Subsequence</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-elegance-of-a-k-length-subsequence/discuss/3869920/JavaC%2B%2BPython-Sort-by-Profit">https://leetcode.com/problems/maximum-elegance-of-a-k-length-subsequence/discuss/3869920/JavaC%2B%2BPython-Sort-by-Profit</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">findMaximumElegance</span><span class="params">(<span class="type">int</span>[][] items, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=items.length;</span><br><span class="line">    Arrays.sort(items,(a,b)-&gt;(b[<span class="number">0</span>]-a[<span class="number">0</span>]));</span><br><span class="line">    <span class="type">long</span> sum=<span class="number">0</span>;</span><br><span class="line">    Set&lt;Integer&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    LinkedList&lt;Integer&gt; dup=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;k)&#123;</span><br><span class="line">            sum+=items[i][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(set.contains(items[i][<span class="number">1</span>]))&#123;</span><br><span class="line">                dup.add(items[i][<span class="number">0</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!set.contains(items[i][<span class="number">1</span>]))&#123;</span><br><span class="line">            <span class="keyword">if</span>(dup.isEmpty())&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//always update sum when seeing a unique item</span></span><br><span class="line">            sum+=items[i][<span class="number">0</span>]-dup.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">        set.add(items[i][<span class="number">1</span>]);</span><br><span class="line">        res=Math.max(res,sum+<span class="number">1L</span>*set.size()*set.size());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h2 id="2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint"><a href="#2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint" class="headerlink" title="2817. Minimum Absolute Difference Between Elements With Constraint"></a>2817. Minimum Absolute Difference Between Elements With Constraint</h2><p>reflection：</p>
+<ul>
+<li>in paring problems, should always try to use symmetry to avoid duplication<ul>
+<li>if every i is considered with [0,i-x], then no need to consider i with [i+x,n-1]</li>
+</ul>
+</li>
+<li>find the one key idea of a problem, stay in control of the coding<ul>
+<li>if already try one way for 20 minutes and no AC, quit and try another one</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minAbsoluteDifference</span><span class="params">(List&lt;Integer&gt; nums, <span class="type">int</span> x)</span> &#123;</span><br><span class="line">    TreeSet&lt;Integer&gt; set=<span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n=nums.size();</span><br><span class="line">    <span class="type">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">    <span class="comment">//check [0,i-x] for i</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> x; i &lt; n; i++) &#123;</span><br><span class="line">        set.add(nums.get(i-x));</span><br><span class="line">        <span class="type">int</span> num=nums.get(i);</span><br><span class="line">        Integer floor=set.floor(num);</span><br><span class="line">        <span class="keyword">if</span>(floor!=<span class="literal">null</span>)&#123;</span><br><span class="line">            res=Math.min(res,num-floor);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer ceil=set.ceiling(num);</span><br><span class="line">        <span class="keyword">if</span>(ceil!=<span class="literal">null</span>)&#123;</span><br><span class="line">            res=Math.min(res,ceil-num);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -1691,7 +1894,7 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-23 11:35:06" itemprop="dateModified" datetime="2023-07-23T11:35:06+08:00">2023-07-23</time>
+                <time title="修改时间：2023-08-11 09:23:20" itemprop="dateModified" datetime="2023-08-11T09:23:20+08:00">2023-08-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1834,6 +2037,11 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
 <h2 id="1597-Build-Binary-Expression-Tree-From-Infix-Expression"><a href="#1597-Build-Binary-Expression-Tree-From-Infix-Expression" class="headerlink" title="1597. Build Binary Expression Tree From Infix Expression"></a>1597. Build Binary Expression Tree From Infix Expression</h2><p>与772异曲同工</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">  <span class="type">char</span> val;</span><br><span class="line">  Node left;</span><br><span class="line">  Node right;</span><br><span class="line">  Node() &#123;<span class="built_in">this</span>.val = <span class="string">&#x27; &#x27;</span>;&#125;</span><br><span class="line">  Node(<span class="type">char</span> val) &#123; <span class="built_in">this</span>.val = val; &#125;</span><br><span class="line">  Node(<span class="type">char</span> val, Node left, Node right) &#123;</span><br><span class="line">      <span class="built_in">this</span>.val = val;</span><br><span class="line">      <span class="built_in">this</span>.left = left;</span><br><span class="line">      <span class="built_in">this</span>.right = right;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Node <span class="title function_">expTree</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    Deque&lt;Node&gt; nodes = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;Character&gt; operators = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">        <span class="type">char</span> c=s.charAt(i);</span><br><span class="line">        <span class="keyword">if</span>(Character.isDigit(c))&#123;</span><br><span class="line">            nodes.push(<span class="keyword">new</span> <span class="title class_">Node</span>(c));</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">            operators.push(c);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(operators.peek()!=<span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">                nodes.push(build(operators.pop(),nodes.pop(),nodes.pop()));</span><br><span class="line">            &#125;</span><br><span class="line">            operators.pop();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!operators.isEmpty() &amp;&amp; compare(operators.peek(),c))&#123;</span><br><span class="line">                nodes.push(build(operators.pop(),nodes.pop(),nodes.pop()));</span><br><span class="line">            &#125;</span><br><span class="line">            operators.push(c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!operators.isEmpty())&#123;</span><br><span class="line">        nodes.push(build(operators.pop(),nodes.pop(),nodes.pop()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nodes.peek();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Node <span class="title function_">build</span><span class="params">(<span class="type">char</span> val, Node first, Node second)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Node</span>(val,second,first);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">compare</span><span class="params">(<span class="type">char</span> o1, <span class="type">char</span> o2)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(o1==<span class="string">&#x27;(&#x27;</span> || o1==<span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> o1==<span class="string">&#x27;*&#x27;</span> || o1==<span class="string">&#x27;/&#x27;</span> || o2==<span class="string">&#x27;+&#x27;</span> || o2==<span class="string">&#x27;-&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h2 id="33-Search-in-Rotated-Sorted-Array"><a href="#33-Search-in-Rotated-Sorted-Array" class="headerlink" title="33. Search in Rotated Sorted Array"></a>33. Search in Rotated Sorted Array</h2><h2 id="81-Search-in-Rotated-Sorted-Array-II"><a href="#81-Search-in-Rotated-Sorted-Array-II" class="headerlink" title="81. Search in Rotated Sorted Array II"></a>81. Search in Rotated Sorted Array II</h2>
       
     </div>
 
@@ -2405,241 +2613,6 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/01/01/Bit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/01/Bit/" class="post-title-link" itemprop="url">Bit</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-01-01 20:54:25" itemprop="dateCreated datePublished" datetime="2023-01-01T20:54:25+08:00">2023-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-22 00:41:59" itemprop="dateModified" datetime="2023-07-22T00:41:59+08:00">2023-07-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Bit-x2F-Bit-Mask好题"><a href="#Bit-x2F-Bit-Mask好题" class="headerlink" title="Bit&#x2F;Bit_Mask好题"></a>Bit&#x2F;Bit_Mask好题</h1><h2 id="137-Single-Number-II"><a href="#137-Single-Number-II" class="headerlink" title="137. Single Number II"></a>137. Single Number II</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/kenanlv">@kenanlv</a> the part about XOR is often supposed to be textbook knowledge because of well-known swap implementation without tmp variable:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a^b      # mix of a and b</span><br><span class="line">b = a^b      # a^b^b = a</span><br><span class="line">a = a^b      # a^b^a = b</span><br></pre></td></tr></table></figure>
-
-
-
-<p>If you don’t know that idea, the interviewer would probably simplify the task, asking you first to solve the problem “each element appears <em>twice</em> except one, find that one.” That is a very straightforward XOR usage, like in swap above</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seen_once = seen_once^num</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Once you’ll figure that out, to go to the idea of two bitmasks instead of one is not a big deal, basically it’s</p>
-<p>NOT seen_twice AND (CHANGE see_once)<br>NOT seen_once AND (CHANGE see_twice)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">singleNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">seenOnce</span> <span class="operator">=</span> <span class="number">0</span>, seenTwice = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">      <span class="comment">// first appearence: </span></span><br><span class="line">      <span class="comment">// add num to seen_once </span></span><br><span class="line">      <span class="comment">// don&#x27;t add to seen_twice because of presence in seen_once</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// second appearance: </span></span><br><span class="line">      <span class="comment">// remove num from seen_once </span></span><br><span class="line">      <span class="comment">// add num to seen_twice</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// third appearance: </span></span><br><span class="line">      <span class="comment">// don&#x27;t add to seen_once because of presence in seen_twice</span></span><br><span class="line">      <span class="comment">// remove num from seen_twice</span></span><br><span class="line">      seenOnce = ~seenTwice &amp; (seenOnce ^ num);</span><br><span class="line">      seenTwice = ~seenOnce &amp; (seenTwice ^ num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> seenOnce;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>开背！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">singleNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> seenOnce=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> seenTwice=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">        seenOnce=(~seenTwice) &amp; (seenOnce^num);</span><br><span class="line">        seenTwice=(~seenOnce) &amp; (seenTwice^num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> seenOnce;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="260-Single-Number-III"><a href="#260-Single-Number-III" class="headerlink" title="260. Single Number III"></a>260. Single Number III</h2><p>The bitmask will have all the differences between x and y (the two singles). x has 0 and y has 1 or vice-versa in those bits. You take one difference, the rightmost one.<br>Iterate through array again dividing into two. The ones which has 1 on the rightmost different bit into one group and those who have 0 into another group.<br>Group1 : [x^a^a^b^b] &#x3D; x<br>Group2 : [y^c^c^d^d] &#x3D; y<br>bitmask^x &#x3D; y;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span>[] singleNumber(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">    <span class="comment">// difference between two numbers (x and y) which were seen only once</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">bitmask</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) bitmask ^= num;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// rightmost 1-bit diff between x and y</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">diff</span> <span class="operator">=</span> bitmask &amp; (-bitmask);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// bitmask which will contain only x</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) <span class="keyword">if</span> ((num &amp; diff) != <span class="number">0</span>) x ^= num;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x, bitmask^x&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] singleNumber(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">    <span class="type">int</span> ab=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">        ab^=num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//ab=a^b</span></span><br><span class="line">    <span class="type">int</span> r=ab&amp;(-ab);</span><br><span class="line">    <span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">        <span class="keyword">if</span>((num&amp;r)!=<span class="number">0</span>)&#123;</span><br><span class="line">            a^=num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;a,ab^a&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="191-Number-of-1-Bits"><a href="#191-Number-of-1-Bits" class="headerlink" title="191. Number of 1 Bits"></a>191. Number of 1 Bits</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hammingWeight</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n!=<span class="number">0</span>)&#123;</span><br><span class="line">        count+=n&amp;<span class="number">1</span>;</span><br><span class="line">        <span class="comment">//must use logical shift, not arithmetic shift</span></span><br><span class="line">        n&gt;&gt;&gt;=<span class="number">1</span>; <span class="comment">//n&gt;&gt;=1则不行</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="371-Sum-of-Two-Integers"><a href="#371-Sum-of-Two-Integers" class="headerlink" title="371. Sum of Two Integers"></a>371. Sum of Two Integers</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="type">int</span> answer=a^b;</span><br><span class="line">        <span class="type">int</span> carry=(a&amp;b)&lt;&lt;<span class="number">1</span>;</span><br><span class="line">        a=answer;</span><br><span class="line">        b=carry;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1506-Find-Root-of-N-Ary-Tree"><a href="#1506-Find-Root-of-N-Ary-Tree" class="headerlink" title="1506. Find Root of N-Ary Tree"></a>1506. Find Root of N-Ary Tree</h2><p>注意：</p>
-<ul>
-<li>Each node has a <strong>unique</strong> value.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Node <span class="title function_">findRoot</span><span class="params">(List&lt;Node&gt; tree)</span> &#123;</span><br><span class="line">        Set&lt;Integer&gt; set=<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Node node : tree) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Node child : node.children) &#123;</span><br><span class="line">                set.add(child.val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Node node : tree) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!set.contains(node.val))&#123;</span><br><span class="line">                <span class="keyword">return</span> node;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>Follow up:</strong></p>
-<ul>
-<li>Could you solve this problem in constant space complexity with a linear time algorithm?</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Node <span class="title function_">findRoot</span><span class="params">(List&lt;Node&gt; tree)</span> &#123;</span><br><span class="line">    <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Node node : tree) &#123;</span><br><span class="line">        <span class="keyword">if</span>(node.children.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        num^=node.val;</span><br><span class="line">        <span class="keyword">for</span> (Node child : node.children) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!child.children.isEmpty())&#123;</span><br><span class="line">                num^=child.val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (Node node : tree) &#123;</span><br><span class="line">        <span class="keyword">if</span>(node.val==num)&#123;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tree.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1680-Concatenation-of-Consecutive-Binary-Numbers"><a href="#1680-Concatenation-of-Consecutive-Binary-Numbers" class="headerlink" title="1680. Concatenation of Consecutive Binary Numbers"></a>1680. Concatenation of Consecutive Binary Numbers</h2><h3 id="Approach-1-Change-to-Binary-String"><a href="#Approach-1-Change-to-Binary-String" class="headerlink" title="Approach 1: Change to Binary String"></a>Approach 1: Change to Binary String</h3><p>concatenate -&gt; &lt;&lt;1</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">concatenatedBinary</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="type">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        String s=Integer.toBinaryString(i);<span class="comment">//O(logn)</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; s.length(); j++) &#123;</span><br><span class="line">            res=res*<span class="number">2</span>+s.charAt(j)-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            res%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>)res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="Approach-3-Math-Bitwise-Operation"><a href="#Approach-3-Math-Bitwise-Operation" class="headerlink" title="Approach 3: Math (Bitwise Operation)"></a>Approach 3: Math (Bitwise Operation)</h3><h2 id="1404-Number-of-Steps-to-Reduce-a-Number-in-Binary-Representation-to-One"><a href="#1404-Number-of-Steps-to-Reduce-a-Number-in-Binary-Representation-to-One" class="headerlink" title="1404. Number of Steps to Reduce a Number in Binary Representation to One"></a>1404. Number of Steps to Reduce a Number in Binary Representation to One</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeetCode1404</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numSteps</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        BigInteger num=<span class="keyword">new</span> <span class="title class_">BigInteger</span>(s,<span class="number">2</span>);</span><br><span class="line">        BigInteger one=<span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        BigInteger two=<span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!num.equals(one))&#123;</span><br><span class="line">            <span class="comment">//判断BigInteger的奇偶性</span></span><br><span class="line">            <span class="keyword">if</span>(num.testBit(<span class="number">0</span>))&#123;</span><br><span class="line">                num=num.add(one);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                num=num.divide(two);</span><br><span class="line">            &#125;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1318-Minimum-Flips-to-Make-a-OR-b-Equal-to-c"><a href="#1318-Minimum-Flips-to-Make-a-OR-b-Equal-to-c" class="headerlink" title="1318. Minimum Flips to Make a OR b Equal to c"></a>1318. Minimum Flips to Make a OR b Equal to c</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minFlips</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> &#123;</span><br><span class="line">    String s1=convert(a);</span><br><span class="line">    String s2=convert(b);</span><br><span class="line">    String s3=convert(c);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">        <span class="type">int</span> c1=s1.charAt(i)-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="type">int</span> c2=s2.charAt(i)-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="type">int</span> c3=s3.charAt(i)-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="type">int</span> or=c1|c2;</span><br><span class="line">        <span class="keyword">if</span>(or==c3)&#123;<span class="comment">//0 0, 1 1</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(or==<span class="number">0</span> &amp;&amp; c3==<span class="number">1</span>)&#123;<span class="comment">//0 1</span></span><br><span class="line">            res++;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c1==<span class="number">1</span> &amp;&amp; c2==<span class="number">1</span>)&#123;</span><br><span class="line">            res+=<span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String <span class="title function_">convert</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">    String s=Integer.toBinaryString(a);</span><br><span class="line">    StringBuilder sb=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">    <span class="keyword">while</span>(sb.length()+s.length()&lt;<span class="number">32</span>)&#123;</span><br><span class="line">        sb.append(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    sb.append(s);</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-<h2 id="2741-Special-Permutations"><a href="#2741-Special-Permutations" class="headerlink" title="2741. Special Permutations"></a>2741. Special Permutations</h2><p>dp + bit mask: using bit masks to present dp states</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/special-permutations/discuss/3650431/Easy-BitMask-DP-with-explanation-of-overlapping-or-Top-Down-or-C%2B%2B-beats-100-100">https://leetcode.com/problems/special-permutations/discuss/3650431/Easy-BitMask-DP-with-explanation-of-overlapping-or-Top-Down-or-C%2B%2B-beats-100-100</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//overlapping subproblems in permutation? !</span></span><br><span class="line"><span class="comment">// nums=[3,6,9,36]</span></span><br><span class="line"><span class="comment">// [3,6,9,36] , pre=9, mask=1110</span></span><br><span class="line"><span class="comment">// [6,3,9,36] , pre=9, mask=1110</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[][] dp;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">specialPerm</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    dp=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">14</span>][<span class="number">16384</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] arr : dp) &#123;</span><br><span class="line">        Arrays.fill(arr,-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    n=nums.length;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        res=(res+dfs(nums,<span class="number">1</span>,i,<span class="number">1</span>&lt;&lt;i))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> size, <span class="type">int</span> pre, <span class="type">int</span> mask)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(size==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dp[pre][mask]!=-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[pre][mask];</span><br><span class="line">    &#125;</span><br><span class="line">    dp[pre][mask]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((mask &amp; (<span class="number">1</span>&lt;&lt;i))!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(nums[pre]%nums[i]==<span class="number">0</span> || nums[i]%nums[pre]==<span class="number">0</span>)&#123;</span><br><span class="line">            dp[pre][mask]=(dp[pre][mask]+dfs(nums,size+<span class="number">1</span>,i,mask|(<span class="number">1</span>&lt;&lt;i)))%mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[pre][mask];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="464-Can-I-Win"><a href="#464-Can-I-Win" class="headerlink" title="464. Can I Win"></a>464. Can I Win</h2><p>思考：</p>
-<ul>
-<li>be sensitive when seeing “permutation”, “draw from a common pool without replacement” &#x3D;&gt; DP with BitMask!</li>
-<li>notice when seeing target &lt;&#x3D;0, <ul>
-<li>if it is the first round, current player wins; </li>
-<li>else current player loses.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer,Boolean&gt; memo=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> target;</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canIWin</span><span class="params">(<span class="type">int</span> maxChoosableInteger, <span class="type">int</span> desiredTotal)</span> &#123;</span><br><span class="line">    n=maxChoosableInteger;</span><br><span class="line">    target=desiredTotal;</span><br><span class="line">    <span class="type">int</span> sum=(<span class="number">1</span>+n)*n/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(target&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum&lt;target)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dfs(<span class="number">0</span>,target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> mask, <span class="type">int</span> target)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(target&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(memo.containsKey(mask))&#123;</span><br><span class="line">        <span class="keyword">return</span> memo.get(mask);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">boolean</span> res=<span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((mask&amp;(<span class="number">1</span>&lt;&lt;i))==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dfs(mask|(<span class="number">1</span>&lt;&lt;i),target-i))&#123;</span><br><span class="line">                res=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    memo.put(mask,res);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1125-Smallest-Sufficient-Team"><a href="#1125-Smallest-Sufficient-Team" class="headerlink" title="1125. Smallest Sufficient Team"></a>1125. Smallest Sufficient Team</h2><h3 id="backtracking-TLE"><a href="#backtracking-TLE" class="headerlink" title="backtracking, TLE"></a>backtracking, TLE</h3><p>36&#x2F;38</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; res=<span class="literal">null</span>;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> len;</span><br><span class="line">Map&lt;String,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">String[] req_skills;</span><br><span class="line">List&lt;List&lt;String&gt;&gt; people;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] smallestSufficientTeam(String[] req_skills, List&lt;List&lt;String&gt;&gt; people) &#123;</span><br><span class="line">    n= req_skills.length;</span><br><span class="line">    len=people.size();</span><br><span class="line">    <span class="built_in">this</span>.req_skills=req_skills;</span><br><span class="line">    <span class="built_in">this</span>.people=people;</span><br><span class="line">    backtracking(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[res.size()];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        arr[i]=res.get(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backtracking</span><span class="params">(<span class="type">int</span> cur)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(map.size()==n)&#123;</span><br><span class="line">        <span class="keyword">if</span>(res==<span class="literal">null</span> || res.size()&gt;list.size())&#123;</span><br><span class="line">            res=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(list);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(cur==len || res!=<span class="literal">null</span> &amp;&amp; list.size()&gt;=res.size())&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> cur; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(useful(i))&#123;</span><br><span class="line">            <span class="keyword">for</span> (String s : people.get(i)) &#123;</span><br><span class="line">                map.put(s,map.getOrDefault(s,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            list.add(i);</span><br><span class="line">            backtracking(i+<span class="number">1</span>);</span><br><span class="line">            list.remove(list.size()-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (String s : people.get(i)) &#123;</span><br><span class="line">                <span class="type">int</span> val=map.get(s);</span><br><span class="line">                <span class="keyword">if</span>(val==<span class="number">1</span>)&#123;</span><br><span class="line">                    map.remove(s);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    map.put(s,val-<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">useful</span><span class="params">(<span class="type">int</span> i)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (String s : people.get(i)) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!map.containsKey(s))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="DP-with-bitmask"><a href="#DP-with-bitmask" class="headerlink" title="DP with bitmask"></a>DP with bitmask</h3><p>注意：</p>
-<ul>
-<li><code>1 &lt;= req_skills.length &lt;= 16</code></li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/smallest-sufficient-team/discuss/334572/JavaC%2B%2BPython-DP-Solution">https://leetcode.com/problems/smallest-sufficient-team/discuss/334572/JavaC%2B%2BPython-DP-Solution</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] smallestSufficientTeam(String[] req_skills, List&lt;List&lt;String&gt;&gt; people) &#123;</span><br><span class="line">       <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> req_skills.length, m = people.size();</span><br><span class="line">       HashMap&lt;String, Integer&gt; skill_index = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">           skill_index.put(req_skills[i], i);</span><br><span class="line">       List&lt;Integer&gt;[] dp = <span class="keyword">new</span> <span class="title class_">List</span>[<span class="number">1</span> &lt;&lt; n];</span><br><span class="line">       dp[<span class="number">0</span>] = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">           <span class="type">int</span> <span class="variable">cur_skill</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">           <span class="keyword">for</span> (String s : people.get(i))</span><br><span class="line">               cur_skill |= <span class="number">1</span> &lt;&lt; skill_index.get(s);</span><br><span class="line">           <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">prev</span> <span class="operator">=</span> <span class="number">0</span>; prev &lt; dp.length; ++prev) &#123;</span><br><span class="line">               <span class="keyword">if</span> (dp[prev] == <span class="literal">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">               <span class="type">int</span> <span class="variable">comb</span> <span class="operator">=</span> prev | cur_skill;</span><br><span class="line">               <span class="keyword">if</span> (dp[comb] == <span class="literal">null</span> || dp[prev].size() + <span class="number">1</span> &lt; dp[comb].size()) &#123;</span><br><span class="line">                   dp[comb] = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(dp[prev]);</span><br><span class="line">                   dp[comb].add(i);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    <span class="comment">//use Stream to turn List into Array</span></span><br><span class="line">    <span class="comment">//Arrays.stream();	List.stream()</span></span><br><span class="line">       <span class="keyword">return</span> dp[(<span class="number">1</span> &lt;&lt; n) - <span class="number">1</span>].stream().mapToInt(i -&gt; i).toArray();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="465-Optimal-Account-Balancing"><a href="#465-Optimal-Account-Balancing" class="headerlink" title="465. Optimal Account Balancing"></a>465. Optimal Account Balancing</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/optimal-account-balancing/solution/">https://leetcode.com/problems/optimal-account-balancing/solution/</a></p>
-<h3 id="backtracking-x2F-recursion"><a href="#backtracking-x2F-recursion" class="headerlink" title="backtracking&#x2F;recursion"></a>backtracking&#x2F;recursion</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//-4,-2,2,2,2</span></span><br><span class="line"><span class="comment">//0,-2,-2,2,2</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minTransfers</span><span class="params">(<span class="type">int</span>[][] transactions)</span> &#123;</span><br><span class="line">    <span class="comment">//-4,-2,2,2,2</span></span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] arr : transactions) &#123;</span><br><span class="line">        map.put(arr[<span class="number">0</span>],map.getOrDefault(arr[<span class="number">0</span>],<span class="number">0</span>)-arr[<span class="number">2</span>]);</span><br><span class="line">        map.put(arr[<span class="number">1</span>],map.getOrDefault(arr[<span class="number">1</span>],<span class="number">0</span>)+arr[<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Integer&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Integer key : map.keySet()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(map.get(key)!=<span class="number">0</span>)&#123;</span><br><span class="line">            list.add(map.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[] arr=list.stream().mapToInt(i-&gt;i).toArray();</span><br><span class="line">    <span class="keyword">return</span> dfs(arr,arr.length,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> n, <span class="type">int</span> cur)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(cur&lt;n &amp;&amp; arr[cur]==<span class="number">0</span>)&#123;</span><br><span class="line">        cur++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(cur==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> asset=arr[cur];</span><br><span class="line">    <span class="type">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=cur+<span class="number">1</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="comment">//0 or same sign, no transaction make sense</span></span><br><span class="line">        <span class="keyword">if</span>(arr[i]*asset&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//else, try to resolve cur by i</span></span><br><span class="line">        arr[i]+=asset;</span><br><span class="line">        <span class="comment">//[0,cur] is all resolved (==0)</span></span><br><span class="line">        res=Math.min(res,<span class="number">1</span>+dfs(arr,n,cur+<span class="number">1</span>));</span><br><span class="line">        arr[i]-=asset;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="DP-with-bitmask-1"><a href="#DP-with-bitmask-1" class="headerlink" title="DP with bitmask"></a>DP with bitmask</h3><p>思路：</p>
-<ul>
-<li><p>n non-zero balance, each settles with ACH, needs <strong>at most n</strong> transactions</p>
-</li>
-<li><p>Let one of the people at act as Clearing House, other n-1 settles via him with n-1 transactions. Since the total sum is 0, settling other n-1 with automatically settle this Clearing House guy as well. needs <strong>at most n-1</strong> transactions</p>
-</li>
-<li><p>if we find 2 zero-balance subgroups, one of size k and other n-k</p>
-<ul>
-<li>instead of n-1 transactions with a same Clearing guy</li>
-<li>make k-1 transactions within first group choosing a Clearing House guy, and n-k-1 transactions within second group choosing another Clearing House guy</li>
-<li>only needs n-2 transactions</li>
-</ul>
-</li>
-<li><p>each zero-balance subgroup saves 1 transactions</p>
-</li>
-<li><p>find the maximum number of zero-balance subgroup!</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] dp;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minTransfers</span><span class="params">(<span class="type">int</span>[][] transactions)</span> &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] arr : transactions) &#123;</span><br><span class="line">        map.put(arr[<span class="number">0</span>],map.getOrDefault(arr[<span class="number">0</span>],<span class="number">0</span>)+arr[<span class="number">2</span>]);</span><br><span class="line">        map.put(arr[<span class="number">1</span>],map.getOrDefault(arr[<span class="number">1</span>],<span class="number">0</span>)-arr[<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Integer&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Integer key : map.keySet()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(map.get(key)!=<span class="number">0</span>)&#123;</span><br><span class="line">            list.add(map.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//debt: 3 means needing to give 3,</span></span><br><span class="line">    <span class="comment">// -3 means needing to receive 3</span></span><br><span class="line">    <span class="type">int</span>[] arr=list.stream().mapToInt(i-&gt;i).toArray();</span><br><span class="line">    n=arr.length;</span><br><span class="line">    dp=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">1</span>&lt;&lt;n]; <span class="comment">//[1,1&lt;&lt;n -1]</span></span><br><span class="line">    Arrays.fill(dp,-<span class="number">1</span>);</span><br><span class="line">    dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//注意：bit operation优先级低，一定要加括号</span></span><br><span class="line">    <span class="keyword">return</span> n-dfs(arr,(<span class="number">1</span>&lt;&lt;n)-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> mask)</span>&#123;</span><br><span class="line">    <span class="comment">//maximum number of sub groups that sum = 0</span></span><br><span class="line">    <span class="comment">//normally need n-1 transactions to settle a group</span></span><br><span class="line">    <span class="comment">//but if we find m subgroups of balance 0,</span></span><br><span class="line">    <span class="comment">//we only nned n-m transactions</span></span><br><span class="line">    <span class="keyword">if</span>(dp[mask]!=-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[mask];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> total=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> cur=<span class="number">1</span>&lt;&lt;i;</span><br><span class="line">        <span class="keyword">if</span>((mask&amp;cur)!=<span class="number">0</span>)&#123;</span><br><span class="line">            max=Math.max(max,dfs(arr,mask^cur));</span><br><span class="line">            total+=arr[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[mask]=max + (total==<span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> dp[mask];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2709,7 +2682,7 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2722,7 +2695,7 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2763,7 +2736,7 @@ private boolean canFindLargerAverage(int[] nums, int k, double x) &#123;
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:23</span>
+    <span title="站点阅读时长">16:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
