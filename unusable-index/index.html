@@ -1121,7 +1121,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-15 13:32:03" itemprop="dateModified" datetime="2023-08-15T13:32:03+08:00">2023-08-15</time>
+                <time title="修改时间：2023-09-07 02:38:01" itemprop="dateModified" datetime="2023-09-07T02:38:01+08:00">2023-09-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1139,14 +1139,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.6k</span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1214,6 +1214,23 @@
 
 <h2 id="2745-Construct-the-Longest-New-String"><a href="#2745-Construct-the-Longest-New-String" class="headerlink" title="2745. Construct the Longest New String"></a>2745. Construct the Longest New String</h2><p>brainteaser</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestString</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> &#123;</span><br><span class="line">    <span class="comment">//ab won&#x27;t benefit others</span></span><br><span class="line">    <span class="comment">//bb + ab, still cannot be appended by bb</span></span><br><span class="line">    <span class="keyword">if</span>(Math.abs(x-y)&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*x+<span class="number">2</span>*y+<span class="number">2</span>*z;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="type">int</span> a=Math.min(x,y);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*a+<span class="number">2</span>*(a+<span class="number">1</span>)+<span class="number">2</span>*z;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1199-Minimum-Time-to-Build-Blocks"><a href="#1199-Minimum-Time-to-Build-Blocks" class="headerlink" title="1199. Minimum Time to Build Blocks"></a>1199. Minimum Time to Build Blocks</h2><p>huffman code:</p>
+<ol>
+<li>construct the optimal tree</li>
+<li>always merge the 2 smallest node</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minBuildTime</span><span class="params">(<span class="type">int</span>[] blocks, <span class="type">int</span> split)</span> &#123;</span><br><span class="line">    <span class="comment">//always assign larger block first</span></span><br><span class="line">    <span class="comment">//Arrays.sort(blocks);</span></span><br><span class="line">    <span class="type">int</span> n=blocks.length;</span><br><span class="line">    <span class="comment">//only split when necessary</span></span><br><span class="line">    PriorityQueue&lt;Integer&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        pq.offer(blocks[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(pq.size()&gt;<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="type">int</span> x=pq.poll();</span><br><span class="line">        <span class="type">int</span> y=pq.poll();</span><br><span class="line">        pq.offer(y+split);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pq.poll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1727-Largest-Submatrix-With-Rearrangements"><a href="#1727-Largest-Submatrix-With-Rearrangements" class="headerlink" title="1727. Largest Submatrix With Rearrangements"></a>1727. Largest Submatrix With Rearrangements</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">largestSubmatrix</span><span class="params">(<span class="type">int</span>[][] matrix)</span> &#123;</span><br><span class="line">    <span class="type">int</span> row=matrix.length;</span><br><span class="line">    <span class="type">int</span> col=matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span>[][] grid=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j]!=<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i==<span class="number">0</span>)&#123;</span><br><span class="line">                    grid[i][j]=<span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    grid[i][j]=<span class="number">1</span>+grid[i-<span class="number">1</span>][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        Arrays.sort(grid[i]);</span><br><span class="line">        <span class="comment">//[j,col-1]</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(grid[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res=Math.max(res,grid[i][j]*(col-j));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1353,7 +1370,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-14 13:10:19" itemprop="dateModified" datetime="2023-07-14T13:10:19+08:00">2023-07-14</time>
+                <time title="修改时间：2023-09-30 13:01:29" itemprop="dateModified" datetime="2023-09-30T13:01:29+08:00">2023-09-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1371,14 +1388,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7k</span>
+              <span>8.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -1461,6 +1478,28 @@
 
 
 <h2 id="1218-Longest-Arithmetic-Subsequence-of-Given-Difference"><a href="#1218-Longest-Arithmetic-Subsequence-of-Given-Difference" class="headerlink" title="1218. Longest Arithmetic Subsequence of Given Difference"></a>1218. Longest Arithmetic Subsequence of Given Difference</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestSubsequence</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> difference)</span> &#123;</span><br><span class="line">    <span class="type">int</span> max=<span class="number">1</span>;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : arr) &#123;</span><br><span class="line">        map.put(num,map.getOrDefault(num-difference,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        max=Math.max(max,map.get(num));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="799-Champagne-Tower"><a href="#799-Champagne-Tower" class="headerlink" title="799. Champagne Tower"></a>799. Champagne Tower</h2><p>杨辉三角形模拟，大基本功</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">double</span> <span class="title function_">champagneTower</span><span class="params">(<span class="type">int</span> poured, <span class="type">int</span> query_row, <span class="type">int</span> query_glass)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(poured==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Double&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    list.add((<span class="type">double</span>)poured);</span><br><span class="line">    <span class="type">int</span> n=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n++&lt;query_row)&#123;</span><br><span class="line">        List&lt;Double&gt; next=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">//[0,n-1]</span></span><br><span class="line">        <span class="comment">//[0,1,..,n]</span></span><br><span class="line">        next.add(Math.max(list.get(<span class="number">0</span>)-<span class="number">1</span>,<span class="number">0</span>)/<span class="number">2</span>);</span><br><span class="line">        <span class="type">int</span> size=list.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            next.add((Math.max(list.get(i)-<span class="number">1</span>,<span class="number">0</span>)+Math.max(list.get(i+<span class="number">1</span>)-<span class="number">1</span>,<span class="number">0</span>))/<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        next.add(Math.max(list.get(size-<span class="number">1</span>)-<span class="number">1</span>,<span class="number">0</span>)/<span class="number">2</span>);</span><br><span class="line">        list=next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Math.min(<span class="number">1.0</span>,list.get(query_glass));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="880-Decoded-String-at-Index"><a href="#880-Decoded-String-at-Index" class="headerlink" title="880. Decoded String at Index"></a>880. Decoded String at Index</h2><p>注意：</p>
+<ul>
+<li>“stack”的妙用，simulation without actual copying the whole string</li>
+<li>只需keep track of len和经调整后的target index k：<ul>
+<li>if k&#x3D;&#x3D;len, exactly current char</li>
+<li>if k&#x3D;&#x3D;0, also exactly current char</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">decodeAtIndex</span><span class="params">(String s, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">long</span> len=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="type">char</span> c=s.charAt(i);</span><br><span class="line">        <span class="keyword">if</span>(c&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; c&lt;=<span class="string">&#x27;9&#x27;</span>)&#123;</span><br><span class="line">            len*=c-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            len++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="type">char</span> c=s.charAt(i);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(c&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; c&lt;=<span class="string">&#x27;9&#x27;</span>)&#123;</span><br><span class="line">            len/=c-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            k%=len;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//len=15, k=15, exactly current char</span></span><br><span class="line">            <span class="comment">//len=15, k=0 is equivalent to k=15, still exactly current char</span></span><br><span class="line">            <span class="keyword">if</span>(k==len || k==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;&quot;</span>+c;</span><br><span class="line">            &#125;</span><br><span class="line">            len--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -2344,7 +2383,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 07:39:46" itemprop="dateModified" datetime="2023-03-15T07:39:46+08:00">2023-03-15</time>
+                <time title="修改时间：2023-09-12 10:00:40" itemprop="dateModified" datetime="2023-09-12T10:00:40+08:00">2023-09-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2362,14 +2401,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.3k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -2424,6 +2463,12 @@
 <li>我能给公司贡献什么</li>
 <li>我希望获得什么</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">As I approach the completion of my Master&#x27;s Degree in Computer Science in June 2024, I am eagerly anticipating the opportunity to embark on my dream career as a Software Development Engineer. My aspiration has always been to contribute to the creation/maintenance of web applications and cloud platforms that have the potential to positively impact the lives of thousands, even millions, of users. For me, the idea of &quot;making this world a better place&quot; is not just a hollow slogan, but a tangible goal that I can achieve through my passion, talent, and code.</span><br><span class="line"></span><br><span class="line">I believe I am a fast self-learner with motivations. I am well aware of the ever-evolving nature of the IT industry and the imperative for every proficient software developer to keep up with in-trend technical stacks. I also understand that company is not like school, I am here to deliver results.</span><br><span class="line"></span><br><span class="line">I look forward to meeting many interesting people, so that we can learn from each other and improve together. I am also excited about handling new challenges. If succeeds, I can gain a great sense of accomplishment. If fails, I can learn from it and be better prepared for the future. </span><br><span class="line"></span><br><span class="line">//</span><br><span class="line">I eagerly anticipate the prospect of interacting with a diverse array of individuals in this dynamic field. Through these interactions, I hope to engage in mutual learning and collective growth. I am equally enthusiastic about confronting new challenges, viewing them as opportunities for personal and professional development. Successes will be met with a profound sense of accomplishment, while any setbacks will serve as valuable lessons that will better equip me for the future.</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="Customer-Obsession-1"><a href="#Customer-Obsession-1" class="headerlink" title="Customer Obsession"></a>Customer Obsession</h2><p>考点：</p>
 <ul>
 <li>我的故事是否体现了我能从客户的角度出发思考并解决问题</li>
@@ -2624,7 +2669,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:50</span>
+    <span title="站点阅读时长">17:05</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
