@@ -190,6 +190,132 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/10/09/Weekly-Contest-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/09/Weekly-Contest-2/" class="post-title-link" itemprop="url">Weekly-Contest-2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-09 18:48:54" itemprop="dateCreated datePublished" datetime="2023-10-09T18:48:54+08:00">2023-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-17 11:18:38" itemprop="dateModified" datetime="2023-10-17T11:18:38+08:00">2023-10-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="周赛好题（2）"><a href="#周赛好题（2）" class="headerlink" title="周赛好题（2）"></a>周赛好题（2）</h1><h2 id="2896-Apply-Operations-to-Make-Two-Strings-Equal"><a href="#2896-Apply-Operations-to-Make-Two-Strings-Equal" class="headerlink" title="2896. Apply Operations to Make Two Strings Equal"></a>2896. Apply Operations to Make Two Strings Equal</h2><p>从头到尾，dp思路：</p>
+<ul>
+<li>done: all 0</li>
+<li>one: exactly one 1 in [0,i-2]</li>
+<li>last: only the last(i-1) is 1</li>
+<li>two: one + last, not the same position</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minOperations</span><span class="params">(String s1, String s2, <span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=s1.length();</span><br><span class="line">    <span class="type">int</span>[] diff=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s1.charAt(i)!=s2.charAt(i))&#123;</span><br><span class="line">            diff[i]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> inf=<span class="number">100000</span>;</span><br><span class="line">    <span class="type">int</span> done=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> one=inf;</span><br><span class="line">    <span class="type">int</span> last=inf;</span><br><span class="line">    <span class="type">int</span> two=inf;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s1.charAt(i)==s2.charAt(i))&#123;</span><br><span class="line">            <span class="comment">//do nothing</span></span><br><span class="line">            <span class="comment">//one=one;</span></span><br><span class="line">            <span class="comment">//switch i and i-1</span></span><br><span class="line">            last=last+<span class="number">1</span>;</span><br><span class="line">            <span class="comment">//switch i and i-1</span></span><br><span class="line">            two=two+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//last: i-1 is different, i is different</span></span><br><span class="line">            <span class="comment">//one: another, i is different</span></span><br><span class="line">            <span class="comment">//two: another, i-1, i is different</span></span><br><span class="line">            <span class="comment">//either one: flip i-1, i; or done: flip i</span></span><br><span class="line">            <span class="type">int</span> preOne=one;</span><br><span class="line">            <span class="type">int</span> preLast=last;</span><br><span class="line">            one=Math.min(done,two+<span class="number">1</span>);</span><br><span class="line">            last=Math.min(done,two+x);</span><br><span class="line">            done=Math.min(preOne+x,preLast+<span class="number">1</span>);</span><br><span class="line">            two=preOne;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> done&lt;inf ? done : -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2897-Apply-Operations-on-Array-to-Maximize-Sum-of-Squares"><a href="#2897-Apply-Operations-on-Array-to-Maximize-Sum-of-Squares" class="headerlink" title="2897. Apply Operations on Array to Maximize Sum of Squares"></a>2897. Apply Operations on Array to Maximize Sum of Squares</h2><p>注意：</p>
+<ul>
+<li><p>“and or”之后，”1”数量不变，只是位置变了</p>
+</li>
+<li><p>无限次”and or”，总能把每一个”1”都放到最优的位置</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSum</span><span class="params">(List&lt;Integer&gt; nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="comment">//00 -&gt; 00, 01 -&gt; 10, 10 -&gt; 10, 11 -&gt; 11</span></span><br><span class="line">    <span class="comment">//1 bit remain the same amount, only change positions</span></span><br><span class="line">    <span class="comment">//let 1s greedily fall</span></span><br><span class="line">    <span class="type">int</span> n=nums.size();</span><br><span class="line">    <span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="type">int</span>[] bits=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">32</span>];</span><br><span class="line">    <span class="type">int</span>[] arr=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (Integer num : nums) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">32</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>((num&amp;(<span class="number">1</span>&lt;&lt;i))!=<span class="number">0</span>)&#123;</span><br><span class="line">                arr[bits[i]]+=((<span class="number">1</span>&lt;&lt;i)%mod);</span><br><span class="line">                arr[bits[i]]%=mod;</span><br><span class="line">                bits[i]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;k; i++)&#123;</span><br><span class="line">        res+=(<span class="type">long</span>)arr[i]*arr[i]%mod;</span><br><span class="line">        res%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2905-Find-Indices-With-Index-and-Value-Difference-II"><a href="#2905-Find-Indices-With-Index-and-Value-Difference-II" class="headerlink" title="2905. Find Indices With Index and Value Difference II"></a>2905. Find Indices With Index and Value Difference II</h2><p>思路：</p>
+<ul>
+<li>two pointers, i in front, j in back</li>
+<li>search for a given j, if a valid i exists</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] findIndices(<span class="type">int</span>[] nums, <span class="type">int</span> indexDifference, <span class="type">int</span> valueDifference) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n= nums.length;</span><br><span class="line">    TreeMap&lt;Integer,Integer&gt; map=<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">    map.put(nums[i],i);</span><br><span class="line">    i++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=indexDifference;j&lt;n; j++)&#123;</span><br><span class="line">        <span class="comment">//[0,j-idxD]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//[num-valD,num+valD]</span></span><br><span class="line">        <span class="comment">//&lt;=num-valD or &gt;=num+valD</span></span><br><span class="line">        Integer val=map.floorKey(nums[j]-valueDifference);</span><br><span class="line">        <span class="keyword">if</span>(val!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="type">int</span> idx=map.get(val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;idx,j&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        val=map.ceilingKey(nums[j]+valueDifference);</span><br><span class="line">        <span class="keyword">if</span>(val!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="type">int</span> idx=map.get(val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;idx,j&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;n &amp;&amp; !map.containsKey(nums[i]))&#123;</span><br><span class="line">            map.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2906-Construct-Product-Matrix"><a href="#2906-Construct-Product-Matrix" class="headerlink" title="2906. Construct Product Matrix"></a>2906. Construct Product Matrix</h2><p>经典空间换时间，use extra space for precomputation</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[][] constructProductMatrix(<span class="type">int</span>[][] grid) &#123;</span><br><span class="line">    <span class="type">int</span> row=grid.length;</span><br><span class="line">    <span class="type">int</span> col=grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span> mod=<span class="number">12345</span>;</span><br><span class="line">    <span class="type">int</span>[][] pre=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="type">int</span>[][] suf=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="type">long</span> p=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        Arrays.fill(pre[i],<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            pre[i][j]=(<span class="type">int</span>)p;</span><br><span class="line">            p*=grid[i][j];</span><br><span class="line">            p%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> s=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        Arrays.fill(suf[i],<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            suf[i][j]=(<span class="type">int</span>)s;</span><br><span class="line">            s*=grid[i][j];</span><br><span class="line">            s%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[][] res=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            res[i][j]=pre[i][j]*suf[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/08/21/Database/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2348,204 +2474,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/03/14/BQ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/14/BQ/" class="post-title-link" itemprop="url">BQ</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-14 15:20:48" itemprop="dateCreated datePublished" datetime="2023-03-14T15:20:48+08:00">2023-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-12 10:00:40" itemprop="dateModified" datetime="2023-09-12T10:00:40+08:00">2023-09-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Behavior-Questions"><a href="#Behavior-Questions" class="headerlink" title="Behavior Questions"></a>Behavior Questions</h1><h2 id="亚麻16条军规-Leadership-Principles"><a href="#亚麻16条军规-Leadership-Principles" class="headerlink" title="亚麻16条军规(Leadership Principles)"></a>亚麻16条军规(Leadership Principles)</h2><h3 id="Customer-Obsession"><a href="#Customer-Obsession" class="headerlink" title="Customer Obsession"></a>Customer Obsession</h3><p>Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.</p>
-<h3 id="Ownership"><a href="#Ownership" class="headerlink" title="Ownership"></a>Ownership</h3><p>Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job.”</p>
-<h3 id="Invent-and-Simplify"><a href="#Invent-and-Simplify" class="headerlink" title="Invent and Simplify"></a>Invent and Simplify</h3><p>Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here.” As we do new things, we accept that we may be misunderstood for long periods of time.</p>
-<h3 id="Are-Right-A-Lot"><a href="#Are-Right-A-Lot" class="headerlink" title="Are Right, A Lot"></a>Are Right, A Lot</h3><p>Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.</p>
-<h3 id="Learn-and-Be-Curious"><a href="#Learn-and-Be-Curious" class="headerlink" title="Learn and Be Curious"></a>Learn and Be Curious</h3><p>Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.</p>
-<h3 id="Insist-on-the-Highest-Standards"><a href="#Insist-on-the-Highest-Standards" class="headerlink" title="Insist on the Highest Standards"></a>Insist on the Highest Standards</h3><p>Leaders have relentlessly high standards — many people may think these standards are unreasonably high. Leaders are continually raising the bar and drive their teams to deliver high quality products, services, and processes. Leaders ensure that defects do not get sent down the line and that problems are fixed so they stay fixed.</p>
-<h3 id="Think-Big"><a href="#Think-Big" class="headerlink" title="Think Big"></a>Think Big</h3><p>Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.</p>
-<h3 id="Bias-for-Action"><a href="#Bias-for-Action" class="headerlink" title="Bias for Action"></a>Bias for Action</h3><p>Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking.</p>
-<h3 id="Frugality"><a href="#Frugality" class="headerlink" title="Frugality"></a>Frugality</h3><p>Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.</p>
-<h3 id="Earn-Trust"><a href="#Earn-Trust" class="headerlink" title="Earn Trust"></a>Earn Trust</h3><p>Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when doing so is awkward or embarrassing. Leaders do not believe their or their team’s body odor smells of perfume. They benchmark themselves and their teams against the best.</p>
-<h3 id="Dive-Deep"><a href="#Dive-Deep" class="headerlink" title="Dive Deep"></a>Dive Deep</h3><p>Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.</p>
-<h3 id="Have-Backbone-Disagree-and-Commit"><a href="#Have-Backbone-Disagree-and-Commit" class="headerlink" title="Have Backbone; Disagree and Commit"></a>Have Backbone; Disagree and Commit</h3><p>Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.</p>
-<h3 id="Deliver-Results"><a href="#Deliver-Results" class="headerlink" title="Deliver Results"></a>Deliver Results</h3><p>Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.</p>
-<h3 id="Strive-to-be-Earth’s-Best-Employer"><a href="#Strive-to-be-Earth’s-Best-Employer" class="headerlink" title="Strive to be Earth’s Best Employer"></a>Strive to be Earth’s Best Employer</h3><p>Leaders work every day to create a safer, more productive, higher performing, more diverse, and more just work environment. They lead with empathy, have fun at work, and make it easy for others to have fun. Leaders ask themselves: Are my fellow employees growing? Are they empowered? Are they ready for what’s next? Leaders have a vision for and commitment to their employees’ personal success, whether that be at Amazon or elsewhere.</p>
-<h3 id="Success-and-Scale-Bring-Broad-Responsibility"><a href="#Success-and-Scale-Bring-Broad-Responsibility" class="headerlink" title="Success and Scale Bring Broad Responsibility"></a>Success and Scale Bring Broad Responsibility</h3><p>We started in a garage, but we’re not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions. Our local communities, planet, and future generations need us to be better every day. We must begin each day with a determination to make better, do better, and be better for our customers, our employees, our partners, and the world at large. And we must end every day knowing we can do even more tomorrow. Leaders create more than they consume and always leave things better than how they found them.</p>
-<h2 id="包装故事：STAR"><a href="#包装故事：STAR" class="headerlink" title="包装故事：STAR"></a>包装故事：STAR</h2><p><a target="_blank" rel="noopener" href="https://docs.google.com/document/d/112HBiMNvu6TYbDUOfVRe_MS4A-fKaWYrpMlmnsiMNiA/edit#">https://docs.google.com/document/d/112HBiMNvu6TYbDUOfVRe_MS4A-fKaWYrpMlmnsiMNiA/edit#</a></p>
-<ul>
-<li>Scenario</li>
-<li>Task</li>
-<li>Action</li>
-<li>Result</li>
-<li>Learning (for negative cases)</li>
-</ul>
-<p>总结：</p>
-<ul>
-<li>positive questions: STAR</li>
-<li>negative questions: STARL<ul>
-<li>承认错误，量化错误的影响，改进错误</li>
-<li>阐述how to link my failure to a later success</li>
-</ul>
-</li>
-<li>量化result和impact</li>
-<li>涉及interpersonal, 如conflict, push back, 则一定要说明如何与人交流。要阐述双方立场，表示我理解对方所想，明白conflict从何而来，并能提供plan来mitigate对方的concern</li>
-<li>在我的故事里，不能有坏人。我不能甩锅，不能blame别人或别的team</li>
-<li>在故事里，一直说I, 不能说We</li>
-</ul>
-<h2 id="Why-this-company"><a href="#Why-this-company" class="headerlink" title="Why this company?"></a>Why this company?</h2><p>考点：</p>
-<ul>
-<li>我对公司&#x2F;产品的了解程度</li>
-<li>我对未来的职业规划</li>
-<li>我能给公司贡献什么</li>
-<li>我希望获得什么</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">As I approach the completion of my Master&#x27;s Degree in Computer Science in June 2024, I am eagerly anticipating the opportunity to embark on my dream career as a Software Development Engineer. My aspiration has always been to contribute to the creation/maintenance of web applications and cloud platforms that have the potential to positively impact the lives of thousands, even millions, of users. For me, the idea of &quot;making this world a better place&quot; is not just a hollow slogan, but a tangible goal that I can achieve through my passion, talent, and code.</span><br><span class="line"></span><br><span class="line">I believe I am a fast self-learner with motivations. I am well aware of the ever-evolving nature of the IT industry and the imperative for every proficient software developer to keep up with in-trend technical stacks. I also understand that company is not like school, I am here to deliver results.</span><br><span class="line"></span><br><span class="line">I look forward to meeting many interesting people, so that we can learn from each other and improve together. I am also excited about handling new challenges. If succeeds, I can gain a great sense of accomplishment. If fails, I can learn from it and be better prepared for the future. </span><br><span class="line"></span><br><span class="line">//</span><br><span class="line">I eagerly anticipate the prospect of interacting with a diverse array of individuals in this dynamic field. Through these interactions, I hope to engage in mutual learning and collective growth. I am equally enthusiastic about confronting new challenges, viewing them as opportunities for personal and professional development. Successes will be met with a profound sense of accomplishment, while any setbacks will serve as valuable lessons that will better equip me for the future.</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Customer-Obsession-1"><a href="#Customer-Obsession-1" class="headerlink" title="Customer Obsession"></a>Customer Obsession</h2><p>考点：</p>
-<ul>
-<li>我的故事是否体现了我能从客户的角度出发思考并解决问题</li>
-<li>客户可以是真正的end user, 也可以是我下游consume我的data&#x2F;signal&#x2F;pipeline的team</li>
-</ul>
-<h2 id="Are-Right-A-lot"><a href="#Are-Right-A-lot" class="headerlink" title="Are Right, A lot"></a>Are Right, A lot</h2><p>考点：</p>
-<ul>
-<li>在信息不足又必须做决定的情况下，我如何做出正确的决定</li>
-<li>当时是否有deadline压力</li>
-<li>我如何从不同的角度收集重要信息</li>
-<li>我如何做出相对明智的决定</li>
-</ul>
-<h2 id="Ownership-1"><a href="#Ownership-1" class="headerlink" title="Ownership"></a>Ownership</h2><p>考点：</p>
-<ul>
-<li>考察我对日常工作的负责任的态度，无论这个工作是不是我的work,我都乐意dive in，发现问题，尝试解决问题</li>
-<li>我知道how to trade-off between short-term gain and long-term gain</li>
-<li>我需要讲一个在我team&#x2F;scope&#x2F;responsibility之外的故事，并必须强调为什么这件事非我不可(当时事态紧急，owner又休假了，所有必须我上)</li>
-<li>focus on impact, 量化impact</li>
-</ul>
-<h2 id="Bias-For-Action"><a href="#Bias-For-Action" class="headerlink" title="Bias For Action"></a>Bias For Action</h2><p>考点：</p>
-<ul>
-<li>我需要在了解potential risks的情况下迅速行动, fast iteration来验证是否可行</li>
-<li>我需要明确有哪些risk,有哪些risk是值得的，能带来更高的Return of Investment</li>
-<li>如果consensus不能被reach, 我了解risk并准备action, 要强调我的solution是reversible的，不会对production产生影响</li>
-</ul>
-<h2 id="Think-Big-1"><a href="#Think-Big-1" class="headerlink" title="Think Big"></a>Think Big</h2><p>考点：</p>
-<ul>
-<li>我能否挖坑，create something new</li>
-<li>我的新想法是否有足够大的impact，来drive business和serve customer</li>
-<li>think big, 但implement要着眼于小处，先从简单的lower hanging fruit开始做起，采用divide&amp;conquer来实现我的大目标</li>
-</ul>
-<h2 id="Invent-amp-Simplify"><a href="#Invent-amp-Simplify" class="headerlink" title="Invent &amp; Simplify"></a>Invent &amp; Simplify</h2><p>考点：</p>
-<ul>
-<li>invent: 开发工具大大简化了debug流程，或参与研发一个系统提升了用户体验</li>
-<li>simplify: 怎么用existing solution来简化我的开发流程</li>
-<li>不论是invent还是simplify，我的solution必须是scalable且long-term的，我要long-term gain driven, short-term hack不行</li>
-</ul>
-<h2 id="Learn-and-Be-Curious-1"><a href="#Learn-and-Be-Curious-1" class="headerlink" title="Learn, and Be Curious"></a>Learn, and Be Curious</h2><p>考点：</p>
-<ul>
-<li>平时是否在持续学习：学习tool, 打比赛，看文档，读论文，做side project, 读tech blog，学system design</li>
-<li>如何用学到的新东西应用到我的工作中</li>
-</ul>
-<h2 id="Dive-Deep-1"><a href="#Dive-Deep-1" class="headerlink" title="Dive Deep"></a>Dive Deep</h2><p>考点：</p>
-<ul>
-<li>强调系统的复杂性，make educated guess</li>
-<li>structurize all the possibilites, then focus on impact</li>
-</ul>
-<h2 id="Insist-On-The-Highest-Standards"><a href="#Insist-On-The-Highest-Standards" class="headerlink" title="Insist On The Highest Standards"></a>Insist On The Highest Standards</h2><p>考点：</p>
-<ul>
-<li>我如何set and achieve goals that are challenging</li>
-<li>我的计划有几步，每步realistic吗？</li>
-</ul>
-<h2 id="Earn-Trust-1"><a href="#Earn-Trust-1" class="headerlink" title="Earn Trust"></a>Earn Trust</h2><p>考点：</p>
-<ul>
-<li>interpersonal skills</li>
-<li>沟通，同理心，考虑各自的pros and cons</li>
-<li>提出plans来resolve conflict</li>
-</ul>
-<h2 id="Deliver-Results-1"><a href="#Deliver-Results-1" class="headerlink" title="Deliver Results"></a>Deliver Results</h2><p>考点：</p>
-<ul>
-<li>如何在面对挑战和不确定时，unblock自己并deliver high quality work</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2615,7 +2543,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2669,7 +2597,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17:05</span>
+    <span title="站点阅读时长">17:08</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
