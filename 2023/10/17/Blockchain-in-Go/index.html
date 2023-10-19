@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"invincible-nerd.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Blockchain Proof-of-WorkA key idea of blockchain is that one has to perform some hard work to put data in it. It is this hard work that makes blockchain secure and consistent. Also, a reward is paid f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blockchain_in_Go">
+<meta property="og:url" content="http://invincible-nerd.github.io/2023/10/17/Blockchain-in-Go/index.html">
+<meta property="og:site_name" content="IVN">
+<meta property="og:description" content="Blockchain Proof-of-WorkA key idea of blockchain is that one has to perform some hard work to put data in it. It is this hard work that makes blockchain secure and consistent. Also, a reward is paid f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/blockchain/pow1.png">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/blockchain/tx.png">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/blockchain/merkle.png">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/blockchain/address.png">
+<meta property="og:image" content="http://invincible-nerd.github.io/images/blockchain/signing.png">
+<meta property="article:published_time" content="2023-10-17T08:38:12.000Z">
+<meta property="article:modified_time" content="2023-10-19T23:35:24.405Z">
+<meta property="article:author" content="invincible-nerd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://invincible-nerd.github.io/images/blockchain/pow1.png">
+
+<link rel="canonical" href="http://invincible-nerd.github.io/2023/10/17/Blockchain-in-Go/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Blockchain_in_Go | IVN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">IVN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/10/17/Blockchain-in-Go/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Blockchain_in_Go
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-10-17 16:38:12" itemprop="dateCreated datePublished" datetime="2023-10-17T16:38:12+08:00">2023-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-20 07:35:24" itemprop="dateModified" datetime="2023-10-20T07:35:24+08:00">2023-10-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>24k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>21 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Blockchain-Proof-of-Work"><a href="#Blockchain-Proof-of-Work" class="headerlink" title="Blockchain Proof-of-Work"></a>Blockchain Proof-of-Work</h1><p>A key idea of blockchain is that one has to <strong>perform some hard work to put data in it</strong>. It is this hard work that makes blockchain secure and consistent. Also, a reward is paid for this hard work (this is how people <strong>get coins for mining</strong>).</p>
+<p>This mechanism is very similar to the one from real life: one has to work hard to get a reward and to sustain their life. In blockchain, some participants (miners) of the network work to sustain the network, to add new blocks to it, and get a reward for their work. As a result of their work, a block is incorporated into the blockchain in a secure way, which maintains the stability of the whole blockchain database. It’s worth noting that, the one who finished the work has to prove this.</p>
+<p>This whole “do hard work and prove” mechanism is called proof-of-work. It’s hard because it requires a lot of computational power: even high performance computers cannot do it quickly. Moreover, the difficulty of this work increases from time to time to keep new blocks rate at about 6 blocks per hour. In Bitcoin, the goal of such work is to <strong>find a hash for a block</strong>, that meets some requirements. And it’s this hash that serves as a proof. Thus, finding a proof is the actual work.</p>
+<p>One last thing to note. Proof-of-Work algorithms must meet a requirement: doing the work is hard, but verifying the proof is easy. A proof is usually handed to someone else, so for them, it shouldn’t take much time to verify it.</p>
+<h2 id="Hashcash"><a href="#Hashcash" class="headerlink" title="Hashcash"></a>Hashcash</h2><p>Bitcoin uses <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hashcash">Hashcash</a>, a Proof-of-Work algorithm that was initially developed to prevent email spam. It can be split into the following steps:</p>
+<ol>
+<li>Take some publicly known data (in case of email, it’s receiver’s email address; in case of Bitcoin, it’s block headers).</li>
+<li>Add a counter to it. The counter starts at 0.</li>
+<li>Get a hash of the <code>data + counter</code> combination.</li>
+<li>Check that the hash meets certain requirements.<ol>
+<li>If it does, you’re done.</li>
+<li>If it doesn’t, increase the counter and repeat the steps 3 and 4.</li>
+</ol>
+</li>
+</ol>
+<p>Thus, this is a brute force algorithm: you change the counter, calculate a new hash, check it, increment the counter, calculate a hash, etc. That’s why it’s computationally expensive.</p>
+<p>Now let’s look closer at the requirements a hash has to meet. In the original Hashcash implementation, the requirement sounds like “first 20 bits of a hash must be zeros”. In Bitcoin, the requirement is adjusted from time to time, because, by design, a block must be generated every 10 minutes, despite computation power increasing with time and more and more miners joining the network.</p>
+<p>To demonstrate this algorithm, I took the data from this example (“I like donuts”) and found a hash that starts with 3 zero-bytes:</p>
+<p><img src="/images/blockchain/pow1.png"></p>
+<p><code>ca07ca</code> is the hexadecimal value of the counter, which is 13240266 in the decimal system</p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Block <span class="keyword">struct</span> &#123;</span><br><span class="line">	Timestamp     <span class="type">int64</span></span><br><span class="line">	Data          []<span class="type">byte</span></span><br><span class="line">	PrevBlockHash []<span class="type">byte</span></span><br><span class="line">	Hash          []<span class="type">byte</span></span><br><span class="line">	Nonce         <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ProofOfWork <span class="keyword">struct</span> &#123;</span><br><span class="line">	block  *Block</span><br><span class="line">	target *big.Int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewProofOfWork</span><span class="params">(b *Block)</span></span> *ProofOfWork &#123;</span><br><span class="line">	target := big.NewInt(<span class="number">1</span>)</span><br><span class="line">	target.Lsh(target, <span class="type">uint</span>(<span class="number">256</span>-targetBits))</span><br><span class="line"></span><br><span class="line">	pow := &amp;ProofOfWork&#123;b, target&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pow</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>In the <code>NewProofOfWork</code> function, we initialize a <code>big.Int</code> with the value of 1 and shift it left by <code>256 - targetBits</code> bits. <code>256</code> is the length of a SHA-256 hash in bits, and it’s SHA-256 hashing algorithm that we’re going to use. The hexadecimal representation of <code>target</code> is:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x10000000000000000000000000000000000000000000000000000000000</span><br></pre></td></tr></table></figure>
+
+<p>And it occupies 29 bytes in memory. And here’s its visual comparison with the hashes from the previous examples:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0fac49161af82ed938add1d8725835cc123a1a87b1b196488360e58d4bfb51e3</span><br><span class="line">0000010000000000000000000000000000000000000000000000000000000000</span><br><span class="line">0000008b0f41ec78bab747864db66bcb9fb89920ee75f43fdaaeb5544f7f76ca</span><br></pre></td></tr></table></figure>
+
+<p>The first hash (calculated on “I like donuts”) is bigger than the target, thus it’s not a valid proof of work. The second hash (calculated on “I like donutsca07ca”) is smaller than the target, thus it’s a valid proof.</p>
+<p>You can think of a target as the upper boundary of a range: if a number (a hash) is lower than the boundary, it’s valid, and vice versa. Lowering the boundary will result in fewer valid numbers, and thus, more difficult work required to find a valid one.</p>
+<h1 id="Blockchain-Transactions"><a href="#Blockchain-Transactions" class="headerlink" title="Blockchain Transactions"></a>Blockchain Transactions</h1><p><img src="/images/blockchain/tx.png"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Transaction <span class="keyword">struct</span> &#123;</span><br><span class="line">	ID   []<span class="type">byte</span></span><br><span class="line">	Vin  []TXInput</span><br><span class="line">	Vout []TXOutput</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Inputs of a new transaction reference outputs of a previous transaction (there’s an exception though, which is the first block, or genesis block). <strong>Outputs are where coins are actually stored.</strong> </p>
+<p>Notice that:</p>
+<ol>
+<li>There are outputs that are not linked to inputs.</li>
+<li>In one transaction, inputs can reference outputs from multiple transactions.</li>
+<li>An input must reference an output.</li>
+</ol>
+<h2 id="TXOutput"><a href="#TXOutput" class="headerlink" title="TXOutput"></a>TXOutput</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TXOutput <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">//In Bitcoin, the value field stores the number of satoshis, not the number of BTC. A satoshi is a hundred millionth of a bitcoin (0.00000001 BTC), thus this is the smallest unit of currency in Bitcoin (like a cent).</span></span><br><span class="line">	Value        <span class="type">int</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//Internally, Bitcoin uses a scripting language called Script, that is used to define outputs locking and unlocking logic. </span></span><br><span class="line">	<span class="comment">//ScriptPubKey string</span></span><br><span class="line">    PubKeyHash []<span class="type">byte</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>One important thing about outputs is that they are <strong>indivisible</strong>, which means that you cannot reference a part of its value. When an output is referenced in a new transaction, it’s spent as a whole. And if its value is greater than required, a change is generated and sent back to the sender. This is similar to a real world situation when you pay, say, a $5 banknote for something that costs $1 and get a change of $4.</p>
+<h2 id="TXInput"><a href="#TXInput" class="headerlink" title="TXInput"></a>TXInput</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TXInput <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">//As mentioned earlier, an input references a previous output: Txid stores the ID of such transaction</span></span><br><span class="line">	Txid      []<span class="type">byte</span>   </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//Vout stores an index of an output in the transaction</span></span><br><span class="line">	Vout      <span class="type">int</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//ScriptSig is a script which provides data to be used in an output’s ScriptPubKey. If the data is correct, the output can be unlocked, and its value can be used to generate new outputs; if it’s not correct, the output cannot be referenced in the input. This is the mechanism that guarantees that users cannot spend coins belonging to other people.</span></span><br><span class="line">	<span class="comment">//ScriptSig string</span></span><br><span class="line">    Signature []<span class="type">byte</span></span><br><span class="line">	PubKey    []<span class="type">byte</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Unspent-Transaction-Outputs"><a href="#Unspent-Transaction-Outputs" class="headerlink" title="Unspent Transaction Outputs"></a>Unspent Transaction Outputs</h2><p>We need to find all unspent transaction outputs (UTXO). <em>Unspent</em> means that these outputs weren’t referenced in any inputs. On the diagram above, these are:</p>
+<ol>
+<li>tx0, output 1;</li>
+<li>tx1, output 0;</li>
+<li>tx3, output 0;</li>
+<li>tx4, output 0.</li>
+</ol>
+<p>How to find all UTXO that can be locked by current address? </p>
+<ol>
+<li>Since transactions are stored in blocks, we have to check every block in a blockchain.</li>
+<li>If an output was locked by the same address we’re searching unspent transaction outputs for, then this is the output we want. But before taking it, we need to check if an output was already referenced in an input. We skip those that were referenced in inputs (their values were moved to other outputs, thus we cannot count them).</li>
+<li>After checking outputs we gather all inputs that could unlock outputs locked with the provided address (this doesn’t apply to coinbase transactions, since they don’t unlock outputs)</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FindUnspentTransactions returns a list of transactions containing unspent outputs</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(bc *Blockchain)</span></span> FindUnspentTransactions(address <span class="type">string</span>) []Transaction &#123;</span><br><span class="line">	<span class="keyword">var</span> unspentTXs []Transaction</span><br><span class="line">	spentTXOs := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>][]<span class="type">int</span>)</span><br><span class="line">	bci := bc.Iterator()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		block := bci.Next()</span><br><span class="line"></span><br><span class="line">        <span class="comment">//check all tx in current block</span></span><br><span class="line">		<span class="keyword">for</span> _, tx := <span class="keyword">range</span> block.Transactions &#123;</span><br><span class="line">			txID := hex.EncodeToString(tx.ID)</span><br><span class="line"></span><br><span class="line">		Outputs:</span><br><span class="line">			<span class="keyword">for</span> outIdx, out := <span class="keyword">range</span> tx.Vout &#123;</span><br><span class="line">				<span class="comment">// Was the output spent?</span></span><br><span class="line">				<span class="keyword">if</span> spentTXOs[txID] != <span class="literal">nil</span> &#123;</span><br><span class="line">					<span class="keyword">for</span> _, spentOut := <span class="keyword">range</span> spentTXOs[txID] &#123;</span><br><span class="line">                        <span class="comment">//skip spent output of current tx</span></span><br><span class="line">						<span class="keyword">if</span> spentOut == outIdx &#123;</span><br><span class="line">							<span class="keyword">continue</span> Outputs</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">                <span class="comment">// If current tx contains output that can be unlocked, and this output is not spent yet, add it to unspent transactions</span></span><br><span class="line">				<span class="keyword">if</span> out.CanBeUnlockedWith(address) &#123;</span><br><span class="line">					unspentTXs = <span class="built_in">append</span>(unspentTXs, *tx)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//if not genesis block, then current tx must spent some tx before</span></span><br><span class="line">            <span class="comment">//mark the referenced input as spent in the previous tx </span></span><br><span class="line">			<span class="keyword">if</span> tx.IsCoinbase() == <span class="literal">false</span> &#123;</span><br><span class="line">				<span class="keyword">for</span> _, in := <span class="keyword">range</span> tx.Vin &#123;</span><br><span class="line">					<span class="keyword">if</span> in.CanUnlockOutputWith(address) &#123;</span><br><span class="line">						inTxID := hex.EncodeToString(in.Txid)</span><br><span class="line">						spentTXOs[inTxID] = <span class="built_in">append</span>(spentTXOs[inTxID], in.Vout)</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(block.PrevBlockHash) == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> unspentTXs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>The previous function returns a list of transactions containing unspent outputs. To calculate balance we need one more function that takes the transactions and returns only outputs:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(bc *Blockchain)</span></span> FindUTXO(address <span class="type">string</span>) []TXOutput &#123;</span><br><span class="line">       <span class="keyword">var</span> UTXOs []TXOutput</span><br><span class="line">       unspentTransactions := bc.FindUnspentTransactions(address)</span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span> _, tx := <span class="keyword">range</span> unspentTransactions &#123;</span><br><span class="line">               <span class="keyword">for</span> _, out := <span class="keyword">range</span> tx.Vout &#123;</span><br><span class="line">                       <span class="keyword">if</span> out.CanBeUnlockedWith(address) &#123;</span><br><span class="line">                               UTXOs = <span class="built_in">append</span>(UTXOs, out)</span><br><span class="line">                       &#125;</span><br><span class="line">               &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> UTXOs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Sending-Coins"><a href="#Sending-Coins" class="headerlink" title="Sending Coins"></a>Sending Coins</h2><p>Now, we want to send some coins to someone else. For this, we need to create a new transaction, put it in a block, and mine the block.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(bc *Blockchain)</span></span> FindSpendableOutputs(address <span class="type">string</span>, amount <span class="type">int</span>) (<span class="type">int</span>, <span class="keyword">map</span>[<span class="type">string</span>][]<span class="type">int</span>) &#123;</span><br><span class="line">	unspentOutputs := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>][]<span class="type">int</span>)</span><br><span class="line">	unspentTXs := bc.FindUnspentTransactions(address)</span><br><span class="line">	accumulated := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">Work:</span><br><span class="line">	<span class="keyword">for</span> _, tx := <span class="keyword">range</span> unspentTXs &#123;</span><br><span class="line">		txID := hex.EncodeToString(tx.ID)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> outIdx, out := <span class="keyword">range</span> tx.Vout &#123;</span><br><span class="line">			<span class="keyword">if</span> out.CanBeUnlockedWith(address) &amp;&amp; accumulated &lt; amount &#123;</span><br><span class="line">				accumulated += out.Value</span><br><span class="line">				unspentOutputs[txID] = <span class="built_in">append</span>(unspentOutputs[txID], outIdx)</span><br><span class="line"></span><br><span class="line">                <span class="comment">//once accumulate enough for transaction, not need to further search</span></span><br><span class="line">				<span class="keyword">if</span> accumulated &gt;= amount &#123;</span><br><span class="line">					<span class="keyword">break</span> Work</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> accumulated, unspentOutputs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewUTXOTransaction</span><span class="params">(from, to <span class="type">string</span>, amount <span class="type">int</span>, bc *Blockchain)</span></span> *Transaction &#123;</span><br><span class="line">	<span class="keyword">var</span> inputs []TXInput</span><br><span class="line">	<span class="keyword">var</span> outputs []TXOutput</span><br><span class="line"></span><br><span class="line">	acc, validOutputs := bc.FindSpendableOutputs(from, amount)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> acc &lt; amount &#123;</span><br><span class="line">		log.Panic(<span class="string">&quot;ERROR: Not enough funds&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Build a list of inputs</span></span><br><span class="line">	<span class="keyword">for</span> txid, outs := <span class="keyword">range</span> validOutputs &#123;</span><br><span class="line">		txID, err := hex.DecodeString(txid)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> _, out := <span class="keyword">range</span> outs &#123;</span><br><span class="line">			input := TXInput&#123;txID, out, from&#125;</span><br><span class="line">			inputs = <span class="built_in">append</span>(inputs, input)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Build a list of outputs</span></span><br><span class="line">    <span class="comment">// receiver receives the coin</span></span><br><span class="line">	outputs = <span class="built_in">append</span>(outputs, TXOutput&#123;amount, to&#125;)</span><br><span class="line">	<span class="keyword">if</span> acc &gt; amount &#123;</span><br><span class="line">		outputs = <span class="built_in">append</span>(outputs, TXOutput&#123;acc - amount, from&#125;) <span class="comment">// sender receives a change, if any</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	tx := Transaction&#123;<span class="literal">nil</span>, inputs, outputs&#125;</span><br><span class="line">	tx.SetID()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &amp;tx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h2><h3 id="UTXO-set"><a href="#UTXO-set" class="headerlink" title="UTXO set"></a>UTXO set</h3><p>As of September 18, 2017, there’re 485,860 blocks in Bitcoin and the whole database takes 140+ Gb of disk space. This means that one has to run a full node to validate transactions. Moreover, validating transactions would require iterating over many blocks.</p>
+<p>The solution to the problem is to have an index that stores only unspent outputs, and this is what the UTXO set does: this is <strong>a cache that is built from all blockchain transactions</strong> (by iterating over blocks, yes, but this is done only once), and is later used to calculate balance and validate new transactions. The UTXO set is about 2.7 Gb as of September 2017.</p>
+<h3 id="Merkle-Tree"><a href="#Merkle-Tree" class="headerlink" title="Merkle Tree"></a>Merkle Tree</h3><p>As it was said above, the full Bitcoin database (i.e., blockchain) takes more than 140 Gb of disk space. Because of the decentralized nature of Bitcoin, every node in the network must be independent and self-sufficient, i.e. every node must store a full copy of the blockchain. With many people starting using Bitcoin, this rule becomes more difficult to follow: it’s not likely that everyone will run a full node. Also, since nodes are full-fledged participants of the network, they have responsibilities: they must verify transactions and blocks. Also, there’s certain internet traffic required to interact with other nodes and download new blocks.</p>
+<p>In <a target="_blank" rel="noopener" href="https://bitcoin.org/bitcoin.pdf">the original Bitcoin paper</a> published by Satoshi Nakamoto, there was a solution for this problem: Simplified Payment Verification (SPV). SPV is a light Bitcoin node that doesn’t download the whole blockchain and <strong>doesn’t verify blocks and transactions</strong>. Instead, it finds transactions in blocks (to verify payments) and is linked to a full node to retrieve just necessary data. This mechanism allows having multiple light wallet nodes with running just one full node.</p>
+<p>For SPV to be possible, there should be a way to <strong>check if a block contains certain transaction without downloading the whole block</strong>. And this is where Merkle tree comes into play.</p>
+<p><img src="/images/blockchain/merkle.png"></p>
+<p>The benefit of Merkle trees is that a node can verify membership of certain transaction without downloading the whole block. Just a transaction hash, a Merkle tree root hash, and a Merkle path are required for this.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MerkleTree <span class="keyword">struct</span> &#123;</span><br><span class="line">    RootNode *MerkleNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MerkleNode <span class="keyword">struct</span> &#123;</span><br><span class="line">    Left  *MerkleNode</span><br><span class="line">    Right *MerkleNode</span><br><span class="line">    Data  []<span class="type">byte</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMerkleNode</span><span class="params">(left, right *MerkleNode, data []<span class="type">byte</span>)</span></span> *MerkleNode &#123;</span><br><span class="line">    mNode := MerkleNode&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left == <span class="literal">nil</span> &amp;&amp; right == <span class="literal">nil</span> &#123;</span><br><span class="line">        hash := sha256.Sum256(data)</span><br><span class="line">        mNode.Data = hash[:]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        prevHashes := <span class="built_in">append</span>(left.Data, right.Data...)</span><br><span class="line">        hash := sha256.Sum256(prevHashes)</span><br><span class="line">        mNode.Data = hash[:]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mNode.Left = left</span><br><span class="line">    mNode.Right = right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &amp;mNode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMerkleTree</span><span class="params">(data [][]<span class="type">byte</span>)</span></span> *MerkleTree &#123;</span><br><span class="line">    <span class="keyword">var</span> nodes []MerkleNode</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data)%<span class="number">2</span> != <span class="number">0</span> &#123;</span><br><span class="line">        data = <span class="built_in">append</span>(data, data[<span class="built_in">len</span>(data)<span class="number">-1</span>])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, datum := <span class="keyword">range</span> data &#123;</span><br><span class="line">        node := NewMerkleNode(<span class="literal">nil</span>, <span class="literal">nil</span>, datum)</span><br><span class="line">        nodes = <span class="built_in">append</span>(nodes, *node)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(data)/<span class="number">2</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">var</span> newLevel []MerkleNode</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="built_in">len</span>(nodes); j += <span class="number">2</span> &#123;</span><br><span class="line">            node := NewMerkleNode(&amp;nodes[j], &amp;nodes[j+<span class="number">1</span>], <span class="literal">nil</span>)</span><br><span class="line">            newLevel = <span class="built_in">append</span>(newLevel, *node)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        nodes = newLevel</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mTree := MerkleTree&#123;&amp;nodes[<span class="number">0</span>]&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &amp;mTree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Blockchain-Addresses"><a href="#Blockchain-Addresses" class="headerlink" title="Blockchain Addresses"></a>Blockchain Addresses</h1><p><img src="/images/blockchain/address.png"></p>
+<p>Here’s an example of a Bitcoin address: <a target="_blank" rel="noopener" href="https://blockchain.info/address/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</a>. This is the very first Bitcoin address, which allegedly belongs to Satoshi Nakamoto. Bitcoin addresses are public. If you want to send coins to someone, you need to know their address. But addresses (despite being unique) are not something that identifies you as the owner of a “wallet”. In fact, such addresses are a human readable representation of public keys. In Bitcoin, your identity is a pair (or pairs) of private and public keys stored on your computer (or stored in some other place you have access to). Bitcoin relies on a combination of cryptography algorithms to create these keys, and guarantee that no one else in the world can access your coins without getting physical access to your keys. Let’s discuss what these algorithms are.</p>
+<h2 id="Public-key-Cryptography"><a href="#Public-key-Cryptography" class="headerlink" title="Public-key Cryptography"></a>Public-key Cryptography</h2><p>Public-key cryptography algorithms use pairs of keys: public keys and private keys. Public keys are not sensitive and can be disclosed to anyone. In contrast, private keys shouldn’t be disclosed: no one but the owner should have access to them because it’s private keys that serve as the identifier of the owner. <strong>You are your private keys</strong> (in the world of cryptocurrencies, of course).</p>
+<blockquote>
+<p>If you’ve ever used a Bitcoin wallet application, it’s likely that a mnemonic pass phrase was generated for you. Such phrases are used instead of private keys and can be used to generate them. This mechanism is implemented in <a target="_blank" rel="noopener" href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP-039</a><em>.</em></p>
+</blockquote>
+<p>In essence, a Bitcoin wallet is just a pair of such keys. When you install a wallet application or use a Bitcoin client to generate a new address, a pair of keys is generated for you. The one who controls the private key controls all the coins sent to this key in Bitcoin.</p>
+<h2 id="Digital-Signatures"><a href="#Digital-Signatures" class="headerlink" title="Digital Signatures"></a>Digital Signatures</h2><p>In mathematics and cryptography, there’s a concept of digital signature – algorithms that guarantee:</p>
+<ol>
+<li>that data wasn’t modified while being transferred from a sender to a recipient;</li>
+<li>that data was created by a certain sender;</li>
+<li>that the sender cannot deny sending the data.</li>
+</ol>
+<p>By applying a signing algorithm to data (i.e., signing the data), one gets a signature, which can later be verified. <strong>Digital signing</strong> happens with the usage of a <strong>private key</strong>, and <strong>verification</strong> requires a <strong>public key</strong>.</p>
+<p>In order to sign data we need the following things:</p>
+<ol>
+<li>data to sign;</li>
+<li>private key.</li>
+</ol>
+<p>The operation of signing produces a signature, which is stored in transaction inputs. In order to verify a signature, the following is required:</p>
+<ol>
+<li>data that was signed;</li>
+<li>the signature;</li>
+<li>public key.</li>
+</ol>
+<blockquote>
+<p>Digital signatures are not encryption, you cannot reconstruct the data from a signature. This is similar to hashing: you run data through a hashing algorithm and get a unique representation of the data. The difference between signatures and hashes is key pairs: they make signature verification possible.<br>But key pairs can also be used to encrypt data: a private key is used to encrypt, and a public key is used to decrypt the data. Bitcoin doesn’t use encryption algorithms though.</p>
+</blockquote>
+<p>Every transaction input in Bitcoin is signed by the one who created the transaction. Every transaction in Bitcoin must be verified before being put in a block. Verification means (besides other procedures):</p>
+<ol>
+<li>Checking that inputs have permission to use outputs from previous transactions.</li>
+<li>Checking that the transaction signature is correct.</li>
+</ol>
+<p>Schematically, the process of signing data and verifying signature looks likes this:</p>
+<p><img src="/images/blockchain/signing.png"></p>
+<p>Let’s now review the full lifecycle of a transaction:</p>
+<ol>
+<li>In the beginning, there’s the genesis block that contains a coinbase transaction. There are no real inputs in coinbase transactions, so signing is not necessary. The output of the coinbase transaction contains a hashed public key (<code>RIPEMD16(SHA256(PubKey))</code> algorithms are used).</li>
+<li>When one sends coins, a transaction is created. Inputs of the transaction will reference outputs from previous transaction(s). Every input will store a public key (not hashed) and a signature of the whole transaction.</li>
+<li>Other nodes in the Bitcoin network that receive the transaction will verify it. Besides other things, they will check that: the hash of the public key in an input matches the hash of the referenced output (this ensures that the sender <strong>spends only coins belonging to them</strong>); the signature is correct (this ensures that the <strong>transaction is created by the real owner of the coins</strong>).</li>
+<li>When a miner node is ready to mine a new block, it’ll put the transaction in a block and start mining it.</li>
+<li>When the blocked is mined, every other node in the network receives a message saying the block is mined and adds the block to the blockchain.</li>
+<li>After a block is added to the blockchain, the transaction is completed, its outputs can be referenced in new transactions.</li>
+</ol>
+<h2 id="Elliptic-Curve-Cryptography"><a href="#Elliptic-Curve-Cryptography" class="headerlink" title="Elliptic Curve Cryptography"></a>Elliptic Curve Cryptography</h2><p>As described above, public and private keys are sequences of random bytes. Since it’s private keys that are used to identify owners of coins, there’s a required condition: the randomness algorithm must produce truly random bytes. We don’t want to accidentally generate a private key that’s owned by someone else.</p>
+<p>Bitcoin uses elliptic curves to generate private keys. Elliptic curves is a complex mathematical concept, which we’re not going to explain in details here (if you’re curious, check out <a target="_blank" rel="noopener" href="http://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/">this gentle introduction to elliptic curves</a> WARNING: Math formulas!). What we need to know is that these curves can be used to generate really big and random numbers. The curve used by Bitcoin can randomly pick a number between 0 and 2²⁵⁶ (which is approximately 10⁷⁷, when there are between 10⁷⁸ and 10⁸² atoms in the visible universe). Such a huge upper limit means that it’s <strong>almost impossible to generate the same private key twice</strong>.</p>
+<p>Also, Bitcoin uses (and we will) ECDSA (Elliptic Curve Digital Signature Algorithm) algorithm to sign transactions.</p>
+<h2 id="Implementing-Address"><a href="#Implementing-Address" class="headerlink" title="Implementing Address"></a>Implementing Address</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Wallet <span class="keyword">struct</span> &#123;</span><br><span class="line">	PrivateKey ecdsa.PrivateKey</span><br><span class="line">	PublicKey  []<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Wallets <span class="keyword">struct</span> &#123;</span><br><span class="line">	Wallets <span class="keyword">map</span>[<span class="type">string</span>]*Wallet</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewWallet</span><span class="params">()</span></span> *Wallet &#123;</span><br><span class="line">	private, public := newKeyPair()</span><br><span class="line">	wallet := Wallet&#123;private, public&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &amp;wallet</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newKeyPair</span><span class="params">()</span></span> (ecdsa.PrivateKey, []<span class="type">byte</span>) &#123;</span><br><span class="line">	curve := elliptic.P256()</span><br><span class="line">	private, err := ecdsa.GenerateKey(curve, rand.Reader)</span><br><span class="line">	pubKey := <span class="built_in">append</span>(private.PublicKey.X.Bytes(), private.PublicKey.Y.Bytes()...)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> *private, pubKey</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w Wallet)</span></span> GetAddress() []<span class="type">byte</span> &#123;</span><br><span class="line">	pubKeyHash := HashPubKey(w.PublicKey)</span><br><span class="line"></span><br><span class="line">	versionedPayload := <span class="built_in">append</span>([]<span class="type">byte</span>&#123;version&#125;, pubKeyHash...)</span><br><span class="line">	checksum := checksum(versionedPayload)</span><br><span class="line"></span><br><span class="line">	fullPayload := <span class="built_in">append</span>(versionedPayload, checksum...)</span><br><span class="line">	address := Base58Encode(fullPayload)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> address</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HashPubKey</span><span class="params">(pubKey []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	publicSHA256 := sha256.Sum256(pubKey)</span><br><span class="line"></span><br><span class="line">	RIPEMD160Hasher := ripemd160.New()</span><br><span class="line">	_, err := RIPEMD160Hasher.Write(publicSHA256[:])</span><br><span class="line">	publicRIPEMD160 := RIPEMD160Hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> publicRIPEMD160</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">checksum</span><span class="params">(payload []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	firstSHA := sha256.Sum256(payload)</span><br><span class="line">	secondSHA := sha256.Sum256(firstSHA[:])</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> secondSHA[:addressChecksumLen]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Here are the steps to convert a public key into a Base58 address:</p>
+<ol>
+<li><p>Take the public key and hash it twice with <code>RIPEMD160(SHA256(PubKey))</code> hashing algorithms.</p>
+</li>
+<li><p>Prepend the version of the address generation algorithm to the hash.</p>
+</li>
+<li><p>Calculate the checksum by hashing the result of step 2 with <code>SHA256(SHA256(payload))</code>. The checksum is the first four bytes of the resulted hash.</p>
+</li>
+<li><p>Append the checksum to the <code>version+PubKeyHash</code> combination.</p>
+</li>
+<li><p>Encode the <code>version+PubKeyHash+checksum</code> combination with Base58.</p>
+</li>
+</ol>
+<p>As a result, you’ll get a <strong>real Bitcoin address</strong>, you can even check its balance on <a target="_blank" rel="noopener" href="https://blockchain.info/">blockchain.info</a>. But I can assure you that the balance is 0 no matter how many times you generate a new address and check its balance. This is why choosing proper public-key cryptography algorithm is so crucial: considering private keys are random numbers, the chance of generating the same number must be as low as possible. Ideally, it must be as low as “never”.</p>
+<h2 id="Implementing-Signature"><a href="#Implementing-Signature" class="headerlink" title="Implementing Signature"></a>Implementing Signature</h2><p>Considering that transactions unlock previous outputs, redistribute their values, and lock new outputs, the following data must be signed:</p>
+<ol>
+<li>Public key hashes stored in unlocked outputs. This identifies “sender” of a transaction.</li>
+<li>Public key hashes stored in new, locked, outputs. This identifies “recipient” of a transaction.</li>
+<li>Values of new outputs.</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tx *Transaction)</span></span> Sign(privKey ecdsa.PrivateKey, prevTXs <span class="keyword">map</span>[<span class="type">string</span>]Transaction) &#123;</span><br><span class="line">	<span class="keyword">if</span> tx.IsCoinbase() &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	txCopy := tx.TrimmedCopy()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> inID, vin := <span class="keyword">range</span> txCopy.Vin &#123;</span><br><span class="line">		prevTx := prevTXs[hex.EncodeToString(vin.Txid)]</span><br><span class="line">		txCopy.Vin[inID].Signature = <span class="literal">nil</span></span><br><span class="line">		txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash</span><br><span class="line">		txCopy.ID = txCopy.Hash()</span><br><span class="line">		txCopy.Vin[inID].PubKey = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">		r, s, err := ecdsa.Sign(rand.Reader, &amp;privKey, txCopy.ID)</span><br><span class="line">		signature := <span class="built_in">append</span>(r.Bytes(), s.Bytes()...)</span><br><span class="line"></span><br><span class="line">		tx.Vin[inID].Signature = signature</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>As you can see, we don’t need to sign the public keys stored in inputs. Because of this, in Bitcoin, it’s not a transaction that’s signed, but its trimmed copy with inputs storing <code>ScriptPubKey</code> from referenced outputs.</p>
+<blockquote>
+<p>A detailed process of getting a trimmed transaction copy is described <a target="_blank" rel="noopener" href="https://en.bitcoin.it/wiki/File:Bitcoin_OpCheckSig_InDetail.png">here</a>. It’s likely to be outdated, but I didn’t manage to find a more reliable source of information.</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tx *Transaction)</span></span> TrimmedCopy() Transaction &#123;</span><br><span class="line">	<span class="keyword">var</span> inputs []TXInput</span><br><span class="line">	<span class="keyword">var</span> outputs []TXOutput</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, vin := <span class="keyword">range</span> tx.Vin &#123;</span><br><span class="line">		inputs = <span class="built_in">append</span>(inputs, TXInput&#123;vin.Txid, vin.Vout, <span class="literal">nil</span>, <span class="literal">nil</span>&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, vout := <span class="keyword">range</span> tx.Vout &#123;</span><br><span class="line">		outputs = <span class="built_in">append</span>(outputs, TXOutput&#123;vout.Value, vout.PubKeyHash&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	txCopy := Transaction&#123;tx.ID, inputs, outputs&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> txCopy</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Blockchain-Network"><a href="#Blockchain-Network" class="headerlink" title="Blockchain Network"></a>Blockchain Network</h1><p>Blockchain network is decentralized, which means there’re no servers that do stuff and clients that use servers to get or process data. In blockchain network there are nodes, and <strong>each node is a full-fledged member of the network</strong>. A node is everything: it’s both a client and a server. This is very important to keep in mind, because it’s very different from usual web applications.</p>
+<p>Blockchain network is a P2P (Peer-to-Peer) network, which means that nodes are connected directly to each other. It’s topology is flat, since there are no hierarchy in node roles. </p>
+<h2 id="Node-Roles"><a href="#Node-Roles" class="headerlink" title="Node Roles"></a>Node Roles</h2><p>Despite being full-fledged, blockchain nodes can play different roles in the network. Here they are:</p>
+<ol>
+<li>Miner.<br>Such nodes are run on powerful or specialized hardware (like ASIC), and their only goal is to mine new blocks as fast as possible. Miners are only possible in blockchains that use Proof-of-Work, because mining actually means solving PoW puzzles. In Proof-of-Stake blockchains, for example, there’s no mining.</li>
+<li>Full node.<br>These nodes validate blocks mined by miners and verify transactions. To do this, they must have the whole copy of blockchain. Also, such nodes perform such routing operations, like helping other nodes to discover each other.<br>It’s very crucial for network to have many full nodes, because it’s these nodes that make decisions: they decide if a block or transaction is valid.</li>
+<li>SPV.<br>SPV stands for <strong>Simplified Payment Verification</strong>. These nodes don’t store a full copy of blockchain, but they still able to verify transactions (not all of them, but a subset, for example, those that were sent to specific address). An SPV node depends on a full node to get data from, and there could be many SPV nodes connected to one full node. SPV makes wallet applications possible: one don’t need to download full blockchain, but still can verify their transactions.</li>
+</ol>
+<h2 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h2><p>So, what happens when you download, say, Bitcoin Core and run it for the first time? It has to connect to some node to downloaded the latest state of the blockchain. Considering that your computer is not aware of all, or some, Bitcoin nodes, what’s this node?</p>
+<p>Hardcoding a node address in Bitcoin Core would’ve been a mistake: the node could be attacked or shut down, which could result in new nodes not being able to join the network. Instead, in Bitcoin Core, there are <a target="_blank" rel="noopener" href="https://bitcoin.org/en/glossary/dns-seed">DNS seeds</a> hardcoded. These are not nodes, but DNS servers that know addresses of some nodes. When you start a clean Bitcoin Core, it’ll connect to one of the seeds and get a list of full nodes, which it’ll then download the blockchain from.</p>
+<p>In our implementation, there will be centralization though. We’ll have three nodes:</p>
+<ol>
+<li>The central node. This is the node all other nodes will connect to, and this is the node that’ll sends data between other nodes.</li>
+<li>A miner node. This node will store new transactions in mempool and when there’re enough of transactions, it’ll mine a new block.</li>
+<li>A wallet node. This node will be used to send coins between wallets. Unlike SPV nodes though, it’ll store a full copy of blockchain.</li>
+</ol>
+<h3 id="The-Scenario"><a href="#The-Scenario" class="headerlink" title="The Scenario"></a>The Scenario</h3><p>The goal of this part is to implement the following scenario:</p>
+<ol>
+<li>The central node creates a blockchain.</li>
+<li>Other (wallet) node connects to it and downloads the blockchain.</li>
+<li>One more (miner) node connects to the central node and downloads the blockchain.</li>
+<li>The wallet node creates a transaction.</li>
+<li>The miner nodes receives the transaction and keeps it in its memory pool.</li>
+<li>When there are enough transactions in the memory pool, the miner starts mining a new block.</li>
+<li>When a new block is mined, it’s send to the central node.</li>
+<li>The wallet node synchronizes with the central node.</li>
+<li>User of the wallet node checks that their payment was successful.</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>invincible-nerd
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://invincible-nerd.github.io/2023/10/17/Blockchain-in-Go/" title="Blockchain_in_Go">http://invincible-nerd.github.io/2023/10/17/Blockchain-in-Go/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/09/Weekly-Contest-2/" rel="prev" title="Weekly-Contest-2">
+      <i class="fa fa-chevron-left"></i> Weekly-Contest-2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Blockchain-Proof-of-Work"><span class="nav-number">1.</span> <span class="nav-text">Blockchain Proof-of-Work</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashcash"><span class="nav-number">1.1.</span> <span class="nav-text">Hashcash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">1.2.</span> <span class="nav-text">Implementation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blockchain-Transactions"><span class="nav-number">2.</span> <span class="nav-text">Blockchain Transactions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TXOutput"><span class="nav-number">2.1.</span> <span class="nav-text">TXOutput</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TXInput"><span class="nav-number">2.2.</span> <span class="nav-text">TXInput</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unspent-Transaction-Outputs"><span class="nav-number">2.3.</span> <span class="nav-text">Unspent Transaction Outputs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sending-Coins"><span class="nav-number">2.4.</span> <span class="nav-text">Sending Coins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimization"><span class="nav-number">2.5.</span> <span class="nav-text">Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UTXO-set"><span class="nav-number">2.5.1.</span> <span class="nav-text">UTXO set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merkle-Tree"><span class="nav-number">2.5.2.</span> <span class="nav-text">Merkle Tree</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blockchain-Addresses"><span class="nav-number">3.</span> <span class="nav-text">Blockchain Addresses</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Public-key-Cryptography"><span class="nav-number">3.1.</span> <span class="nav-text">Public-key Cryptography</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Digital-Signatures"><span class="nav-number">3.2.</span> <span class="nav-text">Digital Signatures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elliptic-Curve-Cryptography"><span class="nav-number">3.3.</span> <span class="nav-text">Elliptic Curve Cryptography</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementing-Address"><span class="nav-number">3.4.</span> <span class="nav-text">Implementing Address</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementing-Signature"><span class="nav-number">3.5.</span> <span class="nav-text">Implementing Signature</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blockchain-Network"><span class="nav-number">4.</span> <span class="nav-text">Blockchain Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-Roles"><span class="nav-number">4.1.</span> <span class="nav-text">Node Roles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation-1"><span class="nav-number">4.2.</span> <span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Scenario"><span class="nav-number">4.2.1.</span> <span class="nav-text">The Scenario</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">invincible-nerd</p>
+  <div class="site-description" itemprop="description">For explorer everywhere</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022-04 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">invincible-nerd</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">1.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">17:31</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
