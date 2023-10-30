@@ -190,6 +190,167 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/10/24/Q&&A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="invincible-nerd">
+      <meta itemprop="description" content="For explorer everywhere">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IVN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/24/Q&&A/" class="post-title-link" itemprop="url">Q&A</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-10-24 15:09:13" itemprop="dateCreated datePublished" datetime="2023-10-24T15:09:13+08:00">2023-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-25 07:07:57" itemprop="dateModified" datetime="2023-10-25T07:07:57+08:00">2023-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="CS-Concepts"><a href="#CS-Concepts" class="headerlink" title="CS Concepts"></a>CS Concepts</h1><h2 id="DRAM-vs-SRAM-vs-flip-flops"><a href="#DRAM-vs-SRAM-vs-flip-flops" class="headerlink" title="DRAM vs SRAM vs flip-flops"></a>DRAM vs SRAM vs flip-flops</h2><p>DRAM stores data using the charge on a capacitor. The charge slowly leaks away, so it needs to be “refreshed” periodically by reading and re-writing the data (in practice, the read alone also does the re-write for reasons we don’t need to go into yet). That’s why it’s “<strong>dynamic</strong>”: <strong>if you don’t refresh it actively, the data goes away</strong>. DRAM requires <strong>1 transistor per bit</strong>. DRAM is extremely dense, but very slow. It has a single port that’s used for reading and for writing.</p>
+<ul>
+<li><p>rows and columns of capacitors, random access</p>
+</li>
+<li><p>even only read, must read and write, charge and recharge capacitors</p>
+</li>
+<li><p>slow and costly to switch rows (scattered reads)</p>
+<ul>
+<li>On A100, memory bandwidth for widely-spaced reads is only <strong>8%</strong> of peak bandwidth</li>
+</ul>
+</li>
+</ul>
+<p>SRAM is “static” RAM: it holds data forever. The data is stored in <strong>two inverters driving each other in a loop</strong>, and to write new data, stronger transistors overpower the tiny ones in the inverter. It requires <strong>6 or 8 transistors per bit</strong> depending on the design you choose. SRAM is fairly dense, and medium speed. It’s often either single-ported or has one read port and one write port, but you can build SRAMs with more ports.</p>
+<p>Flip flops have different ways of storing their data but it’s often “tristate” inverters driving each other in a loop, with <em>two</em> of those loops per bit. It’s like 20 transistors per bit - extremely poor density but extremely fast. Flip flop arrays can have arbitrary numbers of read and write ports. Flip flops are also used individually, not as part of arrays, to store random bits of state all over the place.</p>
+<h2 id="Why-is-CUDA-the-way-it-is"><a href="#Why-is-CUDA-the-way-it-is" class="headerlink" title="Why is CUDA the way it is?"></a>Why is CUDA the way it is?</h2><p>Key fact:</p>
+<ul>
+<li>memory system can only feed about one-sixth of what the execution resources can request</li>
+<li>the primary limiting factor is memory</li>
+</ul>
+<p>workstream: </p>
+<ol>
+<li>Copy to GPU</li>
+<li>Process</li>
+<li>Copy from GPU</li>
+</ol>
+<p>For opmitimal performance, CUDA:</p>
+<ul>
+<li>customize hardware for programming language<ul>
+<li><strong>oversubscription</strong>: feed it a lot of concurrent work, so that it can pack things efficiently</li>
+</ul>
+</li>
+<li>customize programming language for hardware<ul>
+<li><strong>occupany</strong> is the most powerful tool for tuning a program<ul>
+<li>by changing memory layout</li>
+</ul>
+</li>
+<li>i.e., 3 blocks&#x2F;SM to 4 blocks&#x2F;SM</li>
+</ul>
+</li>
+</ul>
+<p>CUDA SM: Compute Unified Device Architecture Streaming Multiprocessor</p>
+<h3 id="CUDA’s-GPU-Execution-Hierarchy"><a href="#CUDA’s-GPU-Execution-Hierarchy" class="headerlink" title="CUDA’s GPU Execution Hierarchy"></a>CUDA’s GPU Execution Hierarchy</h3><ul>
+<li><p>grid of work</p>
+</li>
+<li><p>divided into many CUDA thread blocks</p>
+<ul>
+<li>A100 max blocks per SM: 32</li>
+<li>a block is broken up into “warps” of 32 threads,</li>
+<li>a <strong>warp</strong> is the vector element of the GPU, or <strong>execution unit</strong></li>
+</ul>
+</li>
+<li><p>many threads in each block</p>
+<ul>
+<li><strong>block size</strong>: the number of threads which must be concurrent<ul>
+<li>resource allocation unit</li>
+</ul>
+</li>
+<li><strong>shared memory</strong>: common to all threads in a block</li>
+<li>no cache, but large <strong>registers</strong> (up to 100 per thread)</li>
+<li>all thread runs exactly the same program (<strong>SIMT</strong>)</li>
+<li>within each thread, thread idx and block idx</li>
+</ul>
+</li>
+</ul>
+<p><strong>SIMD (Single Instruction, Multiple Data)</strong></p>
+<ul>
+<li>main thread controls everything</li>
+<li>explicit thread control (if else)</li>
+</ul>
+<p>CUDA is <strong>SIMT (Single Instruction, Multiple Threads)</strong></p>
+<ul>
+<li>each thread works independently, maintains its own state</li>
+<li>implicit thread control</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/10/17/Blockchain-in-Go/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -536,7 +697,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-17 11:18:38" itemprop="dateModified" datetime="2023-10-17T11:18:38+08:00">2023-10-17</time>
+                <time title="Modified: 2023-10-31 02:56:30" itemprop="dateModified" datetime="2023-10-31T02:56:30+08:00">2023-10-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -554,14 +715,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.1k</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
+              <span>4 mins.</span>
             </span>
 
         </div>
@@ -612,6 +773,22 @@
 
 <h2 id="2906-Construct-Product-Matrix"><a href="#2906-Construct-Product-Matrix" class="headerlink" title="2906. Construct Product Matrix"></a>2906. Construct Product Matrix</h2><p>经典空间换时间，use extra space for precomputation</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[][] constructProductMatrix(<span class="type">int</span>[][] grid) &#123;</span><br><span class="line">    <span class="type">int</span> row=grid.length;</span><br><span class="line">    <span class="type">int</span> col=grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span> mod=<span class="number">12345</span>;</span><br><span class="line">    <span class="type">int</span>[][] pre=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="type">int</span>[][] suf=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="type">long</span> p=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        Arrays.fill(pre[i],<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            pre[i][j]=(<span class="type">int</span>)p;</span><br><span class="line">            p*=grid[i][j];</span><br><span class="line">            p%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> s=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        Arrays.fill(suf[i],<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            suf[i][j]=(<span class="type">int</span>)s;</span><br><span class="line">            s*=grid[i][j];</span><br><span class="line">            s%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[][] res=<span class="keyword">new</span> <span class="title class_">int</span>[row][col];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            res[i][j]=pre[i][j]*suf[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2430-Maximum-Deletions-on-a-String"><a href="#2430-Maximum-Deletions-on-a-String" class="headerlink" title="2430. Maximum Deletions on a String"></a>2430. Maximum Deletions on a String</h2><p>思路：</p>
+<ol>
+<li>dp + substring.equals， <strong>113 &#x2F; 129</strong> test cases passed.</li>
+<li>dp + substring dp, use another dp array</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Time Limit Exceeded</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">deleteString</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n]; <span class="comment">//max of [i,n-1];</span></span><br><span class="line">    dp[n-<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n-<span class="number">2</span>; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">        dp[i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i; j&lt;n; j++)&#123;</span><br><span class="line">            <span class="comment">//j-i+1</span></span><br><span class="line">            <span class="comment">//[i,j] [j+1,2j-i+1]</span></span><br><span class="line">            <span class="type">int</span> c=<span class="number">2</span>*j-i+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(c&gt;=n)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(s.substring(i,j+<span class="number">1</span>).equals(s.substring(j+<span class="number">1</span>,c+<span class="number">1</span>)))&#123;</span><br><span class="line">                dp[i]=Math.max(dp[i],dp[j+<span class="number">1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">deleteString</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="comment">//the longest equal substring starting from s[i] and s[j]</span></span><br><span class="line">    <span class="type">int</span>[][] sub=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">                sub[i][j]=sub[i+<span class="number">1</span>][j+<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//[i,j-1] [j,2*j-i-1]</span></span><br><span class="line">            <span class="keyword">if</span>(sub[i][j]&gt;=j-i)&#123;</span><br><span class="line">                dp[i]=Math.max(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -2248,183 +2425,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://invincible-nerd.github.io/2023/04/06/JumpGame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="invincible-nerd">
-      <meta itemprop="description" content="For explorer everywhere">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IVN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/06/JumpGame/" class="post-title-link" itemprop="url">JumpGame</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-04-06 15:37:09" itemprop="dateCreated datePublished" datetime="2023-04-06T15:37:09+08:00">2023-04-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-11 07:51:33" itemprop="dateModified" datetime="2023-04-11T07:51:33+08:00">2023-04-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>7.2k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>7 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Jump-Game全家福"><a href="#Jump-Game全家福" class="headerlink" title="Jump Game全家福"></a>Jump Game全家福</h1><h2 id="1340-Jump-Game-V"><a href="#1340-Jump-Game-V" class="headerlink" title="1340. Jump Game V"></a>1340. Jump Game V</h2><p>dfs + memo</p>
-<p>注意逻辑：</p>
-<ul>
-<li>一旦出现跳不到的值，则break</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] dp;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxJumps</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> d)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=arr.length;</span><br><span class="line">    dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        max=Math.max(max,dfs(arr,i,d));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> cur, <span class="type">int</span> d)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[cur]!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[cur];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//jump right</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=cur+<span class="number">1</span>; j&lt;=Math.min(cur+d,arr.length-<span class="number">1</span>) &amp;&amp; arr[j]&lt;arr[cur]; j++)&#123;</span><br><span class="line">        res=Math.max(res,<span class="number">1</span>+dfs(arr,j,d));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//jump left</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=cur-<span class="number">1</span>; j&gt;=Math.max(cur-d,<span class="number">0</span>) &amp;&amp; arr[j]&lt;arr[cur]; j--)&#123;</span><br><span class="line">        res=Math.max(res,<span class="number">1</span>+dfs(arr,j,d));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[cur]=res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="55-Jump-Game"><a href="#55-Jump-Game" class="headerlink" title="55. Jump Game"></a>55. Jump Game</h2><p>思路：</p>
-<ul>
-<li>lastGoodIndex, 倒叙考察</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canJump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> lastGood=nums.length-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> nums.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i+nums[i]&gt;=lastGood)&#123;</span><br><span class="line">            lastGood=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lastGood==<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="45-Jump-Game-II"><a href="#45-Jump-Game-II" class="headerlink" title="45. Jump Game II"></a>45. Jump Game II</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">jump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="comment">// The starting range of the first jump is [0, 0]</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> <span class="number">0</span>, n = nums.length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">curEnd</span> <span class="operator">=</span> <span class="number">0</span>, curFar = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        <span class="comment">// Update the farthest reachable index of this jump.</span></span><br><span class="line">        curFar = Math.max(curFar, i + nums[i]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If we finish the starting range of this jump,</span></span><br><span class="line">        <span class="comment">// Move on to the starting range of the next jump.</span></span><br><span class="line">        <span class="keyword">if</span> (i == curEnd) &#123;</span><br><span class="line">            answer++;</span><br><span class="line">            curEnd = curFar;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1306-Jump-Game-III"><a href="#1306-Jump-Game-III" class="headerlink" title="1306. Jump Game III"></a>1306. Jump Game III</h2><p>dfs也可以用visited[]去重</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span>[] visited;</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canReach</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> start)</span> &#123;</span><br><span class="line">    visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[arr.length];</span><br><span class="line">    <span class="keyword">return</span> dfs(arr,start);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> cur)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cur&lt;<span class="number">0</span> || cur&gt;=arr.length || visited[cur])&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[cur]=<span class="literal">true</span>;</span><br><span class="line">    <span class="type">boolean</span> res=arr[cur]==<span class="number">0</span> || dfs(arr,cur+arr[cur]) || dfs(arr,cur-arr[cur]);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1345-Jump-Game-IV"><a href="#1345-Jump-Game-IV" class="headerlink" title="1345. Jump Game IV"></a>1345. Jump Game IV</h2><p>TLE: <strong>26 &#x2F; 33</strong> test cases passed.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minJumps</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=arr.length;</span><br><span class="line">    Map&lt;Integer, List&lt;Integer&gt;&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        map.putIfAbsent(arr[i],<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        map.get(arr[i]).add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> d=<span class="number">0</span>;</span><br><span class="line">    <span class="type">boolean</span>[] visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    Deque&lt;Integer&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(<span class="number">0</span>);</span><br><span class="line">    visited[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> size=q.size();</span><br><span class="line">        <span class="keyword">while</span>(size--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span> cur=q.poll();</span><br><span class="line">            <span class="keyword">if</span>(cur==n-<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> d;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cur-<span class="number">1</span>&gt;=<span class="number">0</span> &amp;&amp; !visited[cur-<span class="number">1</span>])&#123;</span><br><span class="line">                q.offer(cur-<span class="number">1</span>);</span><br><span class="line">                visited[cur-<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cur+<span class="number">1</span>&lt;n &amp;&amp; !visited[cur+<span class="number">1</span>])&#123;</span><br><span class="line">                q.offer(cur+<span class="number">1</span>);</span><br><span class="line">                visited[cur+<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (Integer next : map.get(arr[cur])) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!visited[next])&#123;</span><br><span class="line">                    q.offer(next);</span><br><span class="line">                    visited[next]=<span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        d++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minJumps</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=arr.length;</span><br><span class="line">    Map&lt;Integer, List&lt;Integer&gt;&gt; map=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        map.putIfAbsent(arr[i],<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        map.get(arr[i]).add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> d=<span class="number">0</span>;</span><br><span class="line">    <span class="type">boolean</span>[] visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    Deque&lt;Integer&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(<span class="number">0</span>);</span><br><span class="line">    visited[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> size=q.size();</span><br><span class="line">        <span class="keyword">while</span>(size--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span> cur=q.poll();</span><br><span class="line">            <span class="keyword">if</span>(cur==n-<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> d;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cur-<span class="number">1</span>&gt;=<span class="number">0</span> &amp;&amp; !visited[cur-<span class="number">1</span>])&#123;</span><br><span class="line">                q.offer(cur-<span class="number">1</span>);</span><br><span class="line">                visited[cur-<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cur+<span class="number">1</span>&lt;n &amp;&amp; !visited[cur+<span class="number">1</span>])&#123;</span><br><span class="line">                q.offer(cur+<span class="number">1</span>);</span><br><span class="line">                visited[cur+<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (Integer next : map.get(arr[cur])) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!visited[next])&#123;</span><br><span class="line">                    q.offer(next);</span><br><span class="line">                    visited[next]=<span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//one small step makes a huge difference</span></span><br><span class="line">            map.get(arr[cur]).clear();</span><br><span class="line">        &#125;</span><br><span class="line">        d++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1696-Jump-Game-VI"><a href="#1696-Jump-Game-VI" class="headerlink" title="1696. Jump Game VI"></a>1696. Jump Game VI</h2><p>TLE:  <strong>60 &#x2F; 72</strong> test cases passed.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxResult</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n]; <span class="comment">//maximum score when arriving i</span></span><br><span class="line">    Arrays.fill(dp,Integer.MIN_VALUE);</span><br><span class="line">    dp[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>; j&lt;n &amp;&amp; j&lt;=i+k; j++)&#123;</span><br><span class="line">            dp[j]=Math.max(dp[j],dp[i]+nums[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Priority Queue Approcah:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxResult</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n]; <span class="comment">//maximum score when arriving i</span></span><br><span class="line">    Arrays.fill(dp,Integer.MIN_VALUE);</span><br><span class="line">    dp[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">    PriorityQueue&lt;Integer&gt; pq=<span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;(dp[b]-dp[a]));</span><br><span class="line">    pq.offer(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(pq.peek()+k&lt;i)&#123;</span><br><span class="line">            pq.poll();</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i]=nums[i]+dp[pq.peek()];</span><br><span class="line">        pq.offer(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/jump-game-vi/discuss/1260843/C%2B%2BJavaPython-DP-and-Decreasing-Deque-Clean-and-Concise-Time-O(N)-Space-O(K)">https://leetcode.com/problems/jump-game-vi/discuss/1260843/C%2B%2BJavaPython-DP-and-Decreasing-Deque-Clean-and-Concise-Time-O(N)-Space-O(K)</a></p>
-<p>In <strong>Decreasing Deque</strong> approach:</p>
-<ul>
-<li>We used a deque to store indices of nums elements, elements is in decreasing order, the front is the maximum element.</li>
-<li>When adding a new number nums[i], we eliminate elements which is less or equal to nums[i] in deque, which will never be chosen in the future.</li>
-<li>Push index of current nums[i] to back of the deque.</li>
-<li>If the last element in deque is out of range K then remove it.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxResult</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Deque&lt;Integer&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offerLast(<span class="number">0</span>);</span><br><span class="line">    dp[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(q.peekFirst()+k&lt;i)&#123;</span><br><span class="line">            q.pollFirst();</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i]=nums[i]+dp[q.peekFirst()];</span><br><span class="line">        <span class="keyword">while</span>(!q.isEmpty() &amp;&amp; dp[q.peekLast()]&lt;=dp[i])&#123;</span><br><span class="line">            <span class="comment">//older and lesser -&gt; inferior, won&#x27;t be used in future</span></span><br><span class="line">            q.pollLast();</span><br><span class="line">        &#125;</span><br><span class="line">        q.offerLast(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="1871-Jump-Game-VII"><a href="#1871-Jump-Game-VII" class="headerlink" title="1871. Jump Game VII"></a>1871. Jump Game VII</h2><p>经典O(n^2)超时的”10^5”</p>
-<p><strong>107 &#x2F; 142</strong> test cases passed.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canReach</span><span class="params">(String s, <span class="type">int</span> minJump, <span class="type">int</span> maxJump)</span> &#123;</span><br><span class="line">    <span class="type">char</span>[] chars=s.toCharArray();</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="keyword">if</span>(chars[n-<span class="number">1</span>]==<span class="string">&#x27;1&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;Integer&gt; q=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(<span class="number">0</span>);</span><br><span class="line">    <span class="type">boolean</span>[] visited=<span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    visited[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> cur=q.poll();</span><br><span class="line">        <span class="keyword">if</span>(cur==n-<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=cur+minJump; i&lt;=cur+maxJump &amp;&amp; i&lt;n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!visited[i] &amp;&amp; chars[i]==<span class="string">&#x27;0&#x27;</span>)&#123;</span><br><span class="line">                visited[i]=<span class="literal">true</span>;</span><br><span class="line">                q.offer(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>(hint: Use partial sums to mark the intervals as reachable.)</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/jump-game-vii/discuss/1224804/JavaC%2B%2BPython-One-Pass-DP">https://leetcode.com/problems/jump-game-vii/discuss/1224804/JavaC%2B%2BPython-One-Pass-DP</a></p>
-<p>dp + sliding window    太妙了！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canReach</span><span class="params">(String s, <span class="type">int</span> minJump, <span class="type">int</span> maxJump)</span> &#123;</span><br><span class="line">    <span class="comment">//i: [i-maxJump,i-minJump]</span></span><br><span class="line">    <span class="comment">//i-1: [i-maxJump-1, i-minJump-1]</span></span><br><span class="line">    <span class="comment">//from i-1 to i: increase i-minJump, decrease i-maxJump-1</span></span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="type">char</span>[] chars=s.toCharArray();</span><br><span class="line">    <span class="type">boolean</span>[] dp=<span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    <span class="type">int</span> pre=<span class="number">0</span>;</span><br><span class="line">    dp[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i-minJump&gt;=<span class="number">0</span> &amp;&amp; dp[i-minJump])&#123;</span><br><span class="line">            pre++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i-maxJump-<span class="number">1</span>&gt;=<span class="number">0</span> &amp;&amp; dp[i-maxJump-<span class="number">1</span>])&#123;</span><br><span class="line">            pre--;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i]= pre&gt;<span class="number">0</span> &amp;&amp; chars[i]==<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="2297-Jump-Game-VIII"><a href="#2297-Jump-Game-VIII" class="headerlink" title="2297. Jump Game VIII"></a>2297. Jump Game VIII</h2><p>反思：</p>
-<ul>
-<li>当给定条件看似杂乱时，尝试通过反证法等数学推理转化条件为基本模板</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/jump-game-viii/discuss/2140361/Java-or-Monostack-%2B-DP-or-Concise-and-Short-or-Explained">https://leetcode.com/problems/jump-game-viii/discuss/2140361/Java-or-Monostack-%2B-DP-or-Concise-and-Short-or-Explained</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">minCost</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span>[] costs)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n= nums.length;</span><br><span class="line">    <span class="type">long</span>[] dp=<span class="keyword">new</span> <span class="title class_">long</span>[n];</span><br><span class="line">    Arrays.fill(dp,Long.MAX_VALUE);</span><br><span class="line">    dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    Deque&lt;Integer&gt; stack1=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;Integer&gt; stack2=<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(!stack1.isEmpty() &amp;&amp; nums[stack1.peek()]&lt;=nums[i])&#123;</span><br><span class="line">            dp[i]=Math.min(dp[i],dp[stack1.pop()]+costs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!stack2.isEmpty() &amp;&amp; nums[stack2.peek()]&gt;nums[i])&#123;</span><br><span class="line">            dp[i]=Math.min(dp[i],dp[stack2.pop()]+costs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(i);</span><br><span class="line">        stack2.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2494,7 +2494,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2548,7 +2548,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">17:31</span>
+    <span title="Reading time total">17:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
