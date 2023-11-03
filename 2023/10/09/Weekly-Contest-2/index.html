@@ -28,7 +28,7 @@
 <meta property="og:description" content="周赛好题（2）2896. Apply Operations to Make Two Strings Equal从头到尾，dp思路：  done: all 0 one: exactly one 1 in [0,i-2] last: only the last(i-1) is 1 two: one + last, not the same position  123456789101112131415">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-10-09T10:48:54.000Z">
-<meta property="article:modified_time" content="2023-10-30T18:56:30.111Z">
+<meta property="article:modified_time" content="2023-11-01T04:04:56.636Z">
 <meta property="article:author" content="invincible-nerd">
 <meta name="twitter:card" content="summary">
 
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-31 02:56:30" itemprop="dateModified" datetime="2023-10-31T02:56:30+08:00">2023-10-31</time>
+                <time title="Modified: 2023-11-01 12:04:56" itemprop="dateModified" datetime="2023-11-01T12:04:56+08:00">2023-11-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,7 +241,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4k</span>
+              <span>4.6k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -315,6 +315,18 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">deleteString</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="comment">//the longest equal substring starting from s[i] and s[j]</span></span><br><span class="line">    <span class="type">int</span>[][] sub=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">                sub[i][j]=sub[i+<span class="number">1</span>][j+<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//[i,j-1] [j,2*j-i-1]</span></span><br><span class="line">            <span class="keyword">if</span>(sub[i][j]&gt;=j-i)&#123;</span><br><span class="line">                dp[i]=Math.max(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h2 id="2919-Minimum-Increment-Operations-to-Make-Array-Beautiful"><a href="#2919-Minimum-Increment-Operations-to-Make-Array-Beautiful" class="headerlink" title="2919. Minimum Increment Operations to Make Array Beautiful"></a>2919. Minimum Increment Operations to Make Array Beautiful</h2><p>思路：</p>
+<ul>
+<li>直接用dp存储最终结果不好transit，不如用dp存储中间结果<ul>
+<li>dp[i] means the minimum increments to make num[0,i] beautiful &amp;&amp; <strong>make num[i]&gt;&#x3D;k</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">minIncrementOperations</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">long</span>[] dp=<span class="keyword">new</span> <span class="title class_">long</span>[n];</span><br><span class="line">    dp[<span class="number">0</span>]=Math.max(<span class="number">0</span>,k-nums[<span class="number">0</span>]);</span><br><span class="line">    dp[<span class="number">1</span>]=Math.max(<span class="number">0</span>,k-nums[<span class="number">1</span>]);</span><br><span class="line">    dp[<span class="number">2</span>]=Math.max(<span class="number">0</span>,k-nums[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//[i-2,i] is covered</span></span><br><span class="line">        <span class="comment">//to cover [0,i-3],</span></span><br><span class="line">        <span class="comment">//choose one from dp[i-3], dp[i-2], dp[i-1]</span></span><br><span class="line">        dp[i]=Math.max(<span class="number">0</span>,k-nums[i])+Math.min(dp[i-<span class="number">1</span>],Math.min(dp[i-<span class="number">2</span>],dp[i-<span class="number">3</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Math.min(dp[n-<span class="number">1</span>],Math.min(dp[n-<span class="number">2</span>],dp[n-<span class="number">3</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -412,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%A8%E8%B5%9B%E5%A5%BD%E9%A2%98%EF%BC%882%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">周赛好题（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2896-Apply-Operations-to-Make-Two-Strings-Equal"><span class="nav-number">1.1.</span> <span class="nav-text">2896. Apply Operations to Make Two Strings Equal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2897-Apply-Operations-on-Array-to-Maximize-Sum-of-Squares"><span class="nav-number">1.2.</span> <span class="nav-text">2897. Apply Operations on Array to Maximize Sum of Squares</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2905-Find-Indices-With-Index-and-Value-Difference-II"><span class="nav-number">1.3.</span> <span class="nav-text">2905. Find Indices With Index and Value Difference II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2906-Construct-Product-Matrix"><span class="nav-number">1.4.</span> <span class="nav-text">2906. Construct Product Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2430-Maximum-Deletions-on-a-String"><span class="nav-number">1.5.</span> <span class="nav-text">2430. Maximum Deletions on a String</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%A8%E8%B5%9B%E5%A5%BD%E9%A2%98%EF%BC%882%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">周赛好题（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2896-Apply-Operations-to-Make-Two-Strings-Equal"><span class="nav-number">1.1.</span> <span class="nav-text">2896. Apply Operations to Make Two Strings Equal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2897-Apply-Operations-on-Array-to-Maximize-Sum-of-Squares"><span class="nav-number">1.2.</span> <span class="nav-text">2897. Apply Operations on Array to Maximize Sum of Squares</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2905-Find-Indices-With-Index-and-Value-Difference-II"><span class="nav-number">1.3.</span> <span class="nav-text">2905. Find Indices With Index and Value Difference II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2906-Construct-Product-Matrix"><span class="nav-number">1.4.</span> <span class="nav-text">2906. Construct Product Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2430-Maximum-Deletions-on-a-String"><span class="nav-number">1.5.</span> <span class="nav-text">2430. Maximum Deletions on a String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2919-Minimum-Increment-Operations-to-Make-Array-Beautiful"><span class="nav-number">1.6.</span> <span class="nav-text">2919. Minimum Increment Operations to Make Array Beautiful</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,7 +492,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">17:34</span>
+    <span title="Reading time total">17:36</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

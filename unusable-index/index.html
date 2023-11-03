@@ -697,7 +697,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-31 02:56:30" itemprop="dateModified" datetime="2023-10-31T02:56:30+08:00">2023-10-31</time>
+                <time title="Modified: 2023-11-01 12:04:56" itemprop="dateModified" datetime="2023-11-01T12:04:56+08:00">2023-11-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -715,7 +715,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4k</span>
+              <span>4.6k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -789,6 +789,18 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">deleteString</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="type">int</span>[] dp=<span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="comment">//the longest equal substring starting from s[i] and s[j]</span></span><br><span class="line">    <span class="type">int</span>[][] sub=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i+<span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">                sub[i][j]=sub[i+<span class="number">1</span>][j+<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//[i,j-1] [j,2*j-i-1]</span></span><br><span class="line">            <span class="keyword">if</span>(sub[i][j]&gt;=j-i)&#123;</span><br><span class="line">                dp[i]=Math.max(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+
+
+<h2 id="2919-Minimum-Increment-Operations-to-Make-Array-Beautiful"><a href="#2919-Minimum-Increment-Operations-to-Make-Array-Beautiful" class="headerlink" title="2919. Minimum Increment Operations to Make Array Beautiful"></a>2919. Minimum Increment Operations to Make Array Beautiful</h2><p>思路：</p>
+<ul>
+<li>直接用dp存储最终结果不好transit，不如用dp存储中间结果<ul>
+<li>dp[i] means the minimum increments to make num[0,i] beautiful &amp;&amp; <strong>make num[i]&gt;&#x3D;k</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">long</span> <span class="title function_">minIncrementOperations</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">long</span>[] dp=<span class="keyword">new</span> <span class="title class_">long</span>[n];</span><br><span class="line">    dp[<span class="number">0</span>]=Math.max(<span class="number">0</span>,k-nums[<span class="number">0</span>]);</span><br><span class="line">    dp[<span class="number">1</span>]=Math.max(<span class="number">0</span>,k-nums[<span class="number">1</span>]);</span><br><span class="line">    dp[<span class="number">2</span>]=Math.max(<span class="number">0</span>,k-nums[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//[i-2,i] is covered</span></span><br><span class="line">        <span class="comment">//to cover [0,i-3],</span></span><br><span class="line">        <span class="comment">//choose one from dp[i-3], dp[i-2], dp[i-1]</span></span><br><span class="line">        dp[i]=Math.max(<span class="number">0</span>,k-nums[i])+Math.min(dp[i-<span class="number">1</span>],Math.min(dp[i-<span class="number">2</span>],dp[i-<span class="number">3</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Math.min(dp[n-<span class="number">1</span>],Math.min(dp[n-<span class="number">2</span>],dp[n-<span class="number">3</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1988,7 +2000,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-30 13:01:29" itemprop="dateModified" datetime="2023-09-30T13:01:29+08:00">2023-09-30</time>
+                <time title="Modified: 2023-11-01 13:49:31" itemprop="dateModified" datetime="2023-11-01T13:49:31+08:00">2023-11-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2006,14 +2018,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>8.4k</span>
+              <span>9.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>8 mins.</span>
+              <span>9 mins.</span>
             </span>
 
         </div>
@@ -2118,6 +2130,29 @@
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">decodeAtIndex</span><span class="params">(String s, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">long</span> len=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> n=s.length();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="type">char</span> c=s.charAt(i);</span><br><span class="line">        <span class="keyword">if</span>(c&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; c&lt;=<span class="string">&#x27;9&#x27;</span>)&#123;</span><br><span class="line">            len*=c-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            len++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="type">char</span> c=s.charAt(i);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(c&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; c&lt;=<span class="string">&#x27;9&#x27;</span>)&#123;</span><br><span class="line">            len/=c-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            k%=len;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//len=15, k=15, exactly current char</span></span><br><span class="line">            <span class="comment">//len=15, k=0 is equivalent to k=15, still exactly current char</span></span><br><span class="line">            <span class="keyword">if</span>(k==len || k==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;&quot;</span>+c;</span><br><span class="line">            &#125;</span><br><span class="line">            len--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="1060-Missing-Element-in-Sorted-Array"><a href="#1060-Missing-Element-in-Sorted-Array" class="headerlink" title="1060. Missing Element in Sorted Array"></a>1060. Missing Element in Sorted Array</h2><p><strong>Follow up:</strong> Can you find a logarithmic time complexity (i.e., <code>O(log(n))</code>) solution?</p>
+<p>思路：</p>
+<ol>
+<li><p>First define a function f(x) that counts the number of missing elements until x.</p>
+<ul>
+<li>[0,i] should span [nums[0], nums[0]+i]</li>
+<li>in reality, span [nums[0], nums[i]]</li>
+<li>missing number between [0,i] &#x3D; nums[i]-nums[0]-i</li>
+</ul>
+</li>
+<li><p>Then use binary search with the given function f(x) to find the kth missing element.</p>
+</li>
+<li><p>be careful of edge case</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="comment">//find smallest idx with totalMissing(i) &gt;= k</span></span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> r=n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">        <span class="type">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(totalMissing(nums,mid)&lt;k)&#123;</span><br><span class="line">            l=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            r=mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//if not beyond nums[n-1]</span></span><br><span class="line">    <span class="type">int</span> t=totalMissing(nums,l);</span><br><span class="line">    <span class="keyword">if</span>(t&gt;=k)&#123;</span><br><span class="line">        <span class="keyword">return</span> nums[l]-(t-k+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums[l]+(k-t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">totalMissing</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">    <span class="comment">//[0,i] should span [nums[0], nums[0]+i]</span></span><br><span class="line">    <span class="comment">//in reality, span [nums[0], nums[i]]</span></span><br><span class="line">    <span class="comment">//missing number between [0,i] = nums[i]-nums[0]-i</span></span><br><span class="line">    <span class="keyword">return</span> nums[i]-nums[<span class="number">0</span>]-i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -2548,7 +2583,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">17:34</span>
+    <span title="Reading time total">17:36</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
