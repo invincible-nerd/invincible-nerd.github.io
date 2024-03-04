@@ -28,7 +28,7 @@
 <meta property="og:description" content="Minimum Moves to Make Equal215. Kth Largest Element in an Arrayhttps:&#x2F;&#x2F;leetcode.com&#x2F;problems&#x2F;kth-largest-element-in-an-array&#x2F;discuss&#x2F;2180600&#x2F;A-Guide-to-Quick-Select-or-JAVA How Does Quickselect Work?Q">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-13T08:08:42.000Z">
-<meta property="article:modified_time" content="2023-03-01T03:21:25.917Z">
+<meta property="article:modified_time" content="2024-03-04T01:08:02.630Z">
 <meta property="article:author" content="invincible-nerd">
 <meta property="article:tag" content="Array">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-01 11:21:25" itemprop="dateModified" datetime="2023-03-01T11:21:25+08:00">2023-03-01</time>
+                <time title="Modified: 2024-03-04 09:08:02" itemprop="dateModified" datetime="2024-03-04T09:08:02+08:00">2024-03-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.7k</span>
+              <span>5.6k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>4 mins.</span>
+              <span>5 mins.</span>
             </span>
 
         </div>
@@ -319,6 +319,13 @@
 
 <p>This is just a math calculation.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//sum+m*(n-1)=n*x</span></span><br><span class="line"><span class="comment">//x=minNum+m</span></span><br><span class="line"><span class="comment">//sum+m*(n-1)=n*(minNum+m)</span></span><br><span class="line"><span class="comment">//sum-m=n*minNum</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minMoves</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> n=nums.length;</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> min=Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">        sum+=num;</span><br><span class="line">        min=Math.min(min,num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum-n*min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2333-Minimum-Sum-of-Squared-Difference"><a href="#2333-Minimum-Sum-of-Squared-Difference" class="headerlink" title="2333. Minimum Sum of Squared Difference"></a>2333. Minimum Sum of Squared Difference</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">minSumSquareDiff</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2, <span class="type">int</span> k1, <span class="type">int</span> k2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums1.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">diff</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt;n; ++i) &#123;</span><br><span class="line">            diff[i] = <span class="built_in">abs</span>(nums1[i] - nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//max_element() return an iterator pointing to the max element</span></span><br><span class="line">        <span class="comment">//to get the actual value of max element, must use *</span></span><br><span class="line">        <span class="type">int</span> M = *<span class="built_in">max_element</span>(diff.<span class="built_in">begin</span>(), diff.<span class="built_in">end</span>());</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">bucket</span><span class="params">(M+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span> ; i&lt;n; ++i) &#123;</span><br><span class="line">            bucket[diff[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> k = k1 + k2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = M; i &gt; <span class="number">0</span>; --i) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bucket[i] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="type">int</span> minus = <span class="built_in">min</span>(bucket[i], k);</span><br><span class="line">                bucket[i] -= minus;</span><br><span class="line">                <span class="comment">//every diff in bucket[i] is decreased by one</span></span><br><span class="line">                <span class="comment">//in turn, they add to diff num in bucket[i-1]</span></span><br><span class="line">                bucket[i<span class="number">-1</span>] += minus;</span><br><span class="line">                k -= minus;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">long</span> <span class="type">long</span> i = M; i &gt; <span class="number">0</span>; --i) &#123;</span><br><span class="line">            ans += bucket[i]*i*i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -419,7 +426,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-Moves-to-Make-Equal"><span class="nav-number">1.</span> <span class="nav-text">Minimum Moves to Make Equal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#215-Kth-Largest-Element-in-an-Array"><span class="nav-number">1.1.</span> <span class="nav-text">215. Kth Largest Element in an Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-Does-Quickselect-Work"><span class="nav-number">1.1.1.</span> <span class="nav-text">How Does Quickselect Work?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E5%BF%AB%E6%8E%92%EF%BC%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">传统快排！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#462-Minimum-Moves-to-Equal-Array-Elements-II"><span class="nav-number">1.2.</span> <span class="nav-text">462. Minimum Moves to Equal Array Elements II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-1-Sort"><span class="nav-number">1.2.1.</span> <span class="nav-text">Approach 1: Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-2-Quick-Select"><span class="nav-number">1.2.2.</span> <span class="nav-text">Approach 2: Quick Select</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#453-Minimum-Moves-to-Equal-Array-Elements"><span class="nav-number">1.3.</span> <span class="nav-text">453. Minimum Moves to Equal Array Elements</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-Moves-to-Make-Equal"><span class="nav-number">1.</span> <span class="nav-text">Minimum Moves to Make Equal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#215-Kth-Largest-Element-in-an-Array"><span class="nav-number">1.1.</span> <span class="nav-text">215. Kth Largest Element in an Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-Does-Quickselect-Work"><span class="nav-number">1.1.1.</span> <span class="nav-text">How Does Quickselect Work?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E5%BF%AB%E6%8E%92%EF%BC%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">传统快排！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#462-Minimum-Moves-to-Equal-Array-Elements-II"><span class="nav-number">1.2.</span> <span class="nav-text">462. Minimum Moves to Equal Array Elements II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-1-Sort"><span class="nav-number">1.2.1.</span> <span class="nav-text">Approach 1: Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-2-Quick-Select"><span class="nav-number">1.2.2.</span> <span class="nav-text">Approach 2: Quick Select</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#453-Minimum-Moves-to-Equal-Array-Elements"><span class="nav-number">1.3.</span> <span class="nav-text">453. Minimum Moves to Equal Array Elements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2333-Minimum-Sum-of-Squared-Difference"><span class="nav-number">1.4.</span> <span class="nav-text">2333. Minimum Sum of Squared Difference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -473,7 +480,7 @@
 <div class="copyright">
   
   &copy; 2022-04 – 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -487,7 +494,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">17:36</span>
+    <span title="Reading time total">17:37</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
